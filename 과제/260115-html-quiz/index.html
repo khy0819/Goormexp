@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>(260115) CSS 심화 퀴즈 정답</title>
+    <style>
+      :root {
+        --primary: #006241;
+        --bg: #fdfdfd;
+      }
+      body {
+        font-family: "Pretendard", sans-serif;
+        line-height: 1.7;
+        background-color: var(--bg);
+        padding: 20px;
+      }
+      .container {
+        max-width: 850px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      }
+      h1 {
+        color: var(--primary);
+        border-bottom: 3px solid var(--primary);
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      .quiz-item {
+        margin-bottom: 20px;
+        padding: 18px;
+        border: 1px solid #eee;
+        border-radius: 12px;
+      }
+      .ans {
+        color: #d93025;
+        font-weight: bold;
+        background: #fff1f0;
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
+      .exp {
+        font-size: 0.92em;
+        color: #666;
+        margin-top: 10px;
+        padding: 10px;
+        background: #fafafa;
+        border-left: 4px solid var(--primary);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>✅ (260115) CSS 심화 퀴즈 정답</h1>
+
+      <div class="quiz-item">
+        <span class="q">Q4. .pdf 파일 링크만 선택하려면?</span>
+        <span class="ans">정답: a[href$=".pdf"]</span>
+        <div class="exp">
+          해설: $= 는 해당 값으로 '끝나는' 요소를 선택하는 특성 선택자입니다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q11. border: inherit; 적용 시 결과는?</span>
+        <span class="ans">정답: child div에 빨간 border가 표시된다.</span>
+        <div class="exp">
+          해설: inherit 값은 부모의 속성값을 강제로 물려받게 합니다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q15. 3줄 말줄임표 처리를 위한 속성은?</span>
+        <span class="ans">정답: -webkit-line-clamp: 3;</span>
+        <div class="exp">
+          해설: 범위를 넘는 텍스트를 숨기고 말줄임표를 찍을 줄 수를 결정합니다.
+        </div>
+      </div>
+
+      <a
+        href="index.html"
+        style="
+          display: block;
+          text-align: center;
+          margin-top: 30px;
+          color: var(--primary);
+          text-decoration: none;
+          font-weight: bold;
+        "
+        >메인으로 돌아가기</a
+      >
+    </div>
+  </body>
+</html>
