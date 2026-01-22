@@ -1,55 +1,225 @@
-/* Welcome 섹션 전체 배경 및 레이아웃 */
-.welcome {
-  padding: 100px 20px;
-  background-color: #f6f5ef; /* 스타벅스 특유의 베이지톤 배경 */
-  text-align: center;
-  border-radius: 20px; /* 섹션 자체를 둥글게 */
-  margin: 40px auto;
+/* 초기화 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-
-.welcome h2 {
-  font-size: 36px;
-  color: #006241; /* 스타벅스 그린 */
-  margin-bottom: 10px;
-  letter-spacing: -1px;
-}
-
-.welcome > p {
-  font-size: 18px;
-  color: #666;
-  margin-bottom: 50px;
-}
-
-/* 3가지 특징(ul)을 카드형태로 정렬 */
-.features {
-  list-style: none;
-  display: flex; /* 가로 정렬 */
-  justify-content: center;
-  gap: 30px;
-}
-
-.features li {
-  flex: 1;
-  max-width: 300px;
-  background: white;
-  padding: 40px 20px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* 부드러운 그림자 */
-  font-weight: bold;
-  font-size: 16px;
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  background-color: #fff;
+  color: #333;
   line-height: 1.6;
-  transition: transform 0.3s ease;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-/* 마우스를 올렸을 때 살짝 떠오르는 효과 */
-.features li:hover {
-  transform: translateY(-10px);
+/* 네비게이션 고정 */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100px;
+  background: rgba(244, 244, 242, 0.96);
+  z-index: 1000;
+  border-bottom: 1px solid #ddd;
+}
+.nav-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+.logo {
+  color: #006241;
+  font-size: 28px;
+  font-weight: bold;
+}
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+}
+.nav-menu a {
+  text-decoration: none;
+  color: #444;
+  font-weight: bold;
+  font-size: 14px;
+  transition: 0.3s;
+}
+.nav-menu a:hover {
   color: #006241;
 }
 
-/* 아이콘(이모지) 크기 키우기 */
-.features li::first-line {
+/* 히어로 섹션 */
+.hero {
+  margin-top: 100px;
+  height: 550px;
+  background: url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200")
+    no-repeat center/cover;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+.hero-content {
+  position: relative;
+  z-index: 10;
+  color: white;
+}
+.hero-text h2 {
+  font-size: 44px;
+  margin-bottom: 20px;
+}
+.btn-outline {
+  display: inline-block;
+  padding: 10px 30px;
+  border: 2px solid white;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+.btn-outline:hover {
+  background: white;
+  color: #333;
+}
+
+/* Welcome 카드 섹션 */
+.welcome {
+  padding: 100px 0;
+  text-align: center;
+  background-color: #f6f5ef;
+  border-radius: 50px;
+  margin-bottom: 80px;
+}
+.welcome-header h2 {
+  color: #006241;
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+.features {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 50px;
+  padding: 0 20px;
+}
+.features li {
+  flex: 1;
+  background: white;
+  padding: 40px 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: 0.3s;
+}
+.features li:hover {
+  transform: translateY(-10px);
+}
+.icon {
   font-size: 40px;
-  display: block;
   margin-bottom: 15px;
+}
+.features strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #006241;
+}
+
+/* 메뉴 그리드 */
+.menu-section {
+  padding-bottom: 100px;
+}
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 28px;
+}
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+.card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  transition: 0.3s;
+  border: 1px solid #eee;
+}
+.card:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.img-box {
+  overflow: hidden;
+}
+.img-box img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  transition: 0.5s;
+}
+.card:hover img {
+  transform: scale(1.1);
+}
+.card-info {
+  padding: 20px;
+}
+.card-info p {
+  font-size: 13px;
+  color: #999;
+}
+
+/* 뱃지 및 탑 버튼 */
+.badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  padding: 5px 12px;
+  border-radius: 3px;
+  color: white;
+  font-size: 11px;
+  z-index: 10;
+}
+.best {
+  background: #006241;
+}
+.new {
+  background: #d62d20;
+}
+.top-btn {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 50px;
+  height: 50px;
+  background: #2c2a29;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  text-decoration: none;
+  z-index: 1000;
+}
+
+footer {
+  background: #2c2a29;
+  color: white;
+  padding: 60px 0;
+  text-align: center;
 }
