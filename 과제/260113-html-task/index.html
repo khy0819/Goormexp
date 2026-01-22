@@ -3,78 +3,86 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>스타벅스 스타일 카페 | 과제</title>
+    <title>Starbucks Style Cafe</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header>
-      <nav aria-label="주요 메뉴">
-        <h1>STARBUCKS</h1>
-        <ul>
-          <li><a href="#">홈</a></li>
-          <li><a href="#menu">메뉴</a></li>
-          <li><a href="#">갤러리</a></li>
-          <li><a href="#">매장안내</a></li>
-        </ul>
+      <nav>
+        <div class="nav-container">
+          <h1>STARBUCKS</h1>
+          <ul class="nav-menu">
+            <li><a href="#">홈</a></li>
+            <li><a href="#menu">메뉴</a></li>
+            <li><a href="#">갤러리</a></li>
+            <li><a href="#">매장안내</a></li>
+          </ul>
+        </div>
       </nav>
-      <div class="header-content">
+      <div class="hero-section">
         <div class="overlay"></div>
-        <div class="text-box">
-          <h2>당신과 함께하는 특별한 커피 한 잔</h2>
+        <div class="hero-text">
+          <h2>당신을 위한 특별한 한 잔</h2>
+          <p>스타벅스에서 전하는 진한 커피의 풍미를 느껴보세요.</p>
         </div>
       </div>
     </header>
 
     <main>
-      <section id="intro">
+      <section class="intro">
         <h2>Welcome to Starbucks</h2>
-        <p>우리는 단순히 커피를 파는 것이 아니라 문화를 공유합니다.</p>
-        <p>매일 아침 신선한 원두로 시작하는 최고의 경험을 만나보세요.</p>
-        <h3>스타벅스의 특징</h3>
+        <p>우리는 단순히 커피를 파는 것이 아니라, 제3의 공간을 제공한다.</p>
+        <p>전 세계 바리스타들이 정성껏 내린 최고의 커피를 만나볼 수 있다.</p>
+        <h3>스타벅스의 3가지 특징</h3>
         <ul>
-          <li>최상급 아라비카 원두 사용</li>
-          <li>숙련된 바리스타의 정성</li>
-          <li>편안하고 아늑한 공간 설계</li>
+          <li>최상급 아라비카 원두만 고집한다.</li>
+          <li>고객 맞춤형 퍼스널 옵션을 제공한다.</li>
+          <li>지속 가능한 미래를 위해 친환경 활동을 실천한다.</li>
         </ul>
       </section>
 
-      <section id="menu">
-        <h2>Our Menu</h2>
+      <section id="menu" class="menu-section">
+        <h2>Coffee & Desserts</h2>
         <div class="menu-grid">
           <article class="menu-card">
             <span class="badge best">Best</span>
             <img
-              src="https://placehold.co/300x300/006241/ffffff?text=Americano"
+              src="https://placehold.co/400x400/006241/ffffff?text=Americano"
               alt="아메리카노"
             />
-            <div class="card-info">
+            <div class="card-body">
               <h3>카페 아메리카노</h3>
               <p class="price">₩4,500</p>
-              <p class="desc">진한 에스프레소의 깔끔한 맛</p>
+              <p class="desc">
+                에스프레소에 뜨거운 물을 결합한 깔끔한 커피이다.
+              </p>
             </div>
           </article>
-
           <article class="menu-card">
             <span class="badge new">New</span>
             <img
-              src="https://placehold.co/300x300/006241/ffffff?text=Flat+White"
-              alt="플랫화이트"
+              src="https://placehold.co/400x400/006241/ffffff?text=Dolce+Latte"
+              alt="돌체라떼"
             />
-            <div class="card-info">
-              <h3>플랫 화이트</h3>
-              <p class="price">₩5,000</p>
-              <p class="desc">부드러운 우유 거품의 진한 고소함</p>
+            <div class="card-body">
+              <h3>스타벅스 돌체 라떼</h3>
+              <p class="price">₩5,900</p>
+              <p class="desc">
+                무지방 우유와 연유가 조화로운 부드러운 음료이다.
+              </p>
             </div>
           </article>
         </div>
       </section>
     </main>
 
-    <a href="#" class="top-btn" aria-label="맨 위로 이동">TOP</a>
+    <a href="#" class="top-button">TOP</a>
 
     <footer>
-      <p>영업시간: 07:00 ~ 22:00 (월~일)</p>
-      <p>&copy; 2026 Starbucks Coffee Korea. All rights reserved.</p>
+      <div class="footer-container">
+        <p>영업시간: 평일 07:00 ~ 22:00 / 주말 08:00 ~ 21:00</p>
+        <p>&copy; 2026 Starbucks Coffee Korea. All rights reserved.</p>
+      </div>
     </footer>
   </body>
 </html>

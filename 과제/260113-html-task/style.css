@@ -1,67 +1,74 @@
 /* 요구사항 7: 박스 모델 초기화 */
 * {
-  box-sizing: border-box; /* padding/border 포함 계산 */
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 body {
   font-family: "Apple SD Gothic Neo", "Pretendard", sans-serif;
+  background-color: #f6f5ef;
   color: #2c2a29;
-  background-color: #f6f5ef; /* 요구사항 6: 배경색 */
 }
 
-/* 요구사항 9: 레이아웃 개선 (중앙 정렬) */
-main {
+/* 요구사항 9: 중앙 정렬 레이아웃 */
+.nav-container,
+main,
+.footer-container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 60px 20px;
 }
 
-/* 요구사항 2, 8: 헤더 및 포지셔닝 */
-header {
-  position: relative;
-  height: 500px;
-}
-
+/* 요구사항 8: 헤더 상단 고정 */
 nav {
-  position: fixed; /* 요구사항 8: 상단 고정 */
+  position: fixed;
   top: 0;
   width: 100%;
-  height: 100px;
-  background: white;
+  background-color: rgba(255, 255, 255, 0.95);
+  z-index: 1000;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 5%;
-  z-index: 1000;
-  border-bottom: 1px solid #ddd;
+  height: 100px;
+  padding: 0 20px;
 }
 
-nav ul {
-  list-style: none; /* 요구사항 6: 목록 스타일 */
+nav h1 {
+  color: #006241;
+  letter-spacing: -1px;
+}
+
+/* 요구사항 6: 목록 및 링크 스타일 */
+.nav-menu {
+  list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 30px;
 }
 
-nav a {
+.nav-menu a {
   text-decoration: none;
   color: #333;
   font-weight: bold;
+  transition: 0.3s;
 }
 
-nav a:hover {
-  color: #006241; /* 요구사항 6: 호버 효과 */
+.nav-menu a:hover {
+  color: #006241;
 }
 
-.header-content {
-  height: 100%;
-  background-image: url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=2078&auto=format&fit=crop");
-  background-size: cover; /* 요구사항 2 */
-  background-position: center; /* 요구사항 2 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* 요구사항 2: 배경 이미지 및 오버레이 */
+.hero-section {
+  position: relative;
+  height: 500px;
+  margin-top: 100px;
+  background-image: url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200");
+  background-size: cover;
+  background-position: center;
 }
 
 .overlay {
@@ -70,52 +77,53 @@ nav a:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4); /* 요구사항 2: 반투명 오버레이 */
+  background-color: rgba(0, 0, 0, 0.45);
 }
 
-.text-box {
+.hero-text {
   position: relative;
   z-index: 10;
   color: white;
   text-align: center;
+  padding-top: 180px;
 }
 
-/* 요구사항 4, 7: 메뉴 카드 및 박스 모델 */
+/* 요구사항 4, 7: 카드 디자인 */
 .menu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
   gap: 30px;
   margin-top: 40px;
 }
 
 .menu-card {
   background: white;
-  border: 1px solid #eee; /* 요구사항 7: border */
-  border-radius: 12px; /* 요구사항 7: border-radius */
+  flex: 1;
+  border-radius: 12px;
+  border: 1px solid #eee;
   overflow: hidden;
-  position: relative; /* 뱃지 기준점 */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  position: relative; /* 뱃지 기준 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .menu-card img {
   width: 100%;
-  height: 250px;
+  height: 300px;
   object-fit: cover;
 }
 
-.card-info {
-  padding: 20px; /* 요구사항 7: padding */
+.card-body {
+  padding: 25px;
 }
 
-/* 요구사항 8: 뱃지 포지셔닝 */
+/* 요구사항 8: 포지셔닝 뱃지 */
 .badge {
   position: absolute;
-  top: 15px;
-  left: 15px;
-  padding: 5px 12px;
+  top: 20px;
+  left: 20px;
+  padding: 6px 14px;
   border-radius: 20px;
   color: white;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: bold;
 }
 
@@ -126,8 +134,8 @@ nav a:hover {
   background: #d62d20;
 }
 
-/* 요구사항 8: 맨 위로 가기 버튼 */
-.top-btn {
+/* 요구사항 8: 고정 TOP 버튼 */
+.top-button {
   position: fixed;
   bottom: 40px;
   right: 40px;
@@ -140,13 +148,13 @@ nav a:hover {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  font-size: 12px;
   z-index: 999;
 }
 
 footer {
   background: #2c2a29;
-  color: white;
-  padding: 50px 20px;
+  color: #999;
+  padding: 60px 20px;
   text-align: center;
+  margin-top: 80px;
 }
