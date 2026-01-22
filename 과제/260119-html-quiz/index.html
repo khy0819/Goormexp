@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>(260119) JS 퀴즈 자동 정답지</title>
+    <title>(260119) JS 퀴즈 전체 정답</title>
     <style>
       :root {
         --primary: #f7df1e;
@@ -35,28 +35,13 @@
         padding: 15px;
         border: 1px solid #eee;
         border-radius: 10px;
-        transition: 0.3s;
-      }
-      .quiz-item:hover {
-        border-color: var(--primary);
-        background: #fffcf0;
       }
       .question {
         font-weight: bold;
         display: block;
         margin-bottom: 8px;
         font-size: 1.05rem;
-      }
-      .code-box {
-        background: #2d2d2d;
-        color: #efefef;
-        padding: 10px 15px;
-        border-radius: 6px;
-        font-family: monospace;
-        font-size: 0.9rem;
-        margin: 10px 0;
-        white-space: pre-wrap;
-        display: none;
+        color: #111;
       }
       .ans {
         background: #fff5b1;
@@ -97,95 +82,258 @@
     </div>
 
     <script>
-      // [수정 포인트] 1번부터 40번까지의 데이터를 배열에 넣습니다.
       const quizData = [
         {
           id: 1,
-          q: "다음 코드의 실행 결과는?",
-          code: "let userName = '김철수';\nlet userName = '이영희';",
+          q: "let userName 재선언 결과는?",
           a: "에러 발생",
-          e: "let 키워드는 동일한 스코프 내에서 재선언이 불가능합니다.",
+          e: "let은 같은 범위 내 재선언이 불가능합니다.",
         },
         {
           id: 2,
-          q: "var의 문제점이 아닌 것은? (정답 2개)",
-          a: "재할당이 불가능하다, 성능이 let보다 느리다",
-          e: "var는 재할당이 가능하며, 성능 차이는 미미합니다.",
+          q: "var의 문제점이 아닌 것(2개)?",
+          a: "재할당 불가, 성능 저하",
+          e: "var는 재할당이 가능하며 성능 문제는 미미합니다.",
         },
         {
           id: 3,
-          q: "올바른 변수명은? (정답 2개)",
+          q: "올바른 변수명(2개)?",
           a: "let $price, let _temp",
-          e: "변수명은 $, _로 시작할 수 있지만 숫자로 시작하거나 예약어(let)는 불가능합니다.",
+          e: "$, _로 시작은 가능하나 숫자로 시작하거나 예약어는 안 됩니다.",
         },
         {
           id: 4,
-          q: "다음 코드의 실행 결과는?",
-          code: "const PI = 3.14159;\nPI = 3.14;",
+          q: "const PI 재할당 결과는?",
           a: "에러 발생",
-          e: "const로 선언된 상수는 재할당이 불가능합니다.",
+          e: "const 상수는 선언 후 값을 바꿀 수 없습니다.",
+        },
+        {
+          id: 5,
+          q: "대소문자 구분 여부?",
+          a: "위의 모든 것을 구분한다",
+          e: "JS는 변수명, 함수명, 키워드 모두 대소문자를 엄격히 구분합니다.",
+        },
+        {
+          id: 6,
+          q: "올바른 상수 명명 방식?",
+          a: "const MAX_USERS = 100;",
+          e: "상수는 관례적으로 대문자와 언더바(_)를 사용합니다.",
         },
         {
           id: 7,
-          q: "다음 코드의 실행 결과는?",
-          code: "console.log(typeof 10 / 0);",
+          q: "typeof 10 / 0 결과?",
           a: "NaN",
-          e: "typeof 10은 'number' 문자열이고, 이를 0으로 나누면 NaN이 나옵니다.",
+          e: "typeof 10('number')를 0으로 나누면 숫자가 아니라 NaN이 나옵니다.",
         },
         {
           id: 8,
-          q: "다음 코드의 실행 결과는?",
-          code: "console.log('5' + 3);",
+          q: "'5' + 3 결과?",
           a: "'53'",
-          e: "문자열과 숫자를 더하면 숫자가 문자로 변환되어 연결됩니다.",
+          e: "문자열과 숫자를 더하면 문자열로 합쳐집니다.",
         },
         {
           id: 9,
-          q: "typeof null의 결과는?",
+          q: "typeof null 결과?",
           a: "'object'",
-          e: "자바스크립트 설계상의 역사적 버그입니다.",
+          e: "JS 초기 설계의 역사적인 버그입니다.",
+        },
+        {
+          id: 10,
+          q: "null과 undefined 차이?",
+          a: "null은 의도적 할당, undefined는 자동 할당",
+          e: "값이 없음을 명시할 때는 null을 씁니다.",
+        },
+        {
+          id: 11,
+          q: "null === undefined 결과?",
+          a: "false",
+          e: "값의 의미는 비슷하나 데이터 타입이 다릅니다.",
+        },
+        {
+          id: 12,
+          q: "NaN 출력 코드(2개)?",
+          a: "'hello'*2, Math.sqrt(-1)",
+          e: "수학적으로 불가능한 연산 시 NaN이 발생합니다.",
+        },
+        {
+          id: 13,
+          q: "템플릿 리터럴 문법?",
+          a: "`이름: ${name}`",
+          e: "백틱(`) 기호를 사용해야 합니다.",
+        },
+        {
+          id: 14,
+          q: "템플릿 리터럴 연산 결과?",
+          a: "총 가격은 30000원입니다.",
+          e: "${} 내부에서 직접 산술 연산이 가능합니다.",
+        },
+        {
+          id: 15,
+          q: "5 === '5' 결과?",
+          a: "false",
+          e: "일치 연산자(===)는 값과 타입을 모두 비교합니다.",
+        },
+        {
+          id: 16,
+          q: "불리언 변수명(2개)?",
+          a: "isLoggedIn, hasPermission",
+          e: "is, has 접두사를 붙여 질문 형태로 만드는 것이 관례입니다.",
+        },
+        {
+          id: 17,
+          q: "true && false || !false 결과?",
+          a: "true",
+          e: "AND(&&) 연산 후 OR(||) 연산을 수행합니다.",
+        },
+        {
+          id: 18,
+          q: "에러 없는 코드?",
+          a: "let user_name = '철수';",
+          e: "언더바(_)는 변수명에 사용할 수 있습니다.",
+        },
+        {
+          id: 19,
+          q: "let x 선언 후 출력 결과?",
+          a: "undefined, 'undefined'",
+          e: "값이 할당되지 않은 변수의 타입은 undefined입니다.",
+        },
+        {
+          id: 20,
+          q: "10 % 3 결과?",
+          a: "1",
+          e: "10을 3으로 나눈 나머지 값입니다.",
+        },
+        {
+          id: 21,
+          q: "잘못된 문자열 연결?",
+          a: "let str = 안녕 + 하세요;",
+          e: "따옴표가 없으면 변수로 인식하여 에러가 납니다.",
+        },
+        {
+          id: 22,
+          q: "typeof 결과 출력?",
+          a: "'string' 'number'",
+          e: "typeof 연산자는 데이터 타입을 문자열로 반환합니다.",
+        },
+        {
+          id: 23,
+          q: "Infinity 출력 코드?",
+          a: "console.log(10 / 0);",
+          e: "0으로 나누면 무한대 값이 나옵니다.",
+        },
+        {
+          id: 24,
+          q: "camelCase 변수명(2개)?",
+          a: "userName, maxUserCount",
+          e: "첫 단어 소문자, 다음 단어 대문자로 시작합니다.",
         },
         {
           id: 25,
-          q: "typeof NaN의 결과는?",
+          q: "typeof NaN 결과?",
           a: "'number'",
-          e: "NaN(Not a Number)은 역설적으로 숫자 타입에 속합니다.",
+          e: "NaN은 숫자 타입에 포함되는 특수한 값입니다.",
+        },
+        {
+          id: 26,
+          q: "10 + '20' 결과?",
+          a: "'1020'",
+          e: "문자열 연결이 산술 덧셈보다 우선됩니다.",
+        },
+        {
+          id: 27,
+          q: "배열 변수명 적절성?",
+          a: "2번과 3번 모두 적절",
+          e: "복수형(users)이나 List를 붙이는 것이 좋습니다.",
         },
         {
           id: 28,
-          q: "상수 객체의 속성 변경 결과는?",
-          code: "const obj = { name: '철수' };\nobj.name = '영희';",
+          q: "const 객체 내부 값 변경 결과?",
           a: "'영희'",
-          e: "const는 재할당을 막을 뿐, 객체 내부의 속성 변경은 막지 않습니다.",
+          e: "객체 내부 속성은 상수로 선언해도 변경 가능합니다.",
+        },
+        {
+          id: 29,
+          q: "true && false || true 결과?",
+          a: "true",
+          e: "OR(||) 연산에 true가 있으면 최종 결과는 true입니다.",
+        },
+        {
+          id: 30,
+          q: "예약어가 아닌 것?",
+          a: "variable",
+          e: "let, const, var는 예약어이지만 variable은 아닙니다.",
+        },
+        {
+          id: 31,
+          q: "일반 따옴표 줄바꿈 결과?",
+          a: "에러 발생",
+          e: "일반 따옴표는 줄바꿈을 지원하지 않습니다.",
+        },
+        {
+          id: 32,
+          q: "백틱 사용 장점(2개)?",
+          a: "변수 삽입 용이, 여러 줄 작성 가능",
+          e: "템플릿 리터럴의 핵심 기능입니다.",
+        },
+        {
+          id: 33,
+          q: "5 == '5' 결과?",
+          a: "true",
+          e: "동등 연산자(==)는 타입 변환 후 값만 비교합니다.",
+        },
+        {
+          id: 34,
+          q: "let, const 공통점(3개)?",
+          a: "블록 스코프, 재선언 불가, ES6 도입",
+          e: "현대 JS의 표준 변수 선언 방식입니다.",
+        },
+        {
+          id: 35,
+          q: "대소문자 다른 변수 출력?",
+          a: "'철수' '영희'",
+          e: "이름이 같아도 대소문자가 다르면 별개의 변수입니다.",
+        },
+        {
+          id: 36,
+          q: "올바른 설명은?",
+          a: "const로 선언한 객체의 속성은 변경할 수 있다",
+          e: "상수는 참조 변경만 막을 뿐 내용은 허용합니다.",
+        },
+        {
+          id: 37,
+          q: "isNaN('hello') 결과?",
+          a: "true",
+          e: "'hello'는 숫자가 아니므로 결과는 참입니다.",
+        },
+        {
+          id: 38,
+          q: "따옴표 포함 잘못된 방법?",
+          a: 'let str = "그는 "안녕"..."',
+          e: "같은 종류의 따옴표를 중첩하면 구문 에러가 납니다.",
+        },
+        {
+          id: 39,
+          q: "1_000_000 출력 결과?",
+          a: "1000000",
+          e: "숫자 구분자(_)는 화면 출력 시 무시됩니다.",
         },
         {
           id: 40,
-          q: "실무 권장 변수 선언 방식은?",
-          a: "기본적으로 const를 사용하고 필요시 let 사용",
-          e: "예기치 못한 값 변경을 방지하기 위해 상수를 우선 사용합니다.",
+          q: "실무 권장 방식?",
+          a: "기본 const 사용, 필요시 let",
+          e: "불변성을 유지하는 코드가 버그를 줄입니다.",
         },
-        // 나머지 40번까지 데이터를 객체 형태로 추가하면 자동으로 리스트가 생성됩니다.
       ];
 
-      const quizList = document.getElementById("quiz-list");
-
-      // 데이터 반복을 통한 HTML 생성 (반복문 활용)
+      const list = document.getElementById("quiz-list");
       quizData.forEach((item) => {
-        const itemDiv = document.createElement("div");
-        itemDiv.className = "quiz-item";
-
-        // 코드가 있는 경우만 코드 박스를 노출합니다.
-        const codeHtml = item.code
-          ? `<div class="code-box" style="display:block">${item.code}</div>`
-          : "";
-
-        itemDiv.innerHTML = `
-                <span class="question">Q${item.id}. ${item.q}</span>
-                ${codeHtml}
-                <p>정답: <span class="ans">${item.a}</span></p>
-                <div class="exp">해설: ${item.e}</div>
+        list.innerHTML += `
+                <div class="quiz-item">
+                    <span class="question">Q${item.id}. ${item.q}</span>
+                    <p>정답: <span class="ans">${item.a}</span></p>
+                    <div class="exp">해설: ${item.e}</div>
+                </div>
             `;
-        quizList.appendChild(itemDiv);
       });
     </script>
   </body>
