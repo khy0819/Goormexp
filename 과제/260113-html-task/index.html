@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Starbucks Coffee Korea</title>
+    <title>Starbucks Menu 스타일</title>
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap"
@@ -15,79 +15,76 @@
       <nav>
         <div class="container nav-box">
           <h1 class="logo">STARBUCKS</h1>
-          <ul class="menu-list">
+          <ul class="nav-menu">
             <li><a href="#">COFFEE</a></li>
-            <li><a href="#menu">MENU</a></li>
+            <li><a href="#menu-section" class="active">MENU</a></li>
             <li><a href="#">STORE</a></li>
-            <li><a href="#">WHAT'S NEW</a></li>
+            <li><a href="#">RESPONSIBILITY</a></li>
           </ul>
         </div>
       </nav>
-      <div class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-overlay"></div>
-        <div class="container hero-text">
-          <h2>MEET THE PREMIER COFFEE</h2>
-          <p>스타벅스가 제안하는 프리미엄 커피를 경험해보라.</p>
-          <a href="#" class="btn-more">자세히 보기</a>
-        </div>
-      </div>
     </header>
 
-    <main class="container">
-      <section class="welcome">
-        <h2>Welcome to Starbucks</h2>
-        <p>우리는 한 잔의 커피 그 이상의 가치를 전달한다.</p>
-        <ul class="features">
-          <li>🌱 지속 가능한 유기농 원두</li>
-          <li>☕ 숙련된 바리스타의 핸드드립</li>
-          <li>🏡 도심 속 아늑한 휴식 공간</li>
-        </ul>
-      </section>
+    <main id="menu-section" class="container">
+      <section class="menu-category">
+        <h2 class="category-title">음료 <span>Beverage</span></h2>
 
-      <section id="menu" class="menu-section">
-        <h2 class="section-title">SUNDAY MORNING MENU</h2>
         <div class="menu-grid">
-          <article class="card">
-            <span class="badge best">BEST</span>
-            <div class="img-box">
+          <article class="menu-item">
+            <div class="img-wrap">
+              <span class="badge best">Best</span>
               <img
-                src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=400"
+                src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[9200000002487]_20210426091745609.jpg"
                 alt="아메리카노"
               />
+              <div class="view-more">상세보기</div>
             </div>
-            <div class="info">
+            <div class="item-info">
               <h3>카페 아메리카노</h3>
+              <p class="eng-name">Caffe Americano</p>
               <p class="price">₩4,500</p>
-              <p class="desc">
-                진한 에스프레소와 뜨거운 물이 조화로운 음료이다.
-              </p>
             </div>
           </article>
-          <article class="card">
-            <span class="badge new">NEW</span>
-            <div class="img-box">
+
+          <article class="menu-item">
+            <div class="img-wrap">
+              <span class="badge new">New</span>
               <img
-                src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=400"
-                alt="라떼"
+                src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[110563]_20210426095648346.jpg"
+                alt="자몽 허니 블랙 티"
               />
+              <div class="view-more">상세보기</div>
             </div>
-            <div class="info">
-              <h3>부드러운 카페 라떼</h3>
-              <p class="price">₩5,000</p>
-              <p class="desc">우유 본연의 고소함이 느껴지는 스테디셀러이다.</p>
+            <div class="item-info">
+              <h3>자몽 허니 블랙 티</h3>
+              <p class="eng-name">Grapefruit Honey Black Tea</p>
+              <p class="price">₩5,700</p>
+            </div>
+          </article>
+
+          <article class="menu-item">
+            <div class="img-wrap">
+              <img
+                src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[110569]_20210415143035987.jpg"
+                alt="돌체 콜드 브루"
+              />
+              <div class="view-more">상세보기</div>
+            </div>
+            <div class="item-info">
+              <h3>돌체 콜드 브루</h3>
+              <p class="eng-name">Dolce Cold Brew</p>
+              <p class="price">₩6,000</p>
             </div>
           </article>
         </div>
       </section>
     </main>
 
-    <a href="#" class="top-btn">TOP</a>
+    <a href="#" class="btn-top">TOP</a>
 
     <footer>
       <div class="container">
-        <p>영업시간 07:00 ~ 22:00 (연중무휴)</p>
-        <p>&copy; 2026 Starbucks Coffee Korea. All rights reserved.</p>
+        <p>&copy; 2026 Starbucks Coffee Company. All rights reserved.</p>
       </div>
     </footer>
   </body>

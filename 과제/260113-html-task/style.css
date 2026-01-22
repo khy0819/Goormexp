@@ -1,4 +1,4 @@
-/* 7. 박스 모델 및 기본 설정 */
+/* 기본 초기화 */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,25 +7,23 @@
 
 body {
   font-family: "Noto Sans KR", sans-serif;
-  color: #2c2a29;
-  background-color: #f6f5ef;
-  overflow-x: hidden;
+  background-color: #fff;
+  color: #333;
 }
 
-/* 9. 레이아웃 (중앙 정렬) */
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-/* 8. 상단 고정 헤더 */
+/* 상단 고정 네비게이션 */
 nav {
   position: fixed;
   top: 0;
   width: 100%;
   height: 100px;
-  background-color: rgba(255, 255, 255, 0.95);
+  background: #f4f4f2;
   z-index: 1000;
   border-bottom: 1px solid #ddd;
 }
@@ -39,145 +37,105 @@ nav {
 
 .logo {
   color: #006241;
-  letter-spacing: -1px;
+  font-size: 28px;
 }
 
-.menu-list {
+.nav-menu {
   list-style: none;
   display: flex;
   gap: 40px;
 }
-
-/* 6. 링크 스타일 및 호버 */
-.menu-list a {
+.nav-menu a {
   text-decoration: none;
-  color: #333;
-  font-weight: 700;
+  color: #444;
+  font-weight: bold;
   font-size: 14px;
-  transition: color 0.3s;
 }
-
-.menu-list a:hover {
+.nav-menu a.active {
   color: #006241;
+  border-bottom: 2px solid #006241;
+  padding-bottom: 5px;
 }
 
-/* 2. 헤더 배경 및 오버레이 */
-.hero {
+/* 메뉴 카테고리 타이틀 */
+.menu-category {
+  margin-top: 150px;
+  padding-bottom: 50px;
+}
+.category-title {
+  font-size: 24px;
+  background: #f4f4f2;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+.category-title span {
+  font-size: 14px;
+  color: #999;
+  margin-left: 10px;
+}
+
+/* 메뉴 그리드 레이아웃 */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 40px 20px;
+}
+
+/* 개별 메뉴 아이템 스타일 */
+.menu-item {
+  text-align: center;
+  cursor: pointer;
+}
+
+.img-wrap {
   position: relative;
-  height: 550px;
-  margin-top: 100px;
+  overflow: hidden;
+  border-radius: 5px;
+  margin-bottom: 15px;
 }
 
-.hero-bg {
-  position: absolute;
+.img-wrap img {
   width: 100%;
-  height: 100%;
-  background-image: url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2000");
-  background-size: cover;
-  background-position: center;
+  transition: transform 0.5s;
 }
 
-.hero-overlay {
+/* 마우스를 올렸을 때 이미지 확대 효과 */
+.menu-item:hover img {
+  transform: scale(1.1);
+}
+
+/* 호버 시 나타나는 '상세보기' 박스 */
+.view-more {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
-}
-
-.hero-text {
-  position: relative;
-  z-index: 10;
   color: white;
-  padding-top: 180px;
-}
-
-.hero-text h2 {
-  font-size: 48px;
-  margin-bottom: 10px;
-}
-
-.btn-more {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 12px 30px;
-  border: 2px solid white;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
   transition: 0.3s;
 }
 
-.btn-more:hover {
-  background: white;
-  color: #333;
+.menu-item:hover .view-more {
+  opacity: 1;
 }
 
-/* 4, 7. 메뉴 카드 디자인 */
-.menu-section {
-  padding: 80px 0;
-}
-.section-title {
-  text-align: center;
-  margin-bottom: 50px;
-  color: #006241;
-}
-
-.menu-grid {
-  display: flex;
-  gap: 30px;
-}
-
-.card {
-  background: white;
-  flex: 1;
-  border-radius: 15px;
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-10px);
-}
-
-.img-box img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-}
-
-.info {
-  padding: 25px;
-}
-
-.info h3 {
-  margin-bottom: 10px;
-}
-
-.price {
-  color: #006241;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.desc {
-  font-size: 14px;
-  color: #666;
-}
-
-/* 8. 포지셔닝 뱃지 */
+/* 뱃지 포지셔닝 */
 .badge {
   position: absolute;
-  top: 15px;
-  left: 15px;
-  padding: 5px 15px;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  padding: 3px 10px;
   color: white;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 11px;
+  border-radius: 3px;
 }
-
 .best {
   background: #006241;
 }
@@ -185,26 +143,29 @@ nav {
   background: #d62d20;
 }
 
-/* 8. 맨 위로 가기 고정 버튼 */
-.top-btn {
-  position: fixed;
-  bottom: 40px;
-  right: 40px;
-  width: 55px;
-  height: 55px;
-  background: #2c2a29;
-  color: white;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  z-index: 999;
+.item-info h3 {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+.eng-name {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 10px;
+}
+.price {
+  font-weight: bold;
+  color: #006241;
 }
 
-footer {
+/* 고정 버튼 */
+.btn-top {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
   background: #2c2a29;
-  color: #999;
-  padding: 60px 0;
-  text-align: center;
+  color: white;
+  padding: 15px;
+  border-radius: 50%;
+  text-decoration: none;
+  z-index: 999;
 }
