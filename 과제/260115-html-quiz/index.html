@@ -6,7 +6,7 @@
     <title>(260115) CSS 퀴즈 전체 정답</title>
     <style>
       :root {
-        --primary: #006241;
+        --primary: #006241; /* 스타벅스 그린 */
         --bg: #fdfdfd;
       }
       body {
@@ -63,6 +63,7 @@
         background: #fafafa;
         border-left: 4px solid var(--primary);
       }
+      /* 첫화면으로 돌아가기 버튼 스타일 */
       .back-btn {
         display: block;
         width: fit-content;
@@ -73,12 +74,19 @@
         text-decoration: none;
         border-radius: 8px;
         font-weight: bold;
+        transition:
+          background-color 0.3s,
+          transform 0.2s;
+      }
+      .back-btn:hover {
+        background-color: #004a31;
+        transform: translateY(-2px);
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>✅ (260115) CSS 심화 퀴즈 정답 (1~15)</h1>
+      <h1>(260115) CSS 심화 퀴즈 정답 (1~15)</h1>
 
       <div class="quiz-item">
         <span class="q"
@@ -134,7 +142,6 @@
         >
         <div class="exp">
           해설: :not()은 괄호 안의 선택자를 제외한 모든 요소를 선택합니다.
-          리스트 사이 구분선을 넣을 때 유용합니다.
         </div>
       </div>
 
@@ -153,8 +160,7 @@
         <span class="q">Q8. article:has(img) 코드의 의미는?</span>
         <span class="ans">정답: img를 포함한 article에 테두리 추가</span>
         <div class="exp">
-          해설: :has()는 특정 자식 요소를 가지고 있는 부모 요소를 선택하는
-          강력한 선택자입니다.
+          해설: :has()는 특정 자식 요소를 가지고 있는 부모 요소를 선택합니다.
         </div>
       </div>
 
@@ -165,7 +171,6 @@
         <span class="ans">정답: content</span>
         <div class="exp">
           해설: 가상 요소는 content 속성이 정의되어야 브라우저에 표시됩니다.
-          값이 없어도 빈 문자열("")이라도 넣어야 합니다.
         </div>
       </div>
 
@@ -173,8 +178,8 @@
         <span class="q">Q10. 다음 중 상속되지 않는 속성은?</span>
         <span class="ans">정답: border</span>
         <div class="exp">
-          해설: color, font-size 등 글자 관련 속성은 상속되지만, border, margin,
-          padding 등 박스 모델 속성은 상속되지 않습니다.
+          해설: color, font-size 등은 상속되지만 박스 모델 속성(border 등)은
+          상속되지 않습니다.
         </div>
       </div>
 
@@ -182,8 +187,7 @@
         <span class="q">Q11. child 요소에 border: inherit; 적용 결과는?</span>
         <span class="ans">정답: child div에 빨간 border가 표시된다.</span>
         <div class="exp">
-          해설: inherit 값은 해당 속성이 상속되지 않는 속성이더라도 부모의 값을
-          강제로 물려받게 합니다.
+          해설: inherit 값은 부모의 속성값을 강제로 물려받게 합니다.
         </div>
       </div>
 
@@ -193,8 +197,7 @@
           >정답: 브라우저마다 다른 기본 스타일을 통일하기 위해</span
         >
         <div class="exp">
-          해설: 브라우저 고유의 기본 여백(User Agent Stylesheet)을 제거하여
-          디자인의 일관성을 확보합니다.
+          해설: 브라우저 고유의 기본 여백을 제거하여 일관성을 확보합니다.
         </div>
       </div>
 
@@ -202,8 +205,7 @@
         <span class="q">Q13. 올바른 CSS 로드 순서는? (A:스타일, B:초기화)</span>
         <span class="ans">정답: B → A (Normalize → Style)</span>
         <div class="exp">
-          해설: 초기화 파일을 먼저 로드한 뒤, 프로젝트 전용 스타일로 덮어씌우는
-          순서가 올바릅니다.
+          해설: 초기화 파일을 먼저 로드한 뒤 내 스타일로 덮어씌워야 합니다.
         </div>
       </div>
 
@@ -215,8 +217,7 @@
           >정답: white-space: nowrap;과 overflow: hidden; 둘 다 필요</span
         >
         <div class="exp">
-          해설: 텍스트가 줄바꿈되지 않고 영역을 넘쳐서 숨겨진 상태여야
-          말줄임표(...)가 나타납니다.
+          해설: 텍스트가 줄바꿈되지 않고 숨겨진 상태여야 말줄임표가 나타납니다.
         </div>
       </div>
 
@@ -224,11 +225,11 @@
         <span class="q">Q15. 3줄까지만 보이고 말줄임 처리를 하려면?</span>
         <span class="ans">정답: -webkit-line-clamp: 3;</span>
         <div class="exp">
-          해설: 여러 줄 말줄임표를 구현하기 위해 사용하는 웹킷 전용 속성입니다.
+          해설: 여러 줄 말줄임표를 구현하는 웹킷 전용 속성입니다.
         </div>
       </div>
 
-      <a href="index.html" class="back-btn">메인 화면으로 돌아가기</a>
+      <a href="index.html" class="back-btn">첫화면으로</a>
     </div>
   </body>
 </html>
