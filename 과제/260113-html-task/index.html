@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Starbucks Coffee Korea</title>
+    <title>Starbucks Design Optimized</title>
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap"
@@ -12,110 +12,76 @@
   </head>
   <body>
     <header>
-      <nav>
-        <div class="container nav-box">
-          <h1 class="logo">STARBUCKS</h1>
-          <ul class="nav-menu">
-            <li><a href="#">COFFEE</a></li>
-            <li><a href="#menu">MENU</a></li>
-            <li><a href="#">STORE</a></li>
-            <li><a href="#">RESPONSIBILITY</a></li>
-          </ul>
-        </div>
+      <nav class="container">
+        <h1 class="logo">STARBUCKS</h1>
+        <ul class="nav-menu">
+          <li><a href="#">COFFEE</a></li>
+          <li><a href="#menu">MENU</a></li>
+          <li><a href="#">STORE</a></li>
+          <li><a href="#">WHAT'S NEW</a></li>
+        </ul>
       </nav>
     </header>
 
-    <section class="hero">
-      <div class="hero-content container">
-        <div class="hero-text">
-          <h2>MEET THE PREMIER COFFEE</h2>
-          <p>스타벅스가 제안하는 프리미엄 커피를 경험해보세요.</p>
-          <a href="#" class="btn-outline">자세히 보기</a>
-        </div>
+    <div class="hero">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <h2>MEET THE PREMIER COFFEE</h2>
+        <p>스타벅스만의 깊고 진한 커피 세계를 만나보세요.</p>
+        <a href="#" class="btn-more">자세히 보기</a>
       </div>
-    </section>
+    </div>
 
     <main class="container">
-      <section class="welcome">
+      <section class="welcome-box">
         <div class="welcome-header">
           <h2>Welcome to Starbucks</h2>
-          <p>우리는 한 잔의 커피 그 이상의 가치를 전달한다.</p>
+          <p>한 잔의 커피 그 이상의 가치를 디자인합니다.</p>
         </div>
-        <ul class="features">
-          <li>
-            <div class="icon-img">
-              <img
-                src="https://www.starbucks.co.kr/common/img/main/visual_2023_organic_bean.png"
-                alt="원두"
-              />
-            </div>
-            <strong>지속 가능한 원두</strong>
-            <span>환경을 생각하는 품질</span>
-          </li>
-          <li>
-            <div class="icon-img">
-              <img
-                src="https://www.starbucks.co.kr/common/img/main/visual_2023_barista.png"
-                alt="바리스타"
-              />
-            </div>
-            <strong>바리스타의 정성</strong>
-            <span>섬세한 손길의 맛</span>
-          </li>
-          <li>
-            <div class="icon-img">
-              <img
-                src="https://www.starbucks.co.kr/common/img/main/visual_2023_store.png"
-                alt="매장"
-              />
-            </div>
-            <strong>도심 속 휴식</strong>
-            <span>아늑한 제3의 공간</span>
-          </li>
-        </ul>
+        <div class="feature-container">
+          <article class="feature-card">
+            <div class="icon">🌱</div>
+            <h3>지속 가능한 원두</h3>
+            <p>환경과 상생하는 유기농 원두만을 고집합니다.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">☕</div>
+            <h3>마스터 바리스타</h3>
+            <p>숙련된 전문가의 섬세한 핸드드립을 즐기세요.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">🏡</div>
+            <h3>아늑한 휴식 공간</h3>
+            <p>도심 속 언제나 쉴 수 있는 제3의 공간입니다.</p>
+          </article>
+        </div>
       </section>
 
       <section id="menu" class="menu-section">
         <h2 class="section-title">SUNDAY MORNING MENU</h2>
         <div class="menu-grid">
-          <article class="card">
+          <div class="menu-card">
             <span class="badge best">BEST</span>
-            <div class="img-box">
-              <img
-                src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[9200000002487]_20210426091745609.jpg"
-                alt="아메리카노"
-              />
-            </div>
+            <img
+              src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[9200000002487]_20210426091745609.jpg"
+              alt="아메리카노"
+            />
             <div class="card-info">
               <h3>카페 아메리카노</h3>
               <p>Caffe Americano</p>
             </div>
-          </article>
-          <article class="card">
+          </div>
+          <div class="menu-card">
             <span class="badge new">NEW</span>
-            <div class="img-box">
-              <img
-                src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[110563]_20210426095648346.jpg"
-                alt="자몽허니"
-              />
-            </div>
+            <img
+              src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[110563]_20210426095648346.jpg"
+              alt="자몽허니"
+            />
             <div class="card-info">
               <h3>자몽 허니 블랙 티</h3>
               <p>Grapefruit Honey Black Tea</p>
             </div>
-          </article>
-          <article class="card">
-            <div class="img-box">
-              <img
-                src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[110569]_20210415143035987.jpg"
-                alt="돌체콜드브루"
-              />
-            </div>
-            <div class="card-info">
-              <h3>돌체 콜드 브루</h3>
-              <p>Dolce Cold Brew</p>
-            </div>
-          </article>
+          </div>
         </div>
       </section>
     </main>
@@ -123,9 +89,7 @@
     <a href="#" class="top-btn">TOP</a>
 
     <footer>
-      <div class="container">
-        <p>&copy; 2026 Starbucks Coffee Company. All rights reserved.</p>
-      </div>
+      <p>&copy; 2026 Starbucks Coffee Korea. All rights reserved.</p>
     </footer>
   </body>
 </html>
