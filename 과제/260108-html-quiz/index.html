@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260108) HTML 퀴즈 정답</title>
+    <style>
+      :root {
+        --primary: #34a853;
+        --bg: #fdfdfd;
+      }
+      body {
+        font-family: "Pretendard", sans-serif;
+        line-height: 1.7;
+        background-color: var(--bg);
+        padding: 20px;
+        color: #333;
+      }
+      .container {
+        max-width: 850px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      }
+      h1 {
+        color: var(--primary);
+        border-bottom: 3px solid var(--primary);
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      .quiz-item {
+        margin-bottom: 20px;
+        padding: 18px;
+        border: 1px solid #eee;
+        border-radius: 12px;
+        transition: 0.2s;
+      }
+      .quiz-item:hover {
+        border-color: var(--primary);
+        background-color: #f6fff8;
+      }
+      .q {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 8px;
+        color: #444;
+      }
+      .ans {
+        color: #d93025;
+        font-weight: bold;
+        background: #fff1f0;
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
+      .exp {
+        font-size: 0.92em;
+        color: #666;
+        margin-top: 10px;
+        padding: 10px;
+        background: #fafafa;
+        border-left: 4px solid #34a853;
+      }
+      .back-btn {
+        display: block;
+        width: fit-content;
+        margin: 40px auto 0;
+        padding: 12px 30px;
+        background: var(--primary);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>✅ HTML 접근성 & 시맨틱 퀴즈 정답</h1>
+
+      <div class="quiz-item">
+        <span class="q">Q1. aria-label 속성을 사용하는 올바른 경우는?</span>
+        <span class="ans">정답: 아이콘만 있는 버튼에 설명 제공</span>
+        <div class="exp">
+          해설: 돋보기 아이콘만 있는 검색 버튼처럼 텍스트가 없는 버튼에 스크린
+          리더가 읽어줄 이름을 제공할 때 사용한다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q2. aria-hidden="true"를 사용해야 하는 경우는?</span>
+        <span class="ans">정답: 장식용 아이콘을 스크린 리더에서 제외할 때</span>
+        <div class="exp">
+          해설: 디자인을 위한 요소가 사용자에게 불필요한 정보를 전달하지 않도록
+          스크린 리더의 탐색 대상에서 제외할 때 사용한다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q3. 키보드 접근성에서 가장 중요한 것은?</span>
+        <span class="ans">정답: Tab 키로 모든 인터랙티브 요소에 접근 가능</span>
+        <div class="exp">
+          해설: 마우스를 사용하기 어려운 사용자를 위해 모든 기능을 키보드로
+          조작할 수 있어야 하며, 초점(Focus) 표시를 임의로 제거하지 않는다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q4. 장식용 이미지의 올바른 처리 방법은?</span>
+        <span class="ans">정답: alt="" (빈 값 주기)</span>
+        <div class="exp">
+          해설: alt 속성을 생략하면 스크린 리더가 파일명을 읽게 되므로, 의미
+          없는 이미지는 반드시 빈 값을 할당하여 건너뛰도록 처리한다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q5. Semantic HTML에 대한 설명으로 올바른 것은?</span>
+        <span class="ans">정답: 태그 이름만 봐도 의미를 알 수 있는 HTML</span>
+        <div class="exp">
+          해설: div 태그를 남용하기보다 header, nav, main 등 의미가 명확한
+          태그를 사용하여 구조를 논리적으로 구성한다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q6. &lt;main&gt; 태그 설명 중 틀린 것은?</span>
+        <span class="ans"
+          >정답: &lt;article&gt; 안에 &lt;main&gt;을 사용해도 됨</span
+        >
+        <div class="exp">
+          해설: main 태그는 해당 문서의 핵심 콘텐츠를 나타내며, 페이지당 하나만
+          존재해야 하고 다른 시맨틱 요소 내에 중첩되지 않아야 한다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q7. &lt;section&gt;과 &lt;article&gt;의 차이점은?</span>
+        <span class="ans"
+          >정답: section은 주제별 그룹, article은 독립적 콘텐츠</span
+        >
+        <div class="exp">
+          해설: 뉴스 기사나 블로그 포스팅처럼 그 자체로 독립적인 의미를 지니면
+          article을, 관련 있는 내용을 묶어주는 역할이면 section을 사용한다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q8. 왜 &lt;div&gt;로 버튼을 만들면 안 되는가?</span>
+        <span class="ans"
+          >정답: 키보드 접근이 안 되고 스크린 리더가 인식 못 함</span
+        >
+        <div class="exp">
+          해설: div는 의미가 없는 컨테이너일 뿐이므로, 키보드 포커싱과 스크린
+          리더의 역할 인식을 위해 button 태그를 사용해야 한다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q9. 올바른 HTML 구조는?</span>
+        <span class="ans">정답: 1번 (header-main-footer 병렬 구조)</span>
+        <div class="exp">
+          해설: 헤더, 메인, 푸터는 각각 독립적인 영역으로 구성하며, 헤더나
+          푸터를 메인 태그 내부에 포함하지 않는 것이 원칙이다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q10. SVG에 대한 설명으로 옳지 않은 것은?</span>
+        <span class="ans">정답: 사진을 표현하기에 가장 적합하다</span>
+        <div class="exp">
+          해설: SVG는 벡터 방식이어서 로고나 아이콘에는 적합하나, 복잡한 색상이
+          포함된 사진 등은 래스터 방식(JPG, PNG)이 더 효율적이다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q11. 비디오 autoplay가 허용되는 경우는?</span>
+        <span class="ans">정답: muted 속성이 있을 때만</span>
+        <div class="exp">
+          해설: 예기치 못한 소리 발생을 방지하기 위해 브라우저 정책상
+          음소거(muted) 상태에서만 자동 재생을 허용한다.
+        </div>
+      </div>
+
+      <a href="../../" class="back-btn">메인 목록으로 돌아가기</a>
+    </div>
+  </body>
+</html>
