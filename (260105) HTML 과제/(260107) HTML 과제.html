@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260107) HTML 과제</title>
+    <style>
+      body {
+        font-family: "Malgun Gothic", sans-serif;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        color: #333;
+      }
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+        border-bottom: 2px solid #2c3e50;
+        padding-bottom: 10px;
+      }
+      section {
+        border: 1px solid #ccc;
+        padding: 25px;
+        margin-bottom: 35px;
+        border-radius: 5px;
+      }
+      h2 {
+        color: #2980b9;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+      h3 {
+        color: #2c3e50;
+      }
+
+      /* 테이블 스타일 */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+      }
+      th {
+        background-color: #f4f4f4;
+      }
+
+      /* 코드 및 인용구 스타일 */
+      pre {
+        background-color: #f8f9fa;
+        border: 1px solid #e1e4e8;
+        padding: 15px;
+        border-radius: 4px;
+        overflow-x: auto;
+      }
+      code {
+        font-family: Consolas, monospace;
+        color: #d63384;
+      }
+      blockquote {
+        border-left: 5px solid #ccc;
+        margin: 15px 0;
+        padding: 10px 20px;
+        background-color: #f9f9f9;
+      }
+
+      .lib-item {
+        margin-bottom: 20px;
+      }
+      .lib-title {
+        font-weight: bold;
+        font-size: 1.1em;
+        color: #16a085;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>HTML 교육 과정 종합 과제</h1>
+
+    <section>
+      <h2>과제 1: robots.txt 조사 보고서</h2>
+      <h3>1. robots.txt의 정의</h3>
+      <p>
+        웹사이트의 루트 디렉토리에 저장되는 텍스트 파일로, 웹 크롤러와 같은
+        로봇들이 사이트의 특정 부분에 접근할 수 있는지 여부를 지시하는 국제
+        규약입니다.
+      </p>
+
+      <h3>2. 주요 역할</h3>
+      <ul>
+        <li>
+          검색 엔진 최적화(SEO)를 위해 불필요한 페이지의 인덱싱을 방지합니다.
+        </li>
+        <li>
+          서버 자원을 소모하는 무분별한 크롤링을 제한하여 서버 부하를
+          관리합니다.
+        </li>
+        <li>
+          관리자 페이지나 민감한 데이터가 포함된 경로에 로봇이 접근하지 못하도록
+          설정합니다.
+        </li>
+      </ul>
+
+      <h3>3. 사용 예시</h3>
+      <pre>
+<code># 예시 1: 모든 로봇의 관리자 폴더 접근 금지
+User-agent: *
+Disallow: /admin/
+
+# 예시 2: 구글 로봇만 전체 접근 허용
+User-agent: Googlebot
+Allow: /</code>
+        </pre>
+
+      <h3>4. 활용 권장 상황</h3>
+      <p>
+        사이트 내에 중복된 콘텐츠가 많아 검색 순위에 악영향을 줄 우려가 있거나,
+        회원 전용 페이지처럼 검색 결과에 노출되어서는 안 되는 경로가 있을 때
+        사용합니다.
+      </p>
+    </section>
+
+    <section>
+      <h2>과제 2: HTML 태그 문자열 출력</h2>
+      <p>
+        다음은 HTML의 특수 기호를 엔티티 코드로 변환하여 화면에 그대로 출력한
+        예시입니다.
+      </p>
+      <pre>
+<code>&lt;ul&gt;
+    &lt;li&gt;사과&lt;/li&gt;
+    &lt;li&gt;바나나&lt;/li&gt;
+    &lt;li&gt;체리&lt;/li&gt;
+&lt;/ul&gt;</code>
+        </pre>
+    </section>
+
+    <section>
+      <h2>과제 3: UI 컴포넌트 라이브러리 분석</h2>
+
+      <div class="lib-item">
+        <p class="lib-title">1. MUI (Material-UI)</p>
+        <p>
+          특징: 구글의 Material Design 시스템을 따르며 컴포넌트의 완성도가 매우
+          높습니다. 리액트 환경에서 가장 널리 쓰입니다.
+        </p>
+        <p>인상: 체계적이고 규격화된 기업형 프로젝트에 매우 적합해 보입니다.</p>
+      </div>
+
+      <div class="lib-item">
+        <p class="lib-title">2. Bootstrap</p>
+        <p>
+          특징: 전 세계에서 가장 유명한 프레임워크로, HTML 클래스만으로 반응형
+          레이아웃을 빠르게 구축할 수 있습니다.
+        </p>
+        <p>
+          인상: 문서화가 잘 되어 있어 초보자가 사용하기에 가장 친절한
+          도구입니다.
+        </p>
+      </div>
+
+      <div class="lib-item">
+        <p class="lib-title">3. Ant Design</p>
+        <p>
+          특징: 대규모 데이터 처리와 복잡한 입력 폼이 필요한 관리자용
+          웹사이트(Admin) 제작에 특화되어 있습니다.
+        </p>
+        <p>
+          인상: 차트나 테이블 등 업무용 위젯이 풍부하여 생산성이 높아 보입니다.
+        </p>
+      </div>
+
+      <div class="lib-item">
+        <p class="lib-title">4. Chakra UI</p>
+        <p>
+          특징: 개발자가 스타일을 자유롭게 조합할 수 있는 유연성을 제공하며, 웹
+          접근성 준수가 뛰어납니다.
+        </p>
+        <p>
+          인상: 모던한 감각의 개인 프로젝트나 스타트업 서비스에 어울리는
+          유연함이 매력적입니다.
+        </p>
+      </div>
+
+      <hr />
+      <h3>종합 의견</h3>
+      <p><strong>가장 마음에 든 라이브러리: Chakra UI</strong></p>
+      <p>
+        이유: 학습 곡선이 낮으면서도 디자인이 세련되어, 현재 개인적으로 계획
+        중인 프로젝트에 적용했을 때 가장 빠르고 깔끔한 결과물을 낼 수 있을 것
+        같습니다.
+      </p>
+    </section>
+  </body>
+</html>
