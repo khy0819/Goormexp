@@ -1,0 +1,10 @@
+/* css/main.css */
+@import "common.css";
+@import "header.css";
+@import "hero.css";
+@import "welcome.css";
+@import "menu.css";
+@import "store.css";
+@import "responsibility.css";
+@import "gallery.css";
+@import "footer.css";

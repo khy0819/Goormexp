@@ -1,0 +1,45 @@
+/* css/common.css */
+:root {
+  --primary-color: #006241; /* 스타벅스 그린 */
+  --secondary-color: #d4e9e2; /* 연한 민트/베이지 */
+  --accent-color: #d62d20; /* 포인트 레드 (New, Sold Out) */
+  --text-color: #2c2a29; /* 기본 텍스트 색상 */
+  --light-text-color: #666; /* 보조 텍스트 색상 */
+  --white: #ffffff;
+  --gray-bg: #f6f5ef; /* 섹션 배경색 */
+  --border-color: #ddd;
+  --shadow-color: rgba(0, 0, 0, 0.08); /* 그림자 색상 */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  color: var(--text-color);
+  line-height: 1.6;
+  background-color: var(--white);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-title {
+  text-align: center;
+  margin: 80px 0 50px;
+  color: var(--primary-color);
+  font-size: 32px;
+  font-weight: 700;
+}
+.section-subtitle {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--light-text-color);
+  font-size: 18px;
+}

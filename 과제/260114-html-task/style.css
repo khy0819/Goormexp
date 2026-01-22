@@ -1,7 +1,0 @@
-/* style.css (또는 main.css) */
-
-@import "common.css"; /* 변수 및 기본 리셋 */
-@import "header.css"; /* 헤더 및 네비게이션 (Flexbox) */
-@import "menu.css"; /* 메뉴 섹션 (Flexbox Grid) */
-@import "gallery.css"; /* 갤러리 섹션 (새로 추가할 부분) */
-@import "footer.css"; /* 푸터 섹션 (3단 구성) */

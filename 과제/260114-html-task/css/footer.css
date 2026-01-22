@@ -1,0 +1,55 @@
+/* css/footer.css */
+footer {
+  background: var(--text-color);
+  color: var(--white);
+  padding: 60px 0;
+  margin-top: 100px;
+  font-size: 14px;
+}
+
+.footer-content {
+  display: flex; /* 요구사항 1: 푸터 Flexbox 3단 구성 */
+  justify-content: space-between;
+  flex-wrap: wrap; /* 반응형 줄바꿈 */
+  gap: 30px;
+  text-align: center; /* 기본 중앙 정렬 */
+}
+
+.footer-section {
+  flex: 1 1 calc(33.333% - 20px); /* 3단 구성 */
+  min-width: 250px; /* 너무 작아지지 않게 */
+}
+
+.footer-section h4 {
+  color: var(--primary-color);
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.footer-section p {
+  color: var(--secondary-color);
+  line-height: 1.8;
+}
+
+.top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--text-color);
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  text-decoration: none;
+  font-weight: bold;
+  z-index: 999;
+  box-shadow: 0 4px 10px var(--shadow-color);
+  transition: background-color 0.3s;
+}
+
+.top-btn:hover {
+  background-color: var(--primary-color);
+}

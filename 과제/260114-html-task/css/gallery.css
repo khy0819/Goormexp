@@ -1,0 +1,32 @@
+/* css/gallery.css */
+.gallery-section {
+  padding-bottom: 100px;
+}
+
+.gallery-grid {
+  display: flex;
+  flex-wrap: wrap; /* Flexbox 갤러리 레이아웃: 반응형 */
+  gap: 15px;
+  justify-content: center;
+}
+
+.gallery-item {
+  flex: 1 1 calc(25% - 15px); /* 4단 구성, 간격 고려 */
+  min-width: 200px; /* 최소 너비 */
+  height: 220px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px var(--shadow-color);
+  cursor: pointer;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease; /* 요구사항 3: 이미지 hover 시 확대 효과 */
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}

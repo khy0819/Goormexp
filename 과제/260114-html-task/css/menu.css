@@ -1,0 +1,120 @@
+/* css/menu.css */
+.menu-page-content {
+  padding-bottom: 100px;
+  margin-top: 50px; /* 섹션 타이틀과의 간격 조정 */
+}
+
+/* 인터랙티브 메뉴 필터 */
+.filter-category {
+  display: flex; /* Flexbox로 가로 배치 */
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 40px;
+  flex-wrap: wrap; /* 반응형 줄바꿈 */
+}
+
+.filter-btn {
+  padding: 10px 25px;
+  border: 1px solid var(--primary-color);
+  background: var(--white);
+  color: var(--primary-color);
+  cursor: pointer; /* 요구사항 2: cursor 활용 */
+  border-radius: 20px;
+  transition:
+    background-color 0.3s,
+    color 0.3s,
+    opacity 0.3s;
+  font-weight: 500;
+  opacity: 0.8; /* 요구사항 2: opacity 활용 */
+}
+
+.filter-btn:hover {
+  /* 요구사항 2: 버튼 hover 시 스타일 변경 */
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  opacity: 1;
+}
+
+.filter-btn.active {
+  /* 요구사항 2: 선택된 버튼 표시 */
+  background-color: var(--primary-color);
+  color: var(--white);
+  opacity: 1;
+}
+
+/* 메뉴 아이템 Flexbox Grid 배치 */
+.menu-grid {
+  display: flex;
+  flex-wrap: wrap; /* 요구사항 1: 메뉴 아이템 줄바꿈 */
+  gap: 30px;
+  justify-content: center; /* 아이템이 적을 때 중앙 정렬 */
+}
+
+.menu-card {
+  flex: 1 1 calc(25% - 22.5px); /* 4단 구성, 간격 계산 */
+  min-width: 240px; /* 최소 너비 */
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 4px 10px var(--shadow-color);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.menu-card .img-box {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.menu-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.menu-card:hover img {
+  transform: scale(1.05); /* 요구사항 3: 이미지 확대 효과 */
+}
+
+.card-info {
+  padding: 15px;
+}
+
+.card-info h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: var(--text-color);
+}
+
+.card-info p {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--primary-color);
+  color: var(--white);
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: bold;
+  z-index: 10;
+}
+
+.badge.new {
+  background: var(--accent-color); /* NEW 상품은 빨간색 */
+}
