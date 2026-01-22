@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Starbucks Design Optimized</title>
+    <title>Starbucks Coffee Korea | 프로젝트 완성본</title>
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap"
@@ -17,42 +17,42 @@
         <ul class="nav-menu">
           <li><a href="#">COFFEE</a></li>
           <li><a href="#menu">MENU</a></li>
-          <li><a href="#">STORE</a></li>
-          <li><a href="#">WHAT'S NEW</a></li>
+          <li><a href="#store">STORE</a></li>
+          <li><a href="#">RESPONSIBILITY</a></li>
         </ul>
       </nav>
     </header>
 
-    <div class="hero">
+    <section class="hero">
       <div class="hero-overlay"></div>
       <div class="container hero-content">
         <h2>MEET THE PREMIER COFFEE</h2>
-        <p>스타벅스만의 깊고 진한 커피 세계를 만나보세요.</p>
-        <a href="#" class="btn-more">자세히 보기</a>
+        <p>스타벅스가 제안하는 프리미엄 커피의 세계로 초대합니다.</p>
+        <a href="#" class="btn-outline">자세히 보기</a>
       </div>
-    </div>
+    </section>
 
     <main class="container">
-      <section class="welcome-box">
+      <section class="welcome">
         <div class="welcome-header">
           <h2>Welcome to Starbucks</h2>
-          <p>한 잔의 커피 그 이상의 가치를 디자인합니다.</p>
+          <p>우리는 한 잔의 커피 그 이상의 가치를 디자인합니다.</p>
         </div>
-        <div class="feature-container">
-          <article class="feature-card">
+        <div class="feature-grid">
+          <article class="feature-item">
             <div class="icon">🌱</div>
             <h3>지속 가능한 원두</h3>
-            <p>환경과 상생하는 유기농 원두만을 고집합니다.</p>
+            <p>환경과 상생하는 유기농 원두만을 고집한다.</p>
           </article>
-          <article class="feature-card">
+          <article class="feature-item">
             <div class="icon">☕</div>
             <h3>마스터 바리스타</h3>
-            <p>숙련된 전문가의 섬세한 핸드드립을 즐기세요.</p>
+            <p>숙련된 전문가의 섬세한 핸드드립을 선사한다.</p>
           </article>
-          <article class="feature-card">
+          <article class="feature-item">
             <div class="icon">🏡</div>
             <h3>아늑한 휴식 공간</h3>
-            <p>도심 속 언제나 쉴 수 있는 제3의 공간입니다.</p>
+            <p>언제나 편히 쉴 수 있는 제3의 공간을 지향한다.</p>
           </article>
         </div>
       </section>
@@ -62,10 +62,12 @@
         <div class="menu-grid">
           <div class="menu-card">
             <span class="badge best">BEST</span>
-            <img
-              src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[9200000002487]_20210426091745609.jpg"
-              alt="아메리카노"
-            />
+            <div class="img-box">
+              <img
+                src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[9200000002487]_20210426091745609.jpg"
+                alt="아메리카노"
+              />
+            </div>
             <div class="card-info">
               <h3>카페 아메리카노</h3>
               <p>Caffe Americano</p>
@@ -73,10 +75,12 @@
           </div>
           <div class="menu-card">
             <span class="badge new">NEW</span>
-            <img
-              src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[110563]_20210426095648346.jpg"
-              alt="자몽허니"
-            />
+            <div class="img-box">
+              <img
+                src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[110563]_20210426095648346.jpg"
+                alt="자몽허니"
+              />
+            </div>
             <div class="card-info">
               <h3>자몽 허니 블랙 티</h3>
               <p>Grapefruit Honey Black Tea</p>
@@ -84,12 +88,43 @@
           </div>
         </div>
       </section>
+
+      <section id="store" class="store-section">
+        <h2 class="section-title">STORE <span>매장 찾기</span></h2>
+        <div class="store-layout">
+          <aside class="store-sidebar">
+            <div class="search-box">
+              <input type="text" placeholder="매장명 또는 주소 검색" />
+              <button>🔍</button>
+            </div>
+            <ul class="store-list">
+              <li class="store-item active">
+                <strong>구름 강남점</strong>
+                <p>서울특별시 강남구 테헤란로 123</p>
+                <span class="status">영업 중</span>
+              </li>
+              <li class="store-item">
+                <strong>구름 부산역점</strong>
+                <p>부산광역시 동구 중앙대로 206</p>
+                <span class="status">영업 중</span>
+              </li>
+            </ul>
+          </aside>
+          <article class="store-map">
+            <img
+              src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1200"
+              alt="지도"
+            />
+            <div class="map-label">지도를 불러오는 중입니다...</div>
+          </article>
+        </div>
+      </section>
     </main>
 
     <a href="#" class="top-btn">TOP</a>
 
     <footer>
-      <p>&copy; 2026 Starbucks Coffee Korea. All rights reserved.</p>
+      <p>&copy; 2026 Starbucks Coffee Company. All rights reserved.</p>
     </footer>
   </body>
 </html>
