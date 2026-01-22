@@ -1,0 +1,27 @@
+:root {
+  --primary-color: #006241; /* 스타벅스 그린 */
+  --secondary-color: #d4e9e2; /* 연한 민트 */
+  --accent-color: #f43939; /* 포인트 레드 */
+  --text-color: #2c2a29;
+  --bg-color: #ffffff;
+  --white: #ffffff;
+  --gray: #f6f5ef;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}

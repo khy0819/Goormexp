@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Starbucks | Online Store</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* 굿즈 페이지 전용 스타일 */
+      .md-container {
+        margin-top: 130px;
+        padding-bottom: 100px;
+      }
+
+      .md-header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .md-header h2 {
+        font-size: 32px;
+        color: #006241;
+        margin-bottom: 10px;
+      }
+
+      /* 상품 그리드 레이아웃 */
+      .md-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 40px 25px;
+      }
+
+      .md-item {
+        background: white;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+      }
+
+      .md-item:hover {
+        transform: translateY(-10px);
+      }
+
+      /* 상품 이미지 박스 */
+      .md-img-box {
+        position: relative;
+        width: 100%;
+        padding-top: 100%; /* 1:1 정사각 비율 */
+        background-color: #f4f4f2;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 15px;
+      }
+
+      .md-img-box img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* 상품 정보 */
+      .md-info {
+        padding: 10px 5px;
+      }
+
+      .md-info h3 {
+        font-size: 16px;
+        color: #2c2a29;
+        margin-bottom: 8px;
+      }
+
+      .md-info .price {
+        font-weight: bold;
+        font-size: 18px;
+        color: #006241;
+      }
+
+      .md-info .category {
+        font-size: 12px;
+        color: #999;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      /* 뱃지 */
+      .md-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #006241;
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <a href="index.html" class="logo">STARBUCKS</a>
+        <ul class="nav-menu">
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="menu.html">MENU</a></li>
+          <li><a href="store.html" style="color: #006241">STORE (MD)</a></li>
+          <li><a href="responsibility.html">RESPONSIBILITY</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container md-container">
+      <div class="md-header">
+        <h2>ONLINE STORE</h2>
+        <p>스타벅스의 감성을 담은 한정판 굿즈를 만나보세요.</p>
+      </div>
+
+      <div class="md-grid">
+        <article class="md-item">
+          <div class="md-img-box">
+            <span class="md-badge">BEST</span>
+            <img src="images/상품1.jpg" alt="텀블러" />
+          </div>
+          <div class="md-info">
+            <span class="category">Tumbler</span>
+            <h3>SS 그린 그래디언트 콩코드 텀블러</h3>
+            <p class="price">₩35,000</p>
+          </div>
+        </article>
+
+        <article class="md-item">
+          <div class="md-img-box">
+            <img src="images/상품2.jpg" alt="머그" />
+          </div>
+          <div class="md-info">
+            <span class="category">Mug</span>
+            <h3>스타벅스 그린 사이렌 머그</h3>
+            <p class="price">₩18,000</p>
+          </div>
+        </article>
+
+        <article class="md-item">
+          <div class="md-img-box">
+            <span class="md-badge" style="background: #d62d20">SOLD OUT</span>
+            <img src="images/상품3.jpg" alt="커피용품" />
+          </div>
+          <div class="md-info">
+            <span class="category">Coffee Gear</span>
+            <h3>스타벅스 컴팩트 드리퍼</h3>
+            <p class="price">₩22,000</p>
+          </div>
+        </article>
+
+        <article class="md-item">
+          <div class="md-img-box">
+            <img src="images/상품4.jpg" alt="플래너" />
+          </div>
+          <div class="md-info">
+            <span class="category">Life Style</span>
+            <h3>2026 스타벅스 데일리 플래너</h3>
+            <p class="price">₩32,500</p>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <footer><p>&copy; 2026 Starbucks Korea</p></footer>
+  </body>
+</html>
