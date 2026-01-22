@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>(260119) JS 퀴즈 문제&정답</title>
+    <title>(260119) JS 퀴즈 자동 정답지</title>
     <style>
       :root {
         --primary: #f7df1e;
@@ -11,13 +11,13 @@
       }
       body {
         font-family: "Pretendard", sans-serif;
-        line-height: 1.7;
-        background-color: var(--bg);
+        background: var(--bg);
         padding: 20px;
         color: #333;
+        line-height: 1.7;
       }
       .container {
-        max-width: 900px;
+        max-width: 850px;
         margin: 0 auto;
         background: white;
         padding: 40px;
@@ -30,45 +30,49 @@
         padding-bottom: 15px;
         margin-bottom: 30px;
       }
-      .quiz-card {
-        margin-bottom: 30px;
-        padding: 20px;
+      .quiz-item {
+        margin-bottom: 20px;
+        padding: 15px;
         border: 1px solid #eee;
-        border-radius: 12px;
-        background: #fff;
+        border-radius: 10px;
+        transition: 0.3s;
+      }
+      .quiz-item:hover {
+        border-color: var(--primary);
+        background: #fffcf0;
       }
       .question {
         font-weight: bold;
-        font-size: 1.1rem;
-        margin-bottom: 15px;
-        color: #111;
+        display: block;
+        margin-bottom: 8px;
+        font-size: 1.05rem;
       }
-      .code-block {
+      .code-box {
         background: #2d2d2d;
-        color: #ccc;
-        padding: 15px;
-        border-radius: 8px;
+        color: #efefef;
+        padding: 10px 15px;
+        border-radius: 6px;
         font-family: monospace;
-        margin-bottom: 15px;
+        font-size: 0.9rem;
+        margin: 10px 0;
         white-space: pre-wrap;
+        display: none;
       }
-      .answer-zone {
-        margin-top: 15px;
-        padding: 12px;
-        background: #fffceb;
-        border-radius: 8px;
-        border-left: 5px solid var(--primary);
-      }
-      .ans-label {
-        font-weight: 800;
+      .ans {
+        background: #fff5b1;
         color: #d93025;
-        margin-right: 10px;
+        font-weight: bold;
+        padding: 2px 6px;
+        border-radius: 4px;
+        text-decoration: underline;
       }
       .exp {
         font-size: 0.9rem;
         color: #666;
-        margin-top: 8px;
-        display: block;
+        margin-top: 10px;
+        padding: 10px;
+        background: #fafafa;
+        border-left: 4px solid var(--primary);
       }
       .back-btn {
         display: block;
@@ -85,119 +89,104 @@
   </head>
   <body>
     <div class="container">
-      <h1>🟨 JS 종합 퀴즈: 문제와 정답</h1>
-
-      <div class="quiz-card">
-        <div class="question">Q1. 다음 코드의 실행 결과는?</div>
-        <div class="code-block">
-          let userName = "김철수"; let userName = "이영희";
-          console.log(userName);
-        </div>
-        <div class="answer-zone">
-          <span class="ans-label">정답: 에러 발생</span>
-          <span class="exp"
-            >해설: let 키워드는 같은 스코프 내에서 변수를 재선언할 수
-            없습니다.</span
-          >
-        </div>
-      </div>
-
-      <div class="quiz-card">
-        <div class="question">Q4. 다음 코드의 실행 결과는?</div>
-        <div class="code-block">
-          const PI = 3.14159; PI = 3.14; console.log(PI);
-        </div>
-        <div class="answer-zone">
-          <span class="ans-label">정답: 에러 발생</span>
-          <span class="exp"
-            >해설: const로 선언된 상수는 값을 재할당할 수 없습니다.</span
-          >
-        </div>
-      </div>
-
-      <div class="quiz-card">
-        <div class="question">Q8. 다음 코드의 실행 결과는?</div>
-        <div class="code-block">console.log("5" + 3);</div>
-        <div class="answer-zone">
-          <span class="ans-label">정답: "53"</span>
-          <span class="exp"
-            >해설: 문자열과 숫자를 더하면 숫자가 문자열로 변환되어
-            연결됩니다.</span
-          >
-        </div>
-      </div>
-
-      <div class="quiz-card">
-        <div class="question">Q9. 다음 코드의 실행 결과는?</div>
-        <div class="code-block">console.log(typeof null);</div>
-        <div class="answer-zone">
-          <span class="ans-label">정답: "object"</span>
-          <span class="exp"
-            >해설: 자바스크립트 초기 설계 오류로 인해 null의 타입은 객체로
-            반환됩니다.</span
-          >
-        </div>
-      </div>
-
-      <div class="quiz-card">
-        <div class="question">Q14. 다음 코드의 실행 결과는?</div>
-        <div class="code-block">
-          let price = 10000; let quantity = 3; console.log(`총 가격은 ${price *
-          quantity}원입니다.`);
-        </div>
-        <div class="answer-zone">
-          <span class="ans-label">정답: 총 가격은 30000원입니다.</span>
-          <span class="exp"
-            >해설: 백틱을 이용한 템플릿 리터럴은 ${} 안의 식을 계산하여
-            출력합니다.</span
-          >
-        </div>
-      </div>
-
-      <div class="quiz-card">
-        <div class="question">Q17. 다음 코드의 실행 결과는? (논리 연산)</div>
-        <div class="code-block">
-          let a = true; let b = false; console.log(a && b || !b);
-        </div>
-        <div class="answer-zone">
-          <span class="ans-label">정답: true</span>
-          <span class="exp"
-            >해설: (true && false)는 false이고, 여기에 (!false)인 true를 OR
-            연산하면 최종적으로 true가 됩니다.</span
-          >
-        </div>
-      </div>
-
-      <div class="quiz-card">
-        <div class="question">Q28. 다음 코드의 실행 결과는?</div>
-        <div class="code-block">
-          const obj = { name: "철수" }; obj.name = "영희";
-          console.log(obj.name);
-        </div>
-        <div class="answer-zone">
-          <span class="ans-label">정답: "영희"</span>
-          <span class="exp"
-            >해설: const 객체의 참조는 바꿀 수 없지만, 객체 내부의 속성값은 변경
-            가능합니다.</span
-          >
-        </div>
-      </div>
-
-      <div class="quiz-card">
-        <div class="question">Q39. 다음 코드의 실행 결과는?</div>
-        <div class="code-block">
-          let result = 1_000_000; console.log(result);
-        </div>
-        <div class="answer-zone">
-          <span class="ans-label">정답: 1000000</span>
-          <span class="exp"
-            >해설: 숫자 리터럴의 언더바(_)는 가독성을 위한 구분자로, 실제 값에는
-            영향을 주지 않습니다.</span
-          >
-        </div>
-      </div>
-
-      <a href="https://khy0819.github.io/Goormexp/" class="back-btn">🏠</a>
+      <h1>🟨 JS 변수 & 자료형 전체 정답 (1~40)</h1>
+      <div id="quiz-list"></div>
+      <a href="https://khy0819.github.io/Goormexp/" class="back-btn"
+        >🏠 과제 목록 첫화면으로</a
+      >
     </div>
+
+    <script>
+      // [수정 포인트] 1번부터 40번까지의 데이터를 배열에 넣습니다.
+      const quizData = [
+        {
+          id: 1,
+          q: "다음 코드의 실행 결과는?",
+          code: "let userName = '김철수';\nlet userName = '이영희';",
+          a: "에러 발생",
+          e: "let 키워드는 동일한 스코프 내에서 재선언이 불가능합니다.",
+        },
+        {
+          id: 2,
+          q: "var의 문제점이 아닌 것은? (정답 2개)",
+          a: "재할당이 불가능하다, 성능이 let보다 느리다",
+          e: "var는 재할당이 가능하며, 성능 차이는 미미합니다.",
+        },
+        {
+          id: 3,
+          q: "올바른 변수명은? (정답 2개)",
+          a: "let $price, let _temp",
+          e: "변수명은 $, _로 시작할 수 있지만 숫자로 시작하거나 예약어(let)는 불가능합니다.",
+        },
+        {
+          id: 4,
+          q: "다음 코드의 실행 결과는?",
+          code: "const PI = 3.14159;\nPI = 3.14;",
+          a: "에러 발생",
+          e: "const로 선언된 상수는 재할당이 불가능합니다.",
+        },
+        {
+          id: 7,
+          q: "다음 코드의 실행 결과는?",
+          code: "console.log(typeof 10 / 0);",
+          a: "NaN",
+          e: "typeof 10은 'number' 문자열이고, 이를 0으로 나누면 NaN이 나옵니다.",
+        },
+        {
+          id: 8,
+          q: "다음 코드의 실행 결과는?",
+          code: "console.log('5' + 3);",
+          a: "'53'",
+          e: "문자열과 숫자를 더하면 숫자가 문자로 변환되어 연결됩니다.",
+        },
+        {
+          id: 9,
+          q: "typeof null의 결과는?",
+          a: "'object'",
+          e: "자바스크립트 설계상의 역사적 버그입니다.",
+        },
+        {
+          id: 25,
+          q: "typeof NaN의 결과는?",
+          a: "'number'",
+          e: "NaN(Not a Number)은 역설적으로 숫자 타입에 속합니다.",
+        },
+        {
+          id: 28,
+          q: "상수 객체의 속성 변경 결과는?",
+          code: "const obj = { name: '철수' };\nobj.name = '영희';",
+          a: "'영희'",
+          e: "const는 재할당을 막을 뿐, 객체 내부의 속성 변경은 막지 않습니다.",
+        },
+        {
+          id: 40,
+          q: "실무 권장 변수 선언 방식은?",
+          a: "기본적으로 const를 사용하고 필요시 let 사용",
+          e: "예기치 못한 값 변경을 방지하기 위해 상수를 우선 사용합니다.",
+        },
+        // 나머지 40번까지 데이터를 객체 형태로 추가하면 자동으로 리스트가 생성됩니다.
+      ];
+
+      const quizList = document.getElementById("quiz-list");
+
+      // 데이터 반복을 통한 HTML 생성 (반복문 활용)
+      quizData.forEach((item) => {
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "quiz-item";
+
+        // 코드가 있는 경우만 코드 박스를 노출합니다.
+        const codeHtml = item.code
+          ? `<div class="code-box" style="display:block">${item.code}</div>`
+          : "";
+
+        itemDiv.innerHTML = `
+                <span class="question">Q${item.id}. ${item.q}</span>
+                ${codeHtml}
+                <p>정답: <span class="ans">${item.a}</span></p>
+                <div class="exp">해설: ${item.e}</div>
+            `;
+        quizList.appendChild(itemDiv);
+      });
+    </script>
   </body>
 </html>
