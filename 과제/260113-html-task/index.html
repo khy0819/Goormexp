@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Starbucks Coffee Korea</title>
+    <title>스타벅스 스타일 카페 | 과제</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header>
-      <nav>
+      <nav aria-label="주요 메뉴">
         <h1>STARBUCKS</h1>
         <ul>
           <li><a href="#">홈</a></li>
@@ -17,50 +17,64 @@
           <li><a href="#">매장안내</a></li>
         </ul>
       </nav>
-      <div class="overlay">
-        <h2>커피 그 이상의 문화,<br />스타벅스에 오신 것을 환영합니다.</h2>
+      <div class="header-content">
+        <div class="overlay"></div>
+        <div class="text-box">
+          <h2>당신과 함께하는 특별한 커피 한 잔</h2>
+        </div>
       </div>
     </header>
 
     <main>
       <section id="intro">
-        <h2>스타벅스만의 특징</h2>
+        <h2>Welcome to Starbucks</h2>
+        <p>우리는 단순히 커피를 파는 것이 아니라 문화를 공유합니다.</p>
+        <p>매일 아침 신선한 원두로 시작하는 최고의 경험을 만나보세요.</p>
+        <h3>스타벅스의 특징</h3>
         <ul>
           <li>최상급 아라비카 원두 사용</li>
           <li>숙련된 바리스타의 정성</li>
-          <li>편안하고 아늑한 제3의 공간</li>
+          <li>편안하고 아늑한 공간 설계</li>
         </ul>
       </section>
 
       <section id="menu">
-        <h2>추천 메뉴</h2>
-        <div class="menu-container">
+        <h2>Our Menu</h2>
+        <div class="menu-grid">
           <article class="menu-card">
             <span class="badge best">Best</span>
             <img
-              src="https://placehold.co/200x200?text=Americano"
+              src="https://placehold.co/300x300/006241/ffffff?text=Americano"
               alt="아메리카노"
             />
-            <h3>카페 아메리카노</h3>
-            <p class="price">₩4,500</p>
-            <p class="desc">진한 에스프레소와 뜨거운 물의 조화</p>
+            <div class="card-info">
+              <h3>카페 아메리카노</h3>
+              <p class="price">₩4,500</p>
+              <p class="desc">진한 에스프레소의 깔끔한 맛</p>
+            </div>
           </article>
+
           <article class="menu-card">
             <span class="badge new">New</span>
-            <img src="https://placehold.co/200x200?text=Latte" alt="카페라떼" />
-            <h3>카페 라떼</h3>
-            <p class="price">₩5,000</p>
-            <p class="desc">부드러운 우유와 에스프레소의 만남</p>
+            <img
+              src="https://placehold.co/300x300/006241/ffffff?text=Flat+White"
+              alt="플랫화이트"
+            />
+            <div class="card-info">
+              <h3>플랫 화이트</h3>
+              <p class="price">₩5,000</p>
+              <p class="desc">부드러운 우유 거품의 진한 고소함</p>
+            </div>
           </article>
         </div>
       </section>
     </main>
 
-    <a href="#" class="btn-top">TOP</a>
+    <a href="#" class="top-btn" aria-label="맨 위로 이동">TOP</a>
 
     <footer>
-      <p>영업시간: 07:00 ~ 22:00 (매장별 상이)</p>
-      <p>&copy; 2026 Starbucks Coffee Company. All rights reserved.</p>
+      <p>영업시간: 07:00 ~ 22:00 (월~일)</p>
+      <p>&copy; 2026 Starbucks Coffee Korea. All rights reserved.</p>
     </footer>
   </body>
 </html>
