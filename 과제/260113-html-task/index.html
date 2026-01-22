@@ -3,84 +3,90 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Starbucks Style Cafe</title>
+    <title>Starbucks Coffee Korea</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header>
       <nav>
-        <div class="nav-container">
-          <h1>STARBUCKS</h1>
-          <ul class="nav-menu">
-            <li><a href="#">홈</a></li>
-            <li><a href="#menu">메뉴</a></li>
-            <li><a href="#">갤러리</a></li>
-            <li><a href="#">매장안내</a></li>
+        <div class="container nav-box">
+          <h1 class="logo">STARBUCKS</h1>
+          <ul class="menu-list">
+            <li><a href="#">COFFEE</a></li>
+            <li><a href="#menu">MENU</a></li>
+            <li><a href="#">STORE</a></li>
+            <li><a href="#">WHAT'S NEW</a></li>
           </ul>
         </div>
       </nav>
-      <div class="hero-section">
-        <div class="overlay"></div>
-        <div class="hero-text">
-          <h2>당신을 위한 특별한 한 잔</h2>
-          <p>스타벅스에서 전하는 진한 커피의 풍미를 느껴보세요.</p>
+      <div class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-text">
+          <h2>MEET THE PREMIER COFFEE</h2>
+          <p>스타벅스가 제안하는 프리미엄 커피를 경험해보라.</p>
+          <a href="#" class="btn-more">자세히 보기</a>
         </div>
       </div>
     </header>
 
-    <main>
-      <section class="intro">
+    <main class="container">
+      <section class="welcome">
         <h2>Welcome to Starbucks</h2>
-        <p>우리는 단순히 커피를 파는 것이 아니라, 제3의 공간을 제공한다.</p>
-        <p>전 세계 바리스타들이 정성껏 내린 최고의 커피를 만나볼 수 있다.</p>
-        <h3>스타벅스의 3가지 특징</h3>
-        <ul>
-          <li>최상급 아라비카 원두만 고집한다.</li>
-          <li>고객 맞춤형 퍼스널 옵션을 제공한다.</li>
-          <li>지속 가능한 미래를 위해 친환경 활동을 실천한다.</li>
+        <p>우리는 한 잔의 커피 그 이상의 가치를 전달한다.</p>
+        <ul class="features">
+          <li>🌱 지속 가능한 유기농 원두</li>
+          <li>☕ 숙련된 바리스타의 핸드드립</li>
+          <li>🏡 도심 속 아늑한 휴식 공간</li>
         </ul>
       </section>
 
       <section id="menu" class="menu-section">
-        <h2>Coffee & Desserts</h2>
+        <h2 class="section-title">SUNDAY MORNING MENU</h2>
         <div class="menu-grid">
-          <article class="menu-card">
-            <span class="badge best">Best</span>
-            <img
-              src="https://placehold.co/400x400/006241/ffffff?text=Americano"
-              alt="아메리카노"
-            />
-            <div class="card-body">
+          <article class="card">
+            <span class="badge best">BEST</span>
+            <div class="img-box">
+              <img
+                src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=400"
+                alt="아메리카노"
+              />
+            </div>
+            <div class="info">
               <h3>카페 아메리카노</h3>
               <p class="price">₩4,500</p>
               <p class="desc">
-                에스프레소에 뜨거운 물을 결합한 깔끔한 커피이다.
+                진한 에스프레소와 뜨거운 물이 조화로운 음료이다.
               </p>
             </div>
           </article>
-          <article class="menu-card">
-            <span class="badge new">New</span>
-            <img
-              src="https://placehold.co/400x400/006241/ffffff?text=Dolce+Latte"
-              alt="돌체라떼"
-            />
-            <div class="card-body">
-              <h3>스타벅스 돌체 라떼</h3>
-              <p class="price">₩5,900</p>
-              <p class="desc">
-                무지방 우유와 연유가 조화로운 부드러운 음료이다.
-              </p>
+          <article class="card">
+            <span class="badge new">NEW</span>
+            <div class="img-box">
+              <img
+                src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=400"
+                alt="라떼"
+              />
+            </div>
+            <div class="info">
+              <h3>부드러운 카페 라떼</h3>
+              <p class="price">₩5,000</p>
+              <p class="desc">우유 본연의 고소함이 느껴지는 스테디셀러이다.</p>
             </div>
           </article>
         </div>
       </section>
     </main>
 
-    <a href="#" class="top-button">TOP</a>
+    <a href="#" class="top-btn">TOP</a>
 
     <footer>
-      <div class="footer-container">
-        <p>영업시간: 평일 07:00 ~ 22:00 / 주말 08:00 ~ 21:00</p>
+      <div class="container">
+        <p>영업시간 07:00 ~ 22:00 (연중무휴)</p>
         <p>&copy; 2026 Starbucks Coffee Korea. All rights reserved.</p>
       </div>
     </footer>
