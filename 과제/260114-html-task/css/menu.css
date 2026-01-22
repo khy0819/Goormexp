@@ -118,3 +118,8 @@
 .badge.new {
   background: var(--accent-color); /* NEW 상품은 빨간색 */
 }
+
+/* css/menu.css 내부 */
+.menu-page-content {
+  margin-top: 150px; /* 헤더 높이가 100px이므로 최소 150px 이상 권장 */
+}
