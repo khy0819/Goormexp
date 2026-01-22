@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260114) CSS 퀴즈 정답</title>
+    <style>
+      :root {
+        --primary: #006241; /* 스타벅스 그린으로 변경 */
+        --bg: #fdfdfd;
+      }
+      body {
+        font-family: "Pretendard", sans-serif;
+        line-height: 1.7;
+        background-color: var(--bg);
+        padding: 20px;
+        color: #333;
+      }
+      .container {
+        max-width: 850px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      }
+      h1 {
+        color: var(--primary);
+        border-bottom: 3px solid var(--primary);
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      .quiz-item {
+        margin-bottom: 20px;
+        padding: 18px;
+        border: 1px solid #eee;
+        border-radius: 12px;
+        transition: 0.2s;
+      }
+      .quiz-item:hover {
+        border-color: var(--primary);
+        background-color: #f6fff8;
+      }
+      .q {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 8px;
+        color: #444;
+      }
+      .ans {
+        color: #d93025;
+        font-weight: bold;
+        background: #fff1f0;
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
+      .exp {
+        font-size: 0.92em;
+        color: #666;
+        margin-top: 10px;
+        padding: 10px;
+        background: #fafafa;
+        border-left: 4px solid var(--primary);
+      }
+      .back-btn {
+        display: block;
+        width: fit-content;
+        margin: 40px auto 0;
+        padding: 12px 30px;
+        background: var(--primary);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>✅ CSS 레이아웃 & 변수 퀴즈 정답</h1>
+
+      <div class="quiz-item">
+        <span class="q"
+          >Q1. CSS 박스 모델의 4개 영역을 안쪽부터 순서대로 나열하면?</span
+        >
+        <span class="ans">정답: Content → Padding → Border → Margin</span>
+        <div class="exp">
+          해설: 실제 내용(Content)을 안쪽 여백(Padding)이 감싸고, 그 바깥에
+          테두리(Border), 마지막으로 요소 간의 간격(Margin)이 위치한다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q"
+          >Q2. width: 200px, padding: 20px, border: 5px일 때 실제 너비는?</span
+        >
+        <span class="ans">정답: 250px</span>
+        <div class="exp">
+          해설: content-box 방식에서는 width(200) + 왼쪽/오른쪽 padding(40) +
+          왼쪽/오른쪽 border(10)를 모두 더해 250px이 된다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q7. background-size: cover의 특징은?</span>
+        <span class="ans">정답: 비율을 유지하며 요소를 꽉 채움</span>
+        <div class="exp">
+          해설: 빈 공간이 생기지 않도록 배경을 꽉 채우는 방식이며, 이미지의
+          비율에 따라 상하 또는 좌우 일부가 잘릴 수 있다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q"
+          >Q11. 이미지 위에 반투명 오버레이를 추가하는 방법은?</span
+        >
+        <span class="ans"
+          >정답: 1번 (background-image에 linear-gradient와 url을 함께
+          사용)</span
+        >
+        <div class="exp">
+          해설: 배경 이미지 속성에 쉼표를 이용해 여러 값을 넣으면 먼저 선언된
+          순서대로 겹쳐진다. 그라데이션을 앞에 두어 오버레이를 만든다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q12. position: absolute 요소의 기준점은?</span>
+        <span class="ans">정답: position이 지정된 가장 가까운 부모</span>
+        <div class="exp">
+          해설: static이 아닌(relative, absolute, fixed 등) 포지션을 가진 가장
+          가까운 조상 요소를 기준으로 위치가 결정된다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q13. 고정 헤더를 만들 때 사용하는 position은?</span>
+        <span class="ans">정답: fixed</span>
+        <div class="exp">
+          해설: 스크롤을 내려도 항상 브라우저 화면(Viewport)의 특정 위치에
+          고정시키고 싶을 때 사용한다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q16. 요소를 화면에서 공간까지 완전히 제거하려면?</span>
+        <span class="ans">정답: display: none</span>
+        <div class="exp">
+          해설: visibility: hidden이나 opacity: 0은 투명해질 뿐 공간을
+          차지하지만, display: none은 렌더링 트리에서 아예 제외된다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q"
+          >Q19. Flexbox에서 양 끝 정렬 + 균등 간격을 설정하려면?</span
+        >
+        <span class="ans">정답: justify-content: space-between</span>
+        <div class="exp">
+          해설: 첫 번째 아이템은 시작점에, 마지막 아이템은 끝점에 붙이고 나머지
+          아이템 사이의 간격을 동일하게 배분한다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q">Q22. CSS 변수를 전역으로 선언하는 선택자는?</span>
+        <span class="ans">정답: :root</span>
+        <div class="exp">
+          해설: HTML 문서의 최상위 요소인 html을 가리키며, 이곳에 변수를
+          선언하면 문서 전체 어디서든 사용할 수 있다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="q"
+          >Q25. 부모 요소에 다른 색상 변수가 선언되었을 때 실행 결과는?</span
+        >
+        <span class="ans">정답: A는 파란색, B는 빨간색</span>
+        <div class="exp">
+          해설: CSS 변수는 상속되며, 동일한 변수명이라도 요소 자신이나 가장
+          가까운 조상에 선언된 값이 우선 적용된다.
+        </div>
+      </div>
+
+      <a href="index.html" class="back-btn">메인 화면으로 돌아가기</a>
+    </div>
+  </body>
+</html>
