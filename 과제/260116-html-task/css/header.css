@@ -1,0 +1,109 @@
+/* header.css */
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  z-index: 1000;
+  /* [요구사항 3] 투명도 + 블러 효과 (Glassmorphism) */
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: var(--blur-effect);
+  -webkit-backdrop-filter: var(--blur-effect); /* Safari 지원 */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: var(--transition-base);
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.logo {
+  color: var(--primary-color);
+  font-weight: 800;
+  text-decoration: none;
+  font-size: 1.5rem;
+  letter-spacing: -1.5px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* [요구사항 2] 데스크톱 메뉴 배치 */
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: var(--space-xl);
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 700;
+  font-size: 0.95rem;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* 메뉴 호버 시 언더라인 애니메이션 */
+.nav-menu a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.nav-menu a:hover::after,
+.nav-menu a.active::after {
+  width: 100%;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+  color: var(--primary-color);
+}
+
+/* [요구사항 2] 모바일 햄버거 버튼 (기본 숨김) */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-color);
+}
+
+/* [요구사항 2] 반응형 미디어 쿼리 - 모바일(~768px) */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block; /* 모바일에서 햄버거 버튼 등장 */
+  }
+
+  .nav-menu {
+    display: none; /* 기본적으로 닫혀 있음 */
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    padding: var(--space-lg);
+    gap: var(--space-lg);
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    animation: fadeInUp 0.3s ease; /* common.css 애니메이션 활용 */
+  }
+
+  /* 네비게이션 활성화 시 (JS 토글용 클래스) */
+  .nav-menu.active {
+    display: flex;
+  }
+}

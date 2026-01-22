@@ -1,0 +1,100 @@
+/* footer.css */
+
+footer {
+  background-color: var(--text-dark); /* common.css 변수 활용 */
+  color: var(--white);
+  padding: var(--section-padding) 0; /* 상하 여백 통일 */
+  margin-top: 100px;
+  font-size: 0.9rem;
+  border-top: 4px solid var(--primary-color); /* 포인트 라인 */
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* [요구사항 2] 반응형 줄바꿈 */
+  gap: var(--space-xl);
+}
+
+.footer-section {
+  flex: 1 1 250px; /* 고정 너비보다 유연한 비율 할당 */
+}
+
+.footer-section h4 {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  margin-bottom: var(--space-md);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+}
+
+.footer-section p {
+  color: #ccc; /* 가독성을 위한 대비 조정 */
+  line-height: 2;
+  margin-bottom: var(--space-xs);
+}
+
+/* [요구사항 4] SNS 아이콘 스타일 */
+.sns-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.sns-links a {
+  color: var(--white);
+  transition: var(--transition-base);
+  opacity: 0.7;
+}
+
+.sns-links a:hover {
+  color: var(--accent-color);
+  transform: translateY(-5px); /* [요구사항 1] 호버 변형 */
+  opacity: 1;
+}
+
+/* [요구사항 1] TOP 버튼 최적화 */
+.top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--primary-color);
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  text-decoration: none;
+  z-index: 999;
+  box-shadow: var(--shadow-lg);
+  transition: var(--transition-base);
+}
+
+.top-btn:hover {
+  background-color: var(--primary-dark);
+  transform: scale(1.1); /* [요구사항 1] 부드러운 확대 */
+}
+
+.top-btn:active {
+  transform: scale(0.9); /* [요구사항 1] 클릭 시 축소 피드백 */
+}
+
+/* [요구사항 2] 모바일 반응형 대응 */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column; /* 세로 정렬 */
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  .footer-section {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,0 +1,62 @@
+/* css/welcome.css */
+.welcome-section {
+  padding: 80px 40px;
+  background-color: var(--gray-bg);
+  border-radius: 30px;
+  margin: 60px 0;
+  text-align: center;
+}
+
+.welcome-header {
+  margin-bottom: 50px;
+}
+
+.welcome-header h2 {
+  font-size: 32px;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.welcome-header p {
+  color: var(--light-text-color);
+  font-size: 18px;
+}
+
+.feature-grid {
+  display: flex; /* Flexbox 레이아웃 재구성 */
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap; /* 반응형: 아이템이 줄바꿈되도록 */
+}
+
+.feature-card {
+  flex: 1 1 calc(33.333% - 20px); /* 3단 구성, 33.333% */
+  max-width: 350px; /* 최대 너비 제한 */
+  background: var(--white);
+  padding: 40px 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px var(--shadow-color);
+  transition: transform 0.3s ease;
+  min-width: 280px; /* 너무 작아지지 않게 */
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+}
+
+.feature-card .icon {
+  font-size: 40px;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.feature-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: var(--light-text-color);
+}

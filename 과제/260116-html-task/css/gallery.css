@@ -1,0 +1,97 @@
+/* gallery.css */
+
+.gallery-section {
+  padding-bottom: var(--section-padding);
+  background: linear-gradient(
+    to bottom,
+    var(--white),
+    var(--bg-light)
+  ); /* [요구사항 3] 그라데이션 배경 */
+}
+
+.gallery-grid {
+  display: flex;
+  overflow-x: auto;
+  /* [요구사항 3] 모바일 스크롤 스냅 설정 */
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-sm);
+  -webkit-overflow-scrolling: touch; /* iOS 부드러운 스크롤 */
+}
+
+/* 스크롤바 숨기기 (모바일 슬라이더 느낌 강조) */
+.gallery-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-item {
+  /* [요구사항 2] 모바일에서는 하나씩 크게 보임 (80% 너비) */
+  flex: 0 0 85%;
+  height: 300px;
+  scroll-snap-align: center;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-base);
+  cursor: pointer;
+  position: relative;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* [요구사항 1] 갤러리 이미지 호버 확대 및 그림자 깊이감 */
+.gallery-item:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.15);
+}
+
+/* 이미지 위 텍스트 오버레이 (선택사항 - 완성도 향상) */
+.gallery-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.gallery-item:hover::after {
+  opacity: 1;
+}
+
+/* [요구사항 2] 반응형 미디어 쿼리 - 태블릿 (2열) */
+@media (min-width: 768px) {
+  .gallery-item {
+    flex: 0 0 calc(50% - var(--space-sm));
+    height: 350px;
+  }
+}
+
+/* [요구사항 2] 반응형 미디어 쿼리 - 데스크톱 (3열 이상) */
+@media (min-width: 1024px) {
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow-x: visible; /* 스크롤 제거 */
+    gap: var(--space-md);
+    padding: 0;
+  }
+
+  .gallery-item {
+    width: 100%;
+    height: 400px;
+    scroll-snap-align: none;
+  }
+}

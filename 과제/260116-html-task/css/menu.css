@@ -1,0 +1,138 @@
+/* menu.css */
+
+.menu-page-content {
+  padding-bottom: var(--section-padding);
+  margin-top: 100px; /* 헤더의 고정 높이와 맞춤 */
+}
+
+/* [요구사항 2] 인터랙티브 메뉴 필터 (Flexbox) */
+.filter-category {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 10px 24px;
+  border: 1px solid var(--primary-color);
+  background: var(--white);
+  color: var(--primary-color);
+  cursor: pointer;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  transition: var(--transition-base); /* common.css의 0.3s 변수 활용 */
+}
+
+.filter-btn:hover {
+  opacity: 1;
+  background-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.filter-btn.active {
+  background-color: var(--primary-color);
+  color: var(--white);
+  opacity: 1;
+  box-shadow: var(--shadow-sm);
+}
+
+.filter-btn:active {
+  transform: scale(0.95); /* [요구사항 1] 버튼 클릭 효과 */
+}
+
+/* [요구사항 2] 메뉴 그리드 배치 (Grid 활용) */
+.menu-grid {
+  display: grid;
+  gap: var(--space-lg); /* 24px 간격 */
+  /* 모바일: 기본 1열 */
+  grid-template-columns: 1fr;
+}
+
+/* 태블릿: 2열 */
+@media (min-width: 768px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 데스크톱: 4열 */
+@media (min-width: 1024px) {
+  .menu-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.menu-card {
+  position: relative;
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-base);
+  animation: fadeInUp 0.6s ease backwards; /* 로딩 시 카드별 애니메이션 */
+}
+
+/* [요구사항 1] 메뉴 카드 호버 시 확대 및 깊이감 추가 */
+.menu-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: var(--shadow-lg);
+}
+
+.menu-card .img-box {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  background-color: var(--bg-light);
+}
+
+.menu-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* [요구사항 3] 이미지 확대 효과 */
+.menu-card:hover img {
+  transform: scale(1.1);
+}
+
+.card-info {
+  padding: var(--space-md);
+  text-align: center;
+}
+
+.card-info h3 {
+  font-size: 1.1rem;
+  margin-bottom: var(--space-xs);
+  color: var(--text-dark);
+}
+
+.card-info p {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+/* [요구사항 5] 뱃지 스타일링 */
+.badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: var(--primary-color);
+  color: var(--white);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  z-index: 10;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.badge.new {
+  background: #e67e22; /* 오렌지색으로 가독성 확보 */
+}

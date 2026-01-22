@@ -1,0 +1,105 @@
+/* 1. 디자인 시스템 변수 정의 (8px 배수 시스템 및 컬러 스택) */
+:root {
+  /* Colors */
+  --primary-color: #006241;
+  --primary-dark: #004a31;
+  --accent-color: #d4e9e2;
+  --text-dark: #2c2a29;
+  --text-light: #666666;
+  --white: #ffffff;
+  --bg-light: #f6f5ef;
+
+  /* Spacing (8px system) */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --section-padding: 80px;
+
+  /* Shadows & Effects */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
+  --transition-base: all 0.3s ease;
+  --blur-effect: blur(10px);
+}
+
+/* 2. Reset & Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    "Pretendard", "Noto Sans KR", sans-serif; /* 가독성 좋은 폰트 스택 */
+  color: var(--text-dark);
+  line-height: 1.6;
+  background-color: var(--white);
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+}
+
+/* 3. Layout Utilities */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+/* 4. Typography & Section Header */
+.section-title {
+  text-align: center;
+  margin-top: var(--section-padding);
+  margin-bottom: var(--space-sm);
+  color: var(--primary-color);
+  font-size: 2rem; /* 반응형을 고려한 rem 단위 */
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.section-subtitle {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  color: var(--text-light);
+  font-size: 1.1rem;
+}
+
+/* 5. [요구사항 1] 애니메이션 최적화 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+}
+
+/* 섹션 공통 애니메이션 (가속도 최적화) */
+section {
+  animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  will-change: transform, opacity; /* 브라우저 렌더링 최적화 */
+}
+
+/* 루프를 이용한 순차적 딜레이 적용 (유지보수 용이) */
+section:nth-child(1) {
+  animation-delay: 0.1s;
+}
+section:nth-child(2) {
+  animation-delay: 0.2s;
+}
+section:nth-child(3) {
+  animation-delay: 0.3s;
+}
+section:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+/* 6. [요구사항 3] 공통 그라데이션 섹션 구분 (Optional) */
+.section--gradient {
+  background: linear-gradient(180deg, var(--white) 0%, var(--bg-light) 100%);
+}
