@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260119) JS 퀴즈 전체 정답</title>
+    <style>
+      :root {
+        --primary: #f7df1e; /* JS 공식 노란색 */
+        --bg: #fdfdfd;
+      }
+      body {
+        font-family: "Pretendard", sans-serif;
+        line-height: 1.7;
+        background-color: var(--bg);
+        padding: 20px;
+        color: #333;
+      }
+      .container {
+        max-width: 850px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      }
+      h1 {
+        color: #333;
+        border-bottom: 3px solid var(--primary);
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      .quiz-item {
+        margin-bottom: 15px;
+        padding: 12px 18px;
+        border: 1px solid #eee;
+        border-radius: 10px;
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      .q-num {
+        font-weight: 800;
+        color: var(--primary);
+        background: #333;
+        padding: 2px 8px;
+        border-radius: 4px;
+        min-width: 45px;
+        text-align: center;
+      }
+      .ans {
+        background-color: #fff5b1;
+        text-decoration: underline;
+        font-weight: bold;
+        color: #d93025;
+      }
+      .back-btn {
+        display: block;
+        width: fit-content;
+        margin: 40px auto 0;
+        padding: 12px 40px;
+        background-color: #333;
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
+      .back-btn:hover {
+        background-color: var(--primary);
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🟨 JS 변수 & 자료형 전체 정답 (1~40)</h1>
+
+      <div class="quiz-item">
+        <span class="q-num">Q1</span
+        ><span
+          >정답: <span class="ans">에러 발생</span> (let은 재선언 불가)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q2</span
+        ><span
+          >정답:
+          <span class="ans">재할당이 불가능하다, 성능이 let보다 느리다</span>
+          (중복 정답)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q3</span
+        ><span
+          >정답:
+          <span class="ans">let $price = 1000;, let _temp = 10;</span> (중복
+          정답)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q4</span
+        ><span
+          >정답: <span class="ans">에러 발생</span> (const 재할당 불가)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q5</span
+        ><span>정답: <span class="ans">위의 모든 것을 구분한다</span></span>
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q6</span
+        ><span>정답: <span class="ans">const MAX_USERS = 100;</span></span>
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q7</span
+        ><span
+          >정답: <span class="ans">"number"</span> (typeof 10은 "number", 숫자
+          연산 결과의 타입)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q8</span
+        ><span
+          >정답: <span class="ans">"53"</span> (문자 + 숫자 = 문자 연결)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q9</span
+        ><span>정답: <span class="ans">"object"</span> (JS의 역사적 버그)</span>
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q10</span
+        ><span
+          >정답:
+          <span class="ans"
+            >null은 개발자가 의도적으로 할당, undefined는 자동 할당</span
+          ></span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q11</span
+        ><span
+          >정답: <span class="ans">false</span> (타입이 다름: object vs
+          undefined)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q12</span
+        ><span
+          >정답: <span class="ans">"hello" * 2, Math.sqrt(-1)</span> (중복
+          정답)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q13</span
+        ><span
+          >정답: <span class="ans">`이름: ${name}`</span> (백틱 사용 필수)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q14</span
+        ><span>정답: <span class="ans">총 가격은 30000원입니다.</span></span>
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q15</span
+        ><span>정답: <span class="ans">false</span> (엄격한 비교 ===)</span>
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q16</span
+        ><span
+          >정답:
+          <span class="ans"
+            >let isLoggedIn = true;, let hasPermission = false;</span
+          >
+          (중복 정답)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q17</span
+        ><span
+          >정답: <span class="ans">true</span> (a && b는 false, !b는 true →
+          false || true는 true)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q18</span
+        ><span
+          >정답: <span class="ans">let user_name = "철수";</span> (언더바
+          가능)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q19</span
+        ><span>정답: <span class="ans">undefined, "undefined"</span></span>
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q20</span
+        ><span>정답: <span class="ans">1</span> (10을 3으로 나눈 나머지)</span>
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q21</span
+        ><span
+          >정답: <span class="ans">let str = 안녕 + 하세요;</span> (따옴표
+          누락)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q22</span
+        ><span>정답: <span class="ans">"string" "number"</span></span>
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q23</span
+        ><span>정답: <span class="ans">console.log(10 / 0);</span></span>
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q24</span
+        ><span
+          >정답: <span class="ans">let userName, let maxUserCount</span> (중복
+          정답)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q25</span
+        ><span
+          >정답: <span class="ans">"number"</span> (NaN의 타입은 숫자)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q26</span
+        ><span>정답: <span class="ans">"1020"</span> (문자열 연결 우선)</span>
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q27</span
+        ><span
+          >정답: <span class="ans">2번과 3번 모두 적절</span> (복수형이나 List
+          접미사 권장)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q28</span
+        ><span
+          >정답: <span class="ans">"영희"</span> (상수 객체 내부 값은 변경
+          가능)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q29</span
+        ><span>정답: <span class="ans">true</span></span>
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q30</span
+        ><span>정답: <span class="ans">variable</span></span>
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q31</span
+        ><span
+          >정답: <span class="ans">에러 발생</span> (일반 따옴표는 줄바꿈
+          불가)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q32</span
+        ><span
+          >정답:
+          <span class="ans"
+            >변수를 쉽게 삽입할 수 있다, 여러 줄 문자열을 작성할 수 있다</span
+          >
+          (중복 정답)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q33</span
+        ><span>정답: <span class="ans">true</span> (타입 변환 비교 ==)</span>
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q34</span
+        ><span
+          >정답:
+          <span class="ans"
+            >블록 스코프를 따른다, 재선언이 불가능하다, ES6에서 도입되었다</span
+          >
+          (중복 정답)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q35</span
+        ><span
+          >정답: <span class="ans">"철수" "영희"</span> (대소문자 구분
+          변수)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q36</span
+        ><span
+          >정답:
+          <span class="ans"
+            >const로 선언한 객체의 속성은 변경할 수 있다</span
+          ></span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q37</span
+        ><span>정답: <span class="ans">true</span></span>
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q38</span
+        ><span
+          >정답:
+          <span class="ans">let str = "그는 "안녕"이라고 말했다";</span> (따옴표
+          충돌)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q39</span
+        ><span
+          >정답: <span class="ans">1000000</span> (숫자 구분자 언더바)</span
+        >
+      </div>
+      <div class="quiz-item">
+        <span class="q-num">Q40</span
+        ><span
+          >정답:
+          <span class="ans"
+            >기본적으로 const를 사용하고 필요시 let을 사용한다</span
+          ></span
+        >
+      </div>
+
+      <a href="https://khy0819.github.io/Goormexp/" class="back-btn">🏠</a>
+    </div>
+  </body>
+</html>
