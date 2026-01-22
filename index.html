@@ -9,109 +9,109 @@
         font-family: "Pretendard", sans-serif;
         line-height: 1.6;
         padding: 40px;
-        background-color: #f8f9fa;
+        background-color: #f4f7f6;
         color: #333;
       }
       .container {
-        max-width: 600px;
+        max-width: 700px;
         margin: 0 auto;
         background: white;
         padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
       }
       h1 {
-        font-size: 24px;
-        color: #1a73e8;
-        border-bottom: 2px solid #1a73e8;
-        padding-bottom: 10px;
+        font-size: 26px;
+        color: #2c3e50;
+        border-left: 5px solid #1a73e8;
+        padding-left: 15px;
         margin-bottom: 30px;
       }
-      .category-title {
-        font-size: 1.1em;
-        font-weight: bold;
-        margin-top: 25px;
-        color: #555;
-      }
-      ul {
+      #assignment-list {
         list-style: none;
         padding: 0;
-        margin-top: 10px;
       }
-      li {
-        margin: 10px 0;
-        padding: 12px;
+      .item {
+        margin-bottom: 12px;
+        padding: 15px;
         border: 1px solid #eee;
-        border-radius: 8px;
-        transition: 0.2s;
-      }
-      li:hover {
-        background-color: #f1f7ff;
-        border-color: #1a73e8;
-      }
-      a {
-        text-decoration: none;
-        color: #333;
-        font-weight: 600;
+        border-radius: 12px;
+        transition: all 0.2s ease;
         display: flex;
         align-items: center;
       }
-      .date {
-        font-size: 0.85em;
-        color: #888;
-        width: 80px;
+      .item:hover {
+        transform: translateX(5px);
+        background-color: #f1f7ff;
+        border-color: #1a73e8;
       }
-      .tag {
-        font-size: 0.75em;
-        padding: 2px 8px;
-        border-radius: 12px;
-        background: #e8f0fe;
-        color: #1a73e8;
-        margin-right: 12px;
+      .item a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+      }
+      .folder-icon {
+        margin-right: 15px;
+        font-size: 1.2em;
+      }
+      .loading {
+        text-align: center;
+        color: #888;
+        padding: 20px;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>📚</h1>
-
-      <div class="category-title">📂 퀴즈 결과</div>
-      <ul>
-        <li>
-          <a href="./과제/260106-html-quiz/">
-            <span class="date">26-01-06</span><span class="tag">QUIZ</span> HTML
-            기초 속성 퀴즈
-          </a>
-        </li>
-        <li>
-          <a href="./과제/260105-html-quiz/index.html">
-            <span class="date">26-01-05</span
-            ><span class="tag">QUIZ</span> (260105) HTML 퀴즈 정답
-          </a>
-        </li>
-      </ul>
-
-      <div class="category-title">📂 과제 제출물</div>
-      <ul>
-        <li>
-          <a href="./과제/260107-html-task/">
-            <span class="date">26-01-07</span><span class="tag">TASK</span> HTML
-            과제 03
-          </a>
-        </li>
-        <li>
-          <a href="./과제/260106-html-task/260106-quiz.html">
-            <span class="date">26-01-06</span><span class="tag">TASK</span> HTML
-            과제 02
-          </a>
-        </li>
-        <li>
-          <a href="./과제/260105-html-task/assignment.html">
-            <span class="date">26-01-05</span><span class="tag">TASK</span> HTML
-            과제 01
-          </a>
-        </li>
-      </ul>
+      <h1>📂 실시간 과제 목록</h1>
+      <div id="loading" class="loading">과제 목록을 불러오는 중...</div>
+      <ul id="assignment-list"></ul>
     </div>
+
+    <script>
+      // 본인의 깃허브 정보를 입력하세요
+      const USERNAME = "khy0819";
+      const REPO = "Goormexp";
+      const PATH = "과제"; // 탐색할 폴더 경로
+
+      async function fetchAssignments() {
+        try {
+          // GitHub API를 통해 '과제' 폴더 내의 목록을 가져옵니다.
+          const response = await fetch(
+            `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${PATH}`,
+          );
+          const data = await response.json();
+
+          const listContainer = document.getElementById("assignment-list");
+          const loading = document.getElementById("loading");
+          loading.style.display = "none";
+
+          // 폴더(dir) 타입인 것만 골라내서 리스트로 만듭니다.
+          data
+            .filter((item) => item.type === "dir")
+            .reverse()
+            .forEach((folder) => {
+              const li = document.createElement("li");
+              li.className = "item";
+              li.innerHTML = `
+                        <a href="./${PATH}/${folder.name}/">
+                            <span class="folder-icon">📁</span>
+                            <span>${folder.name}</span>
+                        </a>
+                    `;
+              listContainer.appendChild(li);
+            });
+        } catch (error) {
+          console.error("목록 로드 실패:", error);
+          document.getElementById("loading").innerText =
+            "목록을 불러오지 못했습니다.";
+        }
+      }
+
+      fetchAssignments();
+    </script>
   </body>
 </html>
