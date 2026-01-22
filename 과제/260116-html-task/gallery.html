@@ -2,64 +2,171 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Starbucks | Gallery</title>
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/gallery.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
   </head>
   <body>
+    <div id="loader">
+      <div class="spinner"></div>
+    </div>
+
     <header>
       <nav class="container">
-        <a href="index.html" class="logo">STARBUCKS</a>
-        <ul class="nav-menu">
+        <a href="index.html" class="logo">
+          <span class="material-icons">local_cafe</span> STARBUCKS
+        </a>
+
+        <button class="menu-toggle" onclick="toggleMenu()">
+          <span class="material-icons">menu</span>
+        </button>
+
+        <ul class="nav-menu" id="navMenu">
           <li><a href="index.html">HOME</a></li>
           <li><a href="menu.html">MENU</a></li>
-          <li><a href="store.html">STORE</a></li>
-          <li><a href="responsibility.html">RESPONSIBILITY</a></li>
           <li><a href="gallery.html" class="active">GALLERY</a></li>
+          <li><a href="https://khy0819.github.io/Goormexp/">과제목록</a></li>
         </ul>
       </nav>
     </header>
 
-    <main class="container" style="margin-top: 150px">
-      <h2 class="section-title">Photo Gallery</h2>
-      <div class="gallery-grid">
-        <div class="gallery-item">
-          <img src="https://picsum.photos/400/400?random=1" alt="카페이미지" />
-        </div>
-        <div class="gallery-item">
-          <img src="https://picsum.photos/400/400?random=2" alt="카페이미지" />
-        </div>
-        <div class="gallery-item">
-          <img src="https://picsum.photos/400/400?random=3" alt="카페이미지" />
-        </div>
-        <div class="gallery-item">
-          <img src="https://picsum.photos/400/400?random=4" alt="카페이미지" />
-        </div>
-        <div class="gallery-item">
-          <img src="https://picsum.photos/400/400?random=5" alt="카페이미지" />
-        </div>
-        <div class="gallery-item">
-          <img src="https://picsum.photos/400/400?random=6" alt="카페이미지" />
-        </div>
-        <div class="gallery-item">
-          <img src="https://picsum.photos/400/400?random=7" alt="카페이미지" />
-        </div>
-        <div class="gallery-item">
-          <img src="https://picsum.photos/400/400?random=8" alt="카페이미지" />
-        </div>
-        <div class="gallery-item">
-          <img src="https://picsum.photos/400/400?random=9" alt="카페이미지" />
-        </div>
-        <div class="gallery-item">
-          <img src="https://picsum.photos/400/400?random=10" alt="카페이미지" />
-        </div>
-        <div class="gallery-item">
-          <img src="https://picsum.photos/400/400?random=11" alt="카페이미지" />
-        </div>
-        <div class="gallery-item">
-          <img src="https://picsum.photos/400/400?random=12" alt="카페이미지" />
+    <main class="gallery-section">
+      <div class="container">
+        <h2 class="section-title">Photo Gallery</h2>
+        <p class="section-subtitle">
+          스타벅스의 감성적인 순간들을 확인해보세요.
+        </p>
+
+        <div class="gallery-grid">
+          <div class="gallery-item" style="animation-delay: 0.1s">
+            <img
+              src="https://picsum.photos/400/400?random=1"
+              alt="카페이미지 1"
+            />
+          </div>
+          <div class="gallery-item" style="animation-delay: 0.2s">
+            <img
+              src="https://picsum.photos/400/400?random=2"
+              alt="카페이미지 2"
+            />
+          </div>
+          <div class="gallery-item" style="animation-delay: 0.3s">
+            <img
+              src="https://picsum.photos/400/400?random=3"
+              alt="카페이미지 3"
+            />
+          </div>
+          <div class="gallery-item" style="animation-delay: 0.4s">
+            <img
+              src="https://picsum.photos/400/400?random=4"
+              alt="카페이미지 4"
+            />
+          </div>
+          <div class="gallery-item" style="animation-delay: 0.1s">
+            <img
+              src="https://picsum.photos/400/400?random=5"
+              alt="카페이미지 5"
+            />
+          </div>
+          <div class="gallery-item" style="animation-delay: 0.2s">
+            <img
+              src="https://picsum.photos/400/400?random=6"
+              alt="카페이미지 6"
+            />
+          </div>
+          <div class="gallery-item" style="animation-delay: 0.3s">
+            <img
+              src="https://picsum.photos/400/400?random=7"
+              alt="카페이미지 7"
+            />
+          </div>
+          <div class="gallery-item" style="animation-delay: 0.4s">
+            <img
+              src="https://picsum.photos/400/400?random=8"
+              alt="카페이미지 8"
+            />
+          </div>
+          <div class="gallery-item" style="animation-delay: 0.1s">
+            <img
+              src="https://picsum.photos/400/400?random=9"
+              alt="카페이미지 9"
+            />
+          </div>
+          <div class="gallery-item" style="animation-delay: 0.2s">
+            <img
+              src="https://picsum.photos/400/400?random=10"
+              alt="카페이미지 10"
+            />
+          </div>
+          <div class="gallery-item" style="animation-delay: 0.3s">
+            <img
+              src="https://picsum.photos/400/400?random=11"
+              alt="카페이미지 11"
+            />
+          </div>
+          <div class="gallery-item" style="animation-delay: 0.4s">
+            <img
+              src="https://picsum.photos/400/400?random=12"
+              alt="카페이미지 12"
+            />
+          </div>
         </div>
       </div>
     </main>
-    <footer><p>&copy; 2026 Starbucks Korea</p></footer>
+
+    <a href="#" class="top-btn">
+      <span class="material-icons">arrow_upward</span>
+    </a>
+
+    <footer>
+      <div class="container footer-content">
+        <div class="footer-section">
+          <h4><span class="material-icons">schedule</span> 영업시간</h4>
+          <p>월-금: 07:00 - 22:00</p>
+          <p>주말: 08:00 - 21:00</p>
+        </div>
+        <div class="footer-section">
+          <h4><span class="material-icons">place</span> 본사 주소</h4>
+          <p>서울특별시 구름구 구름동 스타벅스 빌딩</p>
+          <p>대표번호: 1522-3232</p>
+        </div>
+        <div class="footer-section">
+          <h4><span class="material-icons">public</span> SNS 채널</h4>
+          <div class="sns-icons">
+            <a href="#"><span class="material-icons">facebook</span></a>
+            <a href="#"><span class="material-icons">camera_alt</span></a>
+            <a href="#"><span class="material-icons">language</span></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // 로딩 스피너 제어
+      window.addEventListener("load", () => {
+        const loader = document.getElementById("loader");
+        loader.style.opacity = "0";
+        setTimeout(() => {
+          loader.style.display = "none";
+        }, 500);
+      });
+
+      // 모바일 메뉴 토글
+      function toggleMenu() {
+        const nav = document.getElementById("navMenu");
+        nav.classList.toggle("active");
+      }
+    </script>
   </body>
 </html>

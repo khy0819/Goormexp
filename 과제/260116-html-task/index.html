@@ -4,22 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Starbucks | Home</title>
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/hero.css" />
+    <link rel="stylesheet" href="css/footer.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
   </head>
   <body>
+    <div id="loader">
+      <div class="spinner"></div>
+    </div>
+
     <header>
       <nav class="container">
-        <a href="index.html" class="logo">STARBUCKS</a>
-        <ul class="nav-menu">
+        <a href="index.html" class="logo">
+          <span class="material-icons">local_cafe</span> STARBUCKS
+        </a>
+
+        <button class="menu-toggle" onclick="toggleMenu()">
+          <span class="material-icons">menu</span>
+        </button>
+
+        <ul class="nav-menu" id="navMenu">
           <li><a href="index.html" class="active">HOME</a></li>
           <li><a href="menu.html">MENU</a></li>
-          <li><a href="store.html">STORE</a></li>
-          <li><a href="responsibility.html">RESPONSIBILITY</a></li>
           <li><a href="gallery.html">GALLERY</a></li>
+          <li><a href="https://khy0819.github.io/Goormexp/">과제목록</a></li>
         </ul>
       </nav>
     </header>
@@ -35,23 +52,28 @@
 
     <main class="container">
       <section class="welcome-section">
-        <div class="welcome-header">
-          <h2>Welcome to Starbucks</h2>
-          <p>한 잔의 커피 그 이상의 가치를 디자인합니다.</p>
+        <div class="section-header">
+          <h2 class="section-title">Welcome to Starbucks</h2>
+          <p class="section-subtitle">
+            한 잔의 커피 그 이상의 가치를 디자인합니다.
+          </p>
         </div>
+
         <div class="feature-grid">
           <article class="feature-card">
-            <div class="icon">🌱</div>
+            <div class="icon"><span class="material-icons">eco</span></div>
             <h3>지속 가능한 원두</h3>
             <p>환경과 상생하는 유기농 원두만을 고집합니다.</p>
           </article>
           <article class="feature-card">
-            <div class="icon">☕</div>
+            <div class="icon">
+              <span class="material-icons">coffee_maker</span>
+            </div>
             <h3>마스터 바리스타</h3>
             <p>숙련된 전문가의 섬세한 핸드드립을 선사합니다.</p>
           </article>
           <article class="feature-card">
-            <div class="icon">🏡</div>
+            <div class="icon"><span class="material-icons">weekend</span></div>
             <h3>아늑한 휴식 공간</h3>
             <p>언제나 편히 쉴 수 있는 제3의 공간을 지향합니다.</p>
           </article>
@@ -59,25 +81,48 @@
       </section>
     </main>
 
-    <a href="#" class="top-btn">TOP</a>
+    <a href="#" class="top-btn">
+      <span class="material-icons">arrow_upward</span>
+    </a>
 
     <footer>
       <div class="container footer-content">
         <div class="footer-section">
-          <h4>영업시간</h4>
+          <h4><span class="material-icons">schedule</span> 영업시간</h4>
           <p>월-금: 07:00 - 22:00</p>
           <p>주말: 08:00 - 21:00</p>
         </div>
         <div class="footer-section">
-          <h4>본사 주소</h4>
+          <h4><span class="material-icons">place</span> 본사 주소</h4>
           <p>서울특별시 구름구 구름동 스타벅스 빌딩</p>
           <p>대표번호: 1522-3232</p>
         </div>
         <div class="footer-section">
-          <h4>SNS 채널</h4>
-          <p>Instagram | Facebook | X</p>
+          <h4><span class="material-icons">public</span> SNS 채널</h4>
+          <div class="sns-icons">
+            <a href="#"><span class="material-icons">facebook</span></a>
+            <a href="#"><span class="material-icons">camera_alt</span></a>
+            <a href="#"><span class="material-icons">language</span></a>
+          </div>
         </div>
       </div>
     </footer>
+
+    <script>
+      // 로딩 스피너 제어
+      window.addEventListener("load", () => {
+        const loader = document.getElementById("loader");
+        loader.style.opacity = "0";
+        setTimeout(() => {
+          loader.style.display = "none";
+        }, 500);
+      });
+
+      // 모바일 메뉴 토글
+      function toggleMenu() {
+        const nav = document.getElementById("navMenu");
+        nav.classList.toggle("active");
+      }
+    </script>
   </body>
 </html>
