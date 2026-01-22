@@ -2,7 +2,78 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>나만의 레시피북 - 샌드위치</title>
+    <style>
+      body {
+        font-family: "Pretendard", sans-serif;
+        line-height: 1.8;
+        padding: 30px;
+        color: #333;
+        background-color: #fafafa;
+      }
+      header,
+      section {
+        max-width: 700px;
+        margin: 0 auto 30px;
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+      h1,
+      h2,
+      h3 {
+        color: #2c3e50;
+      }
+      img {
+        border-radius: 8px;
+        display: block;
+        margin: 20px 0;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+      }
+      th,
+      td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+      }
+      th {
+        background-color: #f8f9fa;
+      }
+      blockquote {
+        border-left: 4px solid #f1c40f;
+        margin: 10px 0;
+        padding-left: 15px;
+        color: #7f8c8d;
+        font-style: italic;
+      }
+
+      /* 첫화면(과제 리스트)으로 돌아가기 버튼 */
+      .back-btn {
+        display: block;
+        width: fit-content;
+        margin: 40px auto 0;
+        padding: 12px 40px;
+        background-color: #2c3e50; /* 레시피북 톤에 맞춘 차분한 색상 */
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .back-btn:hover {
+        background-color: #1a252f;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      }
+    </style>
   </head>
   <body>
     <header>
@@ -23,13 +94,13 @@
     <section>
       <h3>기본 정보</h3>
       <dl>
-        <dt>난이도</dt>
+        <dt><strong>난이도</strong></dt>
         <dd>(누구나 할 수 있다!)</dd>
-        <dt>조리 시간</dt>
+        <dt><strong>조리 시간</strong></dt>
         <dd>10분</dd>
-        <dt>인분</dt>
+        <dt><strong>인분</strong></dt>
         <dd>1인분</dd>
-        <dt>조리 도구</dt>
+        <dt><strong>조리 도구</strong></dt>
         <dd>토스터기(또는 팬), 빵칼, 도마</dd>
       </dl>
     </section>
@@ -94,7 +165,7 @@
     </section>
 
     <section>
-      <table border="1">
+      <table>
         <caption>
           [영양 정보] 클럽 샌드위치 (1인분 기준)
         </caption>
@@ -153,5 +224,9 @@
         </dd>
       </dl>
     </section>
+
+    <a href="https://khy0819.github.io/Goormexp/" class="back-btn"
+      >🏠 과제 목록 첫화면으로</a
+    >
   </body>
 </html>

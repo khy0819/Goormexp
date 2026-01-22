@@ -9,44 +9,66 @@
         line-height: 1.8;
         padding: 30px;
         color: #222;
+        background-color: #fdfdfd;
       }
       .quiz-wrapper {
         max-width: 750px;
         margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
       }
       h1 {
-        border-bottom: 3px solid #333;
+        border-bottom: 3px solid #006241; /* 스타벅스 그린 강조 */
         padding-bottom: 10px;
         margin-bottom: 30px;
+        color: #006241;
       }
       .q-box {
         margin-bottom: 25px;
+        padding: 15px;
+        border: 1px solid #eee;
+        border-radius: 10px;
       }
       .question {
         font-weight: bold;
         display: block;
         margin-bottom: 8px;
+        color: #444;
       }
 
       /* 형광펜 및 밑줄 효과 */
       .ans-highlight {
-        background-color: #fff5b1; /* 노란색 형광펜 */
-        text-decoration: underline; /* 밑줄 */
+        background-color: #fff5b1;
+        text-decoration: underline;
         font-weight: bold;
         padding: 2px 5px;
         border-radius: 2px;
+        color: #d93025;
       }
-      pre {
-        background: #f4f4f4;
-        padding: 12px;
-        border-radius: 5px;
-        font-size: 0.9em;
+
+      /* 추가된 버튼 스타일 */
+      .back-btn {
+        display: block;
+        width: fit-content;
+        margin: 40px auto 0;
+        padding: 12px 30px;
+        background: #006241;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+      .back-btn:hover {
+        background: #004a31;
       }
     </style>
   </head>
   <body>
     <div class="quiz-wrapper">
-      <h1>(260105) HTML 퀴즈 정답</h1>
+      <h1>✅ (260105) HTML 퀴즈 정답</h1>
 
       <div class="q-box">
         <span class="question"
@@ -78,8 +100,7 @@
 
       <div class="q-box">
         <span class="question"
-          >Q4. 웹 개발에서 "관심사의 분리(Separation of Concerns)"가 중요한
-          이유가 아닌 것은?</span
+          >Q4. 웹 개발에서 "관심사의 분리"가 중요한 이유가 아닌 것은?</span
         >
         정답: <span class="ans-highlight">파일 크기가 작아진다</span>
       </div>
@@ -123,8 +144,8 @@
 
       <div class="q-box">
         <span class="question"
-          >Q11. &lt;meta charset="UTF-8"&gt;를 지우면 어떤 문제가 발생할 수
-          있나?</span
+          >Q11. &lt;meta charset="UTF-8"&gt;를 지우면 어떤 문제가
+          발생하나?</span
         >
         정답: <span class="ans-highlight">한글이 깨질 수 있다</span>
       </div>
@@ -159,6 +180,8 @@
         정답:
         <span class="ans-highlight">2번 (article, h2, p를 사용한 코드)</span>
       </div>
+
+      <a href="index.html" class="back-btn">첫화면으로</a>
     </div>
   </body>
 </html>

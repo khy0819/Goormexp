@@ -63,24 +63,25 @@
         background: #fafafa;
         border-left: 4px solid var(--primary);
       }
-      /* 첫화면으로 돌아가기 버튼 스타일 */
+      /* 첫화면(과제 리스트)으로 돌아가기 버튼 */
       .back-btn {
         display: block;
         width: fit-content;
         margin: 40px auto 0;
-        padding: 12px 30px;
-        background: var(--primary);
+        padding: 12px 40px;
+        background-color: var(--primary);
         color: white;
         text-decoration: none;
-        border-radius: 8px;
+        border-radius: 50px;
         font-weight: bold;
-        transition:
-          background-color 0.3s,
-          transform 0.2s;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
       }
       .back-btn:hover {
         background-color: #004a31;
-        transform: translateY(-2px);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
       }
     </style>
   </head>
@@ -130,8 +131,8 @@
         <span class="q">Q5. :focus-visible의 설명으로 올바른 것은?</span>
         <span class="ans">정답: 키보드로 포커스했을 때만 적용됨</span>
         <div class="exp">
-          해설: 마우스 클릭 시에는 포커스 테두리를 숨기고, 키보드 탭 키 사용
-          시에만 시각적 표시를 해줍니다.
+          해설: 마우스 클릭 시에는 포커스 테두리를 숨기고, 키보드 사용 시에만
+          시각적 표시를 해주는 접근성 속성입니다.
         </div>
       </div>
 
@@ -141,7 +142,8 @@
           >정답: 첫 번째 li를 제외한 모든 li에 border-top 적용</span
         >
         <div class="exp">
-          해설: :not()은 괄호 안의 선택자를 제외한 모든 요소를 선택합니다.
+          해설: :not() 가상 클래스는 괄호 안의 조건을 제외한 나머지를 모두
+          선택합니다.
         </div>
       </div>
 
@@ -151,8 +153,7 @@
         >
         <span class="ans">정답: checkbox, radio</span>
         <div class="exp">
-          해설: 사용자가 선택(체크)한 상태를 감지하여 스타일을 바꿀 때
-          사용합니다.
+          해설: 선택된 상태를 가진 폼 요소들에 스타일을 줄 때 사용합니다.
         </div>
       </div>
 
@@ -160,7 +161,8 @@
         <span class="q">Q8. article:has(img) 코드의 의미는?</span>
         <span class="ans">정답: img를 포함한 article에 테두리 추가</span>
         <div class="exp">
-          해설: :has()는 특정 자식 요소를 가지고 있는 부모 요소를 선택합니다.
+          해설: :has()는 특정 자식을 가지고 있는 '부모' 요소를 선택하는 유용한
+          선택자입니다.
         </div>
       </div>
 
@@ -170,7 +172,8 @@
         >
         <span class="ans">정답: content</span>
         <div class="exp">
-          해설: 가상 요소는 content 속성이 정의되어야 브라우저에 표시됩니다.
+          해설: 가상 요소는 content 속성이 비어있더라도("") 존재해야 화면에
+          렌더링됩니다.
         </div>
       </div>
 
@@ -178,16 +181,19 @@
         <span class="q">Q10. 다음 중 상속되지 않는 속성은?</span>
         <span class="ans">정답: border</span>
         <div class="exp">
-          해설: color, font-size 등은 상속되지만 박스 모델 속성(border 등)은
-          상속되지 않습니다.
+          해설: 글자 관련 속성은 상속되지만, border/margin/padding 등 박스 모델
+          속성은 상속되지 않습니다.
         </div>
       </div>
 
       <div class="quiz-item">
-        <span class="q">Q11. child 요소에 border: inherit; 적용 결과는?</span>
+        <span class="q"
+          >Q11. child 요소에 border: inherit; 적용 시 결과는?</span
+        >
         <span class="ans">정답: child div에 빨간 border가 표시된다.</span>
         <div class="exp">
-          해설: inherit 값은 부모의 속성값을 강제로 물려받게 합니다.
+          해설: inherit은 상속되지 않는 속성을 부모의 값으로 강제 상속받게
+          합니다.
         </div>
       </div>
 
@@ -197,27 +203,30 @@
           >정답: 브라우저마다 다른 기본 스타일을 통일하기 위해</span
         >
         <div class="exp">
-          해설: 브라우저 고유의 기본 여백을 제거하여 일관성을 확보합니다.
+          해설: 브라우저 고유의 마진이나 패딩 등을 제거하여 디자인의 일관성을
+          높입니다.
         </div>
       </div>
 
       <div class="quiz-item">
-        <span class="q">Q13. 올바른 CSS 로드 순서는? (A:스타일, B:초기화)</span>
+        <span class="q">Q13. 올바른 CSS 로드 순서는?</span>
         <span class="ans">정답: B → A (Normalize → Style)</span>
         <div class="exp">
-          해설: 초기화 파일을 먼저 로드한 뒤 내 스타일로 덮어씌워야 합니다.
+          해설: 초기화 파일을 먼저 로드하고, 그 뒤에 실제 프로젝트 스타일을
+          적용해야 덮어쓰기가 가능합니다.
         </div>
       </div>
 
       <div class="quiz-item">
         <span class="q"
-          >Q14. text-overflow: ellipsis 작동을 위해 필요한 속성은?</span
+          >Q14. text-overflow: ellipsis 작동을 위한 필수 조건은?</span
         >
         <span class="ans"
           >정답: white-space: nowrap;과 overflow: hidden; 둘 다 필요</span
         >
         <div class="exp">
-          해설: 텍스트가 줄바꿈되지 않고 숨겨진 상태여야 말줄임표가 나타납니다.
+          해설: 줄바꿈을 막고 영역을 벗어난 글자를 숨겨야 말줄임표(...)가
+          생깁니다.
         </div>
       </div>
 
@@ -225,11 +234,12 @@
         <span class="q">Q15. 3줄까지만 보이고 말줄임 처리를 하려면?</span>
         <span class="ans">정답: -webkit-line-clamp: 3;</span>
         <div class="exp">
-          해설: 여러 줄 말줄임표를 구현하는 웹킷 전용 속성입니다.
+          해설: 여러 줄 텍스트를 제한하고 말줄임표를 찍을 때 사용하는 웹킷 전용
+          속성입니다.
         </div>
       </div>
 
-      <a href="index.html" class="back-btn">첫화면으로</a>
+      <a href="https://khy0819.github.io/Goormexp/" class="back-btn">🏠</a>
     </div>
   </body>
 </html>

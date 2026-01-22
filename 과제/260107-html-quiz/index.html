@@ -23,6 +23,7 @@
         color: #1a73e8;
         border-bottom: 2px solid #1a73e8;
         padding-bottom: 10px;
+        text-align: center;
       }
       .question-box {
         margin-bottom: 25px;
@@ -44,12 +45,25 @@
         color: #666;
         margin-top: 5px;
       }
-      .back-link {
-        display: inline-block;
-        margin-top: 30px;
+      /* 첫화면(과제 리스트)으로 돌아가기 버튼 */
+      .back-btn {
+        display: block;
+        width: fit-content;
+        margin: 40px auto 0;
+        padding: 12px 40px;
+        background-color: #1a73e8; /* 페이지 톤에 맞춘 블루 */
+        color: white;
         text-decoration: none;
-        color: #1a73e8;
+        border-radius: 50px;
         font-weight: bold;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .back-btn:hover {
+        background-color: #1557b0;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
       }
     </style>
   </head>
@@ -102,7 +116,9 @@
         </div>
       </div>
 
-      <a href="../../" class="back-link">← 메인 목록으로 돌아가기</a>
+      <a href="https://khy0819.github.io/Goormexp/" class="back-btn"
+        >🏠 과제 목록 첫화면으로</a
+      >
     </div>
   </body>
 </html>
