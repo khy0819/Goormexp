@@ -1,0 +1,76 @@
+<!-- 메뉴 소개 페이지 -->
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Starbucks | Menu</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-top: 120px;
+      }
+      .card {
+        border: 1px solid #eee;
+        border-radius: 15px;
+        overflow: hidden;
+        text-align: center;
+        transition: 0.3s;
+      }
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      .card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+      }
+      .card-info {
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <a href="index.html" class="logo">STARBUCKS</a>
+        <ul class="nav-menu">
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="menu.html" style="color: #006241">MENU</a></li>
+          <li><a href="store.html">STORE</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <h2 class="section-title">NEW MENU</h2>
+      <div class="menu-grid">
+        <div class="card">
+          <img
+            src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[9200000002487]_20210426091745609.jpg"
+            alt="커피"
+          />
+          <div class="card-info">
+            <h3>아메리카노</h3>
+            <p>₩4,500</p>
+          </div>
+        </div>
+        <div class="card">
+          <img
+            src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[110563]_20210426095648346.jpg"
+            alt="티"
+          />
+          <div class="card-info">
+            <h3>자몽 허니 블랙 티</h3>
+            <p>₩5,700</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer><p>&copy; 2026 Starbucks Korea</p></footer>
+  </body>
+</html>

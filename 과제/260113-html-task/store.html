@@ -1,0 +1,71 @@
+<!-- 매장 찾기 페이지 -->
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Starbucks | Store</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .store-layout {
+        display: flex;
+        height: 500px;
+        border: 1px solid #ddd;
+        margin-top: 120px;
+        border-radius: 15px;
+        overflow: hidden;
+      }
+      .sidebar {
+        flex: 1;
+        background: #f9f9f9;
+        padding: 20px;
+        border-right: 1px solid #ddd;
+      }
+      .map {
+        flex: 2;
+        background: #eee;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #999;
+      }
+      .store-item {
+        padding: 15px;
+        background: white;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border-left: 5px solid #006241;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <a href="index.html" class="logo">STARBUCKS</a>
+        <ul class="nav-menu">
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="menu.html">MENU</a></li>
+          <li><a href="store.html" style="color: #006241">STORE</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <div class="store-layout">
+        <aside class="sidebar">
+          <div class="store-item">
+            <strong>구름 강남점</strong>
+            <p>서울시 강남구 테헤란로</p>
+          </div>
+          <div class="store-item">
+            <strong>구름 부산점</strong>
+            <p>부산시 해운대구</p>
+          </div>
+        </aside>
+        <article class="map">지도를 불러오는 중입니다...</article>
+      </div>
+    </main>
+
+    <footer><p>&copy; 2026 Starbucks Korea</p></footer>
+  </body>
+</html>
