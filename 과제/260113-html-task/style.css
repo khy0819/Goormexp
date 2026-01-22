@@ -1,4 +1,4 @@
-/* 초기화 */
+/* 초기화 및 공통 스타일 */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -22,7 +22,7 @@ nav {
   top: 0;
   width: 100%;
   height: 100px;
-  background: rgba(244, 244, 242, 0.96);
+  background: rgba(255, 255, 255, 0.95);
   z-index: 1000;
   border-bottom: 1px solid #ddd;
 }
@@ -47,17 +47,16 @@ nav {
   color: #444;
   font-weight: bold;
   font-size: 14px;
-  transition: 0.3s;
 }
 .nav-menu a:hover {
   color: #006241;
 }
 
-/* 히어로 섹션 */
+/* 히어로 섹션: 고품질 배경 적용 */
 .hero {
   margin-top: 100px;
   height: 550px;
-  background: url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200")
+  background: url("https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200")
     no-repeat center/cover;
   display: flex;
   align-items: center;
@@ -76,14 +75,17 @@ nav {
   position: relative;
   z-index: 10;
   color: white;
+  text-align: center;
+  width: 100%;
 }
 .hero-text h2 {
-  font-size: 44px;
+  font-size: 48px;
   margin-bottom: 20px;
+  letter-spacing: -2px;
 }
 .btn-outline {
   display: inline-block;
-  padding: 10px 30px;
+  padding: 12px 35px;
   border: 2px solid white;
   color: white;
   text-decoration: none;
@@ -95,18 +97,18 @@ nav {
   color: #333;
 }
 
-/* Welcome 카드 섹션 */
+/* 특징 카드 섹션 디자인 강화 */
 .welcome {
   padding: 100px 0;
   text-align: center;
   background-color: #f6f5ef;
   border-radius: 50px;
-  margin-bottom: 80px;
+  margin: 80px 0;
 }
 .welcome-header h2 {
   color: #006241;
   font-size: 32px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 .features {
   list-style: none;
@@ -114,12 +116,12 @@ nav {
   justify-content: center;
   gap: 30px;
   margin-top: 50px;
-  padding: 0 20px;
+  padding: 0 40px;
 }
 .features li {
   flex: 1;
   background: white;
-  padding: 40px 20px;
+  padding: 50px 20px;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   transition: 0.3s;
@@ -127,9 +129,9 @@ nav {
 .features li:hover {
   transform: translateY(-10px);
 }
-.icon {
-  font-size: 40px;
-  margin-bottom: 15px;
+.icon-img img {
+  width: 80px;
+  margin-bottom: 20px;
 }
 .features strong {
   display: block;
@@ -138,7 +140,7 @@ nav {
   color: #006241;
 }
 
-/* 메뉴 그리드 */
+/* 메뉴 그리드 및 이미지 호버 효과 */
 .menu-section {
   padding-bottom: 100px;
 }
@@ -146,10 +148,11 @@ nav {
   text-align: center;
   margin-bottom: 50px;
   font-size: 28px;
+  color: #006241;
 }
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
 }
 .card {
@@ -162,29 +165,31 @@ nav {
   border: 1px solid #eee;
 }
 .card:hover {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 .img-box {
   overflow: hidden;
 }
 .img-box img {
   width: 100%;
-  height: 280px;
-  object-fit: cover;
   transition: 0.5s;
 }
 .card:hover img {
   transform: scale(1.1);
 }
 .card-info {
-  padding: 20px;
+  padding: 25px;
+}
+.card-info h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
 }
 .card-info p {
   font-size: 13px;
   color: #999;
 }
 
-/* 뱃지 및 탑 버튼 */
+/* 뱃지 및 탑 버튼 포지셔닝 */
 .badge {
   position: absolute;
   top: 15px;
@@ -205,8 +210,8 @@ nav {
   position: fixed;
   bottom: 40px;
   right: 40px;
-  width: 50px;
-  height: 50px;
+  width: 55px;
+  height: 55px;
   background: #2c2a29;
   color: white;
   display: flex;
@@ -215,11 +220,13 @@ nav {
   border-radius: 50%;
   text-decoration: none;
   z-index: 1000;
+  font-weight: bold;
 }
 
 footer {
   background: #2c2a29;
-  color: white;
+  color: #fff;
   padding: 60px 0;
   text-align: center;
+  font-size: 14px;
 }
