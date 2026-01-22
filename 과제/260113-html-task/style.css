@@ -1,171 +1,55 @@
-/* 기본 초기화 */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: "Noto Sans KR", sans-serif;
-  background-color: #fff;
-  color: #333;
-}
-
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* 상단 고정 네비게이션 */
-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100px;
-  background: #f4f4f2;
-  z-index: 1000;
-  border-bottom: 1px solid #ddd;
-}
-
-.nav-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-}
-
-.logo {
-  color: #006241;
-  font-size: 28px;
-}
-
-.nav-menu {
-  list-style: none;
-  display: flex;
-  gap: 40px;
-}
-.nav-menu a {
-  text-decoration: none;
-  color: #444;
-  font-weight: bold;
-  font-size: 14px;
-}
-.nav-menu a.active {
-  color: #006241;
-  border-bottom: 2px solid #006241;
-  padding-bottom: 5px;
-}
-
-/* 메뉴 카테고리 타이틀 */
-.menu-category {
-  margin-top: 150px;
-  padding-bottom: 50px;
-}
-.category-title {
-  font-size: 24px;
-  background: #f4f4f2;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 40px;
-}
-.category-title span {
-  font-size: 14px;
-  color: #999;
-  margin-left: 10px;
-}
-
-/* 메뉴 그리드 레이아웃 */
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 40px 20px;
-}
-
-/* 개별 메뉴 아이템 스타일 */
-.menu-item {
+/* Welcome 섹션 전체 배경 및 레이아웃 */
+.welcome {
+  padding: 100px 20px;
+  background-color: #f6f5ef; /* 스타벅스 특유의 베이지톤 배경 */
   text-align: center;
-  cursor: pointer;
+  border-radius: 20px; /* 섹션 자체를 둥글게 */
+  margin: 40px auto;
 }
 
-.img-wrap {
-  position: relative;
-  overflow: hidden;
-  border-radius: 5px;
-  margin-bottom: 15px;
-}
-
-.img-wrap img {
-  width: 100%;
-  transition: transform 0.5s;
-}
-
-/* 마우스를 올렸을 때 이미지 확대 효과 */
-.menu-item:hover img {
-  transform: scale(1.1);
-}
-
-/* 호버 시 나타나는 '상세보기' 박스 */
-.view-more {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: 0.3s;
-}
-
-.menu-item:hover .view-more {
-  opacity: 1;
-}
-
-/* 뱃지 포지셔닝 */
-.badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 10;
-  padding: 3px 10px;
-  color: white;
-  font-size: 11px;
-  border-radius: 3px;
-}
-.best {
-  background: #006241;
-}
-.new {
-  background: #d62d20;
-}
-
-.item-info h3 {
-  font-size: 15px;
-  margin-bottom: 5px;
-}
-.eng-name {
-  font-size: 12px;
-  color: #999;
+.welcome h2 {
+  font-size: 36px;
+  color: #006241; /* 스타벅스 그린 */
   margin-bottom: 10px;
+  letter-spacing: -1px;
 }
-.price {
+
+.welcome > p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 50px;
+}
+
+/* 3가지 특징(ul)을 카드형태로 정렬 */
+.features {
+  list-style: none;
+  display: flex; /* 가로 정렬 */
+  justify-content: center;
+  gap: 30px;
+}
+
+.features li {
+  flex: 1;
+  max-width: 300px;
+  background: white;
+  padding: 40px 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* 부드러운 그림자 */
   font-weight: bold;
+  font-size: 16px;
+  line-height: 1.6;
+  transition: transform 0.3s ease;
+}
+
+/* 마우스를 올렸을 때 살짝 떠오르는 효과 */
+.features li:hover {
+  transform: translateY(-10px);
   color: #006241;
 }
 
-/* 고정 버튼 */
-.btn-top {
-  position: fixed;
-  bottom: 50px;
-  right: 50px;
-  background: #2c2a29;
-  color: white;
-  padding: 15px;
-  border-radius: 50%;
-  text-decoration: none;
-  z-index: 999;
+/* 아이콘(이모지) 크기 키우기 */
+.features li::first-line {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 15px;
 }
