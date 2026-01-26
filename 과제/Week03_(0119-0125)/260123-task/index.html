@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Workspace</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="notion-page">
+      <header class="page-header">
+        <div class="page-icon">☁️</div>
+        <h1>종합 실습 프로젝트</h1>
+        <p class="page-desc">
+          To-Do List, Calculator, and Stopwatch in one place.
+        </p>
+      </header>
+
+      <main class="content-grid">
+        <section class="block-card">
+          <div class="block-title">📝 To-Do List</div>
+          <div class="todo-wrapper">
+            <input
+              type="text"
+              id="todo-input"
+              placeholder="새로운 할 일 입력..."
+            />
+            <ul id="todo-list"></ul>
+          </div>
+        </section>
+
+        <section class="block-card">
+          <div class="block-title">🔢 Calculator</div>
+          <div class="calc-wrapper">
+            <div id="calc-display">0</div>
+            <div class="calc-grid">
+              <button class="btn-util">C</button
+              ><button class="btn-util">+/-</button
+              ><button class="btn-util">%</button
+              ><button class="btn-op">÷</button> <button>7</button
+              ><button>8</button><button>9</button
+              ><button class="btn-op">×</button> <button>4</button
+              ><button>5</button><button>6</button
+              ><button class="btn-op">−</button> <button>1</button
+              ><button>2</button><button>3</button
+              ><button class="btn-op">+</button>
+              <button class="btn-zero">0</button><button>.</button
+              ><button class="btn-op">=</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="block-card">
+          <div class="block-title">⏱️ Stopwatch</div>
+          <div class="stopwatch-wrapper">
+            <div id="sw-time">00:00:00</div>
+            <div class="sw-controls">
+              <button id="sw-start" class="btn-start">Start</button>
+              <button id="sw-reset">Reset</button>
+              <button id="sw-lap">Lap</button>
+            </div>
+            <ul id="lap-list"></ul>
+          </div>
+        </section>
+      </main>
+
+      <a href="https://khy0819.github.io/Goormexp/" class="back-btn"
+        >🏠 과제 목록 첫화면으로</a
+      >
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
