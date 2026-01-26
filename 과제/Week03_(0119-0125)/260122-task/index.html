@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260122) JS 과제 정답지</title>
+    <style>
+      :root {
+        --primary: #f7df1e;
+        --bg: #fdfdfd;
+      }
+      body {
+        font-family: "Pretendard", sans-serif;
+        background: var(--bg);
+        padding: 20px;
+        color: #333;
+        line-height: 1.7;
+      }
+      .container {
+        max-width: 850px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      }
+      h1 {
+        text-align: center;
+        border-bottom: 3px solid var(--primary);
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+      }
+      .level-tag {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        background: #333;
+        color: white;
+        margin-bottom: 10px;
+      }
+      .quiz-item {
+        margin-bottom: 40px;
+        padding: 20px;
+        border: 1px solid #eee;
+        border-radius: 10px;
+      }
+      .question {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 12px;
+        font-size: 1.1rem;
+        color: #111;
+      }
+      .code-block {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 8px;
+        font-family: "Consolas", monospace;
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+        white-space: pre-wrap;
+      }
+      .exp {
+        font-size: 0.95rem;
+        color: #555;
+        padding: 15px;
+        background: #fffde7;
+        border-left: 5px solid var(--primary);
+      }
+      .back-btn {
+        display: block;
+        width: fit-content;
+        margin: 50px auto 0;
+        padding: 12px 40px;
+        background: #333;
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+      .back-btn:hover {
+        background: #111;
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>(260122) JS 과제 정답지</h1>
+
+      <div class="quiz-item">
+        <span class="level-tag">Level 1</span>
+        <span class="question">Q1. 평균 이상 학생 찾기</span>
+        <div class="code-block">
+          const students = [ { name: "철수", score: 85 }, { name: "영희", score:
+          92 }, { name: "민수", score: 78 }, { name: "지영", score: 95 }, {
+          name: "동현", score: 88 } ]; const avg = students.reduce((acc, cur) =>
+          acc + cur.score, 0) / students.length; const result = students
+          .filter(student => student.score >= avg) .map(student =>
+          student.name); console.log(result); // ["영희", "지영", "동현"]
+        </div>
+        <div class="exp">
+          💡 해설: reduce로 총합을 구해 평균을 먼저 계산한 뒤, filter로 점수를
+          거르고 map으로 이름만 추출했습니다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="level-tag">Level 1</span>
+        <span class="question">Q2. 배열 중복 제거하기</span>
+        <div class="code-block">
+          const numbers = [1, 2, 2, 3, 4, 4, 5, 1, 3]; // 방법 1: Set 활용 (가장
+          간결) const result1 = [...new Set(numbers)]; // 방법 2: filter &
+          indexOf 활용 (순차 유지) const result2 = numbers.filter((num, idx) =>
+          numbers.indexOf(num) === idx); console.log(result1); // [1, 2, 3, 4,
+          5]
+        </div>
+        <div class="exp">
+          💡 해설: Set 객체를 이용해 중복을 제거하거나, filter를 돌며 현재
+          인덱스가 처음 발견된 인덱스와 같은 것만 남기는 방식입니다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="level-tag">Level 2</span>
+        <span class="question">Q3. 베스트셀러 상품 찾기</span>
+        <div class="code-block">
+          const sales = [ { product: "노트북", quantity: 3 }, { product:
+          "마우스", quantity: 15 }, { product: "키보드", quantity: 8 }, {
+          product: "마우스", quantity: 7 }, { product: "노트북", quantity: 5 },
+          { product: "키보드", quantity: 12 } ]; const totalSales =
+          sales.reduce((acc, cur) => { acc[cur.product] = (acc[cur.product] ||
+          0) + cur.quantity; return acc; }, {}); const bestSeller =
+          Object.keys(totalSales).reduce((a, b) => totalSales[a] >=
+          totalSales[b] ? a : b ); console.log(bestSeller); // "마우스"
+        </div>
+        <div class="exp">
+          💡 해설: 객체를 이용해 상품별 판매량을 합산한 뒤, 가장 큰 값을 가진
+          키를 찾아 반환합니다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="level-tag">Level 2</span>
+        <span class="question">Q4. 나이대별 사용자 분류</span>
+        <div class="code-block">
+          const users = [ { name: "철수", age: 25 }, { name: "영희", age: 17 },
+          { name: "민수", age: 32 }, { name: "지영", age: 28 } ]; const result =
+          { "10대": [], "20대": [], "30대": [] }; users.forEach(user => { const
+          group = Math.floor(user.age / 10) * 10 + "대"; if (result[group])
+          result[group].push(user.name); }); console.log(result);
+        </div>
+        <div class="exp">
+          💡 해설: 나이를 10으로 나눠 소수점을 버림으로써 '몇 대'인지 계산하고
+          해당 객체 배열에 이름을 푸시합니다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="level-tag">Level 3</span>
+        <span class="question">Q5. 상품 재고 관리 시스템</span>
+        <div class="code-block">
+          const inventory = [ { product: "사과", stock: 10 }, { product:
+          "바나나", stock: 5 }, { product: "오렌지", stock: 8 } ]; const orders
+          = [ { product: "사과", quantity: 3 }, { product: "바나나", quantity: 2
+          }, { product: "사과", quantity: 4 }, { product: "오렌지", quantity: 1
+          } ]; const finalInventory = inventory.map(item => { const totalOrder =
+          orders .filter(order => order.product === item.product) .reduce((sum,
+          cur) => sum + cur.quantity, 0); return { ...item, stock: item.stock -
+          totalOrder }; }); console.log(finalInventory);
+        </div>
+        <div class="exp">
+          💡 해설: map()을 사용하여 원본 재고 배열의 복사본을 만들며, 각
+          항목마다 주문 목록에서 해당 상품의 총합을 구해 뺍니다.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <span class="level-tag">Level 3</span>
+        <span class="question">Q6. 게임 팀 랭킹 시스템</span>
+        <div class="code-block">
+          const games = [ { team: "Red", score: 50 }, { team: "Blue", score: 80
+          }, { team: "Red", score: 70 }, { team: "Green", score: 60 }, { team:
+          "Blue", score: 65 }, { team: "Green", score: 85 } ]; const teamScores
+          = games.reduce((acc, cur) => { acc[cur.team] = (acc[cur.team] || 0) +
+          cur.score; return acc; }, {}); const ranking =
+          Object.keys(teamScores).sort((a, b) => teamScores[b] - teamScores[a]);
+          console.log(ranking); // ["Green", "Blue", "Red"]
+        </div>
+        <div class="exp">
+          💡 해설: 팀별 점수를 객체로 합산한 뒤, Object.keys()로 팀 이름만 뽑아
+          점수 내림차순으로 정렬했습니다.
+        </div>
+      </div>
+
+      <a href="https://khy0819.github.io/Goormexp/" class="back-btn"
+        >🏠 과제 목록 첫화면으로</a
+      >
+    </div>
+  </body>
+</html>
