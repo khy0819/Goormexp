@@ -3,416 +3,296 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Goorm 과제 저장소 | 타임라인</title>
-
-    <meta
-      name="description"
-      content="구름 KDT 과정의 여정을 기록하는 웹 아카이브입니다."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://khy0819.github.io/Goormexp/" />
-    <meta property="og:title" content="WEB ARCHIVE | 오늘도 코딩 중!" />
-    <meta
-      property="og:description"
-      content="파일을 찾으러 하늘을 날고 있어요!"
-    />
-    <meta
-      property="og:image"
-      content="https://khy0819.github.io/Goormexp/assets/og-image.png"
-    />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☁️</text></svg>"
-    />
-
+    <title>(260120) JS 과제 정답지</title>
     <style>
-      /* 폰트 설정 */
-      @font-face {
-        font-family: "11StreetGothic";
-        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-KorLight.woff2")
-          format("woff2");
-        font-weight: 300;
-        font-display: swap;
-      }
-      @font-face {
-        font-family: "11StreetGothic";
-        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-Kor.woff2")
-          format("woff2");
-        font-weight: 400;
-        font-display: swap;
-      }
-      @font-face {
-        font-family: "11StreetGothic";
-        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-KorBold.woff2")
-          format("woff2");
-        font-weight: 700;
-        font-display: swap;
-      }
-
-      /* 변수 설정 (다크모드 대응) */
       :root {
         --primary: #006241;
         --secondary: #e8f5e9;
         --bg: #f8f9fa;
-        --accent: #ffeb3b;
         --card-bg: #ffffff;
-        --text-main: #333333;
-        --text-sub: #888888;
-        --border: #eeeeee;
-        --cloud-color: #ffffff;
-        --arrow-default: #eeeeee;
+        --text: #333;
+        --code-bg: #2d2d2d;
+        --output-bg: #f1f3f5;
       }
-
       [data-theme="dark"] {
         --primary: #4caf50;
         --secondary: #1b2e21;
         --bg: #121212;
-        --accent: #ffd600;
         --card-bg: #1e1e1e;
-        --text-main: #e0e0e0;
-        --text-sub: #aaaaaa;
-        --border: #333333;
-        --cloud-color: #2c2c2c;
-        --arrow-default: #444444;
+        --text: #e0e0e0;
+        --code-bg: #000000;
+        --output-bg: #2c2c2c;
       }
-
       body {
-        font-family: "11StreetGothic", "Pretendard", sans-serif;
+        font-family:
+          "Pretendard",
+          -apple-system,
+          sans-serif;
         background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
         margin: 0;
         padding: 40px 20px;
-        color: var(--text-main);
-        transition:
-          background 0.3s,
-          color 0.3s;
+        transition: all 0.3s;
       }
-
       .container {
-        max-width: 750px;
+        max-width: 850px;
         margin: 0 auto;
       }
-
-      /* 다크모드 토글 버튼 */
-      .theme-toggle {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        padding: 10px;
-        border-radius: 50%;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-        font-size: 1.2rem;
-        transition: transform 0.2s;
-      }
-      .theme-toggle:hover {
-        transform: scale(1.1);
-      }
-
-      header {
+      h1 {
         text-align: center;
-        margin-bottom: 50px;
-      }
-      header h1 {
         color: var(--primary);
-        font-size: 2.8rem;
-        margin-bottom: 8px;
-        font-weight: 700;
-      }
-      header p {
-        color: var(--text-sub);
-        font-weight: 300;
+        margin-bottom: 40px;
+        font-size: 2.2rem;
       }
 
-      /* 로딩 애니메이션 */
-      .loader-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 120px 0;
-      }
-      .cloud {
-        width: 120px;
-        height: 50px;
-        background: var(--cloud-color);
-        border-radius: 50px;
-        position: relative;
-        animation: float 2s ease-in-out infinite;
+      .assignment-item {
+        background: var(--card-bg);
+        padding: 30px;
+        border-radius: 20px;
+        margin-bottom: 40px;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
       }
-      .cloud::after,
-      .cloud::before {
-        content: "";
-        position: absolute;
-        background: var(--cloud-color);
-        border-radius: 50%;
-      }
-      .cloud::after {
-        width: 60px;
-        height: 60px;
-        top: -30px;
-        left: 20px;
-      }
-      .cloud::before {
-        width: 50px;
-        height: 50px;
-        top: -25px;
-        right: 20px;
-      }
-
-      .eyes {
-        position: absolute;
-        width: 40px;
-        height: 10px;
-        top: 15px;
-        left: 40px;
-        z-index: 10;
-        display: flex;
-        justify-content: space-between;
-      }
-      .eye {
-        width: 6px;
-        height: 6px;
-        background: var(--text-main);
-        border-radius: 50%;
-        animation: blink 3s infinite;
-      }
-
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-20px);
-        }
-      }
-      @keyframes blink {
-        0%,
-        90%,
-        100% {
-          transform: scaleY(1);
-        }
-        95% {
-          transform: scaleY(0.1);
-        }
-      }
-
-      .loading-text {
-        margin-top: 35px;
-        color: var(--primary);
-        font-weight: 700;
-      }
-
-      /* 아코디언 및 카드 스타일 */
-      details {
-        background: var(--card-bg);
-        margin-bottom: 20px;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
-        transition: transform 0.3s;
-      }
-      details:hover {
-        transform: translateY(-3px);
-      }
-      summary {
-        padding: 24px 28px;
-        font-weight: 700;
-        cursor: pointer;
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      details[open] summary {
-        background: var(--secondary);
-        color: var(--primary);
-        border-bottom: 1px solid var(--border);
-      }
-
-      .task-list {
-        padding: 5px 15px 20px;
-      }
-      .task-card {
-        display: flex;
-        align-items: center;
-        padding: 18px 20px;
-        text-decoration: none;
-        color: var(--text-main);
-        margin-bottom: 8px;
-        border-radius: 15px;
-        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      }
-
-      /* 마우스 올렸을 때 효과 강조 */
-      .task-card:hover {
-        background: var(--bg);
-        color: var(--primary);
-        transform: scale(1.02);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-      }
-
-      .tag {
-        width: 60px;
-        text-align: center;
-        font-size: 0.7rem;
-        padding: 4px 0;
+      .level-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        background: var(--primary);
+        color: white;
         border-radius: 8px;
-        font-weight: 800;
-        margin-right: 20px;
-        flex-shrink: 0;
+        font-size: 0.85rem;
+        font-weight: bold;
+        margin-bottom: 15px;
       }
-      .tag.quiz {
-        background: var(--accent);
-        color: #856404;
-      }
-      .tag.study {
-        background: var(--border);
-        color: var(--text-sub);
-      }
-
-      .task-date {
-        color: var(--text-sub);
-        font-weight: 600;
-        margin-right: 15px;
-        width: 75px;
-        flex-shrink: 0;
-      }
-      .task-title {
-        font-weight: 700;
-        flex-grow: 1;
-        font-size: 1.05rem;
-      }
-
-      /* 화살표 기본 및 호버 상태 */
-      .arrow {
-        color: var(--arrow-default);
-        font-size: 1.2rem;
-        transition: all 0.3s ease;
-      }
-      .task-card:hover .arrow {
+      h3 {
+        margin-top: 0;
         color: var(--primary);
-        transform: translateX(5px);
+      }
+      .description {
+        margin-bottom: 20px;
+        font-size: 0.95rem;
+        color: var(--text);
+        opacity: 0.9;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 0.9rem;
+        overflow-x: auto;
+        margin-bottom: 15px;
+      }
+
+      .result-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 0.9rem;
+        transition:
+          transform 0.2s,
+          opacity 0.2s;
+      }
+      .result-btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+
+      .output-box {
+        margin-top: 15px;
+        padding: 15px;
+        background: var(--output-bg);
+        border-radius: 10px;
+        font-family: monospace;
+        white-space: pre-wrap;
+        display: none;
+        border: 1px solid var(--primary);
+        font-size: 0.9rem;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+
+      .snail-table {
+        border-collapse: collapse;
+        margin: 10px 0;
+      }
+      .snail-table td {
+        border: 1px solid var(--primary);
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 40px;
+        text-decoration: none;
+        color: var(--text);
+        opacity: 0.6;
+      }
+      .back-link:hover {
+        opacity: 1;
       }
     </style>
   </head>
   <body>
-    <button class="theme-toggle" id="theme-btn" title="테마 변경">🌓</button>
-
     <div class="container">
-      <header>
-        <h1>WEB ARCHIVE</h1>
-        <p>오늘도 코딩 중!</p>
-      </header>
+      <h1>(260120) JavaScript 과제</h1>
 
-      <div id="loader" class="loader-wrapper">
-        <div class="cloud">
-          <div class="eyes">
-            <div class="eye"></div>
-            <div class="eye"></div>
-          </div>
+      <div class="assignment-item">
+        <span class="level-badge">Level 1</span>
+        <h3>짝수 합계 계산기</h3>
+        <p class="description">
+          1부터 100까지의 숫자 중 짝수만 골라서 합계를 구하는 프로그램을
+          작성하세요.
+        </p>
+        <div class="code-block">
+          let sum = 0; for (let i = 1; i <= 100; i++) { if (i % 2 === 0) sum +=
+          i; } console.log("1부터 100까지 짝수의 합: " + sum);
         </div>
-        <div class="loading-text">파일을 찾으러 하늘을 날고 있어요</div>
+        <button class="result-btn" onclick="runLevel1()">결과 확인</button>
+        <div id="output1" class="output-box"></div>
       </div>
 
-      <div id="task-container" style="display: none"></div>
+      <div class="assignment-item">
+        <span class="level-badge">Level 2</span>
+        <h3>FizzBuzz 게임</h3>
+        <p class="description">
+          3의 배수는 "Fizz", 5의 배수는 "Buzz", 3과 5의 공배수는 "FizzBuzz"를
+          출력하세요.
+        </p>
+        <div class="code-block">
+          for (let i = 1; i <= 100; i++) { if (i % 3 === 0 && i % 5 === 0)
+          console.log("FizzBuzz"); else if (i % 3 === 0) console.log("Fizz");
+          else if (i % 5 === 0) console.log("Buzz"); else console.log(i); }
+        </div>
+        <button class="result-btn" onclick="runLevel2()">결과 확인</button>
+        <div id="output2" class="output-box"></div>
+      </div>
+
+      <div class="assignment-item">
+        <span class="level-badge">Level 3</span>
+        <h3>별 찍기 - 다이아몬드 패턴</h3>
+        <p class="description">
+          중첩 for 문을 사용하여 총 9줄의 다이아몬드 패턴(1-3-5-7-9-7-5-3-1)을
+          출력하세요.
+        </p>
+        <div class="code-block">
+          const rows = 9; const mid = Math.floor(rows / 2); for (let i = 0; i <
+          rows; i++) { let gap = Math.abs(mid - i); let stars = rows - (gap *
+          2); console.log(" ".repeat(gap) + "*".repeat(stars)); }
+        </div>
+        <button class="result-btn" onclick="runLevel3()">결과 확인</button>
+        <div id="output3" class="output-box"></div>
+      </div>
+
+      <div class="assignment-item">
+        <span class="level-badge">Level 4</span>
+        <h3>달팽이 배열 (N=5)</h3>
+        <p class="description">
+          5x5 크기의 2차원 배열을 시계방향 나선형으로 숫자를 채우세요.
+        </p>
+        <div class="code-block">
+          function drawSnail(n) { const arr = Array.from({ length: n }, () =>
+          Array(n).fill(0)); let num = 1, row = 0, col = 0, dir = 0; const dr =
+          [0, 1, 0, -1], dc = [1, 0, -1, 0]; while (num <= n * n) {
+          arr[row][col] = num++; let nr = row + dr[dir], nc = col + dc[dir]; if
+          (nr < 0 || nr >= n || nc < 0 || nc >= n || arr[nr][nc] !== 0) { dir =
+          (dir + 1) % 4; nr = row + dr[dir]; nc = col + dc[dir]; } row = nr; col
+          = nc; } return arr; }
+        </div>
+        <button class="result-btn" onclick="runLevel4()">결과 확인</button>
+        <div id="output4" class="output-box"></div>
+      </div>
+
+      <a href="https://khy0819.github.io/Goormexp/" class="back-link"
+        >🏠 과제 목록으로 돌아가기</a
+      >
     </div>
 
     <script>
-      // 1. 다크모드 설정
-      const themeBtn = document.getElementById("theme-btn");
-      const savedTheme = localStorage.getItem("theme") || "light";
-      document.documentElement.setAttribute("data-theme", savedTheme);
+      // 테마 로직
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark")
+        document.documentElement.setAttribute("data-theme", "dark");
 
-      themeBtn.addEventListener("click", () => {
-        let theme = document.documentElement.getAttribute("data-theme");
-        let targetTheme = theme === "dark" ? "light" : "dark";
-        document.documentElement.setAttribute("data-theme", targetTheme);
-        localStorage.setItem("theme", targetTheme);
-      });
-
-      // 2. GitHub API 데이터 페칭
-      async function fetchWeeklyData() {
-        const owner = "khy0819";
-        const repo = "Goormexp";
-        const apiUrl = `https://api.github.com/repos/${owner}/${repo}/git/trees/main?recursive=1`;
-
-        try {
-          const res = await fetch(apiUrl);
-          const data = await res.json();
-
-          const indexFiles = data.tree.filter(
-            (f) =>
-              f.path.includes("과제/") &&
-              f.path.endsWith("index.html") &&
-              f.path !== "index.html",
-          );
-
-          const weeks = {};
-          indexFiles.forEach((f) => {
-            const pathParts = f.path.split("/");
-            const weekFolder = pathParts.find((p) =>
-              p.toLowerCase().includes("week"),
-            );
-            let weekLabel = weekFolder
-              ? weekFolder.toUpperCase().replace(/_/g, " ")
-              : "기타 분류";
-            let folderName = pathParts[pathParts.length - 2];
-            if (!weeks[weekLabel]) weeks[weekLabel] = [];
-            weeks[weekLabel].push({ path: f.path, name: folderName });
-          });
-
-          const container = document.getElementById("task-container");
-          document.getElementById("loader").style.display = "none";
-          container.style.display = "block";
-
-          const sortedWeeks = Object.keys(weeks).sort((a, b) =>
-            a.localeCompare(b, undefined, { numeric: true }),
-          );
-
-          sortedWeeks.forEach((week) => {
-            const details = document.createElement("details");
-            if (week === sortedWeeks[sortedWeeks.length - 1])
-              details.open = true;
-
-            let html = `<summary><span>📂 ${week}</span> <span style="font-size:0.8rem; opacity:0.4;">${weeks[week].length} Tasks</span></summary><div class="task-list">`;
-
-            weeks[week]
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .forEach((task) => {
-                const parts = task.name.split("-");
-                const datePart = parts[0] || "000000";
-                let isQuiz = task.name.toUpperCase().includes("QUIZ");
-                let tagText = isQuiz ? "QUIZ" : "STUDY";
-                let tagClass = isQuiz ? "quiz" : "study";
-                let titlePart =
-                  parts.slice(2).join("-") || parts[1] || "과제물";
-                titlePart = titlePart
-                  .replace(/^(QUIZ|STUDY|TASK)[-_]?/i, "")
-                  .trim();
-
-                html += `
-                <a href="${encodeURI(task.path)}" class="task-card">
-                  <span class="tag ${tagClass}">${tagText}</span>
-                  <span class="task-date">${datePart}</span>
-                  <span class="task-title">${titlePart}</span>
-                  <span class="arrow">→</span>
-                </a>`;
-              });
-            html += `</div>`;
-            details.innerHTML = html;
-            container.appendChild(details);
-          });
-        } catch (e) {
-          document.getElementById("loader").innerHTML =
-            "☁️ 데이터 로드에 실패했습니다.";
-        }
+      function showOutput(id, content) {
+        const el = document.getElementById(id);
+        el.style.display = "block";
+        el.innerHTML = content;
       }
-      fetchWeeklyData();
+
+      function runLevel1() {
+        let sum = 0;
+        for (let i = 1; i <= 100; i++) {
+          if (i % 2 === 0) sum += i;
+        }
+        showOutput("output1", "1부터 100까지 짝수의 합: " + sum);
+      }
+
+      function runLevel2() {
+        let results = [];
+        for (let i = 1; i <= 100; i++) {
+          if (i % 3 === 0 && i % 5 === 0) results.push("FizzBuzz");
+          else if (i % 3 === 0) results.push("Fizz");
+          else if (i % 5 === 0) results.push("Buzz");
+          else results.push(i);
+        }
+        showOutput("output2", results.join(", "));
+      }
+
+      function runLevel3() {
+        const rows = 9;
+        const mid = Math.floor(rows / 2);
+        let result = "";
+        for (let i = 0; i < rows; i++) {
+          let gap = Math.abs(mid - i);
+          let stars = rows - gap * 2;
+          result += "&nbsp;".repeat(gap) + "*".repeat(stars) + "\n";
+        }
+        showOutput("output3", result);
+      }
+
+      function runLevel4() {
+        const n = 5;
+        const arr = Array.from({ length: n }, () => Array(n).fill(0));
+        let num = 1,
+          row = 0,
+          col = 0,
+          dir = 0;
+        const dr = [0, 1, 0, -1],
+          dc = [1, 0, -1, 0];
+        while (num <= n * n) {
+          arr[row][col] = num++;
+          let nr = row + dr[dir],
+            nc = col + dc[dir];
+          if (nr < 0 || nr >= n || nc < 0 || nc >= n || arr[nr][nc] !== 0) {
+            dir = (dir + 1) % 4;
+            nr = row + dr[dir];
+            nc = col + dc[dir];
+          }
+          row = nr;
+          col = nc;
+        }
+
+        let table = "<table class='snail-table'>";
+        for (let r = 0; r < n; r++) {
+          table += "<tr>";
+          for (let c = 0; c < n; c++) {
+            table += "<td>" + arr[r][c] + "</td>";
+          }
+          table += "</tr>";
+        }
+        table += "</table>";
+        showOutput("output4", table);
+      }
     </script>
   </body>
 </html>

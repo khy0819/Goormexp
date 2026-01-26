@@ -7,19 +7,27 @@
     <style>
       :root {
         --primary: #006241;
+        --secondary: #e8f5e9;
         --bg: #f8f9fa;
         --card-bg: #ffffff;
         --text: #333;
         --code-bg: #2d2d2d;
+        --output-bg: #f1f3f5;
       }
       [data-theme="dark"] {
+        --primary: #4caf50;
+        --secondary: #1b2e21;
         --bg: #121212;
         --card-bg: #1e1e1e;
         --text: #e0e0e0;
-        --border: #333;
+        --code-bg: #000000;
+        --output-bg: #2c2c2c;
       }
       body {
-        font-family: "Pretendard", sans-serif;
+        font-family:
+          "Pretendard",
+          -apple-system,
+          sans-serif;
         background: var(--bg);
         color: var(--text);
         line-height: 1.6;
@@ -35,7 +43,9 @@
         text-align: center;
         color: var(--primary);
         margin-bottom: 40px;
+        font-size: 2.2rem;
       }
+
       .assignment-item {
         background: var(--card-bg);
         padding: 30px;
@@ -49,44 +59,86 @@
         background: var(--primary);
         color: white;
         border-radius: 8px;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-weight: bold;
         margin-bottom: 15px;
       }
+      h3 {
+        margin-top: 0;
+        color: var(--primary);
+      }
       .description {
         margin-bottom: 20px;
-        font-weight: 500;
+        font-size: 0.95rem;
+        color: var(--text);
+        opacity: 0.9;
       }
+
       .code-block {
         background: var(--code-bg);
         color: #f8f8f2;
         padding: 20px;
         border-radius: 12px;
-        font-family: "Fira Code", monospace;
+        font-family: "Consolas", "Monaco", monospace;
         font-size: 0.9rem;
         overflow-x: auto;
-        white-space: pre-wrap;
+        margin-bottom: 15px;
       }
+
       .result-btn {
-        margin-top: 15px;
-        padding: 10px 20px;
         background: var(--primary);
         color: white;
         border: none;
+        padding: 10px 20px;
         border-radius: 8px;
         cursor: pointer;
         font-weight: bold;
+        font-size: 0.9rem;
+        transition:
+          transform 0.2s,
+          opacity 0.2s;
       }
       .result-btn:hover {
         opacity: 0.9;
+        transform: translateY(-2px);
       }
+
+      .output-box {
+        margin-top: 15px;
+        padding: 15px;
+        background: var(--output-bg);
+        border-radius: 10px;
+        font-family: monospace;
+        white-space: pre-wrap;
+        display: none;
+        border: 1px solid var(--primary);
+        font-size: 0.9rem;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+
+      .snail-table {
+        border-collapse: collapse;
+        margin: 10px 0;
+      }
+      .snail-table td {
+        border: 1px solid var(--primary);
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        font-weight: bold;
+      }
+
       .back-link {
         display: block;
         text-align: center;
         margin-top: 40px;
         text-decoration: none;
         color: var(--text);
-        font-weight: bold;
+        opacity: 0.6;
+      }
+      .back-link:hover {
+        opacity: 1;
       }
     </style>
   </head>
@@ -96,58 +148,57 @@
 
       <div class="assignment-item">
         <span class="level-badge">Level 1</span>
-        <div class="description">
-          <h3>짝수 합계 계산기</h3>
-          <p>
-            1부터 100까지의 숫자 중 짝수만 골라서 합계를 구하세요. (for, if, %
-            연산자 사용)
-          </p>
-        </div>
+        <h3>짝수 합계 계산기</h3>
+        <p class="description">
+          1부터 100까지의 숫자 중 짝수만 골라서 합계를 구하는 프로그램을
+          작성하세요.
+        </p>
         <div class="code-block">
-          let sum = 0; for (let i = 1; i <= 100; i++) { if (i % 2 === 0) { sum
-          += i; } } console.log("1부터 100까지 짝수의 합: " + sum);
+          let sum = 0; for (let i = 1; i <= 100; i++) { if (i % 2 === 0) sum +=
+          i; } console.log("1부터 100까지 짝수의 합: " + sum);
         </div>
-        <button class="result-btn" onclick="alert('결과: 2550')">
-          결과 확인
-        </button>
+        <button class="result-btn" onclick="runLevel1()">결과 확인</button>
+        <div id="output1" class="output-box"></div>
       </div>
 
       <div class="assignment-item">
         <span class="level-badge">Level 2</span>
-        <div class="description">
-          <h3>FizzBuzz 게임</h3>
-          <p>
-            3의 배수는 "Fizz", 5의 배수는 "Buzz", 공배수는 "FizzBuzz"를
-            출력하세요.
-          </p>
-        </div>
+        <h3>FizzBuzz 게임</h3>
+        <p class="description">
+          3의 배수는 "Fizz", 5의 배수는 "Buzz", 3과 5의 공배수는 "FizzBuzz"를
+          출력하세요.
+        </p>
         <div class="code-block">
           for (let i = 1; i <= 100; i++) { if (i % 3 === 0 && i % 5 === 0)
           console.log("FizzBuzz"); else if (i % 3 === 0) console.log("Fizz");
           else if (i % 5 === 0) console.log("Buzz"); else console.log(i); }
         </div>
+        <button class="result-btn" onclick="runLevel2()">결과 확인</button>
+        <div id="output2" class="output-box"></div>
       </div>
 
       <div class="assignment-item">
         <span class="level-badge">Level 3</span>
-        <div class="description">
-          <h3>별 찍기 - 다이아몬드 패턴</h3>
-          <p>중첩 for문을 사용하여 9줄의 다이아몬드 패턴을 출력하세요.</p>
-        </div>
+        <h3>별 찍기 - 다이아몬드 패턴</h3>
+        <p class="description">
+          중첩 for 문을 사용하여 총 9줄의 다이아몬드 패턴(1-3-5-7-9-7-5-3-1)을
+          출력하세요.
+        </p>
         <div class="code-block">
           const rows = 9; const mid = Math.floor(rows / 2); for (let i = 0; i <
           rows; i++) { let gap = Math.abs(mid - i); let stars = rows - (gap *
           2); console.log(" ".repeat(gap) + "*".repeat(stars)); }
         </div>
+        <button class="result-btn" onclick="runLevel3()">결과 확인</button>
+        <div id="output3" class="output-box"></div>
       </div>
 
       <div class="assignment-item">
         <span class="level-badge">Level 4</span>
-        <div class="description">
-          <h3>달팽이 배열 (Spiral Matrix)</h3>
-          <p>N×N 크기의 배열을 시계방향 나선형으로 숫자를 채우세요.</p>
-        </div>
-
+        <h3>달팽이 배열 (N=5)</h3>
+        <p class="description">
+          5x5 크기의 2차원 배열을 시계방향 나선형으로 숫자를 채우세요.
+        </p>
         <div class="code-block">
           function drawSnail(n) { const arr = Array.from({ length: n }, () =>
           Array(n).fill(0)); let num = 1, row = 0, col = 0, dir = 0; const dr =
@@ -155,8 +206,10 @@
           arr[row][col] = num++; let nr = row + dr[dir], nc = col + dc[dir]; if
           (nr < 0 || nr >= n || nc < 0 || nc >= n || arr[nr][nc] !== 0) { dir =
           (dir + 1) % 4; nr = row + dr[dir]; nc = col + dc[dir]; } row = nr; col
-          = nc; } arr.forEach(r => console.log(r.join("\t"))); } drawSnail(5);
+          = nc; } return arr; }
         </div>
+        <button class="result-btn" onclick="runLevel4()">결과 확인</button>
+        <div id="output4" class="output-box"></div>
       </div>
 
       <a href="https://khy0819.github.io/Goormexp/" class="back-link"
@@ -165,10 +218,81 @@
     </div>
 
     <script>
-      // 다크모드 연동 (메인 페이지 테마 설정 유지)
+      // 테마 로직
       const savedTheme = localStorage.getItem("theme");
       if (savedTheme === "dark")
         document.documentElement.setAttribute("data-theme", "dark");
+
+      function showOutput(id, content) {
+        const el = document.getElementById(id);
+        el.style.display = "block";
+        el.innerHTML = content;
+      }
+
+      function runLevel1() {
+        let sum = 0;
+        for (let i = 1; i <= 100; i++) {
+          if (i % 2 === 0) sum += i;
+        }
+        showOutput("output1", "1부터 100까지 짝수의 합: " + sum);
+      }
+
+      function runLevel2() {
+        let results = [];
+        for (let i = 1; i <= 100; i++) {
+          if (i % 3 === 0 && i % 5 === 0) results.push("FizzBuzz");
+          else if (i % 3 === 0) results.push("Fizz");
+          else if (i % 5 === 0) results.push("Buzz");
+          else results.push(i);
+        }
+        showOutput("output2", results.join(", "));
+      }
+
+      function runLevel3() {
+        const rows = 9;
+        const mid = Math.floor(rows / 2);
+        let result = "";
+        for (let i = 0; i < rows; i++) {
+          let gap = Math.abs(mid - i);
+          let stars = rows - gap * 2;
+          result += "&nbsp;".repeat(gap) + "*".repeat(stars) + "\n";
+        }
+        showOutput("output3", result);
+      }
+
+      function runLevel4() {
+        const n = 5;
+        const arr = Array.from({ length: n }, () => Array(n).fill(0));
+        let num = 1,
+          row = 0,
+          col = 0,
+          dir = 0;
+        const dr = [0, 1, 0, -1],
+          dc = [1, 0, -1, 0];
+        while (num <= n * n) {
+          arr[row][col] = num++;
+          let nr = row + dr[dir],
+            nc = col + dc[dir];
+          if (nr < 0 || nr >= n || nc < 0 || nc >= n || arr[nr][nc] !== 0) {
+            dir = (dir + 1) % 4;
+            nr = row + dr[dir];
+            nc = col + dc[dir];
+          }
+          row = nr;
+          col = nc;
+        }
+
+        let table = "<table class='snail-table'>";
+        for (let r = 0; r < n; r++) {
+          table += "<tr>";
+          for (let c = 0; c < n; c++) {
+            table += "<td>" + arr[r][c] + "</td>";
+          }
+          table += "</tr>";
+        }
+        table += "</table>";
+        showOutput("output4", table);
+      }
     </script>
   </body>
 </html>
