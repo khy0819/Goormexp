@@ -5,12 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Goorm 과제 저장소 | 타임라인</title>
     <style>
+      @font-face {
+        font-family: "11StreetGothic";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-KorLight.woff2")
+          format("woff2");
+        font-weight: 300;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "11StreetGothic";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-Kor.woff2")
+          format("woff2");
+        font-weight: 400;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "11StreetGothic";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-KorBold.woff2")
+          format("woff2");
+        font-weight: 700;
+        font-display: swap;
+      }
+
       :root {
         --primary: #006241;
         --bg: #f8f9fa;
       }
       body {
         font-family:
+          "11StreetGothic",
           "Pretendard",
           -apple-system,
           sans-serif;
@@ -126,7 +151,7 @@
       /* 2. 날짜 섹션 (너비 고정) */
       .task-date {
         width: 70px;
-        font-family: "Courier New", monospace;
+        font-family: "11StreetGothic", monospace;
         color: #999;
         font-size: 0.95rem;
         margin-right: 15px;
