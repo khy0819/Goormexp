@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260126) JS 기초 과제</title>
+    <style>
+      :root {
+        --vs-bg: #1e1e1e;
+        --vs-card: #252526;
+        --vs-header: #333333;
+        --vs-text: #d4d4d4;
+        --vs-keyword: #569cd6;
+        --vs-class: #4ec9b0;
+        --vs-str: #ce9178;
+        --vs-comment: #6a9955;
+      }
+
+      body {
+        font-family: "Consolas", "Monaco", monospace;
+        background-color: var(--vs-bg);
+        color: var(--vs-text);
+        margin: 0;
+        padding: 40px 20px;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .main-header {
+        margin-bottom: 40px;
+        border-left: 4px solid var(--vs-class);
+        padding-left: 20px;
+      }
+
+      .main-header h1 {
+        color: var(--vs-str);
+        font-size: 1.8rem;
+        margin: 0;
+      }
+
+      .task-section {
+        background-color: var(--vs-card);
+        border: 1px solid #454545;
+        border-radius: 4px;
+        margin-bottom: 30px;
+        overflow: hidden;
+      }
+
+      .task-header {
+        background-color: var(--vs-header);
+        padding: 8px 20px;
+        font-size: 0.85rem;
+        color: #aaa;
+        border-bottom: 1px solid #454545;
+      }
+
+      .task-body {
+        padding: 25px;
+      }
+      h3 {
+        color: #9cdcfe;
+        font-size: 1.1rem;
+        margin-top: 0;
+      }
+
+      .desc {
+        background: #2d2d2d;
+        padding: 12px 15px;
+        border-radius: 4px;
+        color: var(--vs-text);
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        border-left: 3px solid var(--vs-class);
+      }
+
+      .code-block {
+        background-color: #1e1e1e;
+        padding: 20px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        white-space: pre-wrap;
+        border: 1px solid #333;
+      }
+
+      .kw {
+        color: var(--vs-keyword);
+      }
+      .cm {
+        color: var(--vs-comment);
+      }
+      .st {
+        color: var(--vs-str);
+      }
+
+      .back-btn {
+        display: block;
+        width: fit-content;
+        margin: 60px auto 40px;
+        padding: 12px 40px;
+        background-color: #2c3e50;
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="main-header">
+        <h1>(260126) 자바스크립트 기초 태스크</h1>
+        <p>// Progress: 5 / 5 Tasks Completed | Status: Finished</p>
+      </header>
+
+      <div class="task-section">
+        <div class="task-header">Task_01_Variable_Declaration.js</div>
+        <div class="task-body">
+          <h3>var, let, const 비교하기</h3>
+
+          <div class="code-block">
+            <span class="kw">var</span> name = <span class="st">"철수"</span>;
+            <span class="cm">// 함수 스코프, 재선언 가능</span>
+            <span class="kw">let</span> age = <span class="st">20</span>;
+            <span class="cm">// 블록 스코프, 재선언 불가, 재할당 가능</span>
+            <span class="kw">const</span> birth = <span class="st">2000</span>;
+            <span class="cm">// 블록 스코프, 재할당 불가 (상수)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_02_Arithmetic_Operators.js</div>
+        <div class="task-body">
+          <h3>산술 연산자 이해하기</h3>
+
+          <div class="code-block">
+            <span class="kw">let</span> a = <span class="st">10</span>, b =
+            <span class="st">3</span>; console.log(a + b);
+            <span class="cm">// 13</span> console.log(a % b);
+            <span class="cm">// 1 (나머지)</span> console.log(a ** b);
+            <span class="cm">// 1000 (거듭제곱)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_03_Comparison_Operators.js</div>
+        <div class="task-body">
+          <h3>비교 연산자 이해하기</h3>
+
+          <div class="code-block">
+            console.log(<span class="st">10 == "10"</span>);
+            <span class="cm">// true (값만 비교)</span> console.log(<span
+              class="st"
+              >10 === "10"</span
+            >);
+            <span class="cm">// false (타입까지 비교 - 권장)</span>
+            console.log(<span class="st">10 !== 5</span>);
+            <span class="cm">// true</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_04_Dynamic_Web.js</div>
+        <div class="task-body">
+          <h3>동적인 웹페이지 구현하기</h3>
+
+          <div class="code-block">
+            <span class="kw">const</span> btn = document.querySelector(<span
+              class="st"
+              >"#change-color"</span
+            >); btn.addEventListener(<span class="st">"click"</span>, () => {
+            document.body.style.backgroundColor =
+            <span class="st">"lightblue"</span>; });
+          </div>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_05_Error_Debugging.log</div>
+        <div class="task-body">
+          <h3>브라우저에서 Error Debug</h3>
+
+          <div class="code-block">
+            <span class="cm">// ReferenceError: x is not defined 해결</span>
+            <span class="kw">let</span> x = <span class="st">10</span>;
+            <span class="cm">// 변수 선언 누락 확인 후 추가</span>
+            console.log(x);
+          </div>
+        </div>
+      </div>
+
+      <a href="https://khy0819.github.io/Goormexp/" class="back-btn"
+        >🏠 과제 목록 첫화면으로</a
+      >
+    </div>
+  </body>
+</html>
