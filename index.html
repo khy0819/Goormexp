@@ -2,8 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Goorm 과제 저장소 (Smart Tagging)</title>
+    <title>Goorm 과제 아카이브 (주차별 정리)</title>
     <style>
       :root {
         --primary: #006241;
@@ -12,128 +11,80 @@
       body {
         font-family: "Pretendard", sans-serif;
         background: var(--bg);
-        margin: 0;
         padding: 40px 20px;
-        color: #333;
       }
       .container {
         max-width: 700px;
         margin: 0 auto;
       }
-      header {
-        text-align: center;
-        margin-bottom: 40px;
-      }
 
-      .date-section {
-        margin-bottom: 25px;
-      }
-      .date-title {
-        font-size: 1.1rem;
-        font-weight: 800;
-        color: var(--primary);
-        margin-bottom: 12px;
-        border-bottom: 2px solid #eee;
-        padding-bottom: 5px;
-      }
-
-      .task-card {
+      /* 주차별 아코디언 스타일 */
+      details {
         background: white;
-        padding: 15px 20px;
-        margin-bottom: 8px;
+        margin-bottom: 15px;
         border-radius: 12px;
+        border: 1px solid #eee;
+        overflow: hidden;
+      }
+      summary {
+        padding: 20px;
+        font-weight: 800;
+        cursor: pointer;
+        list-style: none;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        background: #fff;
+        color: var(--primary);
+      }
+      summary::-webkit-details-marker {
+        display: none;
+      }
+      details[open] summary {
+        border-bottom: 1px solid #eee;
+        background: #f0f4f2;
+      }
+
+      /* 내부 과제 카드 */
+      .task-list {
+        padding: 15px;
+      }
+      .task-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 15px;
         text-decoration: none;
-        color: inherit;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+        color: #333;
+        border-bottom: 1px solid #f9f9f9;
         transition: 0.2s;
       }
       .task-card:hover {
-        transform: translateX(8px);
-        background: #fdfdfd;
-        border-left: 5px solid var(--primary);
+        background: #f8f9fa;
+        transform: translateX(5px);
       }
-
-      /* 자동 태그 스타일 */
       .tag {
         font-size: 0.65rem;
-        padding: 3px 8px;
+        padding: 2px 6px;
         border-radius: 4px;
-        font-weight: 800;
-        margin-right: 12px;
-      }
-      .tag.quiz {
-        background: #fff5b1;
-        color: #856404;
-        border: 1px solid #ffeeba;
-      } /* 퀴즈: 노란색 */
-      .tag.project {
-        background: #d1ecf1;
-        color: #0c5460;
-        border: 1px solid #bee5eb;
-      } /* 프로젝트: 하늘색 */
-      .tag.study {
-        background: #e2e3e5;
-        color: #383d41;
-        border: 1px solid #d6d8db;
-      } /* 기초/공부: 회색 */
-      .tag.main {
-        background: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-      } /* 메인/클론: 초록색 */
-
-      .pagination {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 15px;
-        margin-top: 30px;
-      }
-      .page-btn {
-        padding: 8px 16px;
-        cursor: pointer;
-        border-radius: 20px;
-        border: 1px solid #ddd;
-        background: white;
-      }
-      .page-btn:disabled {
-        opacity: 0.3;
-        cursor: not-allowed;
-      }
-      .loader {
-        text-align: center;
-        padding: 50px;
-        color: #aaa;
+        font-weight: bold;
+        margin-right: 10px;
+        background: #eee;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <header>
-        <h1>📂 Goorm 과제 아카이브</h1>
-        <p>폴더명을 분석해 카테고리를 자동으로 분류합니다.</p>
+      <header style="text-align: center; margin-bottom: 40px">
+        <h1>📂 WEB ARCHIVE</h1>
+        <p>주차별로 깔끔하게 접어서 관리하세요.</p>
       </header>
 
-      <div id="loader" class="loader">과제 데이터를 분석 중...</div>
       <div id="task-container"></div>
-
-      <div class="pagination">
-        <button id="prev-btn" class="page-btn">이전</button>
-        <span id="page-info" style="font-weight: bold">1 / 1</span>
-        <button id="next-btn" class="page-btn">다음</button>
-      </div>
     </div>
 
     <script>
-      let groups = {};
-      let sortedDates = [];
-      let curPage = 1;
-      const perPage = 5;
-
-      async function fetchAndTag() {
+      async function fetchWeekly() {
         const owner = "khy0819";
         const repo = "Goormexp";
         const apiUrl = `https://api.github.com/repos/${owner}/${repo}/git/trees/main?recursive=1`;
@@ -148,98 +99,52 @@
               f.path !== "index.html",
           );
 
+          const weeks = {};
+
           indexFiles.forEach((f) => {
             const pathParts = f.path.split("/");
-            const folderName = pathParts[1]; // 예: "0107_html_quiz"
+            const folderName = pathParts[1];
+            const dateMatch = folderName.match(/\d+/);
 
-            let dateKey = folderName;
-            if (folderName.match(/\d+/)) {
-              const num = folderName.match(/\d+/)[0];
-              dateKey = `2026.01.${num.slice(-2)}`;
+            if (dateMatch) {
+              const day = parseInt(dateMatch[0].slice(-2));
+              // 1~7일(1주), 8~14일(2주), 15~21일(3주), 22~31일(4주)로 임시 분류
+              const weekNum = Math.ceil(day / 7);
+              const weekKey = `${weekNum}주차 (1월)`;
+
+              if (!weeks[weekKey]) weeks[weekKey] = [];
+              weeks[weekKey].push({ path: f.path, name: folderName });
             }
-
-            if (!groups[dateKey]) groups[dateKey] = [];
-            groups[dateKey].push(f);
           });
 
-          sortedDates = Object.keys(groups).sort((a, b) => a.localeCompare(b)); // 오래된 순
-          document.getElementById("loader").style.display = "none";
-          render();
+          const container = document.getElementById("task-container");
+          // 주차별로 정렬해서 출력
+          Object.keys(weeks)
+            .sort()
+            .forEach((week) => {
+              const details = document.createElement("details");
+              // 가장 최근 주차는 열어두기
+              if (week.includes("4주차")) details.open = true;
+
+              let taskHtml = `<summary>${week} <span>▾</span></summary><div class="task-list">`;
+
+              weeks[week].forEach((task) => {
+                taskHtml += `
+                        <a href="${task.path}" class="task-card">
+                            <span><span class="tag">DONE</span>${task.name}</span>
+                            <span style="color:#ccc">›</span>
+                        </a>`;
+              });
+
+              taskHtml += `</div>`;
+              details.innerHTML = taskHtml;
+              container.appendChild(details);
+            });
         } catch (e) {
-          document.getElementById("loader").innerText = "데이터 로드 실패";
+          console.error("로드 실패", e);
         }
       }
-
-      function render() {
-        const container = document.getElementById("task-container");
-        container.innerHTML = "";
-
-        const start = (curPage - 1) * perPage;
-        const keys = sortedDates.slice(start, start + perPage);
-
-        keys.forEach((date) => {
-          const section = document.createElement("div");
-          section.className = "date-section";
-          section.innerHTML = `<div class="date-title">${date}</div>`;
-
-          groups[date].forEach((f) => {
-            const folderName = f.path.split("/").slice(-2, -1)[0].toLowerCase();
-
-            // --- 자동 태깅 로직 시작 ---
-            let tagText = "STUDY";
-            let tagClass = "study";
-
-            if (folderName.includes("quiz")) {
-              tagText = "QUIZ";
-              tagClass = "quiz";
-            } else if (
-              folderName.includes("starbucks") ||
-              folderName.includes("clone")
-            ) {
-              tagText = "PROJECT";
-              tagClass = "main";
-            } else if (
-              folderName.includes("assignment") ||
-              folderName.includes("task")
-            ) {
-              tagText = "TASK";
-              tagClass = "project";
-            }
-            // --- 자동 태깅 로직 끝 ---
-
-            section.innerHTML += `
-                    <a href="${f.path}" class="task-card">
-                        <div><span class="tag ${tagClass}">${tagText}</span><strong>${folderName}</strong></div>
-                        <span style="color:#ccc">›</span>
-                    </a>`;
-          });
-          container.appendChild(section);
-        });
-
-        const total = Math.ceil(sortedDates.length / perPage);
-        document.getElementById("page-info").innerText =
-          `${curPage} / ${total || 1}`;
-        document.getElementById("prev-btn").disabled = curPage === 1;
-        document.getElementById("next-btn").disabled =
-          curPage === total || total === 0;
-      }
-
-      document.getElementById("prev-btn").onclick = () => {
-        if (curPage > 1) {
-          curPage--;
-          render();
-          window.scrollTo(0, 0);
-        }
-      };
-      document.getElementById("next-btn").onclick = () => {
-        if (curPage < Math.ceil(sortedDates.length / perPage)) {
-          curPage++;
-          render();
-          window.scrollTo(0, 0);
-        }
-      };
-
-      fetchAndTag();
+      fetchWeekly();
     </script>
   </body>
 </html>
