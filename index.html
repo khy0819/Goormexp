@@ -391,9 +391,7 @@
                 let tagClass = isQuiz ? "quiz" : "task";
                 let titlePart =
                   parts.slice(2).join("-") || parts[1] || "과제물";
-                titlePart = titlePart
-                  .replace(/^(QUIZ|STUDY|TASK)[-_]?/i, "")
-                  .trim();
+                titlePart = titlePart.replace(/^(QUIZ|TASK)[-_]?/i, "").trim();
 
                 html += `
                 <a href="${encodeURI(task.path)}" class="task-card">
