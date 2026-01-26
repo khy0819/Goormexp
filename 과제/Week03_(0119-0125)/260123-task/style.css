@@ -1,15 +1,17 @@
-/* Notion Style Theme */
+/* Notion Style 테마 변수 설정 */
 :root {
   --text-main: #37352f;
   --text-sub: rgba(55, 53, 47, 0.65);
   --border: rgba(55, 53, 47, 0.16);
   --bg-hover: #f1f1f0;
   --notion-blue: #0077d4;
+  --notion-red: #eb5757;
 }
 
 body {
   background: #ffffff;
   color: var(--text-main);
+  /* 시스템 폰트*/
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
   margin: 0;
@@ -28,18 +30,8 @@ body {
   font-size: 4.5rem;
   margin-bottom: 12px;
 }
-.page-header h1 {
-  font-size: 2.5rem;
-  margin: 0;
-  font-weight: 700;
-}
-.page-desc {
-  color: var(--text-sub);
-  margin-top: 8px;
-  font-size: 1.1rem;
-}
 
-/* Grid Layout */
+/* Dashboard Grid */
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -54,63 +46,56 @@ body {
   transition: background 0.2s;
 }
 
-.card:hover {
-  background: #fafafa;
-}
-.card-title {
-  font-weight: 600;
-  font-size: 1.15rem;
-  margin-bottom: 16px;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 10px;
-}
-
-/* 1. To-Do Style */
-.todo-stats {
-  font-size: 0.85rem;
-  color: var(--text-sub);
-  margin-bottom: 12px;
-}
+/* To-Do List  */
 .input-group {
   display: flex;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 #todo-input {
   flex: 1;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 10px;
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 4px;
   outline: none;
 }
-#todo-list {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 16px;
+#add-btn {
+  background: var(--text-main);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0 16px;
+  cursor: pointer;
+  font-weight: 600;
 }
+
 .todo-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  border-bottom: 1px solid #f9f9f9;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.2s;
 }
-.completed {
-  text-decoration: line-through;
-  color: var(--text-sub);
-}
-.btn-secondary {
-  width: 100%;
-  border: none;
+.todo-item:hover {
   background: var(--bg-hover);
-  padding: 8px;
-  border-radius: 6px;
-  cursor: pointer;
-  color: var(--text-sub);
-  font-size: 0.85rem;
 }
 
-/* 2. Calculator Style */
+/* 삭제 버튼 */
+.delete-btn {
+  opacity: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: 0.2s;
+}
+.todo-item:hover .delete-btn {
+  opacity: 1;
+}
+
+/* 계산기 */
 #calc-display {
   font-size: 2rem;
   text-align: right;
@@ -118,35 +103,17 @@ body {
   padding: 16px;
   border-radius: 8px;
   margin-bottom: 12px;
-  min-height: 40px;
 }
 .calc-buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 6px;
 }
-.calc-buttons button {
-  padding: 14px 0;
-  border: 1px solid var(--border);
-  background: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-.btn-op {
-  background: #fff5eb !important;
-  color: #d47e2f;
-  font-weight: bold;
-}
-.btn-clear {
-  background: #fff1f0 !important;
-  color: #cf1322;
-}
 .btn-zero {
   grid-column: span 2;
 }
 
-/* 3. Stopwatch Style */
+/* 스톱워치 */
 #sw-display {
   font-size: 3.2rem;
   text-align: center;
@@ -154,50 +121,9 @@ body {
   font-weight: 300;
   font-variant-numeric: tabular-nums;
 }
-.sw-controls {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-.sw-controls button {
-  padding: 10px 20px;
-  border: 1px solid var(--border);
-  background: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.btn-start {
-  background: #ebf5e9 !important;
-  color: #43a047;
-  font-weight: bold;
-}
 .lap-container {
   border-top: 1px solid var(--border);
   padding-top: 12px;
   max-height: 180px;
   overflow-y: auto;
-}
-#lap-list {
-  list-style: none;
-  padding: 0;
-  font-size: 0.9rem;
-}
-.lap-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 0;
-  border-bottom: 1px dotted var(--border);
-}
-
-.home-link {
-  display: block;
-  width: fit-content;
-  margin: 80px auto 0;
-  color: var(--text-sub);
-  text-decoration: none;
-  font-weight: 500;
-  padding: 10px 24px;
-  border: 1px solid var(--border);
-  border-radius: 20px;
 }
