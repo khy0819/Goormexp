@@ -13,6 +13,10 @@
     <meta property="og:url" content="https://khy0819.github.io/Goormexp/" />
     <meta property="og:title" content="WEB ARCHIVE | 오늘도 코딩 중!" />
     <meta
+      property="og:description"
+      content="파일을 찾으러 하늘을 날고 있어요!"
+    />
+    <meta
       property="og:image"
       content="https://khy0819.github.io/Goormexp/assets/og-image.png"
     />
@@ -56,6 +60,7 @@
         --text-sub: #888888;
         --border: #eeeeee;
         --cloud-color: #ffffff;
+        --arrow-default: #eeeeee;
       }
 
       [data-theme="dark"] {
@@ -68,6 +73,7 @@
         --text-sub: #aaaaaa;
         --border: #333333;
         --cloud-color: #2c2c2c;
+        --arrow-default: #444444;
       }
 
       body {
@@ -99,6 +105,10 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         z-index: 1000;
         font-size: 1.2rem;
+        transition: transform 0.2s;
+      }
+      .theme-toggle:hover {
+        transform: scale(1.1);
       }
 
       header {
@@ -235,12 +245,15 @@
         color: var(--text-main);
         margin-bottom: 8px;
         border-radius: 15px;
-        transition: 0.2s;
+        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
+
+      /* 마우스 올렸을 때 효과 강조 */
       .task-card:hover {
         background: var(--bg);
         color: var(--primary);
         transform: scale(1.02);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
       }
 
       .tag {
@@ -251,6 +264,7 @@
         border-radius: 8px;
         font-weight: 800;
         margin-right: 20px;
+        flex-shrink: 0;
       }
       .tag.quiz {
         background: var(--accent);
@@ -266,19 +280,28 @@
         font-weight: 600;
         margin-right: 15px;
         width: 75px;
+        flex-shrink: 0;
       }
       .task-title {
         font-weight: 700;
         flex-grow: 1;
+        font-size: 1.05rem;
       }
+
+      /* 화살표 기본 및 호버 상태 */
       .arrow {
-        color: var(--border);
+        color: var(--arrow-default);
         font-size: 1.2rem;
+        transition: all 0.3s ease;
+      }
+      .task-card:hover .arrow {
+        color: var(--primary);
+        transform: translateX(5px);
       }
     </style>
   </head>
   <body>
-    <button class="theme-toggle" id="theme-btn">🌓</button>
+    <button class="theme-toggle" id="theme-btn" title="테마 변경">🌓</button>
 
     <div class="container">
       <header>
@@ -293,33 +316,26 @@
             <div class="eye"></div>
           </div>
         </div>
-        <div class="loading-text">파일을 찾으러 하늘을 날고 있어요!</div>
+        <div class="loading-text">파일을 찾으러 하늘을 날고 있어요</div>
       </div>
 
       <div id="task-container" style="display: none"></div>
     </div>
 
     <script>
-      // 1. 다크모드 토글 로직
+      // 1. 다크모드 설정
       const themeBtn = document.getElementById("theme-btn");
-      const currentTheme = localStorage.getItem("theme");
-
-      if (currentTheme) {
-        document.documentElement.setAttribute("data-theme", currentTheme);
-      }
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
 
       themeBtn.addEventListener("click", () => {
         let theme = document.documentElement.getAttribute("data-theme");
-        if (theme === "dark") {
-          document.documentElement.setAttribute("data-theme", "light");
-          localStorage.setItem("theme", "light");
-        } else {
-          document.documentElement.setAttribute("data-theme", "dark");
-          localStorage.setItem("theme", "dark");
-        }
+        let targetTheme = theme === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", targetTheme);
+        localStorage.setItem("theme", targetTheme);
       });
 
-      // 2. 데이터 페칭 로직
+      // 2. GitHub API 데이터 페칭
       async function fetchWeeklyData() {
         const owner = "khy0819";
         const repo = "Goormexp";
@@ -328,7 +344,7 @@
         try {
           const res = await fetch(apiUrl);
           const data = await res.json();
-          await new Promise((resolve) => setTimeout(resolve, 1500));
+          await new Promise((r) => setTimeout(r, 1500));
 
           const indexFiles = data.tree.filter(
             (f) =>
@@ -394,7 +410,7 @@
           });
         } catch (e) {
           document.getElementById("loader").innerHTML =
-            "☁️ 로드 실패! 다시 시도해 주세요.";
+            "☁️ 데이터 로드에 실패했습니다.";
         }
       }
       fetchWeeklyData();
