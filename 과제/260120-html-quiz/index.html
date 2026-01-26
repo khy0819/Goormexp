@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260126) JS 퀴즈 정답지</title>
+    <style>
+      :root {
+        --primary: #f7df1e;
+        --bg: #f8f9fa;
+      }
+      body {
+        font-family: "Pretendard", sans-serif;
+        background: var(--bg);
+        margin: 0;
+        padding: 40px 20px;
+        color: #333;
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+      h1 {
+        text-align: center;
+        border-bottom: 4px solid var(--primary);
+        padding-bottom: 15px;
+        margin-bottom: 40px;
+      }
+      .quiz-item {
+        margin-bottom: 30px;
+        padding: 20px;
+        border: 1px solid #eee;
+        border-radius: 12px;
+      }
+      .question {
+        font-weight: bold;
+        font-size: 1.1rem;
+        display: block;
+        margin-bottom: 15px;
+      }
+      .code-block {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 15px;
+        border-radius: 8px;
+        font-family: monospace;
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+        white-space: pre-wrap;
+      }
+      .answer-box {
+        background: #fffde7;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 5px solid var(--primary);
+      }
+      .ans-text {
+        color: #d93025;
+        font-weight: bold;
+      }
+      .exp-text {
+        display: block;
+        margin-top: 8px;
+        font-size: 0.9rem;
+        color: #666;
+      }
+      .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 50px;
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🟨 JS 종합 퀴즈 정답지 (260126)</h1>
+      <div id="quiz-container"></div>
+      <a href="https://khy0819.github.io/Goormexp/" class="back-link"
+        >🏠 과제 목록으로 돌아가기</a
+      >
+    </div>
+
+    <script>
+      const quizData = [
+        {
+          id: 1,
+          q: "let result = Number('') + Number('10'); 결과는?",
+          code: "let result = Number('') + Number('10');\nconsole.log(result);",
+          a: "10",
+          e: "Number('')는 0이므로 0 + 10 = 10이 됩니다.",
+        },
+        {
+          id: 2,
+          q: "다음 중 Falsy 값이 아닌 것은?",
+          code: "console.log(Boolean(???));",
+          a: "'0' (문자열 0)",
+          e: "빈 문자열이 아닌 문자열은 항상 Truthy입니다.",
+        },
+        {
+          id: 3,
+          q: "다음 코드의 출력 결과는?",
+          code: "let x = 5;\nlet y = x++;\nconsole.log(x, y);",
+          a: "6 5",
+          e: "후위 증감 연산자(x++)는 대입 후 값이 증가합니다.",
+        },
+        {
+          id: 4,
+          q: "다음 코드의 결과로 옳은 것은?",
+          code: "console.log('10' - 5 + '3');",
+          a: "'53'",
+          e: "뺄셈 연산 시 숫자로 변환되어 5가 되고, 덧셈 연산 시 다시 문자열로 합쳐집니다.",
+        },
+        {
+          id: 5,
+          q: "Null 병합 연산자(??)와 OR 연산자(||)의 차이?",
+          a: "??는 null/undefined만 대체, ||는 모든 falsy 대체",
+          e: "??는 0이나 빈 문자열을 유효한 값으로 처리할 때 유용합니다.",
+        },
+        {
+          id: 6,
+          q: "다음 코드의 실행 결과는?",
+          code: "let volume = 0;\nlet result1 = volume || 50;\nlet result2 = volume ?? 50;\nconsole.log(result1, result2);",
+          a: "50 0",
+          e: "0은 Falsy이므로 ||에서는 50을 반환하지만, ??에서는 null이 아니므로 0을 반환합니다.",
+        },
+        {
+          id: 7,
+          q: "typeof null과 typeof []의 결과?",
+          code: "console.log(typeof null);\nconsole.log(typeof []);",
+          a: "'object' 'object'",
+          e: "자바스크립트에서 null과 배열은 모두 객체 타입으로 판별됩니다.",
+        },
+        {
+          id: 8,
+          q: "삼항 연산자 결과 (score = 75)?",
+          code: "let score = 75;\nlet grade = score >= 90 ? 'A' : score >= 80 ? 'B' : 'C';",
+          a: "'C'",
+          e: "75는 두 조건을 모두 만족하지 못하므로 마지막 값인 'C'가 할당됩니다.",
+        },
+        {
+          id: 9,
+          q: "Number(a) + b === a + b 결과?",
+          code: "let a = '5'; let b = 3;\nconsole.log(Number(a) + b === a + b);",
+          a: "false",
+          e: "8 === '53'을 비교하므로 false입니다.",
+        },
+        {
+          id: 10,
+          q: "5 === '5'와 5 == '5'의 결과?",
+          a: "false, true",
+          e: "===는 타입까지, ==는 값만 비교합니다.",
+        },
+        {
+          id: 11,
+          q: "이중 반복문의 출력 횟수?",
+          code: "for (let i = 0; i < 3; i++) {\n  for (let j = 0; j < 2; j++) { ... }\n}",
+          a: "6번",
+          e: "3(외측) * 2(내측) = 6번 실행됩니다.",
+        },
+        {
+          id: 12,
+          q: "continue 사용 시 count 값?",
+          code: "let count = 0;\nfor (let i = 0; i < 10; i++) {\n  if (i % 2 === 0) continue;\n  count++;\n}",
+          a: "5",
+          e: "짝수일 때 건너뛰므로 홀수인 1,3,5,7,9일 때만 증가합니다.",
+        },
+        {
+          id: 13,
+          q: "typeof displayName 결과?",
+          code: "let userName = null;\nlet displayName = userName ?? 'Guest';\nconsole.log(typeof displayName);",
+          a: "'string'",
+          e: "displayName에 'Guest'가 할당되므로 타입은 string입니다.",
+        },
+        {
+          id: 14,
+          q: "문자열 누적 연산 결과?",
+          code: "let result = '';\nfor (let i = 1; i <= 3; i++) { result += i; }",
+          a: "'123'",
+          e: "빈 문자열에 숫자가 순차적으로 더해져 문자열 연결이 발생합니다.",
+        },
+        {
+          id: 15,
+          q: "break 실행 시점의 i 값?",
+          code: "for (let i = 0; i < 10; i++) {\n  if (i * i > 20) break;\n}",
+          a: "5",
+          e: "5 * 5 = 25로 처음 20을 넘는 순간 멈춥니다.",
+        },
+        {
+          id: 16,
+          q: "잘못된 형변환 설명?",
+          a: "String(null)은 에러를 발생시킨다",
+          e: "String(null)은 문자열 'null'을 정상적으로 반환합니다.",
+        },
+        {
+          id: 17,
+          q: "복합 증감 연산 결과 z?",
+          code: "let x = 10; let y = ++x;\nlet z = y++ + x++;",
+          a: "22",
+          e: "11(y) + 11(x) 연산 후 각각의 값이 증가합니다.",
+        },
+        {
+          id: 18,
+          q: "while문 출력 횟수?",
+          code: "let i = 5;\nwhile (i > 0) { i -= 2; }",
+          a: "3번",
+          e: "i가 5, 3, 1일 때 총 3번 실행됩니다.",
+        },
+        {
+          id: 19,
+          q: "typeof message === 'string' 결과?",
+          code: "let isActive = false;\nlet message = isActive ? '활성' : '비활성';",
+          a: "true",
+          e: "message는 문자열 '비활성'이므로 타입 비교 결과는 참입니다.",
+        },
+        {
+          id: 20,
+          q: "sum의 최종 값?",
+          code: "let sum = 0;\nfor (let i = 1; i <= 5; i++) {\n  if (i === 3) break;\n  sum += i;\n}",
+          a: "3",
+          e: "i가 3일 때 중단되므로 1 + 2 = 3이 됩니다.",
+        },
+      ];
+
+      const container = document.getElementById("quiz-container");
+
+      quizData.forEach((item) => {
+        const quizHtml = `
+            <div class="quiz-item">
+                <span class="question">Q${item.id}. ${item.q}</span>
+                ${item.code ? `<div class="code-block">${item.code}</div>` : ""}
+                <div class="answer-box">
+                    정답: <span class="ans-text">${item.a}</span>
+                    <span class="exp-text">💡 해설: ${item.e}</span>
+                </div>
+            </div>
+        `;
+        container.innerHTML += quizHtml;
+      });
+    </script>
+  </body>
+</html>
