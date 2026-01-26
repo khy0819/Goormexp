@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web_Fundamental_Tasks.log</title>
+    <style>
+      :root {
+        --vs-bg: #1e1e1e;
+        --vs-card: #252526;
+        --vs-header: #333333;
+        --vs-text: #d4d4d4;
+        --vs-keyword: #569cd6;
+        --vs-tag: #569cd6;
+        --vs-attr: #9cdcfe;
+        --vs-str: #ce9178;
+        --vs-comment: #6a9955;
+        --vs-class: #4ec9b0;
+        --vs-num: #b5cea8;
+      }
+
+      body {
+        font-family: "Consolas", "Monaco", "Courier New", monospace;
+        background-color: var(--vs-bg);
+        color: var(--vs-text);
+        margin: 0;
+        padding: 40px 20px;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .main-header {
+        margin-bottom: 40px;
+        border-left: 4px solid var(--vs-class);
+        padding-left: 20px;
+      }
+
+      .main-header h1 {
+        color: var(--vs-str);
+        font-size: 1.8rem;
+        margin: 0;
+      }
+      .main-header p {
+        color: var(--vs-comment);
+        margin: 5px 0 0 0;
+      }
+
+      .task-section {
+        background-color: var(--vs-card);
+        border: 1px solid #454545;
+        border-radius: 4px;
+        margin-bottom: 35px;
+        overflow: hidden;
+      }
+
+      .task-header {
+        background-color: var(--vs-header);
+        padding: 8px 20px;
+        font-size: 0.85rem;
+        border-bottom: 1px solid #454545;
+        color: #aaa;
+      }
+
+      .task-body {
+        padding: 25px;
+      }
+
+      h3 {
+        color: var(--vs-attr);
+        font-size: 1.1rem;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .desc {
+        background: #2d2d2d;
+        padding: 12px 15px;
+        border-radius: 4px;
+        color: var(--vs-text);
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        border-left: 3px solid var(--vs-comment);
+      }
+
+      .code-block {
+        background-color: #1e1e1e;
+        padding: 20px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        white-space: pre-wrap;
+        border: 1px solid #333;
+        margin-bottom: 20px;
+        color: var(--vs-text);
+      }
+
+      /* Highlighting */
+      .tag {
+        color: var(--vs-tag);
+      }
+      .attr {
+        color: var(--vs-attr);
+      }
+      .str {
+        color: var(--vs-str);
+      }
+      .kw {
+        color: var(--vs-keyword);
+      }
+      .cm {
+        color: var(--vs-comment);
+      }
+      .cl {
+        color: var(--vs-class);
+      }
+      .nm {
+        color: var(--vs-num);
+      }
+
+      .run-btn {
+        display: inline-block;
+        padding: 8px 20px;
+        background-color: #3e3e3e;
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.85rem;
+        border-radius: 2px;
+        transition: 0.2s;
+      }
+      .run-btn:hover {
+        background-color: var(--vs-keyword);
+      }
+
+      .exit-btn {
+        display: block;
+        width: fit-content;
+        margin: 60px auto;
+        padding: 12px 30px;
+        background-color: var(--vs-header);
+        color: var(--vs-class);
+        text-decoration: none;
+        border: 1px solid #454545;
+        border-radius: 4px;
+        font-weight: bold;
+        transition: 0.2s;
+      }
+      .exit-btn:hover {
+        background-color: #454545;
+        color: #fff;
+      }
+
+      .back-btn {
+        display: block;
+        width: fit-content;
+        margin: 40px auto 0;
+        padding: 12px 40px;
+        background-color: #1a73e8; /* 페이지 톤에 맞춘 블루 */
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .back-btn:hover {
+        background-color: #1557b0;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="main-header">
+        <h1>#Web_Fundamental_Tasks</h1>
+        <p>// Author: khy0819 | Total Tasks: 12/12</p>
+      </header>
+
+      <div class="task-section">
+        <div class="task-header">Task_01_Structure.html</div>
+        <div class="task-body">
+          <h3>🔰 01. HTML 기본 구조</h3>
+          <p class="desc">문서 타입 정의 및 기본 루트 요소 구성</p>
+          <div class="code-block">
+            <span class="tag"
+              >&lt;!DOCTYPE <span class="attr">html</span>&gt;</span
+            >
+            <span class="tag"
+              >&lt;html <span class="attr">lang</span>=<span class="str"
+                >"ko"</span
+              >&gt;</span
+            >
+            <span class="tag">&lt;head&gt;</span
+            ><span class="tag">&lt;title&gt;</span>Title<span class="tag"
+              >&lt;/title&gt;</span
+            ><span class="tag">&lt;/head&gt;</span>
+            <span class="tag">&lt;/html&gt;</span>
+          </div>
+          <a href="#" class="run-btn">Run Code</a>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_02_Form.html</div>
+        <div class="task-body">
+          <h3>🎯 02. Form 요소</h3>
+          <p class="desc">데이터 전송을 위한 폼 및 입력 태그</p>
+          <div class="code-block">
+            <span class="tag"
+              >&lt;form <span class="attr">action</span>=<span class="str"
+                >"/submit"</span
+              >&gt;</span
+            >
+            <span class="tag"
+              >&lt;input <span class="attr">type</span>=<span class="str"
+                >"text"</span
+              >
+              <span class="attr">name</span>=<span class="str">"user"</span
+              >&gt;</span
+            >
+            <span class="tag">&lt;/form&gt;</span>
+          </div>
+          <a href="#" class="run-btn">Run Code</a>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_03_Table.html</div>
+        <div class="task-body">
+          <h3>📊 03. Table 기초</h3>
+          <p class="desc">표 형식의 데이터 레이아웃 구조화</p>
+          <div class="code-block">
+            <span class="tag">&lt;table&gt;</span>
+            <span class="tag">&lt;tr&gt;</span
+            ><span class="tag">&lt;th&gt;</span>Name<span class="tag"
+              >&lt;/th&gt;</span
+            ><span class="tag">&lt;td&gt;</span>Gildong<span class="tag"
+              >&lt;/td&gt;</span
+            ><span class="tag">&lt;/tr&gt;</span>
+            <span class="tag">&lt;/table&gt;</span>
+          </div>
+          <a href="#" class="run-btn">Run Code</a>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_04_Input_Types.html</div>
+        <div class="task-body">
+          <h3>🔘 04. 다양한 입력 타입</h3>
+          <p class="desc">체크박스, 라디오, 셀렉트 박스 활용</p>
+          <div class="code-block">
+            <span class="tag"
+              >&lt;input <span class="attr">type</span>=<span class="str"
+                >"checkbox"</span
+              >&gt;</span
+            >
+            <span class="tag"
+              >&lt;input <span class="attr">type</span>=<span class="str"
+                >"radio"</span
+              >&gt;</span
+            >
+            <span class="tag">&lt;select&gt;</span
+            ><span class="tag">&lt;option&gt;</span>Select<span class="tag"
+              >&lt;/option&gt;</span
+            ><span class="tag">&lt;/select&gt;</span>
+          </div>
+          <a href="#" class="run-btn">Run Code</a>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_05_Semantic.html</div>
+        <div class="task-body">
+          <h3>🏛️ 05. 시맨틱 태그</h3>
+          <p class="desc">웹 페이지의 의미론적 구역 나누기</p>
+          <div class="code-block">
+            <span class="tag">&lt;header&gt;</span>Header<span class="tag"
+              >&lt;/header&gt;</span
+            >
+            <span class="tag">&lt;main&gt;</span>Content<span class="tag"
+              >&lt;/main&gt;</span
+            >
+            <span class="tag">&lt;footer&gt;</span>Footer<span class="tag"
+              >&lt;/footer&gt;</span
+            >
+          </div>
+          <a href="#" class="run-btn">Run Code</a>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_06_08_CSS_Methods.html</div>
+        <div class="task-body">
+          <h3>🎨 06~08. CSS 적용 방식</h3>
+          <p class="desc">외부, 내부, 인라인 방식의 차이점</p>
+          <div class="code-block">
+            <span class="tag"
+              >&lt;link <span class="attr">rel</span>=<span class="str"
+                >"stylesheet"</span
+              >
+              <span class="attr">href</span>=<span class="str">"style.css"</span
+              >&gt;</span
+            >
+            <span class="tag">&lt;style&gt;</span> <span class="cl">h1</span> {
+            <span class="attr">color</span>: <span class="str">red</span>; }
+            <span class="tag">&lt;/style&gt;</span>
+          </div>
+          <a href="#" class="run-btn">Run Code</a>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_09_Selectors.css</div>
+        <div class="task-body">
+          <h3>🔍 09. 기본 선택자</h3>
+          <p class="desc">전체, 태그, 클래스, ID 선택자 이해</p>
+          <div class="code-block">
+            <span class="cl">*</span> { <span class="attr">box-sizing</span>:
+            <span class="str">border-box</span>; }
+            <span class="cl">.box</span> { <span class="attr">width</span>:
+            <span class="nm">100px</span>; } <span class="cl">#top</span> {
+            <span class="attr">padding</span>: <span class="nm">20px</span>; }
+          </div>
+          <a href="#" class="run-btn">Run Code</a>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_10_Pseudo.css</div>
+        <div class="task-body">
+          <h3>✨ 10. 가상 선택자</h3>
+          <p class="desc">상태 변화에 따른 스타일 제어 (hover, focus)</p>
+          <div class="code-block">
+            <span class="cl">a:hover</span> { <span class="attr">opacity</span>:
+            <span class="nm">0.7</span>; }
+            <span class="cl">li:nth-child(<span class="nm">2n</span>)</span> {
+            <span class="attr">background</span>: <span class="str">#333</span>;
+            }
+          </div>
+          <a href="#" class="run-btn">Run Code</a>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_11_Combinators.css</div>
+        <div class="task-body">
+          <h3>🔗 11. 복합 선택자</h3>
+          <p class="desc">자손, 자식, 인접 형제 선택자 활용</p>
+          <div class="code-block">
+            <span class="cl">nav ul > li</span> {
+            <span class="attr">list-style</span>: <span class="str">none</span>;
+            } <span class="cl">h1 + p</span> {
+            <span class="attr">margin-top</span>: <span class="nm">0</span>; }
+          </div>
+          <a href="#" class="run-btn">Run Code</a>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_12_Layout.css</div>
+        <div class="task-body">
+          <h3>💎 12. Flexbox 레이아웃</h3>
+          <p class="desc">정렬과 배치를 위한 강력한 CSS 속성</p>
+          <div class="code-block">
+            <span class="cl">.flex-container</span> {
+            <span class="kw">display</span>: <span class="str">flex</span>;
+            <span class="kw">justify-content</span>:
+            <span class="str">center</span>; }
+          </div>
+          <a href="#" class="run-btn">Run Code</a>
+        </div>
+      </div>
+
+      <a href="https://khy0819.github.io/Goormexp/" class="back-btn"
+        >🏠 과제 목록 첫화면으로</a
+      >
+    </div>
+  </body>
+</html>
