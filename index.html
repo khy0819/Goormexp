@@ -270,7 +270,7 @@
         background: var(--accent);
         color: #856404;
       }
-      .tag.study {
+      .tag.task {
         background: var(--border);
         color: var(--text-sub);
       }
@@ -387,8 +387,8 @@
                 const parts = task.name.split("-");
                 const datePart = parts[0] || "000000";
                 let isQuiz = task.name.toUpperCase().includes("QUIZ");
-                let tagText = isQuiz ? "QUIZ" : "STUDY";
-                let tagClass = isQuiz ? "quiz" : "study";
+                let tagText = isQuiz ? "QUIZ" : "TASK";
+                let tagClass = isQuiz ? "quiz" : "task";
                 let titlePart =
                   parts.slice(2).join("-") || parts[1] || "과제물";
                 titlePart = titlePart
