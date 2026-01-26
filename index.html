@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Goorm 과제 저장소 | 타임라인</title>
     <style>
+      /* 폰트 설정 */
       @font-face {
         font-family: "11StreetGothic";
         src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-KorLight.woff2")
@@ -12,7 +13,6 @@
         font-weight: 300;
         font-display: swap;
       }
-
       @font-face {
         font-family: "11StreetGothic";
         src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-Kor.woff2")
@@ -20,7 +20,6 @@
         font-weight: 400;
         font-display: swap;
       }
-
       @font-face {
         font-family: "11StreetGothic";
         src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-KorBold.woff2")
@@ -31,93 +30,162 @@
 
       :root {
         --primary: #006241;
+        --secondary: #e8f5e9;
         --bg: #f8f9fa;
+        --accent: #ffeb3b;
       }
+
       body {
-        font-family:
-          "11StreetGothic",
-          "Pretendard",
-          -apple-system,
-          sans-serif;
+        font-family: "11StreetGothic", "Pretendard", sans-serif;
         background: var(--bg);
         margin: 0;
         padding: 40px 20px;
       }
+
       .container {
         max-width: 750px;
         margin: 0 auto;
       }
+
       header {
         text-align: center;
         margin-bottom: 50px;
       }
       header h1 {
         color: var(--primary);
-        font-size: 2.5rem;
+        font-size: 2.8rem;
         margin-bottom: 8px;
         font-weight: 700;
-        letter-spacing: -0.5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+      }
+      header h1::before,
+      header h1::after {
+        content: "☁️";
+        font-size: 2rem;
       }
       header p {
-        color: #666;
+        color: #888;
+        font-weight: 300;
       }
 
-      /* 주차별 그룹 (아코디언) */
+      /* ✨ 귀여운 구름 로딩 애니메이션 */
+      .loader-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 100px 0;
+      }
+      .cloud {
+        width: 100px;
+        height: 40px;
+        background: #fff;
+        border-radius: 50px;
+        position: relative;
+        animation: float 2s ease-in-out infinite;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+      }
+      .cloud::after,
+      .cloud::before {
+        content: "";
+        position: absolute;
+        background: #fff;
+        border-radius: 50%;
+      }
+      .cloud::after {
+        width: 50px;
+        height: 50px;
+        top: -25px;
+        left: 15px;
+      }
+      .cloud::before {
+        width: 40px;
+        height: 40px;
+        top: -20px;
+        right: 15px;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      .loading-text {
+        margin-top: 25px;
+        color: var(--primary);
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+
+      /* 주차별 그룹 */
       details {
         background: white;
-        margin-bottom: 15px;
-        border-radius: 15px;
-        border: 1px solid #eee;
+        margin-bottom: 20px;
+        border-radius: 20px;
+        border: none;
         overflow: hidden;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+        transition: transform 0.3s ease;
       }
+      details:hover {
+        transform: translateY(-3px);
+      }
+
       summary {
-        padding: 20px 24px;
+        padding: 24px 28px;
         font-weight: 700;
         cursor: pointer;
         list-style: none;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        user-select: none;
-        transition: all 0.2s ease;
+        background: #fff;
+        transition: background 0.3s;
       }
       details[open] summary {
-        border-bottom: 1px solid #eee;
-        background: #f9fdfb;
+        background: var(--secondary);
         color: var(--primary);
       }
       summary::after {
-        content: "＋";
-        font-size: 1rem;
-        color: #aaa;
+        content: "展开";
+        font-size: 0.8rem;
+        color: #ccc;
+        background: #f1f1f1;
+        padding: 4px 10px;
+        border-radius: 10px;
       }
       details[open] summary::after {
-        content: "－";
-        color: var(--primary);
+        content: "닫기";
+        background: var(--primary);
+        color: #fff;
       }
 
-      /* 과제 리스트 정렬 레이아웃 */
+      /* 과제 리스트 */
       .task-list {
-        padding: 10px 15px 20px;
+        padding: 5px 15px 20px;
       }
       .task-card {
         display: flex;
         align-items: center;
-        padding: 16px 20px;
+        padding: 18px 20px;
         text-decoration: none;
         color: #333;
-        border-bottom: 1px solid #f5f5f5;
-        transition: all 0.2s ease;
-        border-radius: 8px;
-      }
-      .task-card:last-child {
-        border-bottom: none;
+        margin-bottom: 8px;
+        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border-radius: 15px;
       }
       .task-card:hover {
-        background: #f8fdfb;
+        background: #fff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         color: var(--primary);
-        transform: translateX(4px);
+        transform: scale(1.02);
       }
 
       .task-info {
@@ -126,50 +194,47 @@
         flex-grow: 1;
       }
 
-      /* 1. 태그 섹션 (너비 고정) */
       .tag {
-        width: 55px;
+        width: 60px;
         text-align: center;
-        font-size: 0.65rem;
-        padding: 3px 0;
-        border-radius: 4px;
+        font-size: 0.7rem;
+        padding: 4px 0;
+        border-radius: 8px;
         font-weight: 800;
         margin-right: 20px;
         flex-shrink: 0;
       }
       .tag.quiz {
-        background: #fff5b1;
+        background: var(--accent);
         color: #856404;
-        border: 1px solid #ffeeba;
       }
       .tag.study {
-        background: #e2e3e5;
-        color: #383d41;
-        border: 1px solid #d6d8db;
+        background: #eee;
+        color: #666;
       }
 
-      /* 2. 날짜 섹션 (너비 고정) */
       .task-date {
-        width: 70px;
+        width: 75px;
         font-family: "11StreetGothic", monospace;
-        color: #999;
-        font-size: 0.95rem;
+        color: #bbb;
+        font-size: 0.9rem;
         margin-right: 15px;
         flex-shrink: 0;
       }
 
-      /* 3. 제목 섹션 (자동 정렬 시작점) */
       .task-title {
-        font-weight: 600;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        font-weight: 700;
+        font-size: 1.05rem;
       }
 
-      .loader {
-        text-align: center;
-        padding: 50px;
-        color: #aaa;
+      .arrow {
+        color: #eee;
+        font-size: 1.2rem;
+        transition: 0.3s;
+      }
+      .task-card:hover .arrow {
+        color: var(--primary);
+        transform: translateX(5px);
       }
     </style>
   </head>
@@ -177,9 +242,14 @@
     <div class="container">
       <header>
         <h1>WEB ARCHIVE</h1>
+        <p>오늘도 구름처럼 폭신하고 즐거운 코딩! ☁️</p>
       </header>
 
-      <div id="loader" class="loader">데이터를 분석 중입니다...</div>
+      <div id="loader" class="loader-wrapper">
+        <div class="cloud"></div>
+        <div class="loading-text">파일을 찾으러 하늘을 날고 있어요...</div>
+      </div>
+
       <div id="task-container"></div>
     </div>
 
@@ -193,7 +263,6 @@
           const res = await fetch(apiUrl);
           const data = await res.json();
 
-          // '과제/' 폴더 내 index.html 필터링
           const indexFiles = data.tree.filter(
             (f) =>
               f.path.includes("과제/") &&
@@ -228,39 +297,36 @@
             if (week === sortedWeeks[sortedWeeks.length - 1])
               details.open = true;
 
-            let html = `<summary>${week} (${weeks[week].length}건)</summary><div class="task-list">`;
+            let html = `<summary><span>📂 ${week}</span> <span style="font-size:0.8rem; opacity:0.5;">${weeks[week].length}개의 기록</span></summary><div class="task-list">`;
 
             weeks[week]
               .sort((a, b) => a.name.localeCompare(b.name))
               .forEach((task) => {
                 const parts = task.name.split("-");
                 const datePart = parts[0] || "000000";
-
-                // 태그 판별
                 let isQuiz = task.name.toUpperCase().includes("QUIZ");
                 let tagText = isQuiz ? "QUIZ" : "STUDY";
                 let tagClass = isQuiz ? "quiz" : "study";
 
-                // 중복 제거된 제목 추출 (날짜와 유형 키워드 제외)
                 let titlePart = parts.slice(2).join("-");
                 if (!titlePart) titlePart = parts[1] || "과제물";
 
-                // QUIZ, STUDY, TASK 등의 키워드 제거
                 titlePart = titlePart
-                  .replace(/^(QUIZ|quiz|Quiz)[-_]?/i, "")
-                  .replace(/^(STUDY|study|Study)[-_]?/i, "")
-                  .replace(/^(TASK|task|Task)[-_]?/i, "")
+                  .replace(
+                    /^(QUIZ|quiz|Quiz|STUDY|study|Study|TASK|task|Task)[-_]?/i,
+                    "",
+                  )
                   .trim();
 
                 html += `
-                            <a href="${encodeURI(task.path)}" class="task-card">
-                                <div class="task-info">
-                                    <span class="tag ${tagClass}">${tagText}</span>
-                                    <span class="task-date">${datePart}</span>
-                                    <span class="task-title">${titlePart}</span>
-                                </div>
-                                <span style="color:#eee">›</span>
-                            </a>`;
+                  <a href="${encodeURI(task.path)}" class="task-card">
+                    <div class="task-info">
+                      <span class="tag ${tagClass}">${tagText}</span>
+                      <span class="task-date">${datePart}</span>
+                      <span class="task-title">${titlePart}</span>
+                    </div>
+                    <span class="arrow">→</span>
+                  </a>`;
               });
 
             html += `</div>`;
@@ -268,8 +334,8 @@
             container.appendChild(details);
           });
         } catch (e) {
-          document.getElementById("loader").innerText =
-            "로드 실패. 경로를 확인해주세요.";
+          document.getElementById("loader").innerHTML =
+            "☁️ 파일을 찾는 도중 비가 내려요... (로드 실패)";
         }
       }
       fetchWeeklyData();
