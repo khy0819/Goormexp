@@ -241,11 +241,14 @@
       }
       .task-date {
         width: 75px;
-        font-family: "Courier New", monospace;
-        color: #bbb;
-        font-size: 0.95rem;
+        /* 11StreetGothic이 있다면 사용하고, 없으면 시스템 고딕 사용 */
+        font-family: "11StreetGothic", "Pretendard", sans-serif;
+        color: #666;
+        font-size: 1rem;
+        font-weight: 600;
         margin-right: 15px;
         flex-shrink: 0;
+        letter-spacing: -0.2px;
       }
       .task-title {
         font-weight: 700;
@@ -265,8 +268,8 @@
   <body>
     <div class="container">
       <header>
-        <h1>☁️ WEB ARCHIVE</h1>
-        <p>오늘도 구름처럼 폭신하게 코딩 중!</p>
+        <h1>WEB ARCHIVE</h1>
+        <p>오늘도 코딩 중!</p>
       </header>
 
       <div id="loader" class="loader-wrapper">
@@ -276,7 +279,7 @@
             <div class="eye"></div>
           </div>
         </div>
-        <div class="loading-text">파일을 찾으러 하늘을 날고 있어요</div>
+        <div class="loading-text">파일을 찾으러 하늘을 날고 있어요!</div>
       </div>
 
       <div id="task-container" style="display: none"></div>
@@ -294,7 +297,7 @@
 
           // ---------------------------------------------------------
           // 인위적 지연 추가 (로딩 효과를 보기 위함)
-          await new Promise((resolve) => setTimeout(resolve, 3000));
+          await new Promise((resolve) => setTimeout(resolve, 4500));
           // ---------------------------------------------------------
 
           const indexFiles = data.tree.filter(
