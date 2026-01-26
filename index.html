@@ -228,7 +228,7 @@
             if (week === sortedWeeks[sortedWeeks.length - 1])
               details.open = true;
 
-            let html = `<summary>${week} (${weeks[week].length} 건)</summary><div class="task-list">`;
+            let html = `<summary>${week} (${weeks[week].length}건)</summary><div class="task-list">`;
 
             weeks[week]
               .sort((a, b) => a.name.localeCompare(b.name))
