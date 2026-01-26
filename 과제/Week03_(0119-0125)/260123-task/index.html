@@ -2,71 +2,261 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <title>My Workspace</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notion Dashboard</title>
+    <style>
+      /* 1. 디자인 (CSS) */
+      :root {
+        --notion-text: #37352f;
+        --notion-sub: rgba(55, 53, 47, 0.6);
+        --notion-bg: #ffffff;
+        --notion-hover: #f1f1f0;
+        --border-color: rgba(55, 53, 47, 0.16);
+      }
+
+      body {
+        background: #ffffff;
+        color: var(--notion-text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        margin: 0;
+        padding: 40px 20px;
+      }
+
+      .notion-page {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .page-header {
+        margin-bottom: 40px;
+      }
+      .page-icon {
+        font-size: 4rem;
+        margin-bottom: 10px;
+      }
+
+      .content-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+      }
+      .block-card {
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px;
+        background: white;
+      }
+      .block-title {
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 8px;
+      }
+
+      /* To-Do Style */
+      #todo-input {
+        width: 95%;
+        border: none;
+        font-size: 1rem;
+        padding: 8px;
+        outline: none;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .todo-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 10px 0;
+      }
+      .completed {
+        color: var(--notion-sub);
+        text-decoration: line-through;
+      }
+
+      /* Calc Style */
+      #calc-display {
+        font-size: 2rem;
+        text-align: right;
+        margin-bottom: 10px;
+        padding: 10px;
+        background: #f7f7f7;
+        border-radius: 8px;
+        min-height: 40px;
+      }
+      .calc-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
+      }
+      .calc-grid button {
+        padding: 15px 0;
+        border: 1px solid var(--border-color);
+        background: white;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .btn-op {
+        background: #fff5eb !important;
+        color: #d47e2f;
+        font-weight: bold;
+      }
+
+      /* Stopwatch Style */
+      #sw-time {
+        font-size: 2.8rem;
+        text-align: center;
+        margin: 15px 0;
+        font-weight: 300;
+      }
+      .sw-controls {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+      .sw-controls button {
+        padding: 8px 16px;
+        border: 1px solid var(--border-color);
+        background: white;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+
+      .back-btn {
+        display: block;
+        width: fit-content;
+        margin: 60px auto 0;
+        padding: 10px 25px;
+        background: #37352f;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
   </head>
   <body>
     <div class="notion-page">
       <header class="page-header">
-        <div class="page-icon">☁️</div>
+        <div class="page-icon">🚀</div>
         <h1>종합 실습 프로젝트</h1>
-        <p class="page-desc">
-          To-Do List, Calculator, and Stopwatch in one place.
-        </p>
+        <p>To-Do List, Calculator, Stopwatch</p>
       </header>
 
       <main class="content-grid">
         <section class="block-card">
-          <div class="block-title">📝 To-Do List</div>
-          <div class="todo-wrapper">
-            <input
-              type="text"
-              id="todo-input"
-              placeholder="새로운 할 일 입력..."
-            />
-            <ul id="todo-list"></ul>
+          <div class="block-title">📝 할 일 관리</div>
+          <input
+            type="text"
+            id="todo-input"
+            placeholder="새로운 할 일 입력 후 Enter"
+          />
+          <ul id="todo-list" style="list-style: none; padding: 0"></ul>
+        </section>
+
+        <section class="block-card">
+          <div class="block-title">🔢 계산기</div>
+          <div id="calc-display">0</div>
+          <div class="calc-grid">
+            <button onclick="clearCalc()">C</button>
+            <button onclick="inputCalc('/')" class="btn-op">÷</button>
+            <button onclick="inputCalc('*')" class="btn-op">×</button>
+            <button onclick="inputCalc('-')" class="btn-op">−</button>
+            <button onclick="inputCalc('7')">7</button>
+            <button onclick="inputCalc('8')">8</button>
+            <button onclick="inputCalc('9')">9</button>
+            <button onclick="inputCalc('+')" class="btn-op">+</button>
+            <button onclick="inputCalc('4')">4</button>
+            <button onclick="inputCalc('5')">5</button>
+            <button onclick="inputCalc('6')">6</button>
+            <button onclick="solve()" class="btn-op">=</button>
+            <button onclick="inputCalc('1')">1</button>
+            <button onclick="inputCalc('2')">2</button>
+            <button onclick="inputCalc('3')">3</button>
+            <button onclick="inputCalc('0')">0</button>
           </div>
         </section>
 
         <section class="block-card">
-          <div class="block-title">🔢 Calculator</div>
-          <div class="calc-wrapper">
-            <div id="calc-display">0</div>
-            <div class="calc-grid">
-              <button class="btn-util">C</button
-              ><button class="btn-util">+/-</button
-              ><button class="btn-util">%</button
-              ><button class="btn-op">÷</button> <button>7</button
-              ><button>8</button><button>9</button
-              ><button class="btn-op">×</button> <button>4</button
-              ><button>5</button><button>6</button
-              ><button class="btn-op">−</button> <button>1</button
-              ><button>2</button><button>3</button
-              ><button class="btn-op">+</button>
-              <button class="btn-zero">0</button><button>.</button
-              ><button class="btn-op">=</button>
-            </div>
-          </div>
-        </section>
-
-        <section class="block-card">
-          <div class="block-title">⏱️ Stopwatch</div>
-          <div class="stopwatch-wrapper">
-            <div id="sw-time">00:00:00</div>
-            <div class="sw-controls">
-              <button id="sw-start" class="btn-start">Start</button>
-              <button id="sw-reset">Reset</button>
-              <button id="sw-lap">Lap</button>
-            </div>
-            <ul id="lap-list"></ul>
+          <div class="block-title">⏱️ 스톱워치</div>
+          <div id="sw-time">00:00:00</div>
+          <div class="sw-controls">
+            <button id="sw-start-btn" onclick="toggleSW()">Start</button>
+            <button onclick="resetSW()">Reset</button>
           </div>
         </section>
       </main>
 
       <a href="https://khy0819.github.io/Goormexp/" class="back-btn"
-        >🏠 과제 목록 첫화면으로</a
+        >🏠 첫화면으로</a
       >
     </div>
-    <script src="script.js"></script>
+
+    <script>
+      // --- 1. To-Do List ---
+      const todoInput = document.getElementById("todo-input");
+      const todoList = document.getElementById("todo-list");
+
+      todoInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter" && todoInput.value.trim() !== "") {
+          const li = document.createElement("li");
+          li.className = "todo-item";
+          li.innerHTML = `<input type="checkbox" onchange="this.nextElementSibling.classList.toggle('completed')"> <span>${todoInput.value}</span>`;
+          todoList.appendChild(li);
+          todoInput.value = "";
+        }
+      });
+
+      // --- 2. Calculator ---
+      let display = document.getElementById("calc-display");
+      function inputCalc(v) {
+        if (display.innerText === "0") display.innerText = v;
+        else display.innerText += v;
+      }
+      function clearCalc() {
+        display.innerText = "0";
+      }
+      function solve() {
+        try {
+          display.innerText = eval(display.innerText);
+        } catch {
+          display.innerText = "Error";
+        }
+      }
+
+      // --- 3. Stopwatch ---
+      let swTimer,
+        swMs = 0,
+        running = false;
+      function toggleSW() {
+        const btn = document.getElementById("sw-start-btn");
+        if (!running) {
+          running = true;
+          btn.innerText = "Stop";
+          swTimer = setInterval(() => {
+            swMs += 10;
+            let s = Math.floor((swMs / 1000) % 60)
+              .toString()
+              .padStart(2, "0");
+            let m = Math.floor(swMs / 60000)
+              .toString()
+              .padStart(2, "0");
+            let ms = Math.floor((swMs % 1000) / 10)
+              .toString()
+              .padStart(2, "0");
+            document.getElementById("sw-time").innerText = `${m}:${s}:${ms}`;
+          }, 10);
+        } else {
+          running = false;
+          btn.innerText = "Start";
+          clearInterval(swTimer);
+        }
+      }
+      function resetSW() {
+        clearInterval(swTimer);
+        running = false;
+        swMs = 0;
+        document.getElementById("sw-time").innerText = "00:00:00";
+        document.getElementById("sw-start-btn").innerText = "Start";
+      }
+    </script>
   </body>
 </html>
