@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260123) JS 퀴즈 정답지</title>
+    <style>
+      :root {
+        --primary: #f7df1e;
+        --bg: #f8f9fa;
+      }
+      body {
+        font-family:
+          "Pretendard",
+          -apple-system,
+          sans-serif;
+        background: var(--bg);
+        margin: 0;
+        padding: 40px 20px;
+        color: #333;
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+      h1 {
+        text-align: center;
+        border-bottom: 4px solid var(--primary);
+        padding-bottom: 15px;
+        margin-bottom: 40px;
+      }
+      .quiz-item {
+        margin-bottom: 30px;
+        padding: 20px;
+        border: 1px solid #eee;
+        border-radius: 12px;
+      }
+      .question {
+        font-weight: bold;
+        font-size: 1.1rem;
+        display: block;
+        margin-bottom: 15px;
+      }
+      .code-block {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 15px;
+        border-radius: 8px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+        white-space: pre-wrap;
+      }
+      .answer-box {
+        background: #fffde7;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 5px solid var(--primary);
+      }
+      .ans-text {
+        color: #d93025;
+        font-weight: bold;
+      }
+      .exp-text {
+        display: block;
+        margin-top: 8px;
+        font-size: 0.9rem;
+        color: #666;
+      }
+      .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 50px;
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>(260123) JS DOM & Event 퀴즈 정답지</h1>
+      <div id="quiz-container"></div>
+      <a href="https://khy0819.github.io/Goormexp/" class="back-link"
+        >🏠 과제 목록으로 돌아가기</a
+      >
+    </div>
+
+    <script>
+      const quizData = [
+        {
+          id: 1,
+          q: "DOM이란 무엇인가?",
+          a: "HTML을 JavaScript가 이해할 수 있는 객체 구조로 만든 것이다",
+          e: "Document Object Model의 약자로, 브라우저가 HTML 문서를 트리 구조의 객체로 변환한 것을 말합니다.",
+        },
+        {
+          id: 2,
+          q: "다음 중 하나의 요소를 선택하는 메서드로 옳은 것은?",
+          a: "document.querySelector()",
+          e: "querySelector는 조건에 맞는 첫 번째 요소 하나만 반환합니다. querySelectorAll은 여러 요소를 노드 리스트로 반환합니다.",
+        },
+        {
+          id: 3,
+          q: "다음 코드의 실행 결과는?",
+          code: "<h1 id='title'>안녕하세요</h1>\n\nconst title = document.querySelector('#title');\nconsole.log(title.textContent);",
+          a: "'안녕하세요'",
+          e: "textContent 프로퍼티는 해당 요소가 가진 순수한 텍스트 내용만을 가져옵니다.",
+        },
+        {
+          id: 4,
+          q: "textContent와 innerHTML의 차이로 옳은 것은?",
+          a: "textContent는 텍스트만 표시하고, innerHTML은 HTML 태그를 적용한다",
+          e: "innerHTML에 HTML 문자열을 넣으면 태그가 해석되어 렌더링되지만, textContent는 문자열 그대로 출력됩니다.",
+        },
+        {
+          id: 5,
+          q: "다음 코드의 실행 결과는?",
+          code: "const box = document.querySelector('.box');\nbox.style.color = 'red';\nbox.style.fontSize = '20px';",
+          a: "텍스트 색이 빨강, 크기가 20px로 변경된다",
+          e: "style 프로퍼티를 통해 인라인 스타일을 직접 수정할 수 있습니다. CSS 속성명은 카멜 케이스(fontSize)로 작성합니다.",
+        },
+        {
+          id: 6,
+          q: "다음 중 클래스를 추가하는 올바른 방법은?",
+          a: "element.classList.add('active')",
+          e: "classList API를 사용하면 add, remove, toggle, contains 등을 통해 클래스를 안전하게 조작할 수 있습니다.",
+        },
+        {
+          id: 7,
+          q: "다음 코드의 실행 결과는?",
+          code: "const container = document.querySelector('.container');\nconst newDiv = document.createElement('div');\nnewDiv.textContent = '새로운 요소';\ncontainer.appendChild(newDiv);",
+          a: "container 안에 새로운 div가 추가된다",
+          e: "createElement로 메모리에 요소를 생성하고, appendChild를 통해 실제 DOM 트리에 연결합니다.",
+        },
+        {
+          id: 8,
+          q: "addEventListener의 올바른 사용법은?",
+          a: "button.addEventListener('click', handleClick)",
+          e: "대상.addEventListener('이벤트타입', 콜백함수) 형식이 올바른 표준 문법입니다.",
+        },
+        {
+          id: 9,
+          q: "다음 코드에서 버튼을 클릭하면 어떻게 되는가?",
+          code: "button.addEventListener('click', () => {\n  console.log('클릭됨!');\n});",
+          a: "콘솔에 '클릭됨!'이 출력된다",
+          e: "클릭 이벤트가 발생할 때마다 등록된 화살표 함수가 실행됩니다.",
+        },
+        {
+          id: 10,
+          q: "다음 이벤트 중 키보드 관련 이벤트가 아닌 것은?",
+          a: "input",
+          e: "input 이벤트는 입력 값의 변경을 감지하는 이벤트로, 키보드뿐만 아니라 붙여넣기, 음성 입력 등으로도 발생합니다.",
+        },
+        {
+          id: 11,
+          q: "다음 코드의 출력 결과는?",
+          code: "document.addEventListener('keydown', (e) => {\n  console.log(e.key);\n}); // 사용자가 'a' 키를 누름",
+          a: "'a'",
+          e: "이벤트 객체(e)의 key 프로퍼티는 눌린 키의 문자열 값을 반환합니다.",
+        },
+        {
+          id: 12,
+          q: "폼 제출 시 페이지 새로고침을 방지하는 방법은?",
+          a: "e.preventDefault()",
+          e: "브라우저가 가진 기본 동작(새로고침, 링크 이동 등)을 중단시키기 위해 사용합니다.",
+        },
+        {
+          id: 13,
+          q: "다음 코드에서 event는 무엇을 의미하는가?",
+          code: "button.addEventListener('click', (event) => {\n  console.log(event.type);\n});",
+          a: "이벤트에 대한 정보를 담은 객체",
+          e: "콜백 함수의 첫 번째 인자로 전달되는 객체는 발생한 이벤트의 좌표, 타입, 대상 등의 정보를 담고 있습니다.",
+        },
+        {
+          id: 14,
+          q: "다음 중 마우스 이벤트가 아닌 것은?",
+          a: "focus",
+          e: "focus는 요소가 포커스를 받았을 때(키보드 탭 이동 등 포함) 발생하는 포커스 이벤트입니다.",
+        },
+        {
+          id: 15,
+          q: "다음 코드의 실행 결과는?",
+          code: "<div class='item'>1</div>\n<div class='item'>2</div>\n<div class='item'>3</div>\n\nconst items = document.querySelectorAll('.item');\nconsole.log(items.length);",
+          a: "3",
+          e: "querySelectorAll은 조건에 맞는 모든 요소를 담은 NodeList를 반환하며, length는 그 개수를 나타냅니다.",
+        },
+      ];
+
+      const container = document.getElementById("quiz-container");
+
+      quizData.forEach((item) => {
+        const quizHtml = `
+            <div class="quiz-item">
+                <span class="question">Q${item.id}. ${item.q}</span>
+                ${item.code ? `<div class="code-block">${item.code}</div>` : ""}
+                <div class="answer-box">
+                    정답: <span class="ans-text">${item.a}</span>
+                    <span class="exp-text">💡 해설: ${item.e}</span>
+                </div>
+            </div>
+        `;
+        container.innerHTML += quizHtml;
+      });
+    </script>
+  </body>
+</html>
