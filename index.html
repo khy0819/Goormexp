@@ -344,7 +344,6 @@
         try {
           const res = await fetch(apiUrl);
           const data = await res.json();
-          await new Promise((r) => setTimeout(r, 1500));
 
           const indexFiles = data.tree.filter(
             (f) =>
