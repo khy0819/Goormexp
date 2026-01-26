@@ -9,7 +9,13 @@
         --bg: #f8f9fa;
       }
       body {
-        font-family: "Pretendard", sans-serif;
+        font-family:
+          "Pretendard",
+          -apple-system,
+          BlinkMacSystemFont,
+          system-ui,
+          Roboto,
+          sans-serif;
         background: var(--bg);
         margin: 0;
         padding: 40px 20px;
@@ -25,8 +31,9 @@
       }
       header h1 {
         color: var(--primary);
-        font-size: 2rem;
+        font-size: 2.2rem;
         margin-bottom: 10px;
+        letter-spacing: -1px;
       }
 
       /* 주차별 그룹 (아코디언) */
@@ -36,10 +43,11 @@
         border-radius: 15px;
         border: 1px solid #eee;
         overflow: hidden;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        transition: all 0.3s ease;
       }
       summary {
-        padding: 22px;
+        padding: 22px 25px;
         font-weight: 800;
         cursor: pointer;
         list-style: none;
@@ -57,8 +65,8 @@
       }
       summary::after {
         content: "＋";
-        font-size: 1.2rem;
-        color: #ccc;
+        font-size: 1rem;
+        color: #aaa;
         transition: 0.3s;
       }
       details[open] summary::after {
@@ -69,33 +77,37 @@
 
       /* 내부 과제 리스트 */
       .task-list {
-        padding: 10px 20px 20px;
+        padding: 10px 15px 20px;
       }
       .task-card {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px;
+        padding: 14px 18px;
         text-decoration: none;
         color: inherit;
-        border-bottom: 1px solid #f1f1f1;
+        border-bottom: 1px solid #f5f5f5;
         transition: 0.2s;
+        border-radius: 8px;
       }
       .task-card:last-child {
         border-bottom: none;
       }
       .task-card:hover {
-        transform: translateX(10px);
+        transform: translateX(8px);
+        background: #fcfcfc;
         color: var(--primary);
       }
 
       .tag {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         padding: 3px 8px;
         border-radius: 4px;
         font-weight: 800;
         margin-right: 12px;
         background: #eee;
+        display: inline-block;
+        vertical-align: middle;
       }
       .tag.quiz {
         background: #fff5b1;
@@ -117,7 +129,7 @@
     <div class="container">
       <header>
         <h1>📂 WEB ARCHIVE</h1>
-        <p>주차별로 폴더를 관리하면 자동으로 정리됩니다.</p>
+        <p>1월 1주차부터 현재까지의 학습 기록</p>
       </header>
 
       <div id="loader" class="loader">과제 데이터를 분석 중...</div>
@@ -128,13 +140,14 @@
       async function fetchWeeklyData() {
         const owner = "khy0819";
         const repo = "Goormexp";
+        // recursive=1은 폴더 깊숙한 곳의 파일을 다 찾는 핵심 옵션입니다.
         const apiUrl = `https://api.github.com/repos/${owner}/${repo}/git/trees/main?recursive=1`;
 
         try {
           const res = await fetch(apiUrl);
           const data = await res.json();
 
-          // '과제/' 폴더 안의 index.html들만 필터링
+          // index.html 파일들만 필터링 (메인 페이지 제외)
           const indexFiles = data.tree.filter(
             (f) =>
               f.path.includes("과제/") &&
@@ -146,15 +159,18 @@
 
           indexFiles.forEach((f) => {
             const pathParts = f.path.split("/");
-            // pathParts 예: ["과제", "Week3", "0126_quiz", "index.html"]
-            let weekLabel = "기타 분류";
-            let folderName = pathParts[pathParts.length - 2];
-
-            // 경로 중에 'Week'가 포함된 폴더명을 주차 이름으로 사용
+            // 1. 주차 라벨 찾기 (폴더명에 'Week'가 포함된 것)
             const weekFolder = pathParts.find((p) =>
               p.toLowerCase().includes("week"),
             );
-            if (weekFolder) weekLabel = weekFolder.toUpperCase();
+
+            // 2. 표시용 주차 이름 다듬기 (Week01_0105 -> Week01 0105)
+            let weekLabel = weekFolder
+              ? weekFolder.replace(/_/g, " ")
+              : "기타 분류";
+
+            // 3. 파일이 들어있는 최종 폴더명
+            let folderName = pathParts[pathParts.length - 2];
 
             if (!weeks[weekLabel]) weeks[weekLabel] = [];
             weeks[weekLabel].push({ path: f.path, name: folderName });
@@ -163,7 +179,7 @@
           const container = document.getElementById("task-container");
           document.getElementById("loader").style.display = "none";
 
-          // 주차별 정렬 (Week1, Week2... 순서)
+          // 주차별 정렬 (Week01, Week02 순서대로)
           const sortedWeeks = Object.keys(weeks).sort((a, b) => {
             return a.localeCompare(b, undefined, {
               numeric: true,
@@ -173,34 +189,41 @@
 
           sortedWeeks.forEach((week) => {
             const details = document.createElement("details");
-            // 가장 마지막 주차(최신)는 기본으로 열어두기
+            // 가장 숫자가 큰 최신 주차는 기본으로 열어둡니다.
             if (week === sortedWeeks[sortedWeeks.length - 1])
               details.open = true;
 
-            let html = `<summary>${week} (${weeks[week].length}개 과제)</summary><div class="task-list">`;
+            let html = `<summary>${week} <span style="font-weight:400; font-size:0.9rem; color:#888;">(${weeks[week].length} Tasks)</span></summary><div class="task-list">`;
 
-            weeks[week].forEach((task) => {
-              let tagText = "TASK",
-                tagClass = "";
-              const lowerName = task.name.toLowerCase();
-              if (lowerName.includes("quiz")) {
-                tagText = "QUIZ";
-                tagClass = "quiz";
-              }
-              if (
-                lowerName.includes("starbucks") ||
-                lowerName.includes("clone")
-              ) {
-                tagText = "PROJ";
-                tagClass = "project";
-              }
+            // 날짜 폴더명으로 한 번 더 정렬
+            weeks[week]
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .forEach((task) => {
+                let tagText = "STUDY",
+                  tagClass = "";
+                const lowerName = task.name.toLowerCase();
 
-              html += `
-                        <a href="${task.path}" class="task-card">
-                            <span><span class="tag ${tagClass}">${tagText}</span><strong>${task.name}</strong></span>
-                            <span style="color:#eee">›</span>
-                        </a>`;
-            });
+                if (lowerName.includes("quiz")) {
+                  tagText = "QUIZ";
+                  tagClass = "quiz";
+                } else if (
+                  lowerName.includes("starbucks") ||
+                  lowerName.includes("clone") ||
+                  lowerName.includes("project")
+                ) {
+                  tagText = "PROJ";
+                  tagClass = "project";
+                }
+
+                // 안전한 링크를 위해 encodeURI 적용
+                const safePath = encodeURI(task.path);
+
+                html += `
+                            <a href="${safePath}" class="task-card">
+                                <span><span class="tag ${tagClass}">${tagText}</span><strong>${task.name}</strong></span>
+                                <span style="color:#eee">›</span>
+                            </a>`;
+              });
 
             html += `</div>`;
             details.innerHTML = html;
@@ -208,7 +231,8 @@
           });
         } catch (e) {
           document.getElementById("loader").innerText =
-            "데이터를 불러올 수 없습니다.";
+            "데이터를 불러올 수 없습니다. 경로를 확인해주세요.";
+          console.error(e);
         }
       }
       fetchWeeklyData();
