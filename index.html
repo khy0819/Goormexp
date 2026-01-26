@@ -8,20 +8,15 @@
       :root {
         --primary: #006241;
         --bg: #f8f9fa;
-        --text: #333;
-        --light-gray: #999;
       }
       body {
         font-family:
           "Pretendard",
           -apple-system,
-          BlinkMacSystemFont,
-          system-ui,
           sans-serif;
         background: var(--bg);
         margin: 0;
         padding: 40px 20px;
-        color: var(--text);
       }
       .container {
         max-width: 750px;
@@ -34,11 +29,9 @@
       header h1 {
         color: var(--primary);
         font-size: 2.2rem;
-        margin-bottom: 10px;
-        letter-spacing: -1px;
       }
 
-      /* 주차별 아코디언 */
+      /* 주차별 그룹 */
       details {
         background: white;
         margin-bottom: 15px;
@@ -55,66 +48,47 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #fff;
-        color: #444;
-        font-size: 1.1rem;
       }
       details[open] summary {
         border-bottom: 1px solid #eee;
         background: #f9fdfb;
         color: var(--primary);
       }
-      summary::after {
-        content: "＋";
-        font-size: 1rem;
-        color: #aaa;
-      }
-      details[open] summary::after {
-        content: "－";
-        color: var(--primary);
-      }
 
-      /* 과제 리스트 레이아웃 */
+      /* 🔥 디자인 정렬의 핵심 CSS */
       .task-list {
         padding: 10px 15px 20px;
       }
       .task-card {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        align-items: center; /* 세로 중앙 정렬 */
         padding: 14px 18px;
         text-decoration: none;
-        color: inherit;
+        color: #333;
         border-bottom: 1px solid #f5f5f5;
         transition: 0.2s;
-        border-radius: 8px;
-      }
-      .task-card:last-child {
-        border-bottom: none;
       }
       .task-card:hover {
         background: #fcfcfc;
         color: var(--primary);
       }
 
-      /* 🔥 디자인 정렬의 핵심: Flexbox 구조 */
       .task-info {
         display: flex;
         align-items: center;
         flex-grow: 1;
       }
 
-      /* 1. 태그: 너비 고정 */
+      /* 1. 태그: 너비를 고정해서 다음 글자 시작점을 맞춤 */
       .tag {
-        width: 50px;
+        width: 55px; /* 태그 박스 너비 고정 */
         text-align: center;
         font-size: 0.65rem;
         padding: 3px 0;
         border-radius: 4px;
         font-weight: 800;
-        margin-right: 15px;
+        margin-right: 20px; /* 태그와 날짜 사이 간격 */
         flex-shrink: 0;
-        display: inline-block;
       }
       .tag.quiz {
         background: #fff5b1;
@@ -122,39 +96,25 @@
         border: 1px solid #ffeeba;
       }
       .tag.task {
-        background: #e7f3ff;
-        color: #004085;
-        border: 1px solid #bee5eb;
-      }
-      .tag.proj {
-        background: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
+        background: #e2e3e5;
+        color: #383d41;
+        border: 1px solid #d6d8db;
       }
 
-      /* 2. 날짜: 너비 고정 및 고정폭 폰트 */
+      /* 2. 날짜 및 제목 시작점 고정 */
+      .task-name-wrapper {
+        display: flex;
+        align-items: center;
+        font-size: 1rem;
+      }
       .task-date {
-        width: 70px;
-        font-family: "Courier New", monospace;
-        color: var(--light-gray);
-        font-size: 0.95rem;
-        margin-right: 15px;
+        font-family: "Courier New", monospace; /* 숫자 간격이 일정한 폰트 */
+        color: #999;
+        margin-right: 10px;
         flex-shrink: 0;
-        text-align: left;
       }
-
-      /* 3. 제목: 남은 공간 차지 */
       .task-title {
         font-weight: 600;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis; /* 너무 길면 줄임표 */
-      }
-
-      .loader {
-        text-align: center;
-        padding: 50px;
-        color: #aaa;
       }
     </style>
   </head>
@@ -162,10 +122,7 @@
     <div class="container">
       <header>
         <h1>📂 WEB ARCHIVE</h1>
-        <p>주차별 학습 일지 및 과제 관리</p>
       </header>
-
-      <div id="loader" class="loader">과제 데이터를 분석 중...</div>
       <div id="task-container"></div>
     </div>
 
@@ -178,8 +135,6 @@
         try {
           const res = await fetch(apiUrl);
           const data = await res.json();
-
-          // '과제/' 폴더 내 index.html 필터링
           const indexFiles = data.tree.filter(
             (f) =>
               f.path.includes("과제/") &&
@@ -188,14 +143,13 @@
           );
 
           const weeks = {};
-
           indexFiles.forEach((f) => {
             const pathParts = f.path.split("/");
             const weekFolder = pathParts.find((p) =>
               p.toLowerCase().includes("week"),
             );
             let weekLabel = weekFolder
-              ? weekFolder.replace(/_/g, " ")
+              ? weekFolder.toUpperCase().replace(/_/g, " ")
               : "기타 분류";
             let folderName = pathParts[pathParts.length - 2];
 
@@ -204,9 +158,6 @@
           });
 
           const container = document.getElementById("task-container");
-          document.getElementById("loader").style.display = "none";
-
-          // 1. 주차 정렬 (Week1, Week2...)
           const sortedWeeks = Object.keys(weeks).sort((a, b) =>
             a.localeCompare(b, undefined, { numeric: true }),
           );
@@ -216,52 +167,40 @@
             if (week === sortedWeeks[sortedWeeks.length - 1])
               details.open = true;
 
-            let html = `<summary>${week} <span style="font-weight:400; font-size:0.85rem; color:#888; margin-left:10px;">(${weeks[week].length} 건)</span></summary><div class="task-list">`;
+            let html = `<summary>${week} (${weeks[week].length} 건)</summary><div class="task-list">`;
 
-            // 2. 주차 내부 날짜순 정렬
             weeks[week]
-              .sort((a, b) => {
-                const dateA = a.name.match(/\d+/)
-                  ? parseInt(a.name.match(/\d+/)[0])
-                  : 0;
-                const dateB = b.name.match(/\d+/)
-                  ? parseInt(b.name.match(/\d+/)[0])
-                  : 0;
-                return dateA - dateB;
-              })
+              .sort((a, b) => a.name.localeCompare(b.name))
               .forEach((task) => {
-                // 날짜-유형 분리
-                const parts = task.name.split("-");
-                const datePart = parts[0] || "000000";
-                const typePart = (parts[1] || "TASK").toUpperCase();
-                const titlePart = task.name.includes("-")
+                // 0126-QUIZ 형식을 분리
+                const hasDash = task.name.includes("-");
+                const datePart = hasDash ? task.name.split("-")[0] : "";
+                const titlePart = hasDash
                   ? task.name.split("-").slice(1).join("-")
                   : task.name;
 
-                let tagClass = "task";
-                if (typePart.includes("QUIZ")) tagClass = "quiz";
-                if (typePart.includes("PROJ") || typePart.includes("STARBUCKS"))
-                  tagClass = "proj";
-
-                const safePath = encodeURI(task.path);
+                let tagText = titlePart.toUpperCase().includes("QUIZ")
+                  ? "QUIZ"
+                  : "STUDY";
+                let tagClass = tagText.toLowerCase();
 
                 html += `
-                            <a href="${safePath}" class="task-card">
+                            <a href="${encodeURI(task.path)}" class="task-card">
                                 <div class="task-info">
-                                    <span class="tag ${tagClass}">${typePart}</span>
-                                    <span class="task-date">${datePart}</span>
-                                    <span class="task-title">${titlePart}</span>
+                                    <span class="tag ${tagClass}">${tagText}</span>
+                                    <div class="task-name-wrapper">
+                                        <span class="task-date">${datePart}</span>
+                                        <span class="task-title">${titlePart}</span>
+                                    </div>
                                 </div>
                                 <span style="color:#eee">›</span>
                             </a>`;
               });
-
             html += `</div>`;
             details.innerHTML = html;
             container.appendChild(details);
           });
         } catch (e) {
-          document.getElementById("loader").innerText = "데이터 로드 실패";
           console.error(e);
         }
       }
