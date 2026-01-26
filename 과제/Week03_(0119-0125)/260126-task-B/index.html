@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web_Fundamental_Tasks2.log</title>
+    <style>
+      :root {
+        --vs-bg: #1e1e1e;
+        --vs-card: #252526;
+        --vs-header: #333333;
+        --vs-text: #d4d4d4;
+        --vs-keyword: #569cd6;
+        --vs-tag: #569cd6;
+        --vs-attr: #9cdcfe;
+        --vs-str: #ce9178;
+        --vs-comment: #6a9955;
+        --vs-class: #4ec9b0;
+      }
+
+      body {
+        font-family: "Consolas", "Monaco", "Courier New", monospace;
+        background-color: var(--vs-bg);
+        color: var(--vs-text);
+        margin: 0;
+        padding: 40px 20px;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .main-header {
+        margin-bottom: 40px;
+        border-left: 4px solid var(--vs-class);
+        padding-left: 20px;
+      }
+
+      .main-header h1 {
+        color: var(--vs-str);
+        font-size: 1.8rem;
+        margin: 0;
+      }
+      .main-header p {
+        color: var(--vs-comment);
+        margin: 5px 0 0 0;
+      }
+
+      h2.index-title {
+        margin-top: 60px;
+        font-size: 1.4rem;
+        border-bottom: 1px solid #333;
+        padding-bottom: 10px;
+      }
+
+      .task-section {
+        background-color: var(--vs-card);
+        border: 1px solid #454545;
+        border-radius: 4px;
+        margin-bottom: 30px;
+        overflow: hidden;
+      }
+
+      .task-header {
+        background-color: var(--vs-header);
+        padding: 8px 20px;
+        font-size: 0.85rem;
+        border-bottom: 1px solid #454545;
+        color: #aaa;
+      }
+
+      .task-body {
+        padding: 25px;
+      }
+      h3 {
+        color: var(--vs-attr);
+        font-size: 1.1rem;
+        margin-top: 0;
+      }
+      .desc {
+        background: #2d2d2d;
+        padding: 12px 15px;
+        border-radius: 4px;
+        color: var(--vs-text);
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        border-left: 3px solid var(--vs-class);
+      }
+
+      .code-block {
+        background-color: #1e1e1e;
+        padding: 20px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        white-space: pre-wrap;
+        border: 1px solid #333;
+      }
+
+      /* Syntax Highlighting */
+      .tag {
+        color: var(--vs-tag);
+      }
+      .attr {
+        color: var(--vs-attr);
+      }
+      .str {
+        color: var(--vs-str);
+      }
+      .kw {
+        color: var(--vs-keyword);
+      }
+      .cm {
+        color: var(--vs-comment);
+      }
+      .cl {
+        color: var(--vs-class);
+      }
+
+      /* 🏠 레시피북 홈 버튼 */
+      .back-btn {
+        display: block;
+        width: fit-content;
+        margin: 60px auto 10px;
+        padding: 12px 40px;
+        background-color: #2c3e50;
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        font-family: sans-serif;
+      }
+      .back-btn:hover {
+        background-color: #1a252f;
+        transform: translateY(-3px);
+      }
+
+      /* 💻 터미널 버튼 */
+      .exit-btn {
+        display: block;
+        width: fit-content;
+        margin: 10px auto 40px;
+        padding: 10px 20px;
+        background-color: var(--vs-header);
+        color: var(--vs-class);
+        text-decoration: none;
+        border: 1px solid #454545;
+        border-radius: 4px;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="main-header">
+        <h1>Web_Fundamental_Tasks2.log</h1>
+        <p>// Progress: 8 / 8 Tasks Completed</p>
+      </header>
+
+      <h2 class="index-title" style="color: var(--vs-keyword)">
+        [INDEX 01: Fundamentals & Structure]
+      </h2>
+
+      <div class="task-section">
+        <div class="task-header">Task_01_BoxModel.css</div>
+        <div class="task-body">
+          <h3>📦 01. CSS 박스 모델 이해</h3>
+          <p class="desc">여백과 보더를 통한 요소의 크기 계산 이해</p>
+          <div class="code-block">
+            <span class="cl">.box</span> { <span class="attr">margin</span>:
+            <span class="str">20px</span>; <span class="attr">padding</span>:
+            <span class="str">10px</span>; <span class="attr">border</span>:
+            <span class="str">1px solid</span>; }
+          </div>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_02_Transition.css</div>
+        <div class="task-body">
+          <h3>✨ 02. 트랜지션과 호버 효과</h3>
+          <p class="desc">마우스 오버 시 부드러운 스타일 변경</p>
+          <div class="code-block">
+            <span class="cl">.btn</span> { <span class="attr">transition</span>:
+            <span class="str">all 0.3s</span>; }
+            <span class="cl">.btn:hover</span> {
+            <span class="attr">transform</span>:
+            <span class="str">translateY(-5px)</span>; }
+          </div>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_03_WebApp_Flow.html</div>
+        <div class="task-body">
+          <h3>⚙️ 03. 웹 어플리케이션 동작 방식</h3>
+          <p class="desc">HTTP 요청과 응답, 브라우저 렌더링 과정</p>
+          <div class="code-block">
+            <span class="cm">&lt;!-- Requesting Resource --&gt;</span>
+            <span class="tag"
+              >&lt;script <span class="attr">src</span>=<span class="str"
+                >"app.js"</span
+              >&gt;</span
+            ><span class="tag">&lt;/script&gt;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_04_Semantic_Blog.html</div>
+        <div class="task-body">
+          <h3>🏛️ 04. 시맨틱 태그 블로그</h3>
+          <p class="desc">의미 있는 태그를 활용한 레이아웃 구성</p>
+          <div class="code-block">
+            <span class="tag">&lt;main&gt;</span
+            ><span class="tag">&lt;article&gt;</span>Blog Post<span class="tag"
+              >&lt;/article&gt;</span
+            ><span class="tag">&lt;/main&gt;</span>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="index-title" style="color: var(--vs-class)">
+        [INDEX 02: Accessibility & Frameworks]
+      </h2>
+
+      <div class="task-section">
+        <div class="task-header">Task_05_Accessibility.html</div>
+        <div class="task-body">
+          <h3>♿ 05. 접근성 속성 추가</h3>
+          <p class="desc">alt, role 등을 활용한 웹 접근성 강화</p>
+          <div class="code-block">
+            <span class="tag"
+              >&lt;img <span class="attr">alt</span>=<span class="str"
+                >"Description"</span
+              >&gt;</span
+            >
+            <span class="tag"
+              >&lt;div <span class="attr">role</span>=<span class="str"
+                >"button"</span
+              >&gt;</span
+            ><span class="tag">&lt;/div&gt;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_06_Table_CSS.css</div>
+        <div class="task-body">
+          <h3>📊 06. Table CSS 적용</h3>
+          <p class="desc">데이터 테이블의 선과 간격 스타일링</p>
+          <div class="code-block">
+            <span class="cl">td</span> {
+            <span class="attr">border-bottom</span>:
+            <span class="str">1px solid #444</span>;
+            <span class="attr">padding</span>: <span class="str">10px</span>; }
+          </div>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_07_Bootstrap_Layout.html</div>
+        <div class="task-body">
+          <h3>🗺️ 07. 프레임워크 레이아웃</h3>
+          <p class="desc">Bootstrap Grid를 활용한 반응형 구조</p>
+          <div class="code-block">
+            <span class="tag"
+              >&lt;div <span class="attr">class</span>=<span class="str"
+                >"row"</span
+              >&gt;</span
+            ><span class="tag"
+              >&lt;div <span class="attr">class</span>=<span class="str"
+                >"col"</span
+              >&gt;</span
+            ><span class="tag">&lt;/div&gt;</span
+            ><span class="tag">&lt;/div&gt;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="task-header">Task_08_Custom_Framework.css</div>
+        <div class="task-body">
+          <h3>🛠️ 08. CSS 변수와 결합</h3>
+          <p class="desc">프레임워크 테마를 변수로 커스텀 제작</p>
+          <div class="code-block">
+            <span class="cl">:root</span> { <span class="attr">--main</span>:
+            <span class="str">#4ec9b0</span>; } <span class="cl">.btn</span> {
+            <span class="attr">background</span>:
+            <span class="str">var(--main)</span>; }
+          </div>
+        </div>
+      </div>
+
+      <a href="https://khy0819.github.io/Goormexp/" class="back-btn"
+        >🏠 과제 목록 첫화면으로</a
+      >
+    </div>
+  </body>
+</html>
