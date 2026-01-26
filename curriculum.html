@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Curriculum | Goormexp</title>
+    <style>
+      :root {
+        --primary: #006241;
+        --bg: #f8f9fa;
+        --text: #333;
+        --border: #eee;
+        --special-bg: #fff9c4; /* 특강 강조 노란색 */
+        --today-bg: #e8f5e9; /* 오늘 강조 초록색 */
+      }
+      body {
+        font-family: sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        padding: 40px 20px;
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+      h1 {
+        color: var(--primary);
+        border-left: 5px solid var(--primary);
+        padding-left: 15px;
+        margin-bottom: 30px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        padding: 12px;
+        border-bottom: 1px solid var(--border);
+        text-align: left;
+      }
+      th {
+        background: #f1f3f5;
+        font-weight: 700;
+        color: var(--primary);
+      }
+      tr:hover {
+        background: #fcfcfc;
+      }
+      .back-link {
+        display: inline-block;
+        margin-top: 30px;
+        text-decoration: none;
+        color: var(--primary);
+        font-weight: bold;
+      }
+
+      /* 클래스 기반 스타일링 */
+      .today-highlight {
+        background-color: var(--today-bg) !important;
+        font-weight: bold;
+      }
+      .special-highlight {
+        background-color: var(--special-bg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>📅 전체 교육 일정</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>날짜</th>
+            <th>강의 및 활동 내용</th>
+            <th>비고</th>
+          </tr>
+        </thead>
+        <tbody id="curriculum-body"></tbody>
+      </table>
+      <a href="index.html" class="back-link">← 메인으로 돌아가기</a>
+    </div>
+
+    <script>
+      // 전체 커리큘럼 데이터
+      const fullSchedule = [
+        { date: "12월 29일", content: "오리엔테이션", note: "시작" },
+        { date: "12월 30일", content: "Git 기초", note: "" },
+        { date: "12월 31일", content: "Git + Git 심화", note: "" },
+        { date: "1월 5일", content: "Git 심화", note: "" },
+        { date: "1월 7일", content: "Git 심화 + HTML/CSS", note: "" },
+        { date: "1월 8일", content: "HTML/CSS", note: "" },
+        {
+          date: "1월 12일",
+          content: "HTML/CSS + [특강] 개발자로서의 관성 만들기",
+          note: "특강",
+        },
+        { date: "1월 13일", content: "HTML/CSS 기초", note: "" },
+        { date: "1월 16일", content: "HTML/CSS + 자바스크립트 기초", note: "" },
+        { date: "1월 19일", content: "자바스크립트 기초", note: "" },
+        { date: "1월 23일", content: "자바스크립트 기초 + 중급", note: "" },
+        {
+          date: "1월 26일~28일",
+          content: "자바스크립트 중급",
+          note: "진행 중",
+        },
+        {
+          date: "1월 29일",
+          content: "자바스크립트 중급 + [특강] 협업 및 생산성 도구 기초",
+          note: "특강",
+        },
+        { date: "2월 2일", content: "자바스크립트 중급 마무리", note: "" },
+        { date: "2월 3일", content: "리액트 기초", note: "" },
+        { date: "2월 9일", content: "리액트 기초", note: "" },
+        { date: "2월 10일", content: "리액트 기초 + 중급", note: "" },
+        { date: "2월 11일", content: "리액트 중급", note: "" },
+        { date: "2월 20일", content: "리액트 중급", note: "" },
+        {
+          date: "2월 25일",
+          content: "리액트 중급 + [특강] 모던 소프트웨어 개발 프로세스",
+          note: "특강",
+        },
+        { date: "2월 26일", content: "알고리즘 문제 풀이", note: "" },
+        { date: "3월 3일", content: "알고리즘 문제 풀이", note: "" },
+        { date: "3월 10일", content: "웹 기술 기초", note: "" },
+        {
+          date: "3월 11일",
+          content: "웹 + [특강] 카카오 클라우드 엔지니어 특강",
+          note: "특강",
+        },
+        { date: "3월 13일", content: "웹 기술 심화", note: "" },
+        { date: "3월 19일", content: "웹 + 고급 리액트 패턴", note: "" },
+        { date: "3월 23일", content: "고급 리액트 패턴", note: "" },
+        {
+          date: "3월 27일",
+          content: "패턴 + [특강] 포트폴리오 세미나",
+          note: "특강",
+        },
+        { date: "4월 2일", content: "리액트 개발 실무", note: "" },
+        {
+          date: "4월 16일",
+          content: "리액트 실무 + [특강] 협업을 위한 세미나",
+          note: "특강",
+        },
+        { date: "4월 17일", content: "웹 기반 SNS 프로젝트", note: "시작" },
+        {
+          date: "5월 19일",
+          content: "애플리케이션 디버깅 및 최적화",
+          note: "",
+        },
+        { date: "6월 11일", content: "실전 고객사 대응 프로젝트", note: "" },
+        {
+          date: "7월 17일",
+          content: "파이널 프로젝트 발표 및 수료식",
+          note: "종료",
+        },
+      ];
+
+      const tbody = document.getElementById("curriculum-body");
+      const now = new Date();
+      // 현재 날짜 포맷 (ex: 1월 26일)
+      const todayStr = `${now.getMonth() + 1}월 ${now.getDate()}일`;
+
+      fullSchedule.forEach((item) => {
+        const tr = document.createElement("tr");
+
+        // 1. 특강 여부 확인 (내용에 '특강'이 포함되어 있으면 노란색)
+        if (item.content.includes("특강") || item.note.includes("특강")) {
+          tr.classList.add("special-highlight");
+        }
+
+        // 2. 오늘 날짜 확인
+        if (item.date === todayStr) {
+          tr.classList.remove("special-highlight");
+          tr.classList.add("today-highlight");
+        }
+
+        tr.innerHTML = `<td>${item.date}</td><td>${item.content}</td><td>${item.note}</td>`;
+        tbody.appendChild(tr);
+      });
+    </script>
+  </body>
+</html>

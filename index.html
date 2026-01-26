@@ -9,24 +9,8 @@
       name="description"
       content="구름 KDT 과정의 여정을 기록하는 웹 아카이브입니다."
     />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://khy0819.github.io/Goormexp/" />
-    <meta property="og:title" content="WEB ARCHIVE | 오늘도 코딩 중!" />
-    <meta
-      property="og:description"
-      content="파일을 찾으러 하늘을 날고 있어요!"
-    />
-    <meta
-      property="og:image"
-      content="https://khy0819.github.io/Goormexp/assets/og-image.png"
-    />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☁️</text></svg>"
-    />
-
     <style>
-      /* 폰트 설정 */
+      /* --- 기존 스타일 유지 --- */
       @font-face {
         font-family: "11StreetGothic";
         src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-KorLight.woff2")
@@ -49,7 +33,6 @@
         font-display: swap;
       }
 
-      /* 변수 설정 (다크모드 대응) */
       :root {
         --primary: #006241;
         --secondary: #e8f5e9;
@@ -86,13 +69,12 @@
           background 0.3s,
           color 0.3s;
       }
-
       .container {
         max-width: 750px;
         margin: 0 auto;
       }
 
-      /* 다크모드 토글 버튼 */
+      /* --- [수정] 헤더 컨트롤 및 D-Day 배지 스타일 --- */
       .theme-toggle {
         position: fixed;
         top: 20px;
@@ -105,10 +87,45 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         z-index: 1000;
         font-size: 1.2rem;
-        transition: transform 0.2s;
       }
-      .theme-toggle:hover {
+
+      .header-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 15px;
+      }
+
+      .calendar-btn {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .calendar-btn:hover {
         transform: scale(1.1);
+        background: var(--secondary);
+      }
+
+      /* D-Day 배지 스타일 */
+      .d-day-badge {
+        background: var(--secondary);
+        color: var(--primary);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        border: 1px solid var(--primary);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
       }
 
       header {
@@ -125,8 +142,12 @@
         color: var(--text-sub);
         font-weight: 300;
       }
+      #today-schedule strong {
+        color: var(--primary);
+        font-weight: 700;
+      }
 
-      /* 로딩 애니메이션 */
+      /* --- 기존 애니메이션 및 기타 스타일 유지 --- */
       .loader-wrapper {
         display: flex;
         flex-direction: column;
@@ -162,7 +183,6 @@
         top: -25px;
         right: 20px;
       }
-
       .eyes {
         position: absolute;
         width: 40px;
@@ -180,7 +200,6 @@
         border-radius: 50%;
         animation: blink 3s infinite;
       }
-
       @keyframes float {
         0%,
         100% {
@@ -200,14 +219,11 @@
           transform: scaleY(0.1);
         }
       }
-
       .loading-text {
         margin-top: 35px;
         color: var(--primary);
         font-weight: 700;
       }
-
-      /* 아코디언 및 카드 스타일 */
       details {
         background: var(--card-bg);
         margin-bottom: 20px;
@@ -233,7 +249,6 @@
         color: var(--primary);
         border-bottom: 1px solid var(--border);
       }
-
       .task-list {
         padding: 5px 15px 20px;
       }
@@ -247,15 +262,12 @@
         border-radius: 15px;
         transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
-
-      /* 마우스 올렸을 때 효과 강조 */
       .task-card:hover {
         background: var(--bg);
         color: var(--primary);
         transform: scale(1.02);
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
       }
-
       .tag {
         width: 60px;
         text-align: center;
@@ -274,7 +286,6 @@
         background: var(--border);
         color: var(--text-sub);
       }
-
       .task-date {
         color: var(--text-sub);
         font-weight: 600;
@@ -287,8 +298,6 @@
         flex-grow: 1;
         font-size: 1.05rem;
       }
-
-      /* 화살표 기본 및 호버 상태 */
       .arrow {
         color: var(--arrow-default);
         font-size: 1.2rem;
@@ -306,7 +315,18 @@
     <div class="container">
       <header>
         <h1>WEB ARCHIVE</h1>
-        <p>오늘도 코딩 중!</p>
+        <p id="today-schedule">오늘도 코딩 중!</p>
+
+        <div class="header-controls">
+          <button
+            onclick="location.href = 'curriculum.html'"
+            class="calendar-btn"
+            title="전체 일정 보기"
+          >
+            📅
+          </button>
+          <div id="d-day-badge" class="d-day-badge">D-Day 계산 중...</div>
+        </div>
       </header>
 
       <div id="loader" class="loader-wrapper">
@@ -323,7 +343,7 @@
     </div>
 
     <script>
-      // 1. 다크모드 설정
+      // 1. 다크모드 및 실시간 일정/D-Day 로직
       const themeBtn = document.getElementById("theme-btn");
       const savedTheme = localStorage.getItem("theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
@@ -335,7 +355,50 @@
         localStorage.setItem("theme", targetTheme);
       });
 
-      // 2. GitHub API 데이터 페칭
+      // [추가] D-Day 계산 함수
+      function updateDDay() {
+        const targetDate = new Date("2026-07-17T00:00:00"); // 수료일
+        const now = new Date();
+        const diff = targetDate - now;
+        const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+        const badge = document.getElementById("d-day-badge");
+        if (daysLeft > 0)
+          badge.innerHTML = `🎓 수료까지 <strong>D-${daysLeft}</strong>`;
+        else if (daysLeft === 0)
+          badge.innerHTML = `🎉 <strong>Today is the Day!</strong>`;
+        else badge.innerHTML = `✨ <strong>수료 완료!</strong>`;
+      }
+
+      // 오늘의 일정 데이터
+      const scheduleData = {
+        "2026-01-26": "자바스크립트 중급",
+        "2026-01-27": "자바스크립트 중급",
+        "2026-01-28": "자바스크립트 중급",
+        "2026-01-29": "자바스크립트 중급 + 특강",
+        "2026-01-30": "자바스크립트 중급",
+      };
+
+      function updateTodaySchedule() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, "0");
+        const day = String(now.getDate()).padStart(2, "0");
+        const todayStr = `${year}-${month}-${day}`;
+
+        const scheduleText = document.getElementById("today-schedule");
+        if (scheduleData[todayStr]) {
+          scheduleText.innerHTML = `오늘의 일정: <strong>${scheduleData[todayStr]}</strong>`;
+        } else {
+          scheduleText.innerText = "오늘도 코딩 중!";
+        }
+      }
+
+      // 실행
+      updateDDay();
+      updateTodaySchedule();
+
+      // 2. GitHub API 데이터 페칭 (기존 로직 유지)
       async function fetchWeeklyData() {
         const owner = "khy0819";
         const repo = "Goormexp";
