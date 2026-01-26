@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260126) JS 퀴즈 리스트</title>
+    <style>
+      :root {
+        --vs-bg: #1e1e1e;
+        --vs-card: #252526;
+        --vs-header: #333333;
+        --vs-text: #d4d4d4;
+        --vs-keyword: #569cd6;
+        --vs-attr: #9cdcfe;
+        --vs-str: #ce9178;
+        --vs-comment: #6a9955;
+        --vs-class: #4ec9b0;
+      }
+
+      body {
+        font-family: "Consolas", "Monaco", monospace;
+        background-color: var(--vs-bg);
+        color: var(--vs-text);
+        margin: 0;
+        padding: 40px 20px;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .main-header {
+        margin-bottom: 40px;
+        border-left: 4px solid var(--vs-class);
+        padding-left: 20px;
+      }
+
+      .main-header h1 {
+        color: var(--vs-str);
+        font-size: 1.8rem;
+        margin: 0;
+      }
+
+      .task-section {
+        background-color: var(--vs-card);
+        border: 1px solid #454545;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        overflow: hidden;
+      }
+
+      .task-header {
+        background-color: var(--vs-header);
+        padding: 8px 20px;
+        font-size: 0.85rem;
+        color: #aaa;
+        border-bottom: 1px solid #454545;
+      }
+
+      .task-body {
+        padding: 20px;
+      }
+      h3 {
+        color: var(--vs-attr);
+        font-size: 1rem;
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
+
+      .ans-box {
+        background: #2d2d2d;
+        padding: 12px 15px;
+        border-radius: 4px;
+        color: var(--vs-text);
+        font-size: 0.9rem;
+        border-left: 3px solid var(--vs-class);
+      }
+
+      .code-block {
+        background-color: #1e1e1e;
+        padding: 15px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        white-space: pre-wrap;
+        border: 1px solid #333;
+        margin-bottom: 10px;
+        color: #d4d4d4;
+      }
+
+      .back-btn {
+        display: block;
+        width: fit-content;
+        margin: 60px auto;
+        padding: 12px 40px;
+        background-color: #2c3e50;
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: bold;
+        transition: 0.3s;
+        font-family: sans-serif;
+      }
+      .back-btn:hover {
+        background-color: #1a252f;
+        transform: translateY(-3px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="main-header">
+        <h1>(260126) JS_Quiz_Items.log</h1>
+        <p>// 30 Individual Quiz Items Listed</p>
+      </header>
+
+      <div id="quiz-list"></div>
+
+      <a href="https://khy0819.github.io/Goormexp/" class="back-btn"
+        >🏠 과제 목록 첫화면으로</a
+      >
+    </div>
+
+    <script>
+      const quizData = [
+        {
+          id: 1,
+          q: "console.log('hello' || 'world'); 출력 결과는?",
+          a: "'hello' (||는 첫 번째 Truthy 반환)",
+        },
+        {
+          id: 2,
+          q: "console.log(0 && 'hello'); 출력 결과는?",
+          a: "0 (&&는 첫 번째 Falsy 반환)",
+        },
+        {
+          id: 3,
+          q: "단락 평가에서 OR 연산자(||)의 동작으로 옳은 것은?",
+          a: "첫 번째 Truthy 값을 반환한다",
+        },
+        {
+          id: 4,
+          q: "greet(0); 호출 시 name = name || 'Guest';의 결과는?",
+          a: "'Guest' (0은 Falsy이므로)",
+        },
+        {
+          id: 5,
+          q: "&& 연산자의 실전 활용으로 적절한 것은?",
+          a: "조건부 실행",
+        },
+        {
+          id: 6,
+          q: "const [first, second] = ['red', 'green', 'blue']; 결과는?",
+          a: "'red' 'green'",
+        },
+        {
+          id: 7,
+          q: "const [a, , c] = [1, 2, 3]; console.log(a, c); 결과는?",
+          a: "1 3",
+        },
+        {
+          id: 8,
+          q: "const { name, age } = { name: '철수', age: 20 }; name은?",
+          a: "'철수'",
+        },
+        {
+          id: 9,
+          q: "객체 구조 분해 시 변수명을 변경하는 방법은?",
+          a: "const { name: userName } = person;",
+        },
+        {
+          id: 10,
+          q: "const [a, b, c = 10] = [1, 2]; c의 값은?",
+          a: "10 (기본값)",
+        },
+        {
+          id: 11,
+          q: "Spread 연산자의 올바른 사용법은?",
+          a: "const arr = [...original];",
+        },
+        {
+          id: 12,
+          q: "const combined = [...arr1, ...arr2]; 결과는?",
+          a: "[1, 2, 3, 4]",
+        },
+        {
+          id: 13,
+          q: "const merged = { ...obj1, ...obj2 }; 중복된 키 b의 값은?",
+          a: "3 (뒤에 온 값이 덮어씀)",
+        },
+        {
+          id: 14,
+          q: "Rest 매개변수의 올바른 사용법은?",
+          a: "function sum(first, ...nums) {} (항상 마지막)",
+        },
+        { id: 15, q: "sum(1, 2, 3, 4) 호출 시 numbers.length는?", a: "4" },
+        {
+          id: 16,
+          q: "JavaScript의 원시 타입이 아닌 것은?",
+          a: "Array (객체 타입)",
+        },
+        {
+          id: 17,
+          q: "let b = a; a = 20; 일 때 b의 값은? (a는 원래 10)",
+          a: "10 (원시 타입 독립 복사)",
+        },
+        {
+          id: 18,
+          q: "obj2 = obj1; obj1.value = 20; 일 때 obj2.value는?",
+          a: "20 (참조 공유)",
+        },
+        {
+          id: 19,
+          q: "원시 타입과 객체 타입의 차이로 옳은 것은?",
+          a: "원시 타입은 값 자체 저장, 객체 타입은 참조값 저장",
+        },
+        {
+          id: 20,
+          q: "원시 타입의 특징으로 옳은 것은?",
+          a: "불변(Immutable)이다",
+        },
+        {
+          id: 21,
+          q: "str[0] = 'H'; console.log(str); ('hello' 기준) 결과는?",
+          a: "'hello' (원시 타입 수정 불가)",
+        },
+        {
+          id: 22,
+          q: "const로 선언된 객체에 대한 설명으로 옳은 것은?",
+          a: "객체를 재할당할 수 없다",
+        },
+        {
+          id: 23,
+          q: "copied = [...original]; original.push(4); 일 때 copied.length는?",
+          a: "3 (1단계 복사본 독립)",
+        },
+        {
+          id: 24,
+          q: "얕은 복사(Shallow Copy)의 한계는?",
+          a: "중첩된 객체/배열은 참조가 공유된다",
+        },
+        {
+          id: 25,
+          q: "copied[0].name = '영희'; 가 original[0].name에 주는 영향은?",
+          a: "'영희'로 변경됨 (내부 객체 참조 공유)",
+        },
+        {
+          id: 26,
+          q: "깊은 복사를 구현하는 방법으로 적절하지 않은 것은?",
+          a: "Spread 연산자 사용 (얕은 복사임)",
+        },
+        {
+          id: 27,
+          q: "console.log(false || 0 || '' || 'default'); 결과는?",
+          a: "'default'",
+        },
+        {
+          id: 28,
+          q: "const { name, ...rest } = { name: '철수', age: 20, city: '서울' }; rest는?",
+          a: "{ age: 20, city: '서울' }",
+        },
+        { id: 29, q: "[a, b] = [b, a]; 실행 후 a, b는?", a: "2 1 (값 교환)" },
+        {
+          id: 30,
+          q: "{ ...obj, a: 2, b: 3 } 에서 기존 a: 1의 운명은?",
+          a: "2로 업데이트됨",
+        },
+      ];
+
+      const listContainer = document.getElementById("quiz-list");
+      quizData.forEach((item) => {
+        listContainer.innerHTML += `
+        <div class="task-section">
+          <div class="task-header">Question_Item_${String(item.id).padStart(2, "0")}.log</div>
+          <div class="task-body">
+            <h3>Q${item.id}. ${item.q}</h3>
+            <div class="ans-box">✔ 정답: ${item.a}</div>
+          </div>
+        </div>
+      `;
+      });
+    </script>
+  </body>
+</html>
