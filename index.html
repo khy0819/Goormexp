@@ -2,11 +2,14 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <title>Goorm 과제 저장소 (주차별 정리)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Goorm 과제 저장소 | 타임라인</title>
     <style>
       :root {
         --primary: #006241;
         --bg: #f8f9fa;
+        --text: #333;
+        --light-gray: #999;
       }
       body {
         font-family:
@@ -14,12 +17,11 @@
           -apple-system,
           BlinkMacSystemFont,
           system-ui,
-          Roboto,
           sans-serif;
         background: var(--bg);
         margin: 0;
         padding: 40px 20px;
-        color: #333;
+        color: var(--text);
       }
       .container {
         max-width: 750px;
@@ -36,7 +38,7 @@
         letter-spacing: -1px;
       }
 
-      /* 주차별 그룹 (아코디언) */
+      /* 주차별 아코디언 */
       details {
         background: white;
         margin-bottom: 15px;
@@ -44,7 +46,6 @@
         border: 1px solid #eee;
         overflow: hidden;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-        transition: all 0.3s ease;
       }
       summary {
         padding: 22px 25px;
@@ -67,15 +68,13 @@
         content: "＋";
         font-size: 1rem;
         color: #aaa;
-        transition: 0.3s;
       }
       details[open] summary::after {
         content: "－";
-        transform: rotate(180deg);
         color: var(--primary);
       }
 
-      /* 내부 과제 리스트 */
+      /* 과제 리스트 레이아웃 */
       .task-list {
         padding: 10px 15px 20px;
       }
@@ -94,28 +93,62 @@
         border-bottom: none;
       }
       .task-card:hover {
-        transform: translateX(8px);
         background: #fcfcfc;
         color: var(--primary);
       }
 
+      /* 🔥 디자인 정렬의 핵심: Flexbox 구조 */
+      .task-info {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+      }
+
+      /* 1. 태그: 너비 고정 */
       .tag {
+        width: 50px;
+        text-align: center;
         font-size: 0.65rem;
-        padding: 3px 8px;
+        padding: 3px 0;
         border-radius: 4px;
         font-weight: 800;
-        margin-right: 12px;
-        background: #eee;
+        margin-right: 15px;
+        flex-shrink: 0;
         display: inline-block;
-        vertical-align: middle;
       }
       .tag.quiz {
         background: #fff5b1;
         color: #856404;
+        border: 1px solid #ffeeba;
       }
-      .tag.project {
+      .tag.task {
+        background: #e7f3ff;
+        color: #004085;
+        border: 1px solid #bee5eb;
+      }
+      .tag.proj {
         background: #d4edda;
         color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      /* 2. 날짜: 너비 고정 및 고정폭 폰트 */
+      .task-date {
+        width: 70px;
+        font-family: "Courier New", monospace;
+        color: var(--light-gray);
+        font-size: 0.95rem;
+        margin-right: 15px;
+        flex-shrink: 0;
+        text-align: left;
+      }
+
+      /* 3. 제목: 남은 공간 차지 */
+      .task-title {
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; /* 너무 길면 줄임표 */
       }
 
       .loader {
@@ -129,7 +162,7 @@
     <div class="container">
       <header>
         <h1>📂 WEB ARCHIVE</h1>
-        <p>1월 1주차부터 현재까지의 학습 기록</p>
+        <p>주차별 학습 일지 및 과제 관리</p>
       </header>
 
       <div id="loader" class="loader">과제 데이터를 분석 중...</div>
@@ -140,14 +173,13 @@
       async function fetchWeeklyData() {
         const owner = "khy0819";
         const repo = "Goormexp";
-        // recursive=1은 폴더 깊숙한 곳의 파일을 다 찾는 핵심 옵션입니다.
         const apiUrl = `https://api.github.com/repos/${owner}/${repo}/git/trees/main?recursive=1`;
 
         try {
           const res = await fetch(apiUrl);
           const data = await res.json();
 
-          // index.html 파일들만 필터링 (메인 페이지 제외)
+          // '과제/' 폴더 내 index.html 필터링
           const indexFiles = data.tree.filter(
             (f) =>
               f.path.includes("과제/") &&
@@ -159,17 +191,12 @@
 
           indexFiles.forEach((f) => {
             const pathParts = f.path.split("/");
-            // 1. 주차 라벨 찾기 (폴더명에 'Week'가 포함된 것)
             const weekFolder = pathParts.find((p) =>
               p.toLowerCase().includes("week"),
             );
-
-            // 2. 표시용 주차 이름 다듬기 (Week01_0105 -> Week01 0105)
             let weekLabel = weekFolder
               ? weekFolder.replace(/_/g, " ")
               : "기타 분류";
-
-            // 3. 파일이 들어있는 최종 폴더명
             let folderName = pathParts[pathParts.length - 2];
 
             if (!weeks[weekLabel]) weeks[weekLabel] = [];
@@ -179,48 +206,52 @@
           const container = document.getElementById("task-container");
           document.getElementById("loader").style.display = "none";
 
-          // 주차별 정렬 (Week01, Week02 순서대로)
-          const sortedWeeks = Object.keys(weeks).sort((a, b) => {
-            return a.localeCompare(b, undefined, {
-              numeric: true,
-              sensitivity: "base",
-            });
-          });
+          // 1. 주차 정렬 (Week1, Week2...)
+          const sortedWeeks = Object.keys(weeks).sort((a, b) =>
+            a.localeCompare(b, undefined, { numeric: true }),
+          );
 
           sortedWeeks.forEach((week) => {
             const details = document.createElement("details");
-            // 가장 숫자가 큰 최신 주차는 기본으로 열어둡니다.
             if (week === sortedWeeks[sortedWeeks.length - 1])
               details.open = true;
 
-            let html = `<summary>${week} <span style="font-weight:400; font-size:0.9rem; color:#888;">(${weeks[week].length} Tasks)</span></summary><div class="task-list">`;
+            let html = `<summary>${week} <span style="font-weight:400; font-size:0.85rem; color:#888; margin-left:10px;">(${weeks[week].length} 건)</span></summary><div class="task-list">`;
 
-            // 날짜 폴더명으로 한 번 더 정렬
+            // 2. 주차 내부 날짜순 정렬
             weeks[week]
-              .sort((a, b) => a.name.localeCompare(b.name))
+              .sort((a, b) => {
+                const dateA = a.name.match(/\d+/)
+                  ? parseInt(a.name.match(/\d+/)[0])
+                  : 0;
+                const dateB = b.name.match(/\d+/)
+                  ? parseInt(b.name.match(/\d+/)[0])
+                  : 0;
+                return dateA - dateB;
+              })
               .forEach((task) => {
-                let tagText = "STUDY",
-                  tagClass = "";
-                const lowerName = task.name.toLowerCase();
+                // 날짜-유형 분리
+                const parts = task.name.split("-");
+                const datePart = parts[0] || "000000";
+                const typePart = (parts[1] || "TASK").toUpperCase();
+                const titlePart = task.name.includes("-")
+                  ? task.name.split("-").slice(1).join("-")
+                  : task.name;
 
-                if (lowerName.includes("quiz")) {
-                  tagText = "QUIZ";
-                  tagClass = "quiz";
-                } else if (
-                  lowerName.includes("starbucks") ||
-                  lowerName.includes("clone") ||
-                  lowerName.includes("project")
-                ) {
-                  tagText = "PROJ";
-                  tagClass = "project";
-                }
+                let tagClass = "task";
+                if (typePart.includes("QUIZ")) tagClass = "quiz";
+                if (typePart.includes("PROJ") || typePart.includes("STARBUCKS"))
+                  tagClass = "proj";
 
-                // 안전한 링크를 위해 encodeURI 적용
                 const safePath = encodeURI(task.path);
 
                 html += `
                             <a href="${safePath}" class="task-card">
-                                <span><span class="tag ${tagClass}">${tagText}</span><strong>${task.name}</strong></span>
+                                <div class="task-info">
+                                    <span class="tag ${tagClass}">${typePart}</span>
+                                    <span class="task-date">${datePart}</span>
+                                    <span class="task-title">${titlePart}</span>
+                                </div>
                                 <span style="color:#eee">›</span>
                             </a>`;
               });
@@ -230,8 +261,7 @@
             container.appendChild(details);
           });
         } catch (e) {
-          document.getElementById("loader").innerText =
-            "데이터를 불러올 수 없습니다. 경로를 확인해주세요.";
+          document.getElementById("loader").innerText = "데이터 로드 실패";
           console.error(e);
         }
       }
