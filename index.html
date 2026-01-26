@@ -28,8 +28,10 @@
       }
       header h1 {
         color: var(--primary);
-        font-size: 2.2rem;
-        margin-bottom: 10px;
+        font-size: 2.5rem;
+        margin-bottom: 8px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
       }
       header p {
         color: #666;
@@ -45,13 +47,15 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
       }
       summary {
-        padding: 22px 25px;
-        font-weight: 800;
+        padding: 20px 24px;
+        font-weight: 700;
         cursor: pointer;
         list-style: none;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        user-select: none;
+        transition: all 0.2s ease;
       }
       details[open] summary {
         border-bottom: 1px solid #eee;
@@ -75,19 +79,20 @@
       .task-card {
         display: flex;
         align-items: center;
-        padding: 14px 18px;
+        padding: 16px 20px;
         text-decoration: none;
         color: #333;
         border-bottom: 1px solid #f5f5f5;
-        transition: 0.2s;
+        transition: all 0.2s ease;
         border-radius: 8px;
       }
       .task-card:last-child {
         border-bottom: none;
       }
       .task-card:hover {
-        background: #fcfcfc;
+        background: #f8fdfb;
         color: var(--primary);
+        transform: translateX(4px);
       }
 
       .task-info {
@@ -146,8 +151,7 @@
   <body>
     <div class="container">
       <header>
-        <h1>📂 WEB ARCHIVE</h1>
-        <p>날짜와 유형별로 정리된 과제 타임라인</p>
+        <h1>WEB ARCHIVE</h1>
       </header>
 
       <div id="loader" class="loader">데이터를 분석 중입니다...</div>
@@ -215,6 +219,13 @@
                 // 중복 제거된 제목 추출 (날짜와 유형 키워드 제외)
                 let titlePart = parts.slice(2).join("-");
                 if (!titlePart) titlePart = parts[1] || "과제물";
+
+                // QUIZ, STUDY, TASK 등의 키워드 제거
+                titlePart = titlePart
+                  .replace(/^(QUIZ|quiz|Quiz)[-_]?/i, "")
+                  .replace(/^(STUDY|study|Study)[-_]?/i, "")
+                  .replace(/^(TASK|task|Task)[-_]?/i, "")
+                  .trim();
 
                 html += `
                             <a href="${encodeURI(task.path)}" class="task-card">
