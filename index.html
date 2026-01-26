@@ -61,32 +61,27 @@
         justify-content: center;
         gap: 15px;
       }
-      header h1::before,
-      header h1::after {
-        content: "☁️";
-        font-size: 2rem;
-      }
       header p {
         color: #888;
         font-weight: 300;
       }
 
-      /* ✨ 귀여운 구름 로딩 애니메이션 */
+      /* 로딩 */
       .loader-wrapper {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 100px 0;
+        padding: 120px 0;
       }
       .cloud {
-        width: 100px;
-        height: 40px;
+        width: 120px;
+        height: 50px;
         background: #fff;
         border-radius: 50px;
         position: relative;
         animation: float 2s ease-in-out infinite;
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
       }
       .cloud::after,
       .cloud::before {
@@ -96,16 +91,35 @@
         border-radius: 50%;
       }
       .cloud::after {
+        width: 60px;
+        height: 60px;
+        top: -30px;
+        left: 20px;
+      }
+      .cloud::before {
         width: 50px;
         height: 50px;
         top: -25px;
-        left: 15px;
+        right: 20px;
       }
-      .cloud::before {
+
+      /* 구름 눈 */
+      .eyes {
+        position: absolute;
         width: 40px;
-        height: 40px;
-        top: -20px;
-        right: 15px;
+        height: 10px;
+        top: 15px;
+        left: 40px;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+      }
+      .eye {
+        width: 6px;
+        height: 6px;
+        background: #333;
+        border-radius: 50%;
+        animation: blink 3s infinite;
       }
 
       @keyframes float {
@@ -117,14 +131,43 @@
           transform: translateY(-20px);
         }
       }
-      .loading-text {
-        margin-top: 25px;
-        color: var(--primary);
-        font-weight: 700;
-        letter-spacing: 1px;
+      @keyframes blink {
+        0%,
+        90%,
+        100% {
+          transform: scaleY(1);
+        }
+        95% {
+          transform: scaleY(0.1);
+        }
       }
 
-      /* 주차별 그룹 */
+      .loading-text {
+        margin-top: 35px;
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+      .loading-text::after {
+        content: ".";
+        animation: dots 1.5s steps(3, end) infinite;
+      }
+      @keyframes dots {
+        0% {
+          content: ".";
+        }
+        33% {
+          content: "..";
+        }
+        66% {
+          content: "...";
+        }
+        100% {
+          content: "";
+        }
+      }
+
+      /* 과제 리스트 및 아코디언 */
       details {
         background: white;
         margin-bottom: 20px;
@@ -137,7 +180,6 @@
       details:hover {
         transform: translateY(-3px);
       }
-
       summary {
         padding: 24px 28px;
         font-weight: 700;
@@ -147,27 +189,13 @@
         justify-content: space-between;
         align-items: center;
         background: #fff;
-        transition: background 0.3s;
       }
       details[open] summary {
         background: var(--secondary);
         color: var(--primary);
-      }
-      summary::after {
-        content: "展开";
-        font-size: 0.8rem;
-        color: #ccc;
-        background: #f1f1f1;
-        padding: 4px 10px;
-        border-radius: 10px;
-      }
-      details[open] summary::after {
-        content: "닫기";
-        background: var(--primary);
-        color: #fff;
+        border-bottom: 1px solid #eee;
       }
 
-      /* 과제 리스트 */
       .task-list {
         padding: 5px 15px 20px;
       }
@@ -193,7 +221,6 @@
         align-items: center;
         flex-grow: 1;
       }
-
       .tag {
         width: 60px;
         text-align: center;
@@ -212,21 +239,18 @@
         background: #eee;
         color: #666;
       }
-
       .task-date {
         width: 75px;
-        font-family: "11StreetGothic", monospace;
+        font-family: "Courier New", monospace;
         color: #bbb;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         margin-right: 15px;
         flex-shrink: 0;
       }
-
       .task-title {
         font-weight: 700;
         font-size: 1.05rem;
       }
-
       .arrow {
         color: #eee;
         font-size: 1.2rem;
@@ -241,16 +265,21 @@
   <body>
     <div class="container">
       <header>
-        <h1>WEB ARCHIVE</h1>
-        <p>오늘도 즐거운 코딩! ☁️</p>
+        <h1>☁️ WEB ARCHIVE</h1>
+        <p>오늘도 구름처럼 폭신하게 코딩 중!</p>
       </header>
 
       <div id="loader" class="loader-wrapper">
-        <div class="cloud"></div>
-        <div class="loading-text">파일을 찾으러 하늘을 날고 있어요...</div>
+        <div class="cloud">
+          <div class="eyes">
+            <div class="eye"></div>
+            <div class="eye"></div>
+          </div>
+        </div>
+        <div class="loading-text">파일을 찾으러 하늘을 날고 있어요</div>
       </div>
 
-      <div id="task-container"></div>
+      <div id="task-container" style="display: none"></div>
     </div>
 
     <script>
@@ -262,6 +291,11 @@
         try {
           const res = await fetch(apiUrl);
           const data = await res.json();
+
+          // ---------------------------------------------------------
+          // 인위적 지연 추가 (로딩 효과를 보기 위함)
+          await new Promise((resolve) => setTimeout(resolve, 3000));
+          // ---------------------------------------------------------
 
           const indexFiles = data.tree.filter(
             (f) =>
@@ -287,6 +321,7 @@
 
           const container = document.getElementById("task-container");
           document.getElementById("loader").style.display = "none";
+          container.style.display = "block"; // 로딩 후 목록 표시
 
           const sortedWeeks = Object.keys(weeks).sort((a, b) =>
             a.localeCompare(b, undefined, { numeric: true }),
@@ -297,7 +332,7 @@
             if (week === sortedWeeks[sortedWeeks.length - 1])
               details.open = true;
 
-            let html = `<summary><span>📂 ${week}</span> <span style="font-size:0.8rem; opacity:0.5;">${weeks[week].length}개의 기록</span></summary><div class="task-list">`;
+            let html = `<summary><span>📂 ${week}</span> <span style="font-size:0.8rem; opacity:0.4;">${weeks[week].length} Tasks</span></summary><div class="task-list">`;
 
             weeks[week]
               .sort((a, b) => a.name.localeCompare(b.name))
@@ -312,10 +347,7 @@
                 if (!titlePart) titlePart = parts[1] || "과제물";
 
                 titlePart = titlePart
-                  .replace(
-                    /^(QUIZ|quiz|Quiz|STUDY|study|Study|TASK|task|Task)[-_]?/i,
-                    "",
-                  )
+                  .replace(/^(QUIZ|STUDY|TASK)[-_]?/i, "")
                   .trim();
 
                 html += `
@@ -335,7 +367,7 @@
           });
         } catch (e) {
           document.getElementById("loader").innerHTML =
-            "☁️ 파일을 찾는 도중 비가 내려요... (로드 실패)";
+            "☁️ 로드 실패! 다시 시도해 주세요.";
         }
       }
       fetchWeeklyData();
