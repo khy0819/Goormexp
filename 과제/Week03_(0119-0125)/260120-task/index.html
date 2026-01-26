@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260120) JS 과제 정답지</title>
+    <style>
+      :root {
+        --primary: #006241;
+        --bg: #f8f9fa;
+        --card-bg: #ffffff;
+        --text: #333;
+        --code-bg: #2d2d2d;
+      }
+      [data-theme="dark"] {
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --text: #e0e0e0;
+        --border: #333;
+      }
+      body {
+        font-family: "Pretendard", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        margin: 0;
+        padding: 40px 20px;
+        transition: all 0.3s;
+      }
+      .container {
+        max-width: 850px;
+        margin: 0 auto;
+      }
+      h1 {
+        text-align: center;
+        color: var(--primary);
+        margin-bottom: 40px;
+      }
+      .assignment-item {
+        background: var(--card-bg);
+        padding: 30px;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      }
+      .level-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        background: var(--primary);
+        color: white;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+      .description {
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.9rem;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+      .result-btn {
+        margin-top: 15px;
+        padding: 10px 20px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      .result-btn:hover {
+        opacity: 0.9;
+      }
+      .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 40px;
+        text-decoration: none;
+        color: var(--text);
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>(260120) JavaScript 과제</h1>
+
+      <div class="assignment-item">
+        <span class="level-badge">Level 1</span>
+        <div class="description">
+          <h3>짝수 합계 계산기</h3>
+          <p>
+            1부터 100까지의 숫자 중 짝수만 골라서 합계를 구하세요. (for, if, %
+            연산자 사용)
+          </p>
+        </div>
+        <div class="code-block">
+          let sum = 0; for (let i = 1; i <= 100; i++) { if (i % 2 === 0) { sum
+          += i; } } console.log("1부터 100까지 짝수의 합: " + sum);
+        </div>
+        <button class="result-btn" onclick="alert('결과: 2550')">
+          결과 확인
+        </button>
+      </div>
+
+      <div class="assignment-item">
+        <span class="level-badge">Level 2</span>
+        <div class="description">
+          <h3>FizzBuzz 게임</h3>
+          <p>
+            3의 배수는 "Fizz", 5의 배수는 "Buzz", 공배수는 "FizzBuzz"를
+            출력하세요.
+          </p>
+        </div>
+        <div class="code-block">
+          for (let i = 1; i <= 100; i++) { if (i % 3 === 0 && i % 5 === 0)
+          console.log("FizzBuzz"); else if (i % 3 === 0) console.log("Fizz");
+          else if (i % 5 === 0) console.log("Buzz"); else console.log(i); }
+        </div>
+      </div>
+
+      <div class="assignment-item">
+        <span class="level-badge">Level 3</span>
+        <div class="description">
+          <h3>별 찍기 - 다이아몬드 패턴</h3>
+          <p>중첩 for문을 사용하여 9줄의 다이아몬드 패턴을 출력하세요.</p>
+        </div>
+        <div class="code-block">
+          const rows = 9; const mid = Math.floor(rows / 2); for (let i = 0; i <
+          rows; i++) { let gap = Math.abs(mid - i); let stars = rows - (gap *
+          2); console.log(" ".repeat(gap) + "*".repeat(stars)); }
+        </div>
+      </div>
+
+      <div class="assignment-item">
+        <span class="level-badge">Level 4</span>
+        <div class="description">
+          <h3>달팽이 배열 (Spiral Matrix)</h3>
+          <p>N×N 크기의 배열을 시계방향 나선형으로 숫자를 채우세요.</p>
+        </div>
+
+        <div class="code-block">
+          function drawSnail(n) { const arr = Array.from({ length: n }, () =>
+          Array(n).fill(0)); let num = 1, row = 0, col = 0, dir = 0; const dr =
+          [0, 1, 0, -1], dc = [1, 0, -1, 0]; while (num <= n * n) {
+          arr[row][col] = num++; let nr = row + dr[dir], nc = col + dc[dir]; if
+          (nr < 0 || nr >= n || nc < 0 || nc >= n || arr[nr][nc] !== 0) { dir =
+          (dir + 1) % 4; nr = row + dr[dir]; nc = col + dc[dir]; } row = nr; col
+          = nc; } arr.forEach(r => console.log(r.join("\t"))); } drawSnail(5);
+        </div>
+      </div>
+
+      <a href="https://khy0819.github.io/Goormexp/" class="back-link"
+        >🏠 과제 목록으로 돌아가기</a
+      >
+    </div>
+
+    <script>
+      // 다크모드 연동 (메인 페이지 테마 설정 유지)
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark")
+        document.documentElement.setAttribute("data-theme", "dark");
+    </script>
+  </body>
+</html>
