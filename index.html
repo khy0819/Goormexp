@@ -2,7 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <title>Goorm 과제 아카이브 (주차별 정리)</title>
+    <title>Goorm 과제 저장소 (주차별 정리)</title>
     <style>
       :root {
         --primary: #006241;
@@ -11,23 +11,35 @@
       body {
         font-family: "Pretendard", sans-serif;
         background: var(--bg);
+        margin: 0;
         padding: 40px 20px;
+        color: #333;
       }
       .container {
-        max-width: 700px;
+        max-width: 750px;
         margin: 0 auto;
       }
+      header {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+      header h1 {
+        color: var(--primary);
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
 
-      /* 주차별 아코디언 스타일 */
+      /* 주차별 그룹 (아코디언) */
       details {
         background: white;
         margin-bottom: 15px;
-        border-radius: 12px;
+        border-radius: 15px;
         border: 1px solid #eee;
         overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
       }
       summary {
-        padding: 20px;
+        padding: 22px;
         font-weight: 800;
         cursor: pointer;
         list-style: none;
@@ -35,56 +47,85 @@
         justify-content: space-between;
         align-items: center;
         background: #fff;
-        color: var(--primary);
-      }
-      summary::-webkit-details-marker {
-        display: none;
+        color: #444;
+        font-size: 1.1rem;
       }
       details[open] summary {
         border-bottom: 1px solid #eee;
-        background: #f0f4f2;
+        background: #f9fdfb;
+        color: var(--primary);
+      }
+      summary::after {
+        content: "＋";
+        font-size: 1.2rem;
+        color: #ccc;
+        transition: 0.3s;
+      }
+      details[open] summary::after {
+        content: "－";
+        transform: rotate(180deg);
+        color: var(--primary);
       }
 
-      /* 내부 과제 카드 */
+      /* 내부 과제 리스트 */
       .task-list {
-        padding: 15px;
+        padding: 10px 20px 20px;
       }
       .task-card {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 12px 15px;
+        padding: 15px;
         text-decoration: none;
-        color: #333;
-        border-bottom: 1px solid #f9f9f9;
+        color: inherit;
+        border-bottom: 1px solid #f1f1f1;
         transition: 0.2s;
       }
-      .task-card:hover {
-        background: #f8f9fa;
-        transform: translateX(5px);
+      .task-card:last-child {
+        border-bottom: none;
       }
+      .task-card:hover {
+        transform: translateX(10px);
+        color: var(--primary);
+      }
+
       .tag {
-        font-size: 0.65rem;
-        padding: 2px 6px;
+        font-size: 0.7rem;
+        padding: 3px 8px;
         border-radius: 4px;
-        font-weight: bold;
-        margin-right: 10px;
+        font-weight: 800;
+        margin-right: 12px;
         background: #eee;
+      }
+      .tag.quiz {
+        background: #fff5b1;
+        color: #856404;
+      }
+      .tag.project {
+        background: #d4edda;
+        color: #155724;
+      }
+
+      .loader {
+        text-align: center;
+        padding: 50px;
+        color: #aaa;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <header style="text-align: center; margin-bottom: 40px">
+      <header>
         <h1>📂 WEB ARCHIVE</h1>
-        <p>주차별로 깔끔하게 접어서 관리하세요.</p>
+        <p>주차별로 폴더를 관리하면 자동으로 정리됩니다.</p>
       </header>
 
+      <div id="loader" class="loader">과제 데이터를 분석 중...</div>
       <div id="task-container"></div>
     </div>
 
     <script>
-      async function fetchWeekly() {
+      async function fetchWeeklyData() {
         const owner = "khy0819";
         const repo = "Goormexp";
         const apiUrl = `https://api.github.com/repos/${owner}/${repo}/git/trees/main?recursive=1`;
@@ -92,6 +133,8 @@
         try {
           const res = await fetch(apiUrl);
           const data = await res.json();
+
+          // '과제/' 폴더 안의 index.html들만 필터링
           const indexFiles = data.tree.filter(
             (f) =>
               f.path.includes("과제/") &&
@@ -103,48 +146,72 @@
 
           indexFiles.forEach((f) => {
             const pathParts = f.path.split("/");
-            const folderName = pathParts[1];
-            const dateMatch = folderName.match(/\d+/);
+            // pathParts 예: ["과제", "Week3", "0126_quiz", "index.html"]
+            let weekLabel = "기타 분류";
+            let folderName = pathParts[pathParts.length - 2];
 
-            if (dateMatch) {
-              const day = parseInt(dateMatch[0].slice(-2));
-              // 1~7일(1주), 8~14일(2주), 15~21일(3주), 22~31일(4주)로 임시 분류
-              const weekNum = Math.ceil(day / 7);
-              const weekKey = `${weekNum}주차 (1월)`;
+            // 경로 중에 'Week'가 포함된 폴더명을 주차 이름으로 사용
+            const weekFolder = pathParts.find((p) =>
+              p.toLowerCase().includes("week"),
+            );
+            if (weekFolder) weekLabel = weekFolder.toUpperCase();
 
-              if (!weeks[weekKey]) weeks[weekKey] = [];
-              weeks[weekKey].push({ path: f.path, name: folderName });
-            }
+            if (!weeks[weekLabel]) weeks[weekLabel] = [];
+            weeks[weekLabel].push({ path: f.path, name: folderName });
           });
 
           const container = document.getElementById("task-container");
-          // 주차별로 정렬해서 출력
-          Object.keys(weeks)
-            .sort()
-            .forEach((week) => {
-              const details = document.createElement("details");
-              // 가장 최근 주차는 열어두기
-              if (week.includes("4주차")) details.open = true;
+          document.getElementById("loader").style.display = "none";
 
-              let taskHtml = `<summary>${week} <span>▾</span></summary><div class="task-list">`;
-
-              weeks[week].forEach((task) => {
-                taskHtml += `
-                        <a href="${task.path}" class="task-card">
-                            <span><span class="tag">DONE</span>${task.name}</span>
-                            <span style="color:#ccc">›</span>
-                        </a>`;
-              });
-
-              taskHtml += `</div>`;
-              details.innerHTML = taskHtml;
-              container.appendChild(details);
+          // 주차별 정렬 (Week1, Week2... 순서)
+          const sortedWeeks = Object.keys(weeks).sort((a, b) => {
+            return a.localeCompare(b, undefined, {
+              numeric: true,
+              sensitivity: "base",
             });
+          });
+
+          sortedWeeks.forEach((week) => {
+            const details = document.createElement("details");
+            // 가장 마지막 주차(최신)는 기본으로 열어두기
+            if (week === sortedWeeks[sortedWeeks.length - 1])
+              details.open = true;
+
+            let html = `<summary>${week} (${weeks[week].length}개 과제)</summary><div class="task-list">`;
+
+            weeks[week].forEach((task) => {
+              let tagText = "TASK",
+                tagClass = "";
+              const lowerName = task.name.toLowerCase();
+              if (lowerName.includes("quiz")) {
+                tagText = "QUIZ";
+                tagClass = "quiz";
+              }
+              if (
+                lowerName.includes("starbucks") ||
+                lowerName.includes("clone")
+              ) {
+                tagText = "PROJ";
+                tagClass = "project";
+              }
+
+              html += `
+                        <a href="${task.path}" class="task-card">
+                            <span><span class="tag ${tagClass}">${tagText}</span><strong>${task.name}</strong></span>
+                            <span style="color:#eee">›</span>
+                        </a>`;
+            });
+
+            html += `</div>`;
+            details.innerHTML = html;
+            container.appendChild(details);
+          });
         } catch (e) {
-          console.error("로드 실패", e);
+          document.getElementById("loader").innerText =
+            "데이터를 불러올 수 없습니다.";
         }
       }
-      fetchWeekly();
+      fetchWeeklyData();
     </script>
   </body>
 </html>
