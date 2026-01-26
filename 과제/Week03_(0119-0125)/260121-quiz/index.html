@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260121)퀴즈 정답지</title>
+    <style>
+      :root {
+        --primary: #f7df1e;
+        --bg: #f8f9fa;
+      }
+      body {
+        font-family:
+          "Pretendard",
+          -apple-system,
+          BlinkMacSystemFont,
+          system-ui,
+          Roboto,
+          sans-serif;
+        background: var(--bg);
+        margin: 0;
+        padding: 40px 20px;
+        color: #333;
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+      h1 {
+        text-align: center;
+        border-bottom: 4px solid var(--primary);
+        padding-bottom: 15px;
+        margin-bottom: 40px;
+      }
+      .quiz-item {
+        margin-bottom: 30px;
+        padding: 20px;
+        border: 1px solid #eee;
+        border-radius: 12px;
+      }
+      .question {
+        font-weight: bold;
+        font-size: 1.1rem;
+        display: block;
+        margin-bottom: 15px;
+      }
+      .code-block {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 15px;
+        border-radius: 8px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+        white-space: pre-wrap;
+      }
+      .answer-box {
+        background: #fffde7;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 5px solid var(--primary);
+      }
+      .ans-text {
+        color: #d93025;
+        font-weight: bold;
+      }
+      .exp-text {
+        display: block;
+        margin-top: 8px;
+        font-size: 0.9rem;
+        color: #666;
+      }
+      .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 50px;
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>(260121) 퀴즈 정답지</h1>
+      <div id="quiz-container"></div>
+      <a href="https://khy0819.github.io/Goormexp/" class="back-link"
+        >🏠 과제 목록으로 돌아가기</a
+      >
+    </div>
+
+    <script>
+      const quizData = [
+        {
+          id: 1,
+          q: "다음 코드의 출력 결과는?",
+          code: "function test(a, b) {\n  console.log(a + b);\n}\ntest(3, 5);",
+          a: "8",
+          e: "매개변수 a(3)와 b(5)를 더한 값인 8이 출력됩니다.",
+        },
+        {
+          id: 2,
+          q: "다음 중 함수의 return에 대한 설명으로 잘못된 것은?",
+          a: "하나의 함수에 여러 개의 return문이 있을 수 없다",
+          e: "if문 등을 사용하면 조건에 따라 다른 값을 반환하도록 여러 개의 return문을 작성할 수 있습니다.",
+        },
+        {
+          id: 3,
+          q: "다음 코드의 실행 결과는?",
+          code: "const greet = function(name) {\n  return '안녕, ' + name;\n};\nconsole.log(greet('철수'));",
+          a: "'안녕, 철수'",
+          e: "함수에 '철수' 인자를 전달하여 문자열 결합 결과가 반환됩니다.",
+        },
+        {
+          id: 4,
+          q: "다음 코드에서 에러가 발생하는 이유는?",
+          code: "sayHello();\nconst sayHello = function() {\n  console.log('Hello');\n};",
+          a: "함수 표현식은 호이스팅되지 않는다",
+          e: "const나 let으로 선언된 함수 표현식은 선언 이전에 호출할 수 없습니다.",
+        },
+        {
+          id: 5,
+          q: "다음 코드의 출력 결과는?",
+          code: "const add = (a, b) => a + b;\nconsole.log(add(10, 20));",
+          a: "30",
+          e: "화살표 함수는 중괄호가 없으면 우측 식의 결과값을 자동으로 return합니다.",
+        },
+        {
+          id: 6,
+          q: "다음 화살표 함수 중 잘못 작성된 것은?",
+          a: "const func4 = a, b => a + b;",
+          e: "매개변수가 2개 이상일 때는 반드시 (a, b)와 같이 소괄호로 감싸야 합니다.",
+        },
+        {
+          id: 7,
+          q: "다음 코드의 출력 결과는?",
+          code: "function execute(callback) {\n  callback();\n  console.log('완료');\n}\nexecute(function() {\n  console.log('실행');\n});",
+          a: "'실행' 다음 줄에 '완료'",
+          e: "콜백 함수가 먼저 호출되어 '실행'이 찍힌 후, 그 다음 줄의 '완료'가 출력됩니다.",
+        },
+        {
+          id: 8,
+          q: "다음 코드의 출력 결과는?",
+          code: "let x = 10;\nfunction test() {\n  let x = 20;\n  console.log(x);\n}\ntest();\nconsole.log(x);",
+          a: "20, 10",
+          e: "함수 내부의 x는 지역 변수(20)를, 외부의 x는 전역 변수(10)를 참조합니다.",
+        },
+        {
+          id: 9,
+          q: "다음 코드에서 에러가 발생하는 이유는?",
+          code: "function myFunc() {\n  let localVar = '지역';\n}\nmyFunc();\nconsole.log(localVar);",
+          a: "localVar는 함수 내부에서만 유효하다",
+          e: "함수 내부에서 선언된 let 변수는 지역 스코프를 가지므로 외부에서 접근할 수 없습니다.",
+        },
+        {
+          id: 10,
+          q: "다음 코드의 출력 결과는?",
+          code: "if (true) {\n  let blockVar = '블록 변수';\n}\nconsole.log(blockVar);",
+          a: "ReferenceError 발생",
+          e: "let은 블록 스코프({})를 따르므로 if 블록 밖에서는 존재하지 않습니다.",
+        },
+        {
+          id: 11,
+          q: "다음 코드의 출력 결과는?",
+          code: "let global = '전역';\nfunction outer() {\n  let outerVar = '외부';\n  function inner() {\n    console.log(global);\n    console.log(outerVar);\n  }\n  inner();\n}\nouter();",
+          a: "'전역' 다음 줄에 '외부'",
+          e: "중첩된 inner 함수는 스코프 체인을 통해 외부 변수와 전역 변수에 모두 접근 가능합니다.",
+        },
+        {
+          id: 12,
+          q: "다음 중 전역 변수로 선언된 것은?",
+          code: "let a = 10;\nfunction test() {\n  let b = 20;\n  if (true) {\n    let c = 30;\n  }\n}",
+          a: "a만",
+          e: "함수나 블록 바깥 최상위 영역에서 선언된 a만 전역 변수입니다.",
+        },
+        {
+          id: 13,
+          q: "다음 코드의 출력 결과는?",
+          code: "for (let i = 0; i < 3; i++) {\n  console.log(i);\n}\nconsole.log(i);",
+          a: "0, 1, 2 다음 줄에 ReferenceError 발생",
+          e: "for문의 i는 let으로 선언되었으므로 루프가 끝나면 소멸합니다.",
+        },
+        {
+          id: 14,
+          q: "다음 코드의 출력 결과는?",
+          code: "function greet(name = 'Guest') {\n  return '안녕, ' + name;\n}\nconsole.log(greet());\nconsole.log(greet('철수'));",
+          a: "'안녕, Guest' 다음 줄에 '안녕, 철수'",
+          e: "매개변수 기본값(Default Parameter)에 의해 인자가 없으면 'Guest'를 사용합니다.",
+        },
+        {
+          id: 15,
+          q: "다음 코드의 출력 결과는?",
+          code: "const arr = [1, 2, 3];\narr.forEach(function(num) {\n  console.log(num * 2);\n});",
+          a: "2, 4, 6",
+          e: "forEach는 배열의 요소를 하나씩 순회하며 콜백 함수를 실행합니다.",
+        },
+        {
+          id: 16,
+          q: "다음 코드의 출력 결과는?",
+          code: "let name = '전역';\nfunction test() {\n  name = '수정됨';\n}\ntest();\nconsole.log(name);",
+          a: "'수정됨'",
+          e: "함수 내부에서 키워드 없이 name을 사용하면 전역 변수 name을 직접 수정합니다.",
+        },
+        {
+          id: 17,
+          q: "다음 코드의 출력 결과는?",
+          code: "function outer() {\n  let count = 0;\n  function inner() {\n    count++;\n    console.log(count);\n  }\n  return inner;\n}\nconst func = outer();\nfunc();\nfunc();",
+          a: "1, 2",
+          e: "클로저(Closure) 덕분에 inner 함수는 outer의 count 변수 상태를 유지합니다.",
+        },
+        {
+          id: 18,
+          q: "다음 중 var와 let/const의 차이에 대한 설명으로 옳은 것은?",
+          a: "const는 값을 변경할 수 없다",
+          e: "const는 재할당이 불가능한 상수를 선언할 때 사용합니다.",
+        },
+        {
+          id: 19,
+          q: "다음 코드의 출력 결과는?",
+          code: "const multiply = (x) => {\n  return (y) => x * y;\n};\nconst double = multiply(2);\nconsole.log(double(5));",
+          a: "10",
+          e: "multiply(2)가 반환한 함수(x가 2인 상태)에 5를 인자로 주어 2 * 5가 계산됩니다.",
+        },
+        {
+          id: 20,
+          q: "다음 코드의 출력 결과는?",
+          code: "if (true) {\n  var varVariable = 'var';\n  let letVariable = 'let';\n}\nconsole.log(varVariable);\nconsole.log(letVariable);",
+          a: "'var' 다음 줄에 ReferenceError 발생",
+          e: "var는 블록 스코프를 무시하지만, let은 블록 밖에서 참조할 수 없기 때문입니다.",
+        },
+      ];
+
+      const container = document.getElementById("quiz-container");
+
+      quizData.forEach((item) => {
+        const quizHtml = `
+            <div class="quiz-item">
+                <span class="question">Q${item.id}. ${item.q}</span>
+                ${item.code ? `<div class="code-block">${item.code}</div>` : ""}
+                <div class="answer-box">
+                    정답: <span class="ans-text">${item.a}</span>
+                    <span class="exp-text">💡 해설: ${item.e}</span>
+                </div>
+            </div>
+        `;
+        container.innerHTML += quizHtml;
+      });
+    </script>
+  </body>
+</html>
