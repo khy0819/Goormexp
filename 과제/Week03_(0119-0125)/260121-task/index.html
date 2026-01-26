@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260126) JS 배열 메서드 심화 정리</title>
+    <style>
+      :root {
+        --primary: #f7df1e;
+        --bg: #fdfdfd;
+      }
+      body {
+        font-family: "Pretendard", sans-serif;
+        background: var(--bg);
+        padding: 20px;
+        color: #333;
+        line-height: 1.7;
+      }
+      .container {
+        max-width: 850px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      }
+      h1 {
+        text-align: center;
+        border-bottom: 3px solid var(--primary);
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+      }
+      .quiz-item {
+        margin-bottom: 25px;
+        padding: 20px;
+        border: 1px solid #eee;
+        border-radius: 10px;
+      }
+      .question {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 12px;
+        font-size: 1.15rem;
+        color: #111;
+      }
+      .ans-box {
+        background: #fff5b1;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+      }
+      .ans-label {
+        color: #d93025;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+      .code-block {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 15px;
+        border-radius: 8px;
+        font-family: "Consolas", monospace;
+        font-size: 0.9rem;
+        white-space: pre-wrap;
+        margin-top: 10px;
+      }
+      .exp {
+        font-size: 0.95rem;
+        color: #555;
+        margin-top: 15px;
+        padding: 12px;
+        background: #fafafa;
+        border-left: 4px solid var(--primary);
+      }
+      .back-btn {
+        display: block;
+        width: fit-content;
+        margin: 40px auto 0;
+        padding: 12px 40px;
+        background: #333;
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+      .back-btn:hover {
+        background: #111;
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🟨 JS 배열 심화 메서드 10종 학습 로그</h1>
+      <div id="method-list"></div>
+      <a href="https://khy0819.github.io/Goormexp/" class="back-btn"
+        >🏠 과제 목록 첫화면으로</a
+      >
+    </div>
+
+    <script>
+      const methodData = [
+        {
+          id: 1,
+          name: "find()",
+          q: "조건을 만족하는 첫 번째 요소를 찾으려면?",
+          a: "해당 요소의 값 (없으면 undefined)",
+          e: "배열을 순회하며 콜백 함수가 true를 반환하는 '첫 번째 값'만 반환하고 종료합니다.",
+          code: "const arr = [5, 12, 8, 130];\nconst found = arr.find(el => el > 10);\nconsole.log(found); // 12",
+        },
+        {
+          id: 2,
+          name: "findIndex()",
+          q: "조건을 만족하는 첫 번째 요소의 위치를 찾으려면?",
+          a: "해당 요소의 인덱스 번호 (없으면 -1)",
+          e: "값 자체가 아닌, 그 값이 몇 번째 칸(인덱스)에 있는지 숫자로 알려줍니다.",
+          code: "const arr = [5, 12, 8, 130];\nconst index = arr.findIndex(el => el > 10);\nconsole.log(index); // 1",
+        },
+        {
+          id: 3,
+          name: "some()",
+          q: "배열에 조건을 만족하는 요소가 '하나라도' 있는지 확인하려면?",
+          a: "Boolean (true / false)",
+          e: "단 하나의 요소라도 조건을 만족하면 즉시 true를 반환합니다.",
+          code: "const arr = [1, 2, 3, 4, 5];\nconst result = arr.some(el => el > 4);\nconsole.log(result); // true",
+        },
+        {
+          id: 4,
+          name: "every()",
+          q: "배열의 '모든' 요소가 조건을 만족하는지 확인하려면?",
+          a: "Boolean (true / false)",
+          e: "모든 요소가 true여야만 true를 반환하며, 하나라도 틀리면 false가 됩니다.",
+          code: "const arr = [1, 2, 3, 4, 5];\nconst result = arr.every(el => el > 0);\nconsole.log(result); // true",
+        },
+        {
+          id: 5,
+          name: "reduce()",
+          q: "배열의 요소를 하나로 합치거나 누적 계산을 하려면?",
+          a: "최종 누적 결과값",
+          e: "가장 강력한 메서드로, 초기값을 바탕으로 배열을 순회하며 값을 쌓아나갑니다.",
+          code: "const arr = [1, 2, 3, 4];\nconst sum = arr.reduce((acc, cur) => acc + cur, 0);\nconsole.log(sum); // 10",
+        },
+        {
+          id: 6,
+          name: "sort()",
+          q: "배열의 요소를 정렬하려면?",
+          a: "정렬된 원본 배열",
+          e: "주의! 원본 배열을 직접 수정합니다. 숫자는 (a, b) => a - b 공식을 주로 씁니다.",
+          code: "const arr = [40, 100, 1];\narr.sort((a, b) => a - b);\nconsole.log(arr); // [1, 40, 100]",
+        },
+        {
+          id: 7,
+          name: "includes()",
+          q: "배열에 특정 값이 포함되어 있는지 확인하려면?",
+          a: "Boolean (true / false)",
+          e: "단순히 특정 값이 들어있는지만 확인할 때 사용하며 매우 직관적입니다.",
+          code: "const arr = ['apple', 'banana'];\nconsole.log(arr.includes('apple')); // true",
+        },
+        {
+          id: 8,
+          name: "slice()",
+          q: "배열의 일부분을 복사해서 가져오려면?",
+          a: "추출된 새로운 배열",
+          e: "원본은 건드리지 않고, 시작 인덱스부터 끝 인덱스 전까지 복사본을 만듭니다.",
+          code: "const arr = [1, 2, 3, 4, 5];\nconst newArr = arr.slice(1, 4);\nconsole.log(newArr); // [2, 3, 4]",
+        },
+        {
+          id: 9,
+          name: "join()",
+          q: "배열의 모든 요소를 문자열로 합치려면?",
+          a: "연결된 문자열",
+          e: "배열 사이사이에 특정 구분자(,-/ 등)를 넣어 하나의 문장으로 만듭니다.",
+          code: "const arr = ['010', '1234', '5678'];\nconsole.log(arr.join('-')); // '010-1234-5678'",
+        },
+        {
+          id: 10,
+          name: "reverse()",
+          q: "배열의 순서를 거꾸로 뒤집으려면?",
+          a: "반전된 원본 배열",
+          e: "주의! 원본 배열의 순서를 직접 바꿉니다. 마지막 요소를 첫 번째로 보냅니다.",
+          code: "const arr = [1, 2, 3];\narr.reverse();\nconsole.log(arr); // [3, 2, 1]",
+        },
+      ];
+
+      const list = document.getElementById("method-list");
+      methodData.forEach((item) => {
+        list.innerHTML += `
+            <div class="quiz-item">
+              <span class="question">${item.id}. ${item.name} - ${item.q}</span>
+              <div class="ans-box">
+                리턴 값: <span class="ans-label">${item.a}</span>
+                <div class="code-block">${item.code}</div>
+              </div>
+              <div class="exp">💡 설명: ${item.e}</div>
+            </div>
+          `;
+      });
+    </script>
+  </body>
+</html>
