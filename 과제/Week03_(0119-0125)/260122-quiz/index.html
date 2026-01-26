@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260122) JS 퀴즈 정답지</title>
+    <style>
+      :root {
+        --primary: #f7df1e;
+        --bg: #f8f9fa;
+      }
+      body {
+        font-family:
+          "Pretendard",
+          -apple-system,
+          sans-serif;
+        background: var(--bg);
+        margin: 0;
+        padding: 40px 20px;
+        color: #333;
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+      h1 {
+        text-align: center;
+        border-bottom: 4px solid var(--primary);
+        padding-bottom: 15px;
+        margin-bottom: 40px;
+      }
+      .quiz-item {
+        margin-bottom: 30px;
+        padding: 20px;
+        border: 1px solid #eee;
+        border-radius: 12px;
+      }
+      .question {
+        font-weight: bold;
+        font-size: 1.1rem;
+        display: block;
+        margin-bottom: 15px;
+      }
+      .code-block {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 15px;
+        border-radius: 8px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+        white-space: pre-wrap;
+      }
+      .answer-box {
+        background: #fffde7;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 5px solid var(--primary);
+      }
+      .ans-text {
+        color: #d93025;
+        font-weight: bold;
+      }
+      .exp-text {
+        display: block;
+        margin-top: 8px;
+        font-size: 0.9rem;
+        color: #666;
+      }
+      .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 50px;
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>(260122) JS 객체와 배열 퀴즈 정답지</h1>
+      <div id="quiz-container"></div>
+      <a href="https://khy0819.github.io/Goormexp/" class="back-link"
+        >🏠 과제 목록으로 돌아가기</a
+      >
+    </div>
+
+    <script>
+      const quizData = [
+        {
+          id: 1,
+          q: "다음 코드의 출력 결과는?",
+          code: "const person = {\n  name: '철수',\n  age: 20\n};\nconsole.log(person.name);\nconsole.log(person['age']);",
+          a: "'철수' 다음 줄에 20",
+          e: "마침표(.) 연산자와 대괄호([]) 연산자 모두 객체의 프로퍼티에 접근할 수 있습니다.",
+        },
+        {
+          id: 2,
+          q: "다음 중 객체의 프로퍼티에 접근하는 방법으로 잘못된 것은?",
+          a: "person[name] (name이 변수가 아닌 경우)",
+          e: "대괄호 연산자를 쓸 때 변수가 아니라면 반드시 따옴표('name')를 사용해야 합니다.",
+        },
+        {
+          id: 3,
+          q: "다음 코드의 실행 결과는?",
+          code: "const user = { name: '영희' };\nuser.age = 25;\nconsole.log(user.age);",
+          a: "25",
+          e: "객체는 선언된 이후에도 새로운 프로퍼티를 자유롭게 추가할 수 있습니다.",
+        },
+        {
+          id: 4,
+          q: "다음 코드에서 'city' 프로퍼티를 삭제하는 방법은?",
+          code: "const person = { name: '철수', age: 20, city: '서울' };",
+          a: "delete person.city",
+          e: "delete 연산자를 사용하면 객체의 특정 프로퍼티를 완전히 삭제할 수 있습니다.",
+        },
+        {
+          id: 5,
+          q: "다음 코드의 출력 결과는?",
+          code: "const person = {\n  name: '철수',\n  greet: function() { console.log('안녕하세요!'); }\n};\nperson.greet();",
+          a: "'안녕하세요!'",
+          e: "객체 내부에 정의된 함수(메서드)를 호출하면 함수 본문이 실행됩니다.",
+        },
+        {
+          id: 6,
+          q: "다음 코드의 출력 결과는?",
+          code: "const calculator = {\n  num: 10,\n  double: function() { return this.num * 2; }\n};\nconsole.log(calculator.double);",
+          a: "함수 정의문 그 자체",
+          e: "함수를 호출하지 않고(괄호 없이) 이름만 참조하면 함수 본문이 그대로 나옵니다.",
+        },
+        {
+          id: 7,
+          q: "다음 중 const로 선언된 객체에 대한 설명으로 옳은 것은?",
+          a: "객체를 다른 객체로 재할당할 수 없다",
+          e: "const는 재할당만 막을 뿐, 객체 내부의 프로퍼티 수정/추가/삭제는 가능합니다.",
+        },
+        {
+          id: 8,
+          q: "다음 코드의 출력 결과는?",
+          code: "const user = { name: '철수', age: 20 };\nfor (let key in user) { console.log(key); }",
+          a: "'name', 'age'",
+          e: "for...in 문은 객체의 모든 열거 가능한 '키(Key)'들을 순회합니다.",
+        },
+        {
+          id: 9,
+          q: "다음 코드의 실행 결과는?",
+          code: "const arr = [1, 2, 3, 4, 5];\nconsole.log(arr[0]);\nconsole.log(arr[4]);",
+          a: "1 다음 줄에 5",
+          e: "배열의 인덱스는 0부터 시작하므로 arr[0]은 첫 번째, arr[4]는 다섯 번째 요소입니다.",
+        },
+        {
+          id: 10,
+          q: "다음 코드의 출력 결과는?",
+          code: "const fruits = ['사과', '바나나', '오렌지'];\nconsole.log(fruits.length);",
+          a: "3",
+          e: "length 프로퍼티는 배열 안에 담긴 요소의 총 개수를 나타냅니다.",
+        },
+        {
+          id: 11,
+          q: "다음 코드의 실행 결과는?",
+          code: "const numbers = [1, 2, 3];\nnumbers.push(4);\nconsole.log(numbers);",
+          a: "[1, 2, 3, 4]",
+          e: "push() 메서드는 배열의 가장 뒤에 새로운 요소를 추가합니다.",
+        },
+        {
+          id: 12,
+          q: "다음 코드의 출력 결과는?",
+          code: "const arr = [10, 20, 30];\nconst last = arr.pop();\nconsole.log(last);\nconsole.log(arr);",
+          a: "30 다음 줄에 [10, 20]",
+          e: "pop()은 마지막 요소를 제거하고, 그 제거된 값을 반환합니다.",
+        },
+        {
+          id: 13,
+          q: "다음 코드의 출력 결과는?",
+          code: "const arr = [1, 2, 3];\narr.forEach(num => console.log(num * 2));",
+          a: "2, 4, 6 (각각 다른 줄에)",
+          e: "forEach는 반환값이 없으며 각 요소에 대해 지정된 작업을 수행할 뿐입니다.",
+        },
+        {
+          id: 14,
+          q: "다음 코드의 실행 결과는?",
+          code: "const numbers = [1, 2, 3];\nconst doubled = numbers.map(num => num * 2);\nconsole.log(doubled);",
+          a: "[2, 4, 6]",
+          e: "map()은 각 요소를 변환하여 '새로운 배열'을 생성하여 반환합니다.",
+        },
+        {
+          id: 15,
+          q: "다음 코드의 출력 결과는?",
+          code: "const numbers = [1, 2, 3, 4, 5];\nconst evens = numbers.filter(n => n % 2 === 0);\nconsole.log(evens);",
+          a: "[2, 4]",
+          e: "filter()는 조건을 만족하는(true인) 요소만 모아서 새로운 배열을 만듭니다.",
+        },
+        {
+          id: 16,
+          q: "다음 코드에서 에러가 발생하는 이유는?",
+          code: "const person = { name: '철수' };\nperson = { name: '영희' };",
+          a: "const 객체는 재할당할 수 없다",
+          e: "이미 선언된 상수에 새로운 객체 덩어리를 통째로 대입하는 것은 금지됩니다.",
+        },
+        {
+          id: 17,
+          q: "다음 코드의 출력 결과는?",
+          code: "const book = {\n  title: 'JS',\n  getInfo: function() { return this.title; }\n};\nconsole.log(book.getInfo());",
+          a: "'JS'",
+          e: "메서드 내부의 this는 메서드를 호출한 객체(book)를 가리킵니다.",
+        },
+        {
+          id: 18,
+          q: "다음 코드의 실행 결과는?",
+          code: "const arr = [10, 20, 30];\narr[1] = 100;\nconsole.log(arr);",
+          a: "[10, 100, 30]",
+          e: "인덱스를 이용해 배열의 특정 위치에 있는 값을 직접 수정할 수 있습니다.",
+        },
+        {
+          id: 19,
+          q: "다음 코드의 출력 결과는?",
+          code: "const person = { name: '철수' };\nconsole.log('name' in person);\nconsole.log('age' in person);",
+          a: "true 다음 줄에 false",
+          e: "in 연산자는 객체 안에 특정 키가 존재하는지 확인하여 불리언 값을 반환합니다.",
+        },
+        {
+          id: 20,
+          q: "다음 코드의 실행 결과는?",
+          code: "const arr = [1, 2, 3];\nfor (let i = 0; i < arr.length; i++) {\n  console.log(arr[i]);\n}",
+          a: "1, 2, 3 (각각 다른 줄에)",
+          e: "i가 0부터 배열의 길이(3)보다 작을 때까지 반복하며 순서대로 출력합니다.",
+        },
+      ];
+
+      const container = document.getElementById("quiz-container");
+
+      quizData.forEach((item) => {
+        const quizHtml = `
+            <div class="quiz-item">
+                <span class="question">Q${item.id}. ${item.q}</span>
+                ${item.code ? `<div class="code-block">${item.code}</div>` : ""}
+                <div class="answer-box">
+                    정답: <span class="ans-text">${item.a}</span>
+                    <span class="exp-text">💡 해설: ${item.e}</span>
+                </div>
+            </div>
+        `;
+        container.innerHTML += quizHtml;
+      });
+    </script>
+  </body>
+</html>
