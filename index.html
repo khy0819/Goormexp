@@ -29,9 +29,13 @@
       header h1 {
         color: var(--primary);
         font-size: 2.2rem;
+        margin-bottom: 10px;
+      }
+      header p {
+        color: #666;
       }
 
-      /* 주차별 그룹 */
+      /* 주차별 그룹 (아코디언) */
       details {
         background: white;
         margin-bottom: 15px;
@@ -54,19 +58,32 @@
         background: #f9fdfb;
         color: var(--primary);
       }
+      summary::after {
+        content: "＋";
+        font-size: 1rem;
+        color: #aaa;
+      }
+      details[open] summary::after {
+        content: "－";
+        color: var(--primary);
+      }
 
-      /* 🔥 디자인 정렬의 핵심 CSS */
+      /* 과제 리스트 정렬 레이아웃 */
       .task-list {
         padding: 10px 15px 20px;
       }
       .task-card {
         display: flex;
-        align-items: center; /* 세로 중앙 정렬 */
+        align-items: center;
         padding: 14px 18px;
         text-decoration: none;
         color: #333;
         border-bottom: 1px solid #f5f5f5;
         transition: 0.2s;
+        border-radius: 8px;
+      }
+      .task-card:last-child {
+        border-bottom: none;
       }
       .task-card:hover {
         background: #fcfcfc;
@@ -79,15 +96,15 @@
         flex-grow: 1;
       }
 
-      /* 1. 태그: 너비를 고정해서 다음 글자 시작점을 맞춤 */
+      /* 1. 태그 섹션 (너비 고정) */
       .tag {
-        width: 55px; /* 태그 박스 너비 고정 */
+        width: 55px;
         text-align: center;
         font-size: 0.65rem;
         padding: 3px 0;
         border-radius: 4px;
         font-weight: 800;
-        margin-right: 20px; /* 태그와 날짜 사이 간격 */
+        margin-right: 20px;
         flex-shrink: 0;
       }
       .tag.quiz {
@@ -95,26 +112,34 @@
         color: #856404;
         border: 1px solid #ffeeba;
       }
-      .tag.task {
+      .tag.study {
         background: #e2e3e5;
         color: #383d41;
         border: 1px solid #d6d8db;
       }
 
-      /* 2. 날짜 및 제목 시작점 고정 */
-      .task-name-wrapper {
-        display: flex;
-        align-items: center;
-        font-size: 1rem;
-      }
+      /* 2. 날짜 섹션 (너비 고정) */
       .task-date {
-        font-family: "Courier New", monospace; /* 숫자 간격이 일정한 폰트 */
+        width: 70px;
+        font-family: "Courier New", monospace;
         color: #999;
-        margin-right: 10px;
+        font-size: 0.95rem;
+        margin-right: 15px;
         flex-shrink: 0;
       }
+
+      /* 3. 제목 섹션 (자동 정렬 시작점) */
       .task-title {
         font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .loader {
+        text-align: center;
+        padding: 50px;
+        color: #aaa;
       }
     </style>
   </head>
@@ -122,7 +147,10 @@
     <div class="container">
       <header>
         <h1>📂 WEB ARCHIVE</h1>
+        <p>날짜와 유형별로 정리된 과제 타임라인</p>
       </header>
+
+      <div id="loader" class="loader">데이터를 분석 중입니다...</div>
       <div id="task-container"></div>
     </div>
 
@@ -135,6 +163,8 @@
         try {
           const res = await fetch(apiUrl);
           const data = await res.json();
+
+          // '과제/' 폴더 내 index.html 필터링
           const indexFiles = data.tree.filter(
             (f) =>
               f.path.includes("과제/") &&
@@ -158,6 +188,8 @@
           });
 
           const container = document.getElementById("task-container");
+          document.getElementById("loader").style.display = "none";
+
           const sortedWeeks = Object.keys(weeks).sort((a, b) =>
             a.localeCompare(b, undefined, { numeric: true }),
           );
@@ -172,36 +204,36 @@
             weeks[week]
               .sort((a, b) => a.name.localeCompare(b.name))
               .forEach((task) => {
-                // 0126-QUIZ 형식을 분리
-                const hasDash = task.name.includes("-");
-                const datePart = hasDash ? task.name.split("-")[0] : "";
-                const titlePart = hasDash
-                  ? task.name.split("-").slice(1).join("-")
-                  : task.name;
+                const parts = task.name.split("-");
+                const datePart = parts[0] || "000000";
 
-                let tagText = titlePart.toUpperCase().includes("QUIZ")
-                  ? "QUIZ"
-                  : "STUDY";
-                let tagClass = tagText.toLowerCase();
+                // 태그 판별
+                let isQuiz = task.name.toUpperCase().includes("QUIZ");
+                let tagText = isQuiz ? "QUIZ" : "STUDY";
+                let tagClass = isQuiz ? "quiz" : "study";
+
+                // 중복 제거된 제목 추출 (날짜와 유형 키워드 제외)
+                let titlePart = parts.slice(2).join("-");
+                if (!titlePart) titlePart = parts[1] || "과제물";
 
                 html += `
                             <a href="${encodeURI(task.path)}" class="task-card">
                                 <div class="task-info">
                                     <span class="tag ${tagClass}">${tagText}</span>
-                                    <div class="task-name-wrapper">
-                                        <span class="task-date">${datePart}</span>
-                                        <span class="task-title">${titlePart}</span>
-                                    </div>
+                                    <span class="task-date">${datePart}</span>
+                                    <span class="task-title">${titlePart}</span>
                                 </div>
                                 <span style="color:#eee">›</span>
                             </a>`;
               });
+
             html += `</div>`;
             details.innerHTML = html;
             container.appendChild(details);
           });
         } catch (e) {
-          console.error(e);
+          document.getElementById("loader").innerText =
+            "로드 실패. 경로를 확인해주세요.";
         }
       }
       fetchWeeklyData();
