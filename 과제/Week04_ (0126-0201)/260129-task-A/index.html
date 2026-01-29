@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KakaoTalk 실시간 채팅 프로젝트</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <section id="login-section" class="screen">
+            <div class="login-logo">
+                <h1>KakaoTalk</h1>
+            </div>
+            <div class="login-form">
+                <input type="text" id="nickname-input" placeholder="닉네임 (2~20자)" maxlength="20">
+                <button id="login-btn">입장하기</button>
+            </div>
+        </section>
+
+        <section id="chat-section" class="screen hidden">
+            <header>
+                <button id="back-btn">◀</button>
+                <div class="header-content">
+                    <h2 id="room-title">대화방</h2>
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="메시지 검색...">
+                    </div>
+                </div>
+            </header>
+            
+            <div id="chat-window" class="chat-window">
+                <div id="loading-spinner" class="system-msg">메시지를 불러오는 중...</div>
+            </div>
+
+            <div class="bottom-interface">
+                <div id="typing-display" class="typing-indicator hidden">상대방이 입력 중...</div>
+
+                <div id="emoji-picker" class="emoji-picker hidden">
+                    <button type="button" class="emoji-btn">😀</button>
+                    <button type="button" class="emoji-btn">😂</button>
+                    <button type="button" class="emoji-btn">😍</button>
+                    <button type="button" class="emoji-btn">👍</button>
+                    <button type="button" class="emoji-btn">🙌</button>
+                </div>
+
+                <form id="message-form" class="message-form">
+                    <button type="button" id="emoji-open-btn">😊</button>
+                    <textarea id="message-input" placeholder="메시지를 입력하세요" rows="1"></textarea>
+                    <button type="submit" id="send-btn">전송</button>
+                </form>
+            </div>
+        </section>
+    </div>
+    <script src="chat.js"></script>
+</body>
+</html>
