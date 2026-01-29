@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚾ 2026 KBO 개막 카운트다운!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="stadium-card">
+        <header>
+            <span class="baseball-icon">⚾</span>
+            <h1>2026 KBO LEAGUE</h1>
+            <p>PLAY BALL!</p>
+        </header>
+
+        <div class="dday-display">
+            <span id="dday-text" class="dday-number">D-00</span>
+            <span class="target-date">2026년 3월 28일 (토) </span>
+        </div>
+
+        <div class="match-section">
+            <div class="match-title">개막전 빅매치</div>
+            <ul class="match-list">
+                <li class="match-item">
+                    <span class="teams">KT vs <b>LG</b></span>
+                    <span class="location">잠실</span>
+                </li>
+                <li class="match-item">
+                    <span class="teams">키움 vs <b>한화</b></span>
+                    <span class="location">대전</span>
+                </li>
+                <li class="match-item">
+                    <span class="teams">KIA vs <b>SSG</b></span>
+                    <span class="location">문학</span>
+                </li>
+                <li class="match-item">
+                    <span class="teams">롯데 vs <b>삼성</b></span>
+                    <span class="location">대구</span>
+                </li>
+                <li class="match-item">
+                    <span class="teams">두산 vs <b>NC</b></span>
+                    <span class="location">창원</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="info-footer">
+            2026시즌 피치클락 강화!
+        </div>
+    </div>
+
+    <script>
+        function updateDday() {
+            // 2026년 개막일 설정
+            const target = new Date("2026-03-28T00:00:00");
+            const today = new Date();
+            
+            // 시간 정보를 제외한 날짜만 비교하기 위해 시간 초기화
+            today.setHours(0, 0, 0, 0);
+            target.setHours(0, 0, 0, 0);
+            
+            // 날짜 차이 계산 (밀리초 -> 일)
+            const diff = target - today;
+            const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+            
+            const display = document.getElementById('dday-text');
+            
+            if (days > 0) {
+                display.innerText = `D-${days}`;
+            } else if (days === 0) {
+                display.innerText = `D-Day`;
+                // D-Day일 때 강조 색상 변경 (기존 스타일 유지용)
+                display.style.color = "#e71d36"; 
+            } else {
+                display.innerText = `D+${Math.abs(days)}`;
+            }
+        }
+
+        updateDday();
+    </script>
+</body>
+</html>
