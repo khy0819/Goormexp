@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>채팅 프로젝트 워크플로우 관리</title>
+    <style>
+        :root {
+            --bg: #f4f7f6;
+            --todo: #ff9f43;
+            --progress: #54a0ff;
+            --done: #1dd1a1;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 20px; }
+        h1 { text-align: center; color: #2d3436; }
+        
+        .kanban { display: flex; gap: 20px; justify-content: center; overflow-x: auto; }
+        .column {
+            background: #dfe6e9;
+            width: 320px;
+            min-height: 80vh;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .column h2 { 
+            margin: 0; padding-bottom: 10px; border-bottom: 3px solid #ccc; 
+            font-size: 1.2rem; display: flex; align-items: center; justify-content: space-between;
+        }
+
+        /* 상태별 색상 */
+        .todo h2 { border-color: var(--todo); color: var(--todo); }
+        .progress h2 { border-color: var(--progress); color: var(--progress); }
+        .done h2 { border-color: var(--done); color: var(--done); }
+
+        /* 카드 디자인 */
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-5px); }
+        .card h3 { margin: 0 0 10px 0; font-size: 1rem; color: #2d3436; }
+        .card p { margin: 0; font-size: 0.85rem; color: #636e72; line-height: 1.4; }
+        
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-top: 10px;
+            background: #eee;
+        }
+        
+        /* 코드 미리보기 스타일 */
+        pre {
+            background: #2d3436;
+            color: #fab1a0;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            margin-top: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>채팅 앱 칸반 보드</h1>
+
+    <div class="kanban">
+        <div class="column todo">
+            <h2>To Do <span>2</span></h2>
+            <div class="card">
+                <h3>이모지 입력 패널</h3>
+                <p>채팅창 하단에 😊 버튼 클릭 시 이모지 목록 노출 및 선택 기능</p>
+                <div class="tag">UI/UX</div>
+            </div>
+            <div class="card">
+                <h3>메시지 검색 고도화</h3>
+                <p>검색 키워드에 따른 스크롤 자동 이동 기능</p>
+                <div class="tag">Feature</div>
+            </div>
+        </div>
+
+        <div class="column progress">
+            <h2>In Progress <span>1</span></h2>
+            <div class="card">
+                <h3>검색 하이라이트 구현</h3>
+                <p>정규표현식을 활용한 키워드 강조 처리 중</p>
+                <pre>text.replace(term, '&lt;span class="hl"&gt;...')</pre>
+                <div class="tag">Feature</div>
+            </div>
+        </div>
+
+        <div class="column done">
+            <h2>Done <span>3</span></h2>
+            <div class="card">
+                <h3>실시간 폴링 시스템 ✅</h3>
+                <p>3초 주기 setInterval API 연동 완료</p>
+                <pre>setInterval(fetchNew, 3000)</pre>
+                <div class="tag">API</div>
+            </div>
+            <div class="card">
+                <h3>내 메시지 삭제 기능 ✅</h3>
+                <p>DELETE 메서드 및 DOM 제거 로직 완성</p>
+                <pre>row.remove();</pre>
+                <div class="tag">Feature</div>
+            </div>
+            <div class="card">
+                <h3>다크모드 & 반응형 ✅</h3>
+                <p>미디어 쿼리 및 변수 테마 적용</p>
+                <pre>@media (prefers-color-scheme: dark)</pre>
+                <div class="tag">CSS</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
