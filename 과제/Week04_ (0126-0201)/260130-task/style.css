@@ -1,0 +1,186 @@
+/* Gmarket Sans 웹폰트 불러오기 */
+@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff');
+@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff');
+
+:root {
+  --bg-main: #0f172a;        /* 베이스 배경 */
+  --bg-card: #1e293b;        /* 카드 배경 */
+  --bg-input: #1e293b;       /* 입력창 배경 */
+  --accent: #38bdf8;         /* 포인트 컬러 (스카이 블루) */
+  --text-main: #f8fafc;      /* 메인 텍스트 */
+  --text-sub: #94a3b8;       /* 보조 텍스트 */
+  --border: #334155;         /* 경계선 */
+  --radius: 12px;
+}
+
+body {
+  margin: 0;
+  font-family: 'GmarketSansMedium', sans-serif; /* 지마켓 산스 적용 */
+  background: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 80px auto;
+  padding: 0 20px;
+}
+
+/* 1. 헤더 디자인 */
+header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+header h1 {
+  font-family: 'GmarketSansBold', sans-serif;
+  font-size: 2.5rem;
+  margin: 0 0 10px 0;
+  letter-spacing: -1px;
+}
+
+header p {
+  color: var(--text-sub);
+  font-size: 1rem;
+}
+
+/* 2. 검색 입력창 - 네온 포커스 효과 */
+input {
+  width: 100%;
+  padding: 18px 24px;
+  border-radius: var(--radius);
+  border: 2px solid var(--border);
+  background: var(--bg-input);
+  color: white;
+  font-size: 16px;
+  font-family: 'GmarketSansMedium', sans-serif;
+  box-sizing: border-box;
+  margin-bottom: 40px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--accent);
+  background: #26334d;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+}
+
+/* 3. 그리드 결과 영역 */
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+/* 4. 도서 카드 - 입체감 및 호버 강화 */
+.card {
+  background: var(--bg-card);
+  padding: 0; /* 내부 여백 제거 후 아래서 패딩 부여 */
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden; /* 이미지 넘침 방지 */
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover img {
+  transform: scale(1.05);
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card h3 {
+  font-family: 'GmarketSansBold', sans-serif;
+  font-size: 1.1rem;
+  margin: 0 0 8px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-sub);
+}
+
+/* 5. 이미지 없을 때 대체 영역 */
+.no-image {
+  width: 100%;
+  height: 280px;
+  background: #334155;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+
+.no-image::after {
+  content: 'NO IMAGE';
+  font-size: 12px;
+  margin-top: 10px;
+  letter-spacing: 2px;
+  color: var(--text-sub);
+}
+
+/* 6. 모달(상세 보기) 디자인 */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px); /* 배경 흐림 효과 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.modal-content {
+  background: var(--bg-card);
+  padding: 40px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 450px;
+  border: 1px solid var(--border);
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+#close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: var(--text-sub);
+  font-size: 24px;
+  cursor: pointer;
+}
+
+#close-modal:hover {
+  color: white;
+}
