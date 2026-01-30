@@ -1,123 +1,129 @@
-let events = [];
+const form = document.getElementById("event-form");
+const eventList = document.getElementById("event-list");
+const searchInput = document.getElementById("search-input");
+const clearAllBtn = document.getElementById("clear-all-btn");
 
-// [요구사항 1-4] 데이터 불러오기 및 에러 처리
-function init() {
-    try {
-        const data = localStorage.getItem('ddayEvents');
-        events = data ? JSON.parse(data) : [];
-        render();
-    } catch (e) {
-        console.error("데이터 로드 실패:", e);
-        events = [];
-        render();
-    }
+const totalCount = document.getElementById("total-count");
+const upcomingCount = document.getElementById("upcoming-count");
+const passedCount = document.getElementById("passed-count");
+
+let events = JSON.parse(localStorage.getItem("ddayEvents")) || [];
+
+function saveEvents() {
+    localStorage.setItem("ddayEvents", JSON.stringify(events));
 }
 
-// [요구사항 1-2] D-Day 및 경과율 계산
-function getDdayInfo(targetDateStr) {
+function calculateDDay(date) {
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const target = new Date(targetDateStr);
-    target.setHours(0, 0, 0, 0);
+    const target = new Date(date);
+    const diff = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+    return diff;
+}
 
-    const diff = target - today;
-    const daysDiff = Math.ceil(diff / (1000 * 60 * 60 * 24));
-    
-    // 경과율 (1년 전 기준 0%)
-    const start = new Date(target);
-    start.setFullYear(start.getFullYear() - 1);
+function calculateProgress(date) {
+    const today = new Date();
+    const target = new Date(date);
+    const start = new Date(today.getFullYear(), 0, 1);
     const total = target - start;
-    const elapsed = today - start;
-    const progress = Math.min(100, Math.max(0, (elapsed / total) * 100)).toFixed(0);
-
-    let dDayText = daysDiff > 0 ? `D-${daysDiff}` : (daysDiff === 0 ? "D-Day" : `D+${Math.abs(daysDiff)}`);
-    return { dDayText, daysDiff, progress };
+    const passed = today - start;
+    let percent = (passed / total) * 100;
+    if (percent < 0) percent = 0;
+    if (percent > 100) percent = 100;
+    return percent;
 }
 
-// [요구사항 1-1, 1-6] 이벤트 추가 및 유효성 검사
-document.getElementById('event-form').addEventListener('submit', (e) => {
+function updateStats() {
+    totalCount.textContent = events.length;
+    const upcoming = events.filter(e => calculateDDay(e.date) >= 0).length;
+    const passed = events.filter(e => calculateDDay(e.date) < 0).length;
+    upcomingCount.textContent = upcoming;
+    passedCount.textContent = passed;
+}
+
+function renderEvents(filter = "") {
+    eventList.innerHTML = "";
+
+    events
+        .filter(e => e.name.toLowerCase().includes(filter.toLowerCase()))
+        .sort((a, b) => new Date(a.date) - new Date(b.date))
+        .forEach(event => {
+
+            const dday = calculateDDay(event.date);
+            const progress = calculateProgress(event.date).toFixed(1);
+
+            const item = document.createElement("div");
+            item.className = `event-item ${event.category}`;
+            if (dday < 0) item.classList.add("passed");
+            if (dday >= 0 && dday <= 3) item.classList.add("urgent");
+
+            item.innerHTML = `
+                <div class="event-info">
+                    <span class="cat-tag">${event.category}</span>
+                    <h3>${event.name}</h3>
+                    <p>${event.date}</p>
+
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width:${progress}%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-day-tag">
+                    ${dday < 0 ? `D+${Math.abs(dday)}` : dday === 0 ? "D-Day" : `D-${dday}`}
+                </div>
+
+                <button class="del-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="3 6 5 6 21 6"/>
+                        <path d="M19 6l-1 14H6L5 6"/>
+                        <path d="M10 11v6"/>
+                        <path d="M14 11v6"/>
+                        <path d="M9 6V4h6v2"/>
+                    </svg>
+                </button>
+            `;
+
+            item.querySelector(".del-btn").addEventListener("click", () => {
+                item.classList.add("removing");
+                setTimeout(() => {
+                    events = events.filter(e => e !== event);
+                    saveEvents();
+                    renderEvents(searchInput.value);
+                    updateStats();
+                }, 300);
+            });
+
+            eventList.appendChild(item);
+        });
+
+    updateStats();
+}
+
+form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const name = document.getElementById('event-name').value.trim();
-    const date = document.getElementById('event-date').value;
-    const category = document.getElementById('event-category').value;
 
-    if (!name || !date) return alert("값을 모두 입력해주세요.");
+    const name = document.getElementById("event-name").value;
+    const date = document.getElementById("event-date").value;
+    const category = document.getElementById("event-category").value;
 
-    // 유효성 검사: 10년 후 체크
-    const tenYearsLater = new Date();
-    tenYearsLater.setFullYear(tenYearsLater.getFullYear() + 10);
-    if (new Date(date) > tenYearsLater) return alert("너무 먼 미래의 날짜입니다 (최대 10년)");
-
-    // 중복 체크
-    if (events.some(ev => ev.name === name && ev.date === date)) return alert("중복된 이벤트가 있습니다.");
-
-    const newEvent = { id: Date.now(), name, date, category, createdAt: Date.now() };
-    events.push(newEvent);
-    save();
+    events.push({ name, date, category });
+    saveEvents();
+    renderEvents();
+    form.reset();
 });
 
-function save() {
-    try {
-        localStorage.setItem('ddayEvents', JSON.stringify(events));
-        render();
-    } catch (e) {
-        alert("저장에 실패했습니다.");
+searchInput.addEventListener("input", () => {
+    renderEvents(searchInput.value);
+});
+
+clearAllBtn.addEventListener("click", () => {
+    if (confirm("전체 삭제하시겠습니까?")) {
+        events = [];
+        saveEvents();
+        renderEvents();
     }
-}
-
-// [요구사항 1-3, 1-5, 2] 렌더링 및 필터링
-function render() {
-    const list = document.getElementById('event-list');
-    const searchTerm = document.getElementById('search-input').value.toLowerCase();
-    
-    // 정렬 (날짜순)
-    events.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-    let html = '';
-    let upcomingCount = 0;
-    let passedCount = 0;
-
-    const filtered = events.filter(ev => ev.name.toLowerCase().includes(searchTerm));
-
-    filtered.forEach((ev, index) => {
-        const { dDayText, daysDiff, progress } = getDdayInfo(ev.date);
-        const isPassed = daysDiff < 0;
-        const isHighlight = !isPassed && upcomingCount === 0 && searchTerm === ''; // 가장 가까운 미래 이벤트
-
-        if (isPassed) passedCount++; else upcomingCount++;
-
-        html += `
-            <div class="event-item ${ev.category} ${isPassed ? 'passed' : ''} ${isHighlight ? 'highlight' : ''}">
-                <div>
-                    <small>${ev.category}</small>
-                    <h3 style="margin: 5px 0;">${ev.name}</h3>
-                    <div style="font-size: 0.8rem; color: var(--gray);">${ev.date}</div>
-                    <div class="progress-bar"><div class="progress-fill" style="width: ${progress}%"></div></div>
-                    <small>${progress}% 경과</small>
-                </div>
-                <div style="text-align: right;">
-                    <div class="d-day-tag">${dDayText}</div>
-                    <button onclick="deleteEvent(${ev.id})" style="background:none; border:none; color:var(--danger); cursor:pointer;">삭제</button>
-                </div>
-            </div>
-        `;
-    });
-
-    list.innerHTML = html;
-    document.getElementById('total-count').innerText = events.length;
-    document.getElementById('upcoming-count').innerText = upcomingCount;
-    document.getElementById('passed-count').innerText = passedCount;
-}
-
-function deleteEvent(id) {
-    if (!confirm("정말 삭제할까요?")) return;
-    events = events.filter(ev => ev.id !== id);
-    save();
-}
-
-document.getElementById('search-input').addEventListener('input', render);
-document.getElementById('clear-all-btn').addEventListener('click', () => {
-    if(confirm("전체 삭제하시겠습니까?")) { events = []; save(); }
 });
 
-init();
+renderEvents();

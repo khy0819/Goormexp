@@ -9,18 +9,18 @@
 <body>
     <div class="container">
         <header>
-            <h1>📅 D-Day Tracker</h1>
+            <h1>D-Day Tracker</h1>
             <div id="stats-container" class="stats-grid">
                 <div class="stat-card">전체 <span id="total-count">0</span></div>
-                <div class="stat-card upcoming">예정 <span id="upcoming-count">0</span></div>
-                <div class="stat-card passed">종료 <span id="passed-count">0</span></div>
+                <div class="stat-card">예정 <span id="upcoming-count">0</span></div>
+                <div class="stat-card">종료 <span id="passed-count">0</span></div>
             </div>
         </header>
 
         <section class="input-section card">
             <form id="event-form">
                 <div class="input-group">
-                    <input type="text" id="event-name" placeholder="이벤트 이름 (예: 수능, 여행)" required>
+                    <input type="text" id="event-name" placeholder="이벤트 이름" required>
                     <input type="date" id="event-date" required>
                     <select id="event-category">
                         <option value="기념일">기념일</option>
@@ -38,9 +38,9 @@
             <button id="clear-all-btn">전체 삭제</button>
         </section>
 
-        <main id="event-list" class="event-grid">
-            </main>
+        <main id="event-list" class="event-grid"></main>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
