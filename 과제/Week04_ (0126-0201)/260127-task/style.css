@@ -1,470 +1,126 @@
-/* 폰트 */
-@import url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/KBO-Dia-Gothic_bold.woff');
-@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap');
+/* Gmarket Sans 웹폰트 */
+@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff');
+@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff');
 
 :root {
-    --kbo-blue: #072551;
-    --kbo-blue-light: #0a3d75;
-    --kbo-red: #e71d36;
-    --field-green: #4caf50;
-    --grass-dark: #2d7a32;
-    --stadium-white: #ffffff;
-    --clay-orange: #ff9f43;
-    --scoreboard-black: #0a0a0a;
-    --text-dark: #2c3e50;
-    --bg-gradient-start: #e8f0f7;
-    --bg-gradient-end: #f5f9fc;
+    /* 노션 특유의 짙은 회색과 블루 */
+    --primary: #37352f;
+    --accent: #2383e2;
+    --bg-color: #ffffff;
+    --side-bg: #f7f6f3;
+    --border-color: #e9e9e7;
+    --text-sub: #73726e;
+    
+    /* [수정] 카테고리별 배경 & 텍스트 색상 (확실한 구분) */
+    --cat-exam: #ffebec;   --cat-text-exam: #eb5757;   /* 시험: 빨강 */
+    --cat-anniv: #fff9db;  --cat-text-anniv: #dfab01;  /* 기념일: 노랑 */
+    --cat-travel: #e7f3ef; --cat-text-travel: #0f7b6c; /* 여행: 초록 */
+    --cat-etc: #f1f0f0;    --cat-text-etc: #9b9a97;    /* 기타: 회색 */
 }
 
-* {
-    box-sizing: border-box;
+body { 
+    font-family: 'GmarketSansMedium', sans-serif; 
+    background-color: var(--bg-color); 
+    color: var(--primary); 
+    margin: 0; 
+    padding: 40px 20px; 
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
-    background-attachment: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
-    color: var(--text-dark);
-}
+.container { max-width: 480px; margin: 0 auto; }
 
-/* 메인 카드 컨테이너 */
-.stadium-card {
-    width: 100%;
-    max-width: 440px;
-    background: var(--stadium-white);
-    border-radius: 28px;
-    overflow: hidden;
-    box-shadow: 
-        0 24px 48px rgba(7, 37, 81, 0.1),
-        0 8px 16px rgba(7, 37, 81, 0.06);
-    position: relative;
-    animation: cardEntrance 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-@keyframes cardEntrance {
-    from { 
-        opacity: 0; 
-        transform: translateY(40px) scale(0.95);
-    }
-    to { 
-        opacity: 1; 
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* 헤더: 전광판 상단 */
-header {
-    background: linear-gradient(135deg, var(--kbo-blue) 0%, var(--kbo-blue-light) 100%);
-    color: white;
-    padding: 42px 28px 38px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-/* 헤더 배경 패턴 */
-header::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: 
-        radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 70% 60%, rgba(255, 159, 67, 0.08) 0%, transparent 50%);
-    pointer-events: none;
-}
-
-header h1 {
-    margin: 0;
-    font-family: 'KBO-Dia-Gothic_bold', 'Pretendard', sans-serif;
-    font-size: 2.1rem;
-    letter-spacing: -0.5px;
-    position: relative;
-    z-index: 1;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    font-weight: 700;
-}
-
-header p {
-    margin: 10px 0 0;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: var(--clay-orange);
-    opacity: 0.98;
-    position: relative;
-    z-index: 1;
-    letter-spacing: -0.3px;
-}
-
-/* D-Day 표시 */
-.dday-display {
-    background: var(--scoreboard-black);
-    margin: 32px 28px;
-    padding: 42px 28px 38px;
-    border-radius: 24px;
-    text-align: center;
-    border: 1px solid #1a1a1a;
-    box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.05),
-        0 12px 32px rgba(0, 0, 0, 0.25);
-    position: relative;
-    overflow: hidden;
-}
-
-/* 효과 */
-.dday-display::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 3px,
-            rgba(255, 255, 255, 0.008) 3px,
-            rgba(255, 255, 255, 0.008) 6px
-        );
-    pointer-events: none;
-}
-
-/* D-Day 숫자 */
-.dday-number {
-    font-family: 'KBO-Dia-Gothic_bold', 'Pretendard', sans-serif;
-    font-size: 6rem;
-    font-weight: 700;
-    color: #ffd93d;
-    text-shadow: 
-        0 0 30px rgba(255, 217, 61, 0.6),
-        0 0 60px rgba(255, 217, 61, 0.3),
-        0 4px 8px rgba(0, 0, 0, 0.4);
-    display: block;
-    line-height: 1;
-    position: relative;
-    z-index: 1;
-    letter-spacing: -3px;
-    font-variant-numeric: tabular-nums;
-}
-
-.target-date {
-    color: #666;
-    font-size: 0.9rem;
-    margin-top: 22px;
-    display: block;
-    font-weight: 600;
-    position: relative;
-    z-index: 1;
-    letter-spacing: 0.3px;
-    opacity: 0.8;
-}
-
-/* 개막전 대진표 섹션 */
-.match-section {
-    padding: 0 28px 36px;
-}
-
-.match-title {
-    font-family: 'KBO-Dia-Gothic_bold', 'Pretendard', sans-serif;
-    font-size: 1.15rem;
-    color: var(--kbo-blue);
-    font-weight: 700;
-    border-bottom: 2px solid #e8ecf1;
-    padding-bottom: 14px;
-    margin-bottom: 22px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    letter-spacing: -0.3px;
-}
-
-.match-title::before {
-    content: '⚾';
-    font-size: 1.2em;
-}
-
-.match-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.match-item {
-    background: linear-gradient(135deg, #f8fafb 0%, #f5f7fa 100%);
-    margin-bottom: 14px;
-    padding: 18px 20px;
-    border-radius: 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.05rem;
-    font-weight: 700;
-    border: 2px solid #e8ecf1;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-/* 호버 효과 배경 */
-.match-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.08), transparent);
-    transition: left 0.6s ease;
-}
-
-.match-item:hover {
-    transform: translateY(-3px);
-    background: white;
-    border-color: var(--field-green);
-    box-shadow: 
-        0 16px 32px rgba(76, 175, 80, 0.1),
-        0 6px 12px rgba(0, 0, 0, 0.08);
-}
-
-.match-item:hover::before {
-    left: 100%;
-}
-
-.match-item:active {
-    transform: translateY(-1px);
-}
-
-.teams {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    position: relative;
-    z-index: 1;
-}
-
-.teams b {
-    font-family: 'KBO-Dia-Gothic_bold', 'Pretendard', sans-serif;
-    color: var(--kbo-red);
-    font-size: 1.15rem;
-    font-weight: 700;
+/* 1. 상단 디자인: 텍스트 중심의 심플한 구성 */
+header { margin-bottom: 40px; }
+header h1 { 
+    font-family: 'GmarketSansBold', sans-serif;
+    font-size: 1.7rem; 
+    margin: 0 0 30px 0; 
     letter-spacing: -0.5px;
 }
 
-.location {
-    font-size: 0.8rem;
-    color: var(--kbo-blue);
-    font-weight: 700;
-    background: linear-gradient(135deg, #e8f0f7 0%, #dce7f1 100%);
-    padding: 6px 14px;
-    border-radius: 50px;
-    position: relative;
-    z-index: 1;
-    letter-spacing: -0.3px;
-    box-shadow: 0 2px 8px rgba(7, 37, 81, 0.08);
-    white-space: nowrap;
+.stats-grid { 
+    display: flex; /* 그리드에서 플렉스로 변경하여 더 심플하게 */
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+.stat-card { text-align: left; flex: 1; }
+.stat-card div { font-size: 0.75rem; color: var(--text-sub); margin-bottom: 4px; font-weight: bold; }
+.stat-card span { 
+    display: block; 
+    font-family: 'GmarketSansBold', sans-serif;
+    font-size: 1.4rem; 
 }
 
-/* 하단 정보 바: 야구장 잔디 */
-.info-footer {
-    background: linear-gradient(135deg, var(--grass-dark) 0%, var(--field-green) 100%);
-    color: white;
-    padding: 24px 28px;
-    text-align: center;
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: -0.4px;
-    position: relative;
-    overflow: hidden;
+/* 2. 입력 영역: 배경색을 뺀 깔끔한 테두리 형태 */
+.card { 
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+.input-group { display: flex; flex-direction: column; gap: 10px; }
+input, select { 
+    font-family: 'GmarketSansMedium', sans-serif;
+    padding: 10px 14px; border-radius: 6px; border: 1px solid var(--border-color); 
+    background: var(--side-bg); font-size: 0.9rem; outline: none;
+    transition: border 0.2s;
+}
+input:focus { border-color: var(--accent); }
+#add-btn { 
+    background: var(--primary); color: white; border: none; 
+    padding: 12px; border-radius: 6px;
+    font-family: 'GmarketSansBold', sans-serif; cursor: pointer;
+    margin-top: 5px;
 }
 
-/* 잔디 패턴 */
-.info-footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 12px,
-            rgba(255, 255, 255, 0.04) 12px,
-            rgba(255, 255, 255, 0.04) 24px
-        );
-    pointer-events: none;
+/* 3. 리스트 영역: 박스 형태 유지 및 색상 강조 */
+.event-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.event-item { 
+    background: var(--bg-color);
+    padding: 20px; 
+    border-radius: 12px; 
+    border: 1px solid var(--border-color); 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.event-item:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+
+/* [중요] 카테고리 태그 색상 적용 */
+.cat-tag {
+    padding: 3px 8px; border-radius: 4px; font-size: 0.7rem;
+    font-weight: bold; margin-bottom: 8px; display: inline-block;
+}
+.event-item.시험 .cat-tag { background: var(--cat-exam); color: var(--cat-text-exam); }
+.event-item.기념일 .cat-tag { background: var(--cat-anniv); color: var(--cat-text-anniv); }
+.event-item.여행 .cat-tag { background: var(--cat-travel); color: var(--cat-text-travel); }
+.event-item.기타 .cat-tag { background: var(--cat-etc); color: var(--cat-text-etc); }
+
+.event-info h3 { font-family: 'GmarketSansBold', sans-serif; margin: 0; font-size: 1.05rem; }
+.event-info p { margin: 4px 0 0 0; color: var(--text-sub); font-size: 0.8rem; }
+
+/* D-Day 태그: 시인성 확보 */
+.d-day-tag { 
+    font-family: 'GmarketSansBold', sans-serif;
+    font-size: 1.4rem; color: var(--accent); 
 }
 
-.info-footer span {
-    position: relative;
-    z-index: 1;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+/* 진행률 바: 얇고 정갈하게 */
+.progress-container { margin-top: 12px; }
+.progress-bar { height: 4px; background: var(--side-bg); border-radius: 2px; overflow: hidden; }
+.progress-fill { height: 100%; background: #d1d1cf; border-radius: 2px; }
+
+/* 삭제 버튼: 눈에 띄지 않게 처리 */
+.del-btn { 
+    margin-top: 10px; background: none; border: none;
+    font-size: 0.7rem; color: #ccc; cursor: pointer;
+    text-decoration: underline; padding: 0;
 }
+.del-btn:hover { color: var(--cat-text-exam); }
 
-/* 티켓 펀치 홀 */
-.stadium-card::before, 
-.stadium-card::after {
-    content: '';
-    position: absolute;
-    width: 32px;
-    height: 32px;
-    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
-    border-radius: 50%;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    box-shadow: 
-        inset 0 2px 4px rgba(0, 0, 0, 0.1),
-        0 0 0 2px rgba(7, 37, 81, 0.04);
-}
+.passed { opacity: 0.4; }
+.highlight { border: 1.5px solid var(--accent); }
 
-.stadium-card::before { 
-    left: -16px; 
-}
-
-.stadium-card::after { 
-    right: -16px; 
-}
-
-/* 반응형 디자인 */
-@media (max-width: 480px) {
-    body {
-        padding: 16px;
-    }
-
-    .stadium-card {
-        max-width: 100%;
-        border-radius: 24px;
-    }
-    
-    header {
-        padding: 36px 24px 32px;
-    }
-    
-    .baseball-icon {
-        width: 70px;
-        height: 70px;
-        margin-bottom: 16px;
-    }
-    
-    header h1 {
-        font-size: 1.85rem;
-    }
-    
-    .dday-display {
-        margin: 28px 24px;
-        padding: 38px 24px 34px;
-    }
-    
-    .dday-number {
-        font-size: 5rem;
-        letter-spacing: -2px;
-    }
-    
-    .match-section {
-        padding: 0 24px 32px;
-    }
-    
-    .match-item {
-        padding: 16px 18px;
-        font-size: 1rem;
-    }
-    
-    .teams b {
-        font-size: 1.1rem;
-    }
-    
-    .location {
-        font-size: 0.75rem;
-        padding: 5px 12px;
-    }
-}
-
-@media (max-width: 360px) {
-    .dday-number {
-        font-size: 4.2rem;
-        letter-spacing: -1px;
-    }
-    
-    .match-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    
-    .location {
-        align-self: flex-end;
-    }
-}
-
-/* 프린트 스타일 */
-@media print {
-    body {
-        background: white;
-    }
-    
-    .stadium-card {
-        box-shadow: none;
-        border: 2px solid var(--kbo-blue);
-    }
-    
-    .baseball-icon {
-        animation: none;
-    }
-    
-    .match-item:hover {
-        transform: none;
-        box-shadow: none;
-    }
-}
-
-/* 다크모드 지원 */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-gradient-start: #1a2332;
-        --bg-gradient-end: #2d3748;
-        --scoreboard-black: #050505;
-    }
-    
-    body {
-        background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
-    }
-    
-    .stadium-card {
-        background: #2d3748;
-        box-shadow: 
-            0 24px 48px rgba(0, 0, 0, 0.4),
-            0 8px 16px rgba(0, 0, 0, 0.3);
-    }
-    
-    .match-item {
-        background: linear-gradient(135deg, #3a4556 0%, #353e4f 100%);
-        border-color: #4a5568;
-        color: #e2e8f0;
-    }
-    
-    .match-item:hover {
-        background: #4a5568;
-    }
-    
-    .target-date {
-        color: #a0aec0;
-    }
-    
-    .baseball-icon {
-        background: radial-gradient(circle at 35% 35%, #f0f0f0 0%, #e0e0e0 40%, #d0d0d0 100%);
-    }
+@media screen and (max-width: 480px) {
+    .event-item { flex-direction: row; align-items: center; } /* 모바일에서도 박스 형태 유지 */
 }

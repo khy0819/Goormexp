@@ -3,82 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚾ 2026 KBO 개막 카운트다운!</title>
+    <title>Smart D-Day Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    <div class="stadium-card">
+    <div class="container">
         <header>
-            <span class="baseball-icon">⚾</span>
-            <h1>2026 KBO LEAGUE</h1>
-            <p>PLAY BALL!</p>
+            <h1>📅 D-Day Tracker</h1>
+            <div id="stats-container" class="stats-grid">
+                <div class="stat-card">전체 <span id="total-count">0</span></div>
+                <div class="stat-card upcoming">예정 <span id="upcoming-count">0</span></div>
+                <div class="stat-card passed">종료 <span id="passed-count">0</span></div>
+            </div>
         </header>
 
-        <div class="dday-display">
-            <span id="dday-text" class="dday-number">D-00</span>
-            <span class="target-date">2026년 3월 28일 (토) </span>
-        </div>
+        <section class="input-section card">
+            <form id="event-form">
+                <div class="input-group">
+                    <input type="text" id="event-name" placeholder="이벤트 이름 (예: 수능, 여행)" required>
+                    <input type="date" id="event-date" required>
+                    <select id="event-category">
+                        <option value="기념일">기념일</option>
+                        <option value="시험">시험</option>
+                        <option value="여행">여행</option>
+                        <option value="기타">기타</option>
+                    </select>
+                    <button type="submit" id="add-btn">추가하기</button>
+                </div>
+            </form>
+        </section>
 
-        <div class="match-section">
-            <div class="match-title">개막전 빅매치</div>
-            <ul class="match-list">
-                <li class="match-item">
-                    <span class="teams">KT vs <b>LG</b></span>
-                    <span class="location">잠실</span>
-                </li>
-                <li class="match-item">
-                    <span class="teams">키움 vs <b>한화</b></span>
-                    <span class="location">대전</span>
-                </li>
-                <li class="match-item">
-                    <span class="teams">KIA vs <b>SSG</b></span>
-                    <span class="location">문학</span>
-                </li>
-                <li class="match-item">
-                    <span class="teams">롯데 vs <b>삼성</b></span>
-                    <span class="location">대구</span>
-                </li>
-                <li class="match-item">
-                    <span class="teams">두산 vs <b>NC</b></span>
-                    <span class="location">창원</span>
-                </li>
-            </ul>
-        </div>
+        <section class="filter-section">
+            <input type="text" id="search-input" placeholder="이름으로 검색...">
+            <button id="clear-all-btn">전체 삭제</button>
+        </section>
 
-        <div class="info-footer">
-            2026시즌 피치클락 강화!
-        </div>
+        <main id="event-list" class="event-grid">
+            </main>
     </div>
-
-    <script>
-        function updateDday() {
-            // 2026년 개막일 설정
-            const target = new Date("2026-03-28T00:00:00");
-            const today = new Date();
-            
-            // 시간 정보를 제외한 날짜만 비교하기 위해 시간 초기화
-            today.setHours(0, 0, 0, 0);
-            target.setHours(0, 0, 0, 0);
-            
-            // 날짜 차이 계산 (밀리초 -> 일)
-            const diff = target - today;
-            const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-            
-            const display = document.getElementById('dday-text');
-            
-            if (days > 0) {
-                display.innerText = `D-${days}`;
-            } else if (days === 0) {
-                display.innerText = `D-Day`;
-                // D-Day일 때 강조 색상 변경 (기존 스타일 유지용)
-                display.style.color = "#e71d36"; 
-            } else {
-                display.innerText = `D+${Math.abs(days)}`;
-            }
-        }
-
-        updateDday();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
