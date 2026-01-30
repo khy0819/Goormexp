@@ -1,186 +1,105 @@
-/* Gmarket Sans 웹폰트 불러오기 */
-@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff');
-@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff');
+/* 폰트 파일(.woff)을 직접 부르는 대신, 아래의 CSS 라이브러리 주소를 사용하세요 */
+@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.css');
+@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.css');
+@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.css');
 
+/* 폰트 적용 설정 */
 :root {
-  --bg-main: #0f172a;        /* 베이스 배경 */
-  --bg-card: #1e293b;        /* 카드 배경 */
-  --bg-input: #1e293b;       /* 입력창 배경 */
-  --accent: #38bdf8;         /* 포인트 컬러 (스카이 블루) */
-  --text-main: #f8fafc;      /* 메인 텍스트 */
-  --text-sub: #94a3b8;       /* 보조 텍스트 */
-  --border: #334155;         /* 경계선 */
-  --radius: 12px;
+  --bg-main: #0f172a;
+  --bg-card: #1e293b;
+  --accent: #38bdf8;
+  --text-main: #f8fafc;
+  --text-sub: #94a3b8;
+  --border: #334155;
+  --highlight: #fff9db;
 }
 
 body {
   margin: 0;
-  font-family: 'GmarketSansMedium', sans-serif; /* 지마켓 산스 적용 */
+  /* 불러온 CSS 내에 정의된 폰트 패밀리 이름을 사용합니다 */
+  font-family: 'GmarketSansMedium', sans-serif;
   background: var(--bg-main);
   color: var(--text-main);
   line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-.container {
-  max-width: 1000px;
-  margin: 80px auto;
-  padding: 0 20px;
-}
-
-/* 1. 헤더 디자인 */
-header {
-  text-align: center;
-  margin-bottom: 50px;
 }
 
 header h1 {
   font-family: 'GmarketSansBold', sans-serif;
   font-size: 2.5rem;
-  margin: 0 0 10px 0;
-  letter-spacing: -1px;
+  color: var(--accent);
 }
 
-header p {
-  color: var(--text-sub);
-  font-size: 1rem;
-}
-
-/* 2. 검색 입력창 - 네온 포커스 효과 */
+.search-wrapper { margin-bottom: 40px; position: relative; }
 input {
-  width: 100%;
-  padding: 18px 24px;
-  border-radius: var(--radius);
-  border: 2px solid var(--border);
-  background: var(--bg-input);
-  color: white;
-  font-size: 16px;
-  font-family: 'GmarketSansMedium', sans-serif;
+  width: 100%; padding: 18px 24px; border-radius: 12px; border: 2px solid var(--border);
+  background: var(--bg-card); color: white; font-size: 1.1rem;
+  font-family: 'GmarketSansMedium', sans-serif; outline: none; transition: 0.3s;
   box-sizing: border-box;
-  margin-bottom: 40px;
-  transition: all 0.3s ease;
-  outline: none;
 }
+input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
 
-input:focus {
-  border-color: var(--accent);
-  background: #26334d;
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
-}
-
-/* 3. 그리드 결과 영역 */
-.results {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 24px;
-}
-
-/* 4. 도서 카드 - 입체감 및 호버 강화 */
-.card {
-  background: var(--bg-card);
-  padding: 0; /* 내부 여백 제거 후 아래서 패딩 부여 */
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden; /* 이미지 넘침 방지 */
-}
-
-.card:hover {
-  transform: translateY(-8px);
-  border-color: var(--accent);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-}
-
-.card img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.card:hover img {
-  transform: scale(1.05);
-}
-
-.card-content {
-  padding: 20px;
-}
-
-.card h3 {
-  font-family: 'GmarketSansBold', sans-serif;
-  font-size: 1.1rem;
-  margin: 0 0 8px 0;
-  white-space: nowrap;
+/* 요구사항 7-1: 드롭다운 디자인 (가려짐 현상 해결) */
+.recent-dropdown {
+  position: absolute; 
+  top: 65px; 
+  left: 0; 
+  right: 0; 
+  background: var(--bg-card); 
+  border: 1px solid var(--border); 
+  border-radius: 12px; 
+  z-index: 999; /* 결과 목록보다 위에 오도록 설정 */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6); /* 구분감 강화 */
   overflow: hidden;
-  text-overflow: ellipsis;
+}
+.dropdown-header { padding: 12px 20px; font-size: 0.8rem; color: var(--accent); border-bottom: 1px solid var(--border); }
+.recent-dropdown ul { list-style: none; margin: 0; padding: 0; }
+.recent-dropdown li { padding: 14px 20px; cursor: pointer; border-bottom: 1px solid var(--border); transition: 0.2s; color: var(--text-main); }
+.recent-dropdown li:hover, .recent-dropdown li.selected { background: #2d3a4f; color: var(--accent); }
+.dropdown-footer { padding: 8px 20px; text-align: right; }
+#clearHistory { background: none; border: none; color: var(--text-sub); font-size: 0.75rem; cursor: pointer; }
+
+.status-msg { margin-top: 15px; color: var(--text-sub); text-align: center; font-size: 0.9rem; }
+
+/* 요구사항 3-3, 9-2: 결과 그리드 및 반응형 */
+.results { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+  gap: 24px; 
+  transition: 0.3s;
 }
 
-.card p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--text-sub);
+/* 요구사항 4, 9-3: 카드 형태 및 호버 애니메이션 */
+.card {
+  background: var(--bg-card); border-radius: 15px; border: 1px solid var(--border);
+  overflow: hidden; transition: 0.3s ease; cursor: pointer;
+}
+.card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 12px 24px rgba(0,0,0,0.3); }
+
+/* 요구사항 4-1: 표지 이미지 */
+.card img { width: 100%; height: 280px; object-fit: cover; border-bottom: 1px solid var(--border); }
+.no-image { width: 100%; height: 280px; background: #334155; display: flex; align-items: center; justify-content: center; font-size: 40px; }
+
+.card-body { padding: 20px; }
+.card h3 { font-family: 'GmarketSansBold', sans-serif; font-size: 1.1rem; margin: 0 0 8px 0; }
+.card p { font-size: 0.85rem; color: var(--text-sub); margin: 4px 0; }
+.card .desc { 
+  font-size: 0.8rem; line-height: 1.4; color: var(--text-sub); margin-top: 10px; 
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; 
+  line-clamp: 2; /* 표준 속성 추가 */
+  overflow: hidden; 
 }
 
-/* 5. 이미지 없을 때 대체 영역 */
-.no-image {
-  width: 100%;
-  height: 280px;
-  background: #334155;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-}
+/* 요구사항 5-1: 검색어 하이라이트 */
+.highlight { background-color: var(--highlight); color: #c08539; font-weight: bold; padding: 0 2px; border-radius: 2px; }
 
-.no-image::after {
-  content: 'NO IMAGE';
-  font-size: 12px;
-  margin-top: 10px;
-  letter-spacing: 2px;
-  color: var(--text-sub);
-}
+/* 요구사항 8-1: 모달 디자인 */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+.modal-content { background: var(--bg-card); padding: 40px; border-radius: 20px; width: 450px; border: 1px solid var(--border); position: relative; }
+#closeModal { position: absolute; top: 15px; right: 15px; background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
 
-/* 6. 모달(상세 보기) 디자인 */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(8px); /* 배경 흐림 효과 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 20px;
-}
+.hidden { display: none !important; }
 
-.hidden {
-  display: none !important;
-}
-
-.modal-content {
-  background: var(--bg-card);
-  padding: 40px;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 450px;
-  border: 1px solid var(--border);
-  position: relative;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-}
-
-#close-modal {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: none;
-  border: none;
-  color: var(--text-sub);
-  font-size: 24px;
-  cursor: pointer;
-}
-
-#close-modal:hover {
-  color: white;
+@media (max-width: 600px) {
+  .results { grid-template-columns: 1fr; }
+  header h1 { font-size: 1.8rem; }
 }
