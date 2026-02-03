@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import _ from 'lodash' // lodash 라이브러리 임포트
+import _ from 'lodash' // 라이브러리 임포트
 import './App.css'
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
   const originalList = ['React', 'Vite', 'Lodash', 'JavaScript', 'Tailwind'];
   const shuffledList = _.shuffle(originalList);
 
-  // 콘솔 출력 (요구사항)
+  // 콘솔 출
   console.log("Lodash upperFirst:", title);
   console.log("Lodash shuffle:", shuffledList);
 
