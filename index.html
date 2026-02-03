@@ -10,7 +10,7 @@
       content="구름 KDT 과정의 여정을 기록하는 웹 아카이브입니다."
     />
     <style>
-      /* --- 기존 스타일 유지 (유나 님의 디자인 그대로) --- */
+      /* --- [폰트 및 변수 설정] --- */
       @font-face {
         font-family: "11StreetGothic";
         src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-KorLight.woff2") format("woff2");
@@ -119,6 +119,7 @@
       header h1 { color: var(--primary); font-size: 2.8rem; margin-bottom: 8px; font-weight: 700; }
       header p { color: var(--text-sub); font-weight: 300; }
 
+      /* --- [로더 및 카드 스타일] --- */
       .loader-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 0; }
       .cloud {
         width: 120px;
@@ -185,7 +186,7 @@
     </div>
 
     <script>
-      // 1. 다크모드 및 실시간 설정
+      // 1. 테마 및 D-Day 설정
       const themeBtn = document.getElementById("theme-btn");
       const savedTheme = localStorage.getItem("theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
@@ -222,7 +223,7 @@
       updateDDay();
       updateTodaySchedule();
 
-      // 2. [수정됨] GitHub API 데이터 페칭 - React dist 폴더 우선 탐색 로직
+      // 2. GitHub API 페칭 - 중복 제거 및 정확한 날짜 매핑 로직
       async function fetchWeeklyData() {
         const owner = "khy0819";
         const repo = "Goormexp";
@@ -232,33 +233,36 @@
           const res = await fetch(apiUrl);
           const data = await res.json();
 
-          // 모든 index.html 경로 수집
           const allIndexFiles = data.tree.filter(
             (f) => f.path.includes("과제/") && f.path.endsWith("index.html") && f.path !== "index.html"
           );
 
-          // 폴더별로 최적의 경로 선정 (dist가 있다면 무조건 dist/index.html 선택)
+          // 폴더별 최적의 index.html 선정 (dist 우선)
           const pathMap = new Map();
           allIndexFiles.forEach(f => {
-            const folderKey = f.path.replace(/\/(dist\/)?index\.html$/, "");
-            const isDist = f.path.includes("/dist/");
+            const pathParts = f.path.split("/");
+            const isDist = pathParts.includes("dist");
+            // 실제 과제 폴더명 추출 (dist면 한 단계 위)
+            const taskFolderName = isDist 
+              ? pathParts[pathParts.indexOf("dist") - 1] 
+              : pathParts[pathParts.length - 2];
             
             if (isDist) {
-              pathMap.set(folderKey, f.path);
-            } else if (!pathMap.has(folderKey)) {
-              pathMap.set(folderKey, f.path);
+              pathMap.set(taskFolderName, f.path);
+            } else if (!pathMap.has(taskFolderName)) {
+              pathMap.set(taskFolderName, f.path);
             }
           });
 
           const weeks = {};
-          pathMap.forEach((finalPath, folderKey) => {
-            const pathParts = folderKey.split("/");
+          pathMap.forEach((finalPath, taskFolderName) => {
+            // 주차 정보 찾기 (경로에서 검색)
+            const pathParts = finalPath.split("/");
             const weekFolder = pathParts.find((p) => p.toLowerCase().includes("week"));
             let weekLabel = weekFolder ? weekFolder.toUpperCase().replace(/_/g, " ") : "기타 분류";
-            let folderName = pathParts[pathParts.length - 1];
 
             if (!weeks[weekLabel]) weeks[weekLabel] = [];
-            weeks[weekLabel].push({ path: finalPath, name: folderName });
+            weeks[weekLabel].push({ path: finalPath, name: taskFolderName });
           });
 
           const container = document.getElementById("task-container");
@@ -279,9 +283,9 @@
               .sort((a, b) => a.name.localeCompare(b.name))
               .forEach((task) => {
                 const parts = task.name.split("-");
-                const datePart = parts[0] || "000000";
+                const datePart = parts[0] || "날짜미상";
                 let isQuiz = task.name.toUpperCase().includes("QUIZ");
-                let titlePart = parts.slice(2).join("-") || parts[1] || "과제물";
+                let titlePart = parts.slice(1).join("-") || "과제물";
                 titlePart = titlePart.replace(/^(QUIZ|TASK)[-_]?/i, "").trim();
 
                 html += `
