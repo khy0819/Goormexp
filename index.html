@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
@@ -10,25 +10,22 @@
       content="구름 KDT 과정의 여정을 기록하는 웹 아카이브입니다."
     />
     <style>
-      /* --- 기존 스타일 유지 --- */
+      /* --- 기존 스타일 유지 (유나 님의 디자인 그대로) --- */
       @font-face {
         font-family: "11StreetGothic";
-        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-KorLight.woff2")
-          format("woff2");
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-KorLight.woff2") format("woff2");
         font-weight: 300;
         font-display: swap;
       }
       @font-face {
         font-family: "11StreetGothic";
-        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-Kor.woff2")
-          format("woff2");
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-Kor.woff2") format("woff2");
         font-weight: 400;
         font-display: swap;
       }
       @font-face {
         font-family: "11StreetGothic";
-        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-KorBold.woff2")
-          format("woff2");
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-KorBold.woff2") format("woff2");
         font-weight: 700;
         font-display: swap;
       }
@@ -65,16 +62,10 @@
         margin: 0;
         padding: 40px 20px;
         color: var(--text-main);
-        transition:
-          background 0.3s,
-          color 0.3s;
+        transition: background 0.3s, color 0.3s;
       }
-      .container {
-        max-width: 750px;
-        margin: 0 auto;
-      }
+      .container { max-width: 750px; margin: 0 auto; }
 
-      /* --- [수정] 헤더 컨트롤 및 D-Day 배지 스타일 --- */
       .theme-toggle {
         position: fixed;
         top: 20px;
@@ -111,12 +102,8 @@
         align-items: center;
         justify-content: center;
       }
-      .calendar-btn:hover {
-        transform: scale(1.1);
-        background: var(--secondary);
-      }
+      .calendar-btn:hover { transform: scale(1.1); background: var(--secondary); }
 
-      /* D-Day 배지 스타일 */
       .d-day-badge {
         background: var(--secondary);
         color: var(--primary);
@@ -128,33 +115,11 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
       }
 
-      header {
-        text-align: center;
-        margin-bottom: 50px;
-      }
-      header h1 {
-        color: var(--primary);
-        font-size: 2.8rem;
-        margin-bottom: 8px;
-        font-weight: 700;
-      }
-      header p {
-        color: var(--text-sub);
-        font-weight: 300;
-      }
-      #today-schedule strong {
-        color: var(--primary);
-        font-weight: 700;
-      }
+      header { text-align: center; margin-bottom: 50px; }
+      header h1 { color: var(--primary); font-size: 2.8rem; margin-bottom: 8px; font-weight: 700; }
+      header p { color: var(--text-sub); font-weight: 300; }
 
-      /* --- 기존 애니메이션 및 기타 스타일 유지 --- */
-      .loader-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 120px 0;
-      }
+      .loader-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 0; }
       .cloud {
         width: 120px;
         height: 50px;
@@ -164,94 +129,20 @@
         animation: float 2s ease-in-out infinite;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
       }
-      .cloud::after,
-      .cloud::before {
-        content: "";
-        position: absolute;
-        background: var(--cloud-color);
-        border-radius: 50%;
-      }
-      .cloud::after {
-        width: 60px;
-        height: 60px;
-        top: -30px;
-        left: 20px;
-      }
-      .cloud::before {
-        width: 50px;
-        height: 50px;
-        top: -25px;
-        right: 20px;
-      }
-      .eyes {
-        position: absolute;
-        width: 40px;
-        height: 10px;
-        top: 15px;
-        left: 40px;
-        z-index: 10;
-        display: flex;
-        justify-content: space-between;
-      }
-      .eye {
-        width: 6px;
-        height: 6px;
-        background: var(--text-main);
-        border-radius: 50%;
-        animation: blink 3s infinite;
-      }
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-20px);
-        }
-      }
-      @keyframes blink {
-        0%,
-        90%,
-        100% {
-          transform: scaleY(1);
-        }
-        95% {
-          transform: scaleY(0.1);
-        }
-      }
-      .loading-text {
-        margin-top: 35px;
-        color: var(--primary);
-        font-weight: 700;
-      }
-      details {
-        background: var(--card-bg);
-        margin-bottom: 20px;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
-        transition: transform 0.3s;
-      }
-      details:hover {
-        transform: translateY(-3px);
-      }
-      summary {
-        padding: 24px 28px;
-        font-weight: 700;
-        cursor: pointer;
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      details[open] summary {
-        background: var(--secondary);
-        color: var(--primary);
-        border-bottom: 1px solid var(--border);
-      }
-      .task-list {
-        padding: 5px 15px 20px;
-      }
+      .cloud::after, .cloud::before { content: ""; position: absolute; background: var(--cloud-color); border-radius: 50%; }
+      .cloud::after { width: 60px; height: 60px; top: -30px; left: 20px; }
+      .cloud::before { width: 50px; height: 50px; top: -25px; right: 20px; }
+      .eyes { position: absolute; width: 40px; height: 10px; top: 15px; left: 40px; z-index: 10; display: flex; justify-content: space-between; }
+      .eye { width: 6px; height: 6px; background: var(--text-main); border-radius: 50%; animation: blink 3s infinite; }
+      @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+      @keyframes blink { 0%, 90%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+      .loading-text { margin-top: 35px; color: var(--primary); font-weight: 700; }
+
+      details { background: var(--card-bg); margin-bottom: 20px; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04); transition: transform 0.3s; }
+      details:hover { transform: translateY(-3px); }
+      summary { padding: 24px 28px; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+      details[open] summary { background: var(--secondary); color: var(--primary); border-bottom: 1px solid var(--border); }
+      .task-list { padding: 5px 15px 20px; }
       .task-card {
         display: flex;
         align-items: center;
@@ -262,51 +153,14 @@
         border-radius: 15px;
         transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
-      .task-card:hover {
-        background: var(--bg);
-        color: var(--primary);
-        transform: scale(1.02);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-      }
-      .tag {
-        width: 60px;
-        text-align: center;
-        font-size: 0.7rem;
-        padding: 4px 0;
-        border-radius: 8px;
-        font-weight: 800;
-        margin-right: 20px;
-        flex-shrink: 0;
-      }
-      .tag.quiz {
-        background: var(--accent);
-        color: #856404;
-      }
-      .tag.task {
-        background: var(--border);
-        color: var(--text-sub);
-      }
-      .task-date {
-        color: var(--text-sub);
-        font-weight: 600;
-        margin-right: 15px;
-        width: 75px;
-        flex-shrink: 0;
-      }
-      .task-title {
-        font-weight: 700;
-        flex-grow: 1;
-        font-size: 1.05rem;
-      }
-      .arrow {
-        color: var(--arrow-default);
-        font-size: 1.2rem;
-        transition: all 0.3s ease;
-      }
-      .task-card:hover .arrow {
-        color: var(--primary);
-        transform: translateX(5px);
-      }
+      .task-card:hover { background: var(--bg); color: var(--primary); transform: scale(1.02); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); }
+      .tag { width: 60px; text-align: center; font-size: 0.7rem; padding: 4px 0; border-radius: 8px; font-weight: 800; margin-right: 20px; flex-shrink: 0; }
+      .tag.quiz { background: var(--accent); color: #856404; }
+      .tag.task { background: var(--border); color: var(--text-sub); }
+      .task-date { color: var(--text-sub); font-weight: 600; margin-right: 15px; width: 75px; flex-shrink: 0; }
+      .task-title { font-weight: 700; flex-grow: 1; font-size: 1.05rem; }
+      .arrow { color: var(--arrow-default); font-size: 1.2rem; transition: all 0.3s ease; }
+      .task-card:hover .arrow { color: var(--primary); transform: translateX(5px); }
     </style>
   </head>
   <body>
@@ -316,26 +170,14 @@
       <header>
         <h1>WEB ARCHIVE</h1>
         <p id="today-schedule">오늘도 코딩 중!</p>
-
         <div class="header-controls">
-          <button
-            onclick="location.href = 'curriculum.html'"
-            class="calendar-btn"
-            title="전체 일정 보기"
-          >
-            📅
-          </button>
+          <button onclick="location.href = 'curriculum.html'" class="calendar-btn" title="전체 일정 보기">📅</button>
           <div id="d-day-badge" class="d-day-badge">D-Day 계산 중...</div>
         </div>
       </header>
 
       <div id="loader" class="loader-wrapper">
-        <div class="cloud">
-          <div class="eyes">
-            <div class="eye"></div>
-            <div class="eye"></div>
-          </div>
-        </div>
+        <div class="cloud"><div class="eyes"><div class="eye"></div><div class="eye"></div></div></div>
         <div class="loading-text">파일을 찾으러 하늘을 날고 있어요</div>
       </div>
 
@@ -343,7 +185,7 @@
     </div>
 
     <script>
-      // 1. 다크모드 및 실시간 일정/D-Day 로직
+      // 1. 다크모드 및 실시간 설정
       const themeBtn = document.getElementById("theme-btn");
       const savedTheme = localStorage.getItem("theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
@@ -355,50 +197,32 @@
         localStorage.setItem("theme", targetTheme);
       });
 
-      // [추가] D-Day 계산 함수
       function updateDDay() {
-        const targetDate = new Date("2026-07-17T00:00:00"); // 수료일
+        const targetDate = new Date("2026-07-17T00:00:00");
         const now = new Date();
         const diff = targetDate - now;
         const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
-
         const badge = document.getElementById("d-day-badge");
-        if (daysLeft > 0)
-          badge.innerHTML = `🎓 수료까지 <strong>D-${daysLeft}</strong>`;
-        else if (daysLeft === 0)
-          badge.innerHTML = `🎉 <strong>Today is the Day!</strong>`;
+        if (daysLeft > 0) badge.innerHTML = `🎓 수료까지 <strong>D-${daysLeft}</strong>`;
+        else if (daysLeft === 0) badge.innerHTML = `🎉 <strong>Today is the Day!</strong>`;
         else badge.innerHTML = `✨ <strong>수료 완료!</strong>`;
       }
 
-      // 오늘의 일정 데이터
-      const scheduleData = {
-        "2026-01-26": "자바스크립트 중급",
-        "2026-01-27": "자바스크립트 중급",
-        "2026-01-28": "자바스크립트 중급",
-        "2026-01-29": "자바스크립트 중급 + 특강",
-        "2026-01-30": "자바스크립트 중급",
-      };
-
       function updateTodaySchedule() {
+        const scheduleData = {
+          "2026-02-02": "리액트 입문",
+          "2026-02-03": "Vite & 라이브러리 활용",
+        };
         const now = new Date();
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, "0");
-        const day = String(now.getDate()).padStart(2, "0");
-        const todayStr = `${year}-${month}-${day}`;
-
+        const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
         const scheduleText = document.getElementById("today-schedule");
-        if (scheduleData[todayStr]) {
-          scheduleText.innerHTML = `오늘의 일정: <strong>${scheduleData[todayStr]}</strong>`;
-        } else {
-          scheduleText.innerText = "오늘도 코딩 중!";
-        }
+        if (scheduleData[todayStr]) scheduleText.innerHTML = `오늘의 일정: <strong>${scheduleData[todayStr]}</strong>`;
       }
 
-      // 실행
       updateDDay();
       updateTodaySchedule();
 
-      // 2. GitHub API 데이터 페칭 (기존 로직 유지)
+      // 2. [수정됨] GitHub API 데이터 페칭 - React dist 폴더 우선 탐색 로직
       async function fetchWeeklyData() {
         const owner = "khy0819";
         const repo = "Goormexp";
@@ -408,25 +232,33 @@
           const res = await fetch(apiUrl);
           const data = await res.json();
 
-          const indexFiles = data.tree.filter(
-            (f) =>
-              f.path.includes("과제/") &&
-              f.path.endsWith("index.html") &&
-              f.path !== "index.html",
+          // 모든 index.html 경로 수집
+          const allIndexFiles = data.tree.filter(
+            (f) => f.path.includes("과제/") && f.path.endsWith("index.html") && f.path !== "index.html"
           );
 
+          // 폴더별로 최적의 경로 선정 (dist가 있다면 무조건 dist/index.html 선택)
+          const pathMap = new Map();
+          allIndexFiles.forEach(f => {
+            const folderKey = f.path.replace(/\/(dist\/)?index\.html$/, "");
+            const isDist = f.path.includes("/dist/");
+            
+            if (isDist) {
+              pathMap.set(folderKey, f.path);
+            } else if (!pathMap.has(folderKey)) {
+              pathMap.set(folderKey, f.path);
+            }
+          });
+
           const weeks = {};
-          indexFiles.forEach((f) => {
-            const pathParts = f.path.split("/");
-            const weekFolder = pathParts.find((p) =>
-              p.toLowerCase().includes("week"),
-            );
-            let weekLabel = weekFolder
-              ? weekFolder.toUpperCase().replace(/_/g, " ")
-              : "기타 분류";
-            let folderName = pathParts[pathParts.length - 2];
+          pathMap.forEach((finalPath, folderKey) => {
+            const pathParts = folderKey.split("/");
+            const weekFolder = pathParts.find((p) => p.toLowerCase().includes("week"));
+            let weekLabel = weekFolder ? weekFolder.toUpperCase().replace(/_/g, " ") : "기타 분류";
+            let folderName = pathParts[pathParts.length - 1];
+
             if (!weeks[weekLabel]) weeks[weekLabel] = [];
-            weeks[weekLabel].push({ path: f.path, name: folderName });
+            weeks[weekLabel].push({ path: finalPath, name: folderName });
           });
 
           const container = document.getElementById("task-container");
@@ -434,13 +266,12 @@
           container.style.display = "block";
 
           const sortedWeeks = Object.keys(weeks).sort((a, b) =>
-            a.localeCompare(b, undefined, { numeric: true }),
+            a.localeCompare(b, undefined, { numeric: true })
           );
 
           sortedWeeks.forEach((week) => {
             const details = document.createElement("details");
-            if (week === sortedWeeks[sortedWeeks.length - 1])
-              details.open = true;
+            if (week === sortedWeeks[sortedWeeks.length - 1]) details.open = true;
 
             let html = `<summary><span>📂 ${week}</span> <span style="font-size:0.8rem; opacity:0.4;">${weeks[week].length} Tasks</span></summary><div class="task-list">`;
 
@@ -450,15 +281,12 @@
                 const parts = task.name.split("-");
                 const datePart = parts[0] || "000000";
                 let isQuiz = task.name.toUpperCase().includes("QUIZ");
-                let tagText = isQuiz ? "QUIZ" : "TASK";
-                let tagClass = isQuiz ? "quiz" : "task";
-                let titlePart =
-                  parts.slice(2).join("-") || parts[1] || "과제물";
+                let titlePart = parts.slice(2).join("-") || parts[1] || "과제물";
                 titlePart = titlePart.replace(/^(QUIZ|TASK)[-_]?/i, "").trim();
 
                 html += `
                 <a href="${encodeURI(task.path)}" class="task-card">
-                  <span class="tag ${tagClass}">${tagText}</span>
+                  <span class="tag ${isQuiz ? 'quiz' : 'task'}">${isQuiz ? 'QUIZ' : 'TASK'}</span>
                   <span class="task-date">${datePart}</span>
                   <span class="task-title">${titlePart}</span>
                   <span class="arrow">→</span>
@@ -469,8 +297,7 @@
             container.appendChild(details);
           });
         } catch (e) {
-          document.getElementById("loader").innerHTML =
-            "☁️ 데이터 로드에 실패했습니다.";
+          document.getElementById("loader").innerHTML = "☁️ 데이터 로드에 실패했습니다.";
         }
       }
       fetchWeeklyData();
