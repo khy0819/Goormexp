@@ -41,6 +41,7 @@
         --border: #eeeeee;
         --cloud-color: #ffffff;
         --arrow-default: #eeeeee;
+        --holiday-text: #d32f2f;
       }
 
       [data-theme="dark"] {
@@ -54,6 +55,7 @@
         --border: #333333;
         --cloud-color: #2c2c2c;
         --arrow-default: #444444;
+        --holiday-text: #ff8a80;
       }
 
       body {
@@ -101,6 +103,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        text-decoration: none;
       }
       .calendar-btn:hover { transform: scale(1.1); background: var(--secondary); }
 
@@ -118,6 +121,7 @@
       header { text-align: center; margin-bottom: 50px; }
       header h1 { color: var(--primary); font-size: 2.8rem; margin-bottom: 8px; font-weight: 700; }
       header p { color: var(--text-sub); font-weight: 300; }
+      header p.holiday-active { color: var(--holiday-text); font-weight: 700; }
 
       /* --- [로더 및 카드 스타일] --- */
       .loader-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 0; }
@@ -172,7 +176,7 @@
         <h1>WEB ARCHIVE</h1>
         <p id="today-schedule">오늘도 코딩 중!</p>
         <div class="header-controls">
-          <button onclick="location.href = 'curriculum.html'" class="calendar-btn" title="전체 일정 보기">📅</button>
+          <a href="curriculum.html" class="calendar-btn" title="전체 일정 보기">📅</a>
           <div id="d-day-badge" class="d-day-badge">D-Day 계산 중...</div>
         </div>
       </header>
@@ -199,7 +203,7 @@
       });
 
       function updateDDay() {
-        const targetDate = new Date("2026-07-17T00:00:00");
+        const targetDate = new Date("2026-07-16T00:00:00");
         const now = new Date();
         const diff = targetDate - now;
         const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
@@ -210,20 +214,23 @@
       }
 
       function updateTodaySchedule() {
-        const scheduleData = {
-          "2026-02-02": "리액트 입문",
-          "2026-02-03": "Vite & 라이브러리 활용",
-        };
+        const holidays = ["2026-02-16", "2026-02-17", "2026-02-18", "2026-02-19", "2026-03-02", "2026-03-12", "2026-05-05", "2026-05-08", "2026-05-25", "2026-06-03"];
         const now = new Date();
         const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
         const scheduleText = document.getElementById("today-schedule");
-        if (scheduleData[todayStr]) scheduleText.innerHTML = `오늘의 일정: <strong>${scheduleData[todayStr]}</strong>`;
+        
+        if (holidays.includes(todayStr)) {
+          scheduleText.innerHTML = "🏖️ 오늘은 <strong>휴강일</strong>입니다. 푹 쉬세요!";
+          scheduleText.classList.add("holiday-active");
+        } else {
+          scheduleText.innerHTML = "오늘도 코딩 중! 💻";
+          scheduleText.classList.remove("holiday-active");
+        }
       }
 
       updateDDay();
       updateTodaySchedule();
 
-      // 2. GitHub API 페칭 - 중복 제거 및 정확한 날짜 매핑 로직
       async function fetchWeeklyData() {
         const owner = "khy0819";
         const repo = "Goormexp";
@@ -232,35 +239,21 @@
         try {
           const res = await fetch(apiUrl);
           const data = await res.json();
+          const allIndexFiles = data.tree.filter(f => f.path.includes("과제/") && f.path.endsWith("index.html") && f.path !== "index.html");
 
-          const allIndexFiles = data.tree.filter(
-            (f) => f.path.includes("과제/") && f.path.endsWith("index.html") && f.path !== "index.html"
-          );
-
-          // 폴더별 최적의 index.html 선정 (dist 우선)
           const pathMap = new Map();
           allIndexFiles.forEach(f => {
             const pathParts = f.path.split("/");
             const isDist = pathParts.includes("dist");
-            // 실제 과제 폴더명 추출 (dist면 한 단계 위)
-            const taskFolderName = isDist 
-              ? pathParts[pathParts.indexOf("dist") - 1] 
-              : pathParts[pathParts.length - 2];
-            
-            if (isDist) {
-              pathMap.set(taskFolderName, f.path);
-            } else if (!pathMap.has(taskFolderName)) {
-              pathMap.set(taskFolderName, f.path);
-            }
+            const taskFolderName = isDist ? pathParts[pathParts.indexOf("dist") - 1] : pathParts[pathParts.length - 2];
+            if (isDist || !pathMap.has(taskFolderName)) pathMap.set(taskFolderName, f.path);
           });
 
           const weeks = {};
           pathMap.forEach((finalPath, taskFolderName) => {
-            // 주차 정보 찾기 (경로에서 검색)
             const pathParts = finalPath.split("/");
-            const weekFolder = pathParts.find((p) => p.toLowerCase().includes("week"));
+            const weekFolder = pathParts.find(p => p.toLowerCase().includes("week"));
             let weekLabel = weekFolder ? weekFolder.toUpperCase().replace(/_/g, " ") : "기타 분류";
-
             if (!weeks[weekLabel]) weeks[weekLabel] = [];
             weeks[weekLabel].push({ path: finalPath, name: taskFolderName });
           });
@@ -269,33 +262,14 @@
           document.getElementById("loader").style.display = "none";
           container.style.display = "block";
 
-          const sortedWeeks = Object.keys(weeks).sort((a, b) =>
-            a.localeCompare(b, undefined, { numeric: true })
-          );
-
-          sortedWeeks.forEach((week) => {
+          Object.keys(weeks).sort((a, b) => a.localeCompare(b, undefined, { numeric: true })).forEach(week => {
             const details = document.createElement("details");
-            if (week === sortedWeeks[sortedWeeks.length - 1]) details.open = true;
-
             let html = `<summary><span>📂 ${week}</span> <span style="font-size:0.8rem; opacity:0.4;">${weeks[week].length} Tasks</span></summary><div class="task-list">`;
-
-            weeks[week]
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .forEach((task) => {
-                const parts = task.name.split("-");
-                const datePart = parts[0] || "날짜미상";
-                let isQuiz = task.name.toUpperCase().includes("QUIZ");
-                let titlePart = parts.slice(1).join("-") || "과제물";
-                titlePart = titlePart.replace(/^(QUIZ|TASK)[-_]?/i, "").trim();
-
-                html += `
-                <a href="${encodeURI(task.path)}" class="task-card">
-                  <span class="tag ${isQuiz ? 'quiz' : 'task'}">${isQuiz ? 'QUIZ' : 'TASK'}</span>
-                  <span class="task-date">${datePart}</span>
-                  <span class="task-title">${titlePart}</span>
-                  <span class="arrow">→</span>
-                </a>`;
-              });
+            weeks[week].sort((a, b) => a.name.localeCompare(b.name)).forEach(task => {
+              const parts = task.name.split("-");
+              const isQuiz = task.name.toUpperCase().includes("QUIZ");
+              html += `<a href="${encodeURI(task.path)}" class="task-card"><span class="tag ${isQuiz ? 'quiz' : 'task'}">${isQuiz ? 'QUIZ' : 'TASK'}</span><span class="task-date">${parts[0] || ""}</span><span class="task-title">${parts.slice(1).join("-").replace(/^(QUIZ|TASK)[-_]?/i, "").trim() || "과제물"}</span><span class="arrow">→</span></a>`;
+            });
             html += `</div>`;
             details.innerHTML = html;
             container.appendChild(details);

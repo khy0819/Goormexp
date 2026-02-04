@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
@@ -10,8 +10,10 @@
         --bg: #f8f9fa;
         --text: #333;
         --border: #eee;
-        --special-bg: #fff9c4; /* 특강 강조 노란색 */
-        --today-bg: #e8f5e9; /* 오늘 강조 초록색 */
+        --special-bg: #fff9c4;
+        --today-bg: #e8f5e9;
+        --holiday-bg: #ffebee;
+        --holiday-text: #c62828;
       }
       body {
         font-family: sans-serif;
@@ -34,14 +36,12 @@
         padding-left: 15px;
         margin-bottom: 30px;
       }
-
       table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
       }
-      th,
-      td {
+      th, td {
         padding: 12px;
         border-bottom: 1px solid var(--border);
         text-align: left;
@@ -51,9 +51,7 @@
         font-weight: 700;
         color: var(--primary);
       }
-      tr:hover {
-        background: #fcfcfc;
-      }
+      tr:hover { background: #fcfcfc; }
       .back-link {
         display: inline-block;
         margin-top: 30px;
@@ -61,20 +59,14 @@
         color: var(--primary);
         font-weight: bold;
       }
-
-      /* 클래스 기반 스타일링 */
-      .today-highlight {
-        background-color: var(--today-bg) !important;
-        font-weight: bold;
-      }
-      .special-highlight {
-        background-color: var(--special-bg);
-      }
+      .today-highlight { background-color: var(--today-bg) !important; font-weight: bold; }
+      .special-highlight { background-color: var(--special-bg); }
+      .holiday-highlight { background-color: var(--holiday-bg); color: var(--holiday-text); }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>📅 전체 교육 일정</h1>
+      <h1>📅 전체 교육 일정 (휴강 포함)</h1>
       <table>
         <thead>
           <tr>
@@ -89,99 +81,49 @@
     </div>
 
     <script>
-      // 전체 커리큘럼 데이터
       const fullSchedule = [
         { date: "12월 29일", content: "오리엔테이션", note: "시작" },
-        { date: "12월 30일", content: "Git 기초", note: "" },
-        { date: "12월 31일", content: "Git + Git 심화", note: "" },
-        { date: "1월 5일", content: "Git 심화", note: "" },
-        { date: "1월 7일", content: "Git 심화 + HTML/CSS", note: "" },
-        { date: "1월 8일", content: "HTML/CSS", note: "" },
-        {
-          date: "1월 12일",
-          content: "HTML/CSS + [특강] 개발자로서의 관성 만들기",
-          note: "특강",
-        },
-        { date: "1월 13일", content: "HTML/CSS 기초", note: "" },
-        { date: "1월 16일", content: "HTML/CSS + 자바스크립트 기초", note: "" },
-        { date: "1월 19일", content: "자바스크립트 기초", note: "" },
-        { date: "1월 23일", content: "자바스크립트 기초 + 중급", note: "" },
-        {
-          date: "1월 26일~28일",
-          content: "자바스크립트 중급",
-          note: "진행 중",
-        },
-        {
-          date: "1월 29일",
-          content: "자바스크립트 중급 + [특강] 협업 및 생산성 도구 기초",
-          note: "특강",
-        },
+        { date: "12월 30일~1월 5일", content: "Git 기초 및 심화", note: "" },
+        { date: "1월 6일~15일", content: "HTML/CSS 및 [특강] 개발자 관성", note: "특강" },
+        { date: "1월 16일~22일", content: "자바스크립트 기초", note: "" },
+        { date: "1월 23일~30일", content: "자바스크립트 중급 및 [특강] 협업도구", note: "특강" },
         { date: "2월 2일", content: "자바스크립트 중급 마무리", note: "" },
-        { date: "2월 3일", content: "리액트 기초", note: "" },
-        { date: "2월 9일", content: "리액트 기초", note: "" },
-        { date: "2월 10일", content: "리액트 기초 + 중급", note: "" },
-        { date: "2월 11일", content: "리액트 중급", note: "" },
-        { date: "2월 20일", content: "리액트 중급", note: "" },
-        {
-          date: "2월 25일",
-          content: "리액트 중급 + [특강] 모던 소프트웨어 개발 프로세스",
-          note: "특강",
-        },
-        { date: "2월 26일", content: "알고리즘 문제 풀이", note: "" },
-        { date: "3월 3일", content: "알고리즘 문제 풀이", note: "" },
-        { date: "3월 10일", content: "웹 기술 기초", note: "" },
-        {
-          date: "3월 11일",
-          content: "웹 + [특강] 카카오 클라우드 엔지니어 특강",
-          note: "특강",
-        },
-        { date: "3월 13일", content: "웹 기술 심화", note: "" },
-        { date: "3월 19일", content: "웹 + 고급 리액트 패턴", note: "" },
-        { date: "3월 23일", content: "고급 리액트 패턴", note: "" },
-        {
-          date: "3월 27일",
-          content: "패턴 + [특강] 포트폴리오 세미나",
-          note: "특강",
-        },
-        { date: "4월 2일", content: "리액트 개발 실무", note: "" },
-        {
-          date: "4월 16일",
-          content: "리액트 실무 + [특강] 협업을 위한 세미나",
-          note: "특강",
-        },
-        { date: "4월 17일", content: "웹 기반 SNS 프로젝트", note: "시작" },
-        {
-          date: "5월 19일",
-          content: "애플리케이션 디버깅 및 최적화",
-          note: "",
-        },
-        { date: "6월 11일", content: "실전 고객사 대응 프로젝트", note: "" },
-        {
-          date: "7월 17일",
-          content: "파이널 프로젝트 발표 및 수료식",
-          note: "종료",
-        },
+        { date: "2월 3일~10일", content: "리액트 기초 실습", note: "" },
+        { date: "2월 11일~13일", content: "리액트 중급", note: "" },
+        { date: "2월 16일~19일", content: "🚩 휴강 (설 연휴 및 재량 휴강)", note: "휴강" },
+        { date: "2월 20일~24일", content: "리액트 중급 계속", note: "" },
+        { date: "2월 25일", content: "리액트 + [특강] 모던 개발 프로세스", note: "특강" },
+        { date: "2월 26일~27일", content: "알고리즘 문제 풀이", note: "" },
+        { date: "3월 2일", content: "🚩 휴강 (재량 휴강)", note: "휴강" },
+        { date: "3월 3일~9일", content: "알고리즘 문제 풀이 심화", note: "" },
+        { date: "3월 10일~11일", content: "웹 기술 및 [특강] 카카오 클라우드", note: "특강" },
+        { date: "3월 12일", content: "🚩 휴강 (재량 휴강)", note: "휴강" },
+        { date: "3월 13일~4월 1일", content: "웹 심화 및 고급 리액트 패턴", note: "" },
+        { date: "4월 2일~15일", content: "리액트 개발 실무", note: "" },
+        { date: "4월 16일", content: "리액트 실무 + [특강] 협업 세미나", note: "특강" },
+        { date: "4월 17일~5월 4일", content: "웹 기반 SNS 프로젝트", note: "팀플" },
+        { date: "5월 5일", content: "🚩 휴강 (어린이날)", note: "공휴일" },
+        { date: "5월 6일~7일", content: "웹 기반 SNS 프로젝트 계속", note: "" },
+        { date: "5월 8일", content: "🚩 휴강 (재량 휴강)", note: "휴강" },
+        { date: "5월 11일~18일", content: "웹 기반 SNS 프로젝트 마무리", note: "" },
+        { date: "5월 19일~22일", content: "웹 애플리케이션 디버깅 및 최적화", note: "" },
+        { date: "5월 25일", content: "🚩 휴강 (부처님 오신 날 대체공휴일)", note: "공휴일" },
+        { date: "5월 26일~6월 2일", content: "웹 디버깅 및 최적화 계속", note: "" },
+        { date: "6월 3일", content: "🚩 휴강 (재량 휴강)", note: "휴강" },
+        { date: "6월 4일~10일", content: "최적화 마무리", note: "" },
+        { date: "6월 11일~7월 15일", content: "실전 고객사 대응 프로젝트", note: "파이널" },
+        { date: "7월 16일", content: "파이널 프로젝트 발표 및 수료식", note: "종료" }
       ];
 
       const tbody = document.getElementById("curriculum-body");
       const now = new Date();
-      // 현재 날짜 포맷 (ex: 1월 26일)
       const todayStr = `${now.getMonth() + 1}월 ${now.getDate()}일`;
 
       fullSchedule.forEach((item) => {
         const tr = document.createElement("tr");
-
-        // 1. 특강 여부 확인 (내용에 '특강'이 포함되어 있으면 노란색)
-        if (item.content.includes("특강") || item.note.includes("특강")) {
-          tr.classList.add("special-highlight");
-        }
-
-        // 2. 오늘 날짜 확인
-        if (item.date === todayStr) {
-          tr.classList.remove("special-highlight");
-          tr.classList.add("today-highlight");
-        }
-
+        if (item.note === "휴강" || item.note === "공휴일") tr.classList.add("holiday-highlight");
+        else if (item.content.includes("특강")) tr.classList.add("special-highlight");
+        if (item.date.includes(todayStr)) tr.classList.add("today-highlight");
         tr.innerHTML = `<td>${item.date}</td><td>${item.content}</td><td>${item.note}</td>`;
         tbody.appendChild(tr);
       });
