@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(260204) React 퀴즈 </title>
+    <style>
+        :root {
+            --vs-bg: #1e1e1e;
+            --vs-card: #252526;
+            --vs-header: #333333;
+            --vs-text: #d4d4d4;
+            --vs-keyword: #569cd6;
+            --vs-class: #4ec9b0;
+            --vs-str: #ce9178;
+            --vs-num: #b5cea8;
+            --vs-comment: #6a9955;
+            --primary: #61dafb; /* React Blue */
+            --accent: #dcdcaa;
+        }
+
+        body {
+            font-family: "Consolas", "Monaco", "Pretendard", monospace;
+            background-color: var(--vs-bg);
+            color: var(--vs-text);
+            margin: 0; padding: 40px 20px;
+            line-height: 1.6;
+            text-align: justify;
+            word-break: break-all;
+        }
+
+        .container { max-width: 950px; margin: 0 auto; }
+
+        header {
+            margin-bottom: 30px;
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
+            text-align: left;
+        }
+
+        header h1 { color: #9cdcfe; font-size: 1.8rem; margin: 0; }
+        header p { color: var(--vs-comment); margin-top: 5px; }
+
+        .answer-sheet {
+            background: #2d2d2d;
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 12px;
+            text-align: left;
+        }
+
+        .answer-sheet h2 { 
+            grid-column: 1 / -1; 
+            color: var(--primary); 
+            font-size: 1.1rem; 
+            margin: 0 0 15px 0; 
+            border-bottom: 1px solid #444; 
+            padding-bottom: 10px; 
+        }
+
+        .ans-item { 
+            font-size: 0.85rem; 
+            border-bottom: 1px solid #3d3d3d; 
+            padding: 6px 0;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .ans-item b { 
+            color: var(--accent); 
+            margin-right: 8px; 
+            min-width: 30px; 
+            flex-shrink: 0;
+        }
+
+        .quiz-item {
+            background-color: var(--vs-card);
+            border: 1px solid #454545;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .quiz-header {
+            background-color: var(--vs-header);
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            color: #aaa;
+            display: flex;
+            justify-content: space-between;
+            text-align: left;
+        }
+
+        .quiz-body { padding: 25px; }
+        .quiz-body h3 { 
+            font-size: 1.05rem; 
+            margin-top: 0; 
+            color: var(--accent); 
+            margin-bottom: 15px;
+            text-align: left; 
+        }
+        
+        .ans-box {
+            background: #2d2d2d;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin: 10px 0 20px 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        .ans-label { 
+            color: var(--primary); 
+            font-weight: bold; 
+            margin-bottom: 5px; 
+            display: block; 
+            font-size: 0.9rem; 
+            text-align: left;
+        }
+
+        .explanation { 
+            font-size: 0.85rem; 
+            color: #cccccc; 
+            margin: 0;
+            text-align: justify;
+        }
+
+        .back-link {
+            display: block; 
+            text-align: center; 
+            margin-top: 60px;
+            color: var(--vs-text); 
+            text-decoration: none; 
+            font-weight: bold;
+            padding: 15px; 
+            background: #333; 
+            border-radius: 50px; 
+            width: 250px; 
+            margin: 60px auto;
+            transition: 0.3s;
+            border: 1px solid #444;
+        }
+        .back-link:hover { background: var(--primary); color: #1e1e1e; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>(260204) React 기초 퀴즈 아카이브</h1>
+            <p>// Vite, JSX, Components, Props 핵심 원리 정리</p>
+        </header>
+
+        <section class="answer-sheet">
+            <h2> 정답 </h2>
+            <div class="ans-item"><b>Q1.</b> index.html</div>
+            <div class="ans-item"><b>Q2.</b> UI 렌더링 위치</div>
+            <div class="ans-item"><b>Q3.</b> DOM 요소 관리 지정</div>
+            <div class="ans-item"><b>Q4.</b> StrictMode 검증</div>
+            <div class="ans-item"><b>Q5.</b> 여러 요소 반환 불가</div>
+            <div class="ans-item"><b>Q6.</b> &lt;Fragment&gt; 또는 &lt;&gt;</div>
+            <div class="ans-item"><b>Q7.</b> class 예약어 문제</div>
+            <div class="ans-item"><b>Q8.</b> 중괄호 { }</div>
+            <div class="ans-item"><b>Q9.</b> if문</div>
+            <div class="ans-item"><b>Q10.</b> HTML 태그 구분</div>
+            <div class="ans-item"><b>Q11.</b> 변경 부분만 업데이트</div>
+            <div class="ans-item"><b>Q12.</b> 터미널 → 콘솔 → 수정</div>
+            <div class="ans-item"><b>Q13.</b> JSX 반환 함수</div>
+            <div class="ans-item"><b>Q14.</b> 부모에서 자식으로 전달</div>
+            <div class="ans-item"><b>Q15.</b> 구조 분해 권장 패턴</div>
+            <div class="ans-item"><b>Q16.</b> "클릭하세요"</div>
+            <div class="ans-item"><b>Q17.</b> () => onDelete(id)</div>
+            <div class="ans-item"><b>Q18.</b> 렌더링 시 즉시 실행</div>
+            <div class="ans-item"><b>Q19.</b> props가 과다할 때</div>
+            <div class="ans-item"><b>Q20.</b> 부모→자식(데이터) 흐름</div>
+        </section>
+
+        <a href="https://khy0819.github.io/Goormexp/" class="back-link">🏠 과제 목록으로 돌아가기</a>
+    </div>
+</body>
+</html>
