@@ -1,4 +1,4 @@
-// 1. 반드시 vite에서 defineConfig를 import 해야 합니다!
+// 1. vite에서 defineConfig를 import 
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
