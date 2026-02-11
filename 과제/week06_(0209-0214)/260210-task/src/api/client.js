@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "https://localhost:3002/api",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:3002/api",
   timeout: 5000,
   headers: {
     "Content-Type": "application/json",
