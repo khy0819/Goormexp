@@ -1,79 +1,155 @@
-import { useState } from 'react';
+import { useState, useCallback, memo } from "react";
 
-function MemoItem({ memo, onUpdate, onDelete }) {
+function MemoItem({
+  memo,
+  onUpdate,
+  onDelete,
+  onTogglePin,
+  onSelect,
+  isSelected = false, // JavaScript 기본 매개변수 사용
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(memo.title);
   const [editContent, setEditContent] = useState(memo.content);
-  const [isCompleted, setIsCompleted] = useState(false); // 체크박스 상태
 
-  // 수정 완료 핸들러 (PATCH 요청 성공 시 로컬 상태 갱신) [cite: 100, 110]
-  const handleUpdate = () => {
-    onUpdate(memo.id, { title: editTitle, content: editContent });
+  // Handle save with validation
+  const handleSave = useCallback(() => {
+    const trimmedTitle = editTitle.trim();
+    const trimmedContent = editContent.trim();
+
+    if (!trimmedTitle || !trimmedContent) {
+      alert("제목과 내용을 모두 입력해주세요.");
+      return;
+    }
+
+    onUpdate(memo.id, {
+      title: trimmedTitle,
+      content: trimmedContent,
+    });
     setIsEditing(false);
-  };
+  }, [editTitle, editContent, memo.id, onUpdate]);
+
+  // Handle cancel editing
+  const handleCancel = useCallback(() => {
+    setEditTitle(memo.title);
+    setEditContent(memo.content);
+    setIsEditing(false);
+  }, [memo.title, memo.content]);
+
+  // Handle enter key to save
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (e.key === "Enter" && e.ctrlKey) {
+        handleSave();
+      } else if (e.key === "Escape") {
+        handleCancel();
+      }
+    },
+    [handleSave, handleCancel],
+  );
+
+  // Format date
+  const formattedDate = new Date(memo.createdAt).toLocaleString("ko-KR", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   return (
-    <li className="memo-item">
+    <li
+      className={`memo-item ${memo.isPinned ? "pinned" : ""} ${isSelected ? "selected" : ""}`}
+    >
       {isEditing ? (
-        /* 1. 수정 모드 UI (카드 내부 모달 스타일) */
         <div className="edit-mode-container">
-          <div className="edit-header">✏️ 메모 수정</div>
-          <input 
+          <input
             className="edit-input"
-            value={editTitle} 
-            onChange={(e) => setEditTitle(e.target.value)} 
+            value={editTitle}
+            onChange={(e) => setEditTitle(e.target.value)}
+            onKeyDown={handleKeyDown}
             placeholder="제목을 입력하세요"
+            autoFocus
           />
-          <textarea 
+          <textarea
             className="edit-textarea"
-            value={editContent} 
-            onChange={(e) => setEditContent(e.target.value)} 
-            placeholder="내용을 입력하세요"
-            rows="5"
+            value={editContent}
+            onChange={(e) => setEditContent(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="내용을 입력하세요 (Ctrl+Enter로 저장)"
+            rows="4"
           />
           <div className="edit-actions">
-            <button className="save-btn" onClick={handleUpdate}>저장하기</button>
-            <button className="cancel-btn" onClick={() => setIsEditing(false)}>취소</button>
+            <button className="save-btn" onClick={handleSave}>
+              💾 저장
+            </button>
+            <button className="cancel-btn" onClick={handleCancel}>
+              ❌ 취소
+            </button>
           </div>
         </div>
       ) : (
-        /* 2. 일반 보기 모드 */
         <>
           <div className="button-group">
-            <button className="icon-btn btn-pin">📌</button>
-            <button className="icon-btn btn-edit" onClick={() => setIsEditing(true)}>✏️</button>
-            <button className="icon-btn btn-delete" onClick={() => onDelete(memo.id)}>🗑️</button>
+            <button
+              className={`icon-btn btn-pin ${memo.isPinned ? "active" : ""}`}
+              onClick={() => onTogglePin(memo.id, memo.isPinned)}
+              title={memo.isPinned ? "고정 해제" : "고정"}
+              aria-label={memo.isPinned ? "고정 해제" : "고정"}
+            >
+              📌
+            </button>
+            <button
+              className="icon-btn btn-edit"
+              onClick={() => setIsEditing(true)}
+              title="수정"
+              aria-label="메모 수정"
+            >
+              ✏️
+            </button>
+            <button
+              className="icon-btn btn-delete"
+              onClick={() => onDelete(memo.id)}
+              title="삭제"
+              aria-label="메모 삭제"
+            >
+              🗑️
+            </button>
           </div>
 
           <div className="memo-header">
-  <input 
-    type="checkbox" 
-    className="memo-checkbox" 
-    checked={isCompleted}
-    onChange={(e) => setIsCompleted(e.target.checked)}
-  />
-  <span className={`memo-title ${isCompleted ? 'completed' : ''}`}>
-    {memo.title}
-  </span>
-</div>
+            <input
+              type="checkbox"
+              className="memo-checkbox"
+              checked={isSelected}
+              onChange={() => onSelect(memo.id)}
+              aria-label="메모 선택"
+            />
+            <span className={`memo-title ${isSelected ? "completed" : ""}`}>
+              {memo.title}
+            </span>
+          </div>
 
-          <div className={`memo-content ${isCompleted ? 'completed-text' : ''}`}>
+          <p className={`memo-content ${isSelected ? "completed-text" : ""}`}>
             {memo.content}
-          </div>
+          </p>
 
-          <div className="memo-date">
-            생성: {new Date(memo.createdAt).toLocaleString()}
-          </div>
+          <div className="memo-date">🕒 {formattedDate}</div>
 
-          <div className="tag-container">
-            {memo.tags?.map((tag, index) => (
-              <span key={index} className="tag">{tag}</span>
-            ))}
-          </div>
+          {memo.tags && memo.tags.length > 0 && (
+            <div className="tag-container">
+              {memo.tags.map((tag, i) => (
+                <span key={`${tag}-${i}`} className="tag">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
         </>
       )}
     </li>
   );
 }
 
-export default MemoItem;
+// Memoize component to prevent unnecessary re-renders
+export default memo(MemoItem);
