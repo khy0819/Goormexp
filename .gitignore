@@ -1,0 +1,45 @@
+# 의존성
+node_modules/
+package-lock.json
+yarn.lock
+
+# 빌드 결과물
+dist/
+build/
+out/
+*.bundle.js
+*.bundle.css
+
+# 환경 변수
+.env
+.env.local
+.env.production
+.env.development
+
+# 캐시
+.cache/
+.parcel-cache/
+.vite/
+.next/
+.nuxt/
+
+# 로그
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 테스트
+coverage/
+.nyc_output/
