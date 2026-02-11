@@ -1,0 +1,397 @@
+/* 1. 폰트 및 전역 설정 */
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+  font-family: 'GmarketSansMedium', sans-serif; /* Gmarket Sans 적용 [cite: 125] */
+  background-color: #f5f7fb;
+  color: #333;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+#root {
+  width: 100%;
+  max-width: 600px;
+  padding: 40px 20px;
+}
+
+/* 2. 레이아웃 요소 */
+h1 {
+  color: #4a5568;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* 3. 메모 작성 폼 (MemoForm) */
+.memo-form {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+}
+
+.memo-form input, 
+.memo-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.memo-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* 4. 메모 아이템 카드 (MemoItem) */
+.memo-item {
+  background: white;
+  border: 1px solid #e1e4e8;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  position: relative;
+  list-style: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.memo-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.memo-header {
+  display: flex;
+  align-items: center; /* 핵심: 수직 중앙 정렬  */
+  gap: 12px;           /* 체크박스와 타이틀 사이 간격 [cite: 15] */
+  margin-bottom: 12px;
+  line-height: 1;      /* 텍스트 높이를 초기화하여 정렬 정확도 향상 */
+}
+
+.memo-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #2d3748;
+  display: inline-block;
+  /* 텍스트 상하 여백 제거로 중앙선 일치 */
+  margin: 0;
+  padding: 0;
+}
+
+.memo-content {
+  color: #4a5568;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  margin-bottom: 16px;
+}
+
+/* 5. 버튼 그룹 (아이콘 버튼) */
+.button-group {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  gap: 6px;
+}
+
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+}
+
+.btn-pin { background-color: #fff3f3; }   
+.btn-edit { background-color: #fff2e3; }  
+.btn-delete { background-color: #fffbe2; } 
+
+/* 6. 태그 및 날짜 */
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.tag {
+  background-color: #ebf4ff;
+  color: #4c51bf;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+.tag::before { content: '#'; }
+
+.memo-date {
+  font-size: 0.8rem;
+  color: #a0aec0;
+  margin-top: 8px;
+}
+
+/* 7. 상태 UI 3종 세트 (필수 구현 사항 [cite: 69]) */
+.status-msg {
+  text-align: center;
+  padding: 40px;
+  color: #718096;
+}
+
+.error-msg {
+  color: #e53e3e;
+  background: #fff5f5;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.retry-btn {
+  margin-top: 10px;
+  background: #e53e3e;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* 새 메모 작성 컨테이너 */
+.memo-form-container {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  margin-bottom: 40px;
+  border: 1px solid #edf2f7;
+}
+
+.form-title {
+  font-size: 1.25rem;
+  color: #2d3748;
+  margin-top: 0;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+/* 입력 그룹 레이아웃 */
+.input-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #4a5568;
+  margin-left: 4px;
+}
+
+/* 인풋 & 텍스트에어리어 공통 스타일 */
+.memo-form input, 
+.memo-form textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: 'GmarketSansMedium', sans-serif;
+  transition: all 0.2s ease;
+  background-color: #f8fafc;
+}
+
+.memo-form input:focus, 
+.memo-form textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* 추가 버튼 스타일 */
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #667eea;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-family: 'GmarketSansMedium', sans-serif;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* 메모 아이템 내의 타이틀 스타일 */
+.memo-title {
+  font-size: 1.25rem; /* 타이틀은 크고 시원하게 */
+  font-weight: bold;  /* 확실한 강조 */
+  color: #2d3748;     /* 진한 색상으로 가독성 확보 */
+  margin-bottom: 8px;
+}
+
+/* 메모 아이템 내의 본문 스타일 */
+.memo-content {
+  font-size: 1rem;    /* 표준 크기 */
+  font-weight: 500;   /* Gmarket Sans Medium (중간 굵기) */
+  line-height: 1.6;   /* 줄 간격을 넓혀 가독성 향상 */
+  color: #4a5568;     /* 타이틀보다는 약간 연한 색상으로 대비 */
+  white-space: pre-wrap; /* 줄바꿈 유지 [cite: 28] */
+}
+
+/* 기본 체크박스 숨기기 */
+.memo-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #cbd5e0;
+  border-radius: 6px;
+  background-color: #fff;
+  cursor: pointer;
+  
+  /* 미세 조정: 폰트 특성에 따라 1~2px 정도 아래로 밀려 보일 때 사용 */
+  margin: 0; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* 체크박스가 찌그러지지 않게 고정 */
+}
+
+/* 체크되었을 때 스타일 */
+.memo-checkbox:checked {
+  background-color: #667eea; /* 포인트 컬러 */
+  border-color: #667eea;
+}
+
+/* 체크 표시(V) 아이콘 구현 */
+.memo-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* 마우스 올렸을 때 강조 */
+.memo-checkbox:hover {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* --- 취소선 효과 --- */
+.memo-title.completed {
+  text-decoration: line-through;
+  color: #a0aec0; /* 흐릿하게 변경 */
+  transition: all 0.3s ease;
+}
+
+.memo-content.completed-text {
+  color: #cbd5e0;
+  text-decoration: line-through;
+  transition: all 0.3s ease;
+}
+
+/* --- 수정 모드 스타일 --- */
+.edit-mode-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: fadeIn 0.3s ease;
+}
+
+.edit-header {
+  font-weight: bold;
+  color: #4a5568;
+  margin-bottom: 5px;
+}
+
+.edit-input {
+  font-family: 'GmarketSansMedium', sans-serif;
+  font-size: 1.1rem;
+  padding: 10px;
+  border: 2px solid #edf2f7;
+  border-radius: 8px;
+  outline: none;
+}
+
+.edit-textarea {
+  font-family: 'GmarketSansMedium', sans-serif;
+  font-size: 1rem;
+  padding: 10px;
+  border: 2px solid #edf2f7;
+  border-radius: 8px;
+  resize: none;
+  outline: none;
+}
+
+.edit-input:focus, .edit-textarea:focus {
+  border-color: #667eea;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.save-btn {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  background: #edf2f7;
+  color: #4a5568;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
