@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260220) React 퀴즈 아카이브 - useReducer & Context API</title>
+    <style>
+      :root {
+        --vs-bg: #1e1e1e;
+        --vs-card: #252526;
+        --vs-header: #333333;
+        --vs-text: #d4d4d4;
+        --vs-keyword: #569cd6;
+        --vs-class: #4ec9b0;
+        --vs-str: #ce9178;
+        --vs-num: #b5cea8;
+        --vs-comment: #6a9955;
+        --primary: #61dafb; /* React Blue */
+        --accent: #dcdcaa;
+      }
+
+      body {
+        font-family: "Consolas", "Monaco", "Pretendard", monospace;
+        background-color: var(--vs-bg);
+        color: var(--vs-text);
+        margin: 0;
+        padding: 40px 20px;
+        line-height: 1.6;
+        text-align: justify;
+        word-break: break-all;
+      }
+
+      .container {
+        max-width: 950px;
+        margin: 0 auto;
+      }
+
+      header {
+        margin-bottom: 30px;
+        border-left: 4px solid var(--primary);
+        padding-left: 20px;
+        text-align: left;
+      }
+
+      header h1 {
+        color: #9cdcfe;
+        font-size: 1.8rem;
+        margin: 0;
+      }
+      header p {
+        color: var(--vs-comment);
+        margin-top: 5px;
+      }
+
+      .answer-sheet {
+        background: #2d2d2d;
+        border: 1px solid var(--primary);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 40px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 12px;
+        text-align: left;
+      }
+
+      .answer-sheet h2 {
+        grid-column: 1 / -1;
+        color: var(--primary);
+        font-size: 1.1rem;
+        margin: 0 0 15px 0;
+        border-bottom: 1px solid #444;
+        padding-bottom: 10px;
+      }
+
+      .ans-item {
+        font-size: 0.85rem;
+        border-bottom: 1px solid #3d3d3d;
+        padding: 8px 0;
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .ans-item b {
+        color: var(--accent);
+        margin-right: 8px;
+        min-width: 35px;
+        flex-shrink: 0;
+      }
+
+      .section-title {
+        color: var(--primary);
+        font-size: 1.4rem;
+        margin: 40px 0 20px 0;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #333;
+        text-align: left;
+      }
+
+      .quiz-item {
+        background-color: var(--vs-card);
+        border: 1px solid #454545;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .quiz-header {
+        background-color: var(--vs-header);
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        color: #aaa;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .quiz-body {
+        padding: 25px;
+      }
+      .quiz-body h3 {
+        font-size: 1.05rem;
+        margin-top: 0;
+        color: var(--accent);
+        margin-bottom: 15px;
+        text-align: left;
+      }
+
+      .ans-box {
+        background: #2d2d2d;
+        padding: 12px 15px;
+        border-radius: 6px;
+        margin: 10px 0 20px 0;
+        border-left: 4px solid var(--primary);
+      }
+
+      .ans-label {
+        color: var(--primary);
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+        font-size: 0.9rem;
+        text-align: left;
+      }
+
+      .explanation {
+        font-size: 0.85rem;
+        color: #cccccc;
+        margin: 0;
+        text-align: justify;
+      }
+
+      .back-link {
+        display: block;
+        text-align: center;
+        margin: 60px auto;
+        color: var(--vs-text);
+        text-decoration: none;
+        font-weight: bold;
+        padding: 15px;
+        background: #333;
+        border-radius: 50px;
+        width: 250px;
+        transition: 0.3s;
+        border: 1px solid #444;
+      }
+      .back-link:hover {
+        background: var(--primary);
+        color: #1e1e1e;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>(260220) React useReducer & Context API 퀴즈 아카이브</h1>
+        <p>// Complex State Logic, Dispatch, Provider, useContext 정리</p>
+      </header>
+
+      <section class="answer-sheet">
+        <h2>정답 요약</h2>
+        <div class="ans-item"><b>Q1.</b> 단순한 상태는 useState 사용</div>
+        <div class="ans-item"><b>Q2.</b> 상태 전이 규칙 분리 방식</div>
+        <div class="ans-item">
+          <b>Q3.</b> const [state, dispatch] = useReducer
+        </div>
+        <div class="ans-item"><b>Q4.</b> dispatch → reducer → 화면 갱신</div>
+        <div class="ans-item"><b>Q5.</b> 이벤트 중심 표현 & 최소 데이터</div>
+        <div class="ans-item"><b>Q6.</b> reducer 내 API 요청 금지</div>
+        <div class="ans-item"><b>Q7.</b> 원본 직접 수정 (push 등) 금지</div>
+        <div class="ans-item"><b>Q8.</b> 단순 카운터는 useState 권장</div>
+        <div class="ans-item"><b>Q9.</b> 불변성 위반 (참조 동일) 시 미갱신</div>
+        <div class="ans-item"><b>Q10.</b> 예측 가능한 상태 관리 목적</div>
+        <div class="ans-item"><b>Q11.</b> 1단계 전달은 Drilling 아님</div>
+        <div class="ans-item"><b>Q12.</b> 필요한 범위 내 공유가 Context</div>
+        <div class="ans-item"><b>Q13.</b> Create → Provide → Use 순서</div>
+        <div class="ans-item"><b>Q14.</b> 다크모드 등 공유 테마 적합</div>
+        <div class="ans-item"><b>Q15.</b> 기능 단위 Context 분리 권장</div>
+        <div class="ans-item"><b>Q16.</b> Provider 범위 밖 사용 시 발생</div>
+        <div class="ans-item"><b>Q17.</b> 값과 변경 함수 객체 전달</div>
+        <div class="ans-item"><b>Q18.</b> Provider 없을 때의 기본값</div>
+        <div class="ans-item"><b>Q19.</b> Context 자동 성능 최적화는 없음</div>
+        <div class="ans-item">
+          <b>Q20.</b> 로직 분리(Reducer) + 공유(Context)
+        </div>
+      </section>
+
+      <h2 class="section-title">10강: useReducer (복잡한 상태 관리)</h2>
+
+      <div class="quiz-item">
+        <div class="quiz-header">
+          <span>Topic: Reducer Basics</span><span>Q1 - Q5</span>
+        </div>
+        <div class="quiz-body">
+          <h3>Q1. useState가 불편해지는 증상이 아닌 것은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: state 값이 숫자 1개뿐이라 단순함</span
+            >
+          </div>
+
+          <h3>Q2. useReducer의 핵심 개념으로 올바른 것은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: 상태 변경 규칙을 reducer로 분리하고, action으로 상태 전이를
+              요청하는 방식</span
+            >
+          </div>
+
+          <h3>Q3. useReducer의 기본 문법으로 올바른 것은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: const [state, dispatch] = useReducer(reducer,
+              initialState)</span
+            >
+          </div>
+
+          <h3>Q4. useReducer의 흐름으로 올바른 순서는?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: dispatch(action) → reducer 실행 → 화면 갱신</span
+            >
+          </div>
+
+          <h3>Q5. action 설계 원칙으로 올바른 것은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: action은 "무엇이 일어났는지"를 표현하고, payload는 최소한의
+              데이터만 담는다</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-header">
+          <span>Topic: Reducer Rules</span><span>Q6 - Q10</span>
+        </div>
+        <div class="quiz-body">
+          <h3>Q6. reducer의 3대 원칙에 해당하지 않는 것은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: reducer 안에서 API 요청을 보내야 한다</span
+            >
+            <p class="explanation">
+              Reducer는 순수 함수여야 하므로 사이드 이펙트(API)는 허용되지
+              않습니다.
+            </p>
+          </div>
+
+          <h3>Q7. 다음 중 reducer에서 잘못된 코드는?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: state.items.push(newItem); return state;</span
+            >
+            <p class="explanation">
+              불변성을 지키지 않고 원본 배열을 직접 수정했습니다.
+            </p>
+          </div>
+
+          <h3>
+            Q8. useReducer로 전환을 고려해야 하는 상황으로 적절하지 않은 것은?
+          </h3>
+          <div class="ans-box">
+            <span class="ans-label">정답: 카운터 하나만 관리할 때</span>
+          </div>
+
+          <h3>Q9. dispatch 했는데 화면이 안 바뀌는 가장 흔한 원인은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: reducer에서 불변성을 위반해서 (같은 참조 반환)</span
+            >
+          </div>
+
+          <h3>Q10. useReducer와 useState 비교로 올바른 것은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: useReducer는 규칙을 한 곳에 모아 예측 가능하게 만드는 것이
+              목적이다</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">11강: Context API (상태 공유)</h2>
+
+      <div class="quiz-item">
+        <div class="quiz-header">
+          <span>Topic: Context Basics</span><span>Q11 - Q15</span>
+        </div>
+        <div class="quiz-body">
+          <h3>Q11. props drilling의 문제점이 아닌 것은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: 부모에서 자식으로 1단계만 props를 전달함</span
+            >
+          </div>
+
+          <h3>Q12. Context에 대한 설명으로 올바른 것은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: Context는 Provider로 감싼 트리 안에서만 공유되는 "필요한
+              범위의 공유"이다</span
+            >
+          </div>
+
+          <h3>Q13. Context 사용 3단계의 올바른 순서는?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: createContext → Provider → useContext</span
+            >
+          </div>
+
+          <h3>Q14. 다음 중 Context에 넣기 적합한 값은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: 여러 컴포넌트에서 공유하는 다크모드 theme</span
+            >
+          </div>
+
+          <h3>Q15. Context 분리 전략으로 올바른 것은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: 기능 단위로 ThemeContext, ModalContext 등으로
+              분리한다</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-header">
+          <span>Topic: Advanced Context</span><span>Q16 - Q20</span>
+        </div>
+        <div class="quiz-body">
+          <h3>
+            Q16. useContext()가 null/undefined를 반환하는 가장 흔한 원인은?
+          </h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: Provider로 컴포넌트를 감싸지 않았거나, 범위 밖에서
+              사용해서</span
+            >
+          </div>
+
+          <h3>Q17. Provider의 value 설계로 올바른 것은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: 값과 변경 함수(toggleTheme 등)를 함께 객체로 넣는다</span
+            >
+          </div>
+
+          <h3>Q18. createContext(defaultValue)에서 defaultValue의 역할은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: Provider 없이 useContext를 사용할 때의 기본값</span
+            >
+          </div>
+
+          <h3>Q19. Context 전용 Hook 패턴(useTheme 등)의 장점이 아닌 것은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: Context 사용 시 자동으로 성능이 최적화된다</span
+            >
+            <p class="explanation">
+              자동 성능 최적화는 없으며, 별도의 메모이제이션 처리가 필요합니다.
+            </p>
+          </div>
+
+          <h3>
+            Q20. Context와 useReducer를 함께 사용하는 패턴의 설명으로 올바른
+            것은?
+          </h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: useReducer로 상태 로직을 정리하고, Context로 여러
+              컴포넌트에서 공유할 수 있다</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <a href="https://khy0819.github.io/Goormexp/" class="back-link"
+        >🏠 과제 목록으로 돌아가기</a
+      >
+    </div>
+  </body>
+</html>
