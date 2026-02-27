@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>코딩 문제 아카이브</title>
+    <style>
+      :root {
+        --vs-bg: #1e1e1e;
+        --vs-card: #252526;
+        --vs-header: #333333;
+        --vs-text: #d4d4d4;
+        --primary: #61dafb;
+        --accent: #dcdcaa;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Consolas", "Monaco", monospace;
+        background-color: var(--vs-bg);
+        color: var(--vs-text);
+        margin: 0;
+        padding: 40px 20px;
+        line-height: 1.7;
+      }
+      .container {
+        max-width: 980px;
+        margin: 0 auto;
+      }
+
+      header {
+        margin-bottom: 36px;
+        border-left: 4px solid var(--primary);
+        padding-left: 20px;
+      }
+      header h1 {
+        color: #9cdcfe;
+        font-size: 1.8rem;
+        margin: 0;
+      }
+      header p {
+        color: #6a9955;
+        margin: 6px 0 0;
+        font-size: 0.9rem;
+      }
+
+      .quiz-item {
+        background-color: var(--vs-card);
+        border: 1px solid #454545;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        overflow: visible;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+        transition: border-color 0.2s;
+      }
+      .quiz-item:hover {
+        border-color: #666;
+      }
+
+      .quiz-toggle {
+        width: 100%;
+        background: var(--vs-header);
+        border: none;
+        cursor: pointer;
+        padding: 13px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--vs-text);
+        font-family: inherit;
+        font-size: 0.95rem;
+        transition: background 0.2s;
+      }
+      .quiz-toggle:hover {
+        background: #3c3c3c;
+      }
+
+      .toggle-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .q-num {
+        color: var(--primary);
+        font-weight: bold;
+        font-size: 0.85rem;
+        min-width: 36px;
+      }
+      .q-title {
+        color: var(--accent);
+        font-weight: bold;
+      }
+      .q-badge {
+        font-size: 0.72rem;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-weight: normal;
+      }
+      .badge-c {
+        background: #1a3a5c;
+        color: #569cd6;
+      }
+      .badge-sql {
+        background: #1a3a2a;
+        color: #4ec9b0;
+      }
+
+      .toggle-arrow {
+        color: #888;
+        font-size: 0.8rem;
+        transition: transform 0.25s;
+      }
+      .quiz-item.open .toggle-arrow {
+        transform: rotate(180deg);
+      }
+
+      .quiz-body {
+        display: none;
+        padding: 28px 28px 24px;
+        border-top: 1px solid #3a3a3a;
+      }
+      .quiz-item.open .quiz-body {
+        display: block;
+      }
+
+      .section-label {
+        font-size: 0.75rem;
+        font-weight: bold;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #888;
+        margin: 22px 0 8px;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #3a3a3a;
+      }
+      .section-label:first-child {
+        margin-top: 0;
+      }
+
+      .text-block {
+        font-size: 0.88rem;
+        color: var(--vs-text);
+        line-height: 1.8;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.83rem;
+        margin: 8px 0;
+      }
+      th {
+        background: #2d2d2d;
+        color: var(--primary);
+        text-align: left;
+        padding: 7px 12px;
+        border: 1px solid #444;
+        font-weight: bold;
+      }
+      td {
+        padding: 7px 12px;
+        border: 1px solid #3a3a3a;
+        color: var(--vs-text);
+        vertical-align: top;
+      }
+      tr:nth-child(even) td {
+        background: #2a2a2a;
+      }
+
+      .limit-list {
+        list-style: none;
+        padding: 0;
+        margin: 4px 0;
+        font-size: 0.87rem;
+      }
+      .limit-list li {
+        padding: 4px 0 4px 18px;
+        position: relative;
+        color: var(--vs-text);
+      }
+      .limit-list li::before {
+        content: "●";
+        color: var(--primary);
+        position: absolute;
+        left: 0;
+        font-size: 0.6rem;
+        top: 7px;
+      }
+
+      .code-block {
+        background: #1a1a1a;
+        border: 1px solid #3a3a3a;
+        border-left: 4px solid var(--primary);
+        border-radius: 6px;
+        padding: 18px 20px;
+        overflow-x: auto;
+        font-size: 0.82rem;
+        line-height: 1.65;
+        margin: 8px 0;
+        position: relative;
+      }
+      .code-block .lang-tag {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        font-size: 0.7rem;
+        color: #666;
+      }
+      .code-block pre {
+        margin: 0;
+        white-space: pre-wrap;
+        word-break: break-word;
+        color: var(--vs-text);
+      }
+
+      .kw {
+        color: #569cd6;
+      }
+      .ty {
+        color: #4ec9b0;
+      }
+      .fn {
+        color: #dcdcaa;
+      }
+      .str {
+        color: #ce9178;
+      }
+      .num {
+        color: #b5cea8;
+      }
+      .cm {
+        color: #6a9955;
+      }
+
+      .ans-highlight {
+        background: #0d2137;
+        border: 1px solid var(--primary);
+        border-radius: 6px;
+        padding: 14px 18px;
+        margin: 8px 0;
+        font-size: 0.85rem;
+      }
+      .ans-highlight .ans-label {
+        color: var(--primary);
+        font-weight: bold;
+        display: block;
+        margin-bottom: 6px;
+        font-size: 0.8rem;
+        letter-spacing: 0.05em;
+      }
+
+      .back-link {
+        display: block;
+        text-align: center;
+        margin: 60px auto;
+        color: var(--vs-text);
+        text-decoration: none;
+        font-weight: bold;
+        padding: 15px;
+        background: #333;
+        border-radius: 50px;
+        width: 260px;
+        transition: 0.3s;
+        border: 1px solid #444;
+      }
+      .back-link:hover {
+        background: var(--primary);
+        color: #1e1e1e;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>코딩 문제 아카이브</h1>
+        <p>// C · SQL 핵심 문제 & 풀이 정리 — 문제 클릭 시 내용 펼치기</p>
+      </header>
+
+      <!-- ══ Q1 ══ -->
+      <div class="quiz-item" id="q1">
+        <button class="quiz-toggle" onclick="toggle('q1')">
+          <span class="toggle-left">
+            <span class="q-num">Q1.</span>
+            <span class="q-title">LEGEND 아이템 가격 합계</span>
+            <span class="q-badge badge-sql">MySQL</span>
+          </span>
+          <span class="toggle-arrow">▼</span>
+        </button>
+        <div class="quiz-body">
+          <div class="section-label">테이블 구조 (ITEM_INFO)</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Column name</th>
+                <th>Type</th>
+                <th>Nullable</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ITEM_ID</td>
+                <td>INTEGER</td>
+                <td>FALSE</td>
+              </tr>
+              <tr>
+                <td>ITEM_NAME</td>
+                <td>VARCHAR(N)</td>
+                <td>FALSE</td>
+              </tr>
+              <tr>
+                <td>RARITY</td>
+                <td>INTEGER</td>
+                <td>FALSE</td>
+              </tr>
+              <tr>
+                <td>PRICE</td>
+                <td>INTEGER</td>
+                <td>FALSE</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="section-label">문제</div>
+          <div class="text-block">
+            <code>ITEM_INFO</code> 테이블에서 희귀도가 <b>'LEGEND'</b>인
+            아이템들의 가격의 총합을 구하세요.<br />
+            컬럼명은 <b>'TOTAL_PRICE'</b>로 지정합니다.
+          </div>
+
+          <div class="section-label">입출력 예</div>
+          <table>
+            <thead>
+              <tr>
+                <th>ITEM_ID</th>
+                <th>ITEM_NAME</th>
+                <th>RARITY</th>
+                <th>PRICE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0</td>
+                <td>ITEM_A</td>
+                <td>COMMON</td>
+                <td>10000</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>ITEM_B</td>
+                <td>LEGEND</td>
+                <td>9000</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>ITEM_C</td>
+                <td>LEGEND</td>
+                <td>11000</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>ITEM_D</td>
+                <td>UNIQUE</td>
+                <td>10000</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>ITEM_E</td>
+                <td>LEGEND</td>
+                <td>12000</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="section-label">기대 출력</div>
+          <table>
+            <thead>
+              <tr>
+                <th>TOTAL_PRICE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>32000</td>
+              </tr>
+            </tbody>
+          </table>
+          <div
+            class="text-block"
+            style="font-size: 0.83rem; color: #888; margin-top: 6px"
+          >
+            ※ LEGEND 아이템 ID: 1, 2, 4 → 9000 + 11000 + 12000 = 32000
+          </div>
+
+          <div class="section-label">풀이 쿼리 (MySQL)</div>
+
+          <div class="code-block">
+            <span class="lang-tag">SQL</span>
+            <pre><span class="kw">SELECT</span> <span class="fn">SUM</span>(PRICE) <span class="kw">AS</span> TOTAL_PRICE
+<span class="kw">FROM</span>   ITEM_INFO
+<span class="kw">WHERE</span>  RARITY = <span class="str">'LEGEND'</span>;</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ Q2 ══ -->
+      <div class="quiz-item" id="q2">
+        <button class="quiz-toggle" onclick="toggle('q2')">
+          <span class="toggle-left">
+            <span class="q-num">Q2.</span>
+            <span class="q-title">가장 큰 물고기 10마리 구하기</span>
+            <span class="q-badge badge-sql">MySQL</span>
+          </span>
+          <span class="toggle-arrow">▼</span>
+        </button>
+        <div class="quiz-body">
+          <div class="section-label">테이블 구조 (FISH_INFO)</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Column name</th>
+                <th>Type</th>
+                <th>Nullable</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ID</td>
+                <td>INTEGER</td>
+                <td>FALSE</td>
+              </tr>
+              <tr>
+                <td>FISH_TYPE</td>
+                <td>INTEGER</td>
+                <td>FALSE</td>
+              </tr>
+              <tr>
+                <td>LENGTH</td>
+                <td>FLOAT</td>
+                <td>TRUE</td>
+              </tr>
+              <tr>
+                <td>TIME</td>
+                <td>DATE</td>
+                <td>FALSE</td>
+              </tr>
+            </tbody>
+          </table>
+          <div
+            class="text-block"
+            style="font-size: 0.83rem; color: #888; margin-top: 6px"
+          >
+            ※ 잡은 물고기 길이가 10cm 이하이면 LENGTH = NULL (NULL만 있는 경우는
+            없음)
+          </div>
+
+          <div class="section-label">문제</div>
+          <div class="text-block">
+            가장 큰 물고기 <b>10마리</b>의 <b>ID</b>와 <b>LENGTH</b>를
+            출력하세요.<br />
+            결과는 <b>LENGTH 내림차순</b>, 길이가 같으면 <b>ID 오름차순</b>으로
+            정렬합니다.
+          </div>
+
+          <div class="section-label">제한 사항</div>
+          <ul class="limit-list">
+            <li>가장 큰 물고기 10마리 중 길이가 10cm 이하인 경우는 없음</li>
+            <li>결과 컬럼명: ID, LENGTH</li>
+          </ul>
+
+          <div class="section-label">입출력 예</div>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>FISH_TYPE</th>
+                <th>LENGTH</th>
+                <th>TIME</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0</td>
+                <td>0</td>
+                <td>30</td>
+                <td>2021/12/04</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>0</td>
+                <td>50</td>
+                <td>2020/03/07</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>0</td>
+                <td>40</td>
+                <td>2020/03/07</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>1</td>
+                <td>20</td>
+                <td>2022/03/09</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>1</td>
+                <td>NULL</td>
+                <td>2022/04/08</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>2</td>
+                <td>13</td>
+                <td>2021/04/28</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>3</td>
+                <td>60</td>
+                <td>2021/07/27</td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td>0</td>
+                <td>55</td>
+                <td>2021/01/18</td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td>2</td>
+                <td>73</td>
+                <td>2020/01/28</td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td>3</td>
+                <td>73</td>
+                <td>2021/04/08</td>
+              </tr>
+              <tr>
+                <td>10</td>
+                <td>2</td>
+                <td>22</td>
+                <td>2020/06/28</td>
+              </tr>
+              <tr>
+                <td>11</td>
+                <td>2</td>
+                <td>17</td>
+                <td>2022/12/23</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="section-label">기대 출력</div>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>LENGTH</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>8</td>
+                <td>73</td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td>73</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>60</td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td>55</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>50</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>40</td>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>30</td>
+              </tr>
+              <tr>
+                <td>10</td>
+                <td>22</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>20</td>
+              </tr>
+              <tr>
+                <td>11</td>
+                <td>17</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="section-label">풀이 쿼리 (MySQL)</div>
+
+          <div class="code-block">
+            <span class="lang-tag">SQL</span>
+            <pre><span class="kw">SELECT</span> ID, LENGTH
+<span class="kw">FROM</span>   FISH_INFO
+<span class="kw">WHERE</span>  LENGTH <span class="kw">IS NOT NULL</span>
+<span class="kw">ORDER BY</span> LENGTH <span class="kw">DESC</span>, ID <span class="kw">ASC</span>
+<span class="kw">LIMIT</span> <span class="num">10</span>;</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ Q3 ══ -->
+      <div class="quiz-item" id="q3">
+        <button class="quiz-toggle" onclick="toggle('q3')">
+          <span class="toggle-left">
+            <span class="q-num">Q3.</span>
+            <span class="q-title">Python 개발자 찾기</span>
+            <span class="q-badge badge-sql">MySQL</span>
+          </span>
+          <span class="toggle-arrow">▼</span>
+        </button>
+        <div class="quiz-body">
+          <div class="section-label">테이블 구조 (DEVELOPER_INFOS)</div>
+          <table>
+            <thead>
+              <tr>
+                <th>NAME</th>
+                <th>TYPE</th>
+                <th>UNIQUE</th>
+                <th>NULLABLE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ID</td>
+                <td>VARCHAR(N)</td>
+                <td>Y</td>
+                <td>N</td>
+              </tr>
+              <tr>
+                <td>FIRST_NAME</td>
+                <td>VARCHAR(N)</td>
+                <td>N</td>
+                <td>Y</td>
+              </tr>
+              <tr>
+                <td>LAST_NAME</td>
+                <td>VARCHAR(N)</td>
+                <td>N</td>
+                <td>Y</td>
+              </tr>
+              <tr>
+                <td>EMAIL</td>
+                <td>VARCHAR(N)</td>
+                <td>Y</td>
+                <td>N</td>
+              </tr>
+              <tr>
+                <td>SKILL_1</td>
+                <td>VARCHAR(N)</td>
+                <td>N</td>
+                <td>Y</td>
+              </tr>
+              <tr>
+                <td>SKILL_2</td>
+                <td>VARCHAR(N)</td>
+                <td>N</td>
+                <td>Y</td>
+              </tr>
+              <tr>
+                <td>SKILL_3</td>
+                <td>VARCHAR(N)</td>
+                <td>N</td>
+                <td>Y</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="section-label">문제</div>
+          <div class="text-block">
+            Python 스킬을 가진 개발자의
+            <b>ID, EMAIL, FIRST_NAME, LAST_NAME</b>을 조회하세요.<br />
+            결과는 <b>ID 오름차순</b>으로 정렬합니다.
+          </div>
+
+          <div class="section-label">제한 사항</div>
+          <ul class="limit-list">
+            <li>
+              SKILL_1, SKILL_2, SKILL_3 중 하나라도 'Python'이면 해당 개발자
+              포함
+            </li>
+            <li>결과 컬럼: ID, EMAIL, FIRST_NAME, LAST_NAME</li>
+            <li>결과 정렬: ID ASC</li>
+          </ul>
+
+          <div class="section-label">입출력 예</div>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>FIRST_NAME</th>
+                <th>LAST_NAME</th>
+                <th>EMAIL</th>
+                <th>SKILL_1</th>
+                <th>SKILL_2</th>
+                <th>SKILL_3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>D165</td>
+                <td>Jerami</td>
+                <td>Edwards</td>
+                <td>jerami_edwards@grepp.co</td>
+                <td>Java</td>
+                <td>JavaScript</td>
+                <td>Python</td>
+              </tr>
+              <tr>
+                <td>D161</td>
+                <td>Carsen</td>
+                <td>Garza</td>
+                <td>carsen_garza@grepp.co</td>
+                <td>React</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>D164</td>
+                <td>Kelly</td>
+                <td>Grant</td>
+                <td>kelly_grant@grepp.co</td>
+                <td>C#</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>D163</td>
+                <td>Luka</td>
+                <td>Cory</td>
+                <td>luka_cory@grepp.co</td>
+                <td>Node.js</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>D162</td>
+                <td>Cade</td>
+                <td>Cunningham</td>
+                <td>cade_cunningham@grepp.co</td>
+                <td>Vue</td>
+                <td>C++</td>
+                <td>Python</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="section-label">기대 출력</div>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>EMAIL</th>
+                <th>FIRST_NAME</th>
+                <th>LAST_NAME</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>D162</td>
+                <td>cade_cunningham@grepp.co</td>
+                <td>Cade</td>
+                <td>Cunningham</td>
+              </tr>
+              <tr>
+                <td>D165</td>
+                <td>jerami_edwards@grepp.co</td>
+                <td>Jerami</td>
+                <td>Edwards</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="section-label">풀이 쿼리 (MySQL)</div>
+
+          <div class="code-block">
+            <span class="lang-tag">SQL</span>
+            <pre><span class="kw">SELECT</span> ID, EMAIL, FIRST_NAME, LAST_NAME
+<span class="kw">FROM</span>   DEVELOPER_INFOS
+<span class="kw">WHERE</span>  SKILL_1 = <span class="str">'Python'</span>
+   <span class="kw">OR</span> SKILL_2 = <span class="str">'Python'</span>
+   <span class="kw">OR</span> SKILL_3 = <span class="str">'Python'</span>
+<span class="kw">ORDER BY</span> ID <span class="kw">ASC</span>;</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ Q4 ══ -->
+      <div class="quiz-item" id="q4">
+        <button class="quiz-toggle" onclick="toggle('q4')">
+          <span class="toggle-left">
+            <span class="q-num">Q4.</span>
+            <span class="q-title">짝수와 홀수</span>
+            <span class="q-badge badge-c">C</span>
+          </span>
+          <span class="toggle-arrow">▼</span>
+        </button>
+        <div class="quiz-body">
+          <div class="section-label">문제 설명</div>
+          <div class="text-block">
+            정수 <code>num</code>이 짝수일 경우 <code>"Even"</code>, 홀수일 경우
+            <code>"Odd"</code>를 반환하는 함수 <code>solution</code>을
+            완성하세요.
+          </div>
+
+          <div class="section-label">제한 사항</div>
+          <ul class="limit-list">
+            <li>num은 int 범위의 정수</li>
+            <li>0은 짝수로 처리</li>
+          </ul>
+
+          <div class="section-label">입출력 예</div>
+          <table>
+            <thead>
+              <tr>
+                <th>num</th>
+                <th>return</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>3</td>
+                <td>"Odd"</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>"Even"</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="section-label">풀이 코드 (C)</div>
+
+          <div class="code-block">
+            <span class="lang-tag">C</span>
+            <pre><span class="kw">char</span>* <span class="fn">solution</span>(<span class="kw">int</span> num) {
+    <span class="kw">char</span>* answer;
+    <span class="kw">if</span> (num % <span class="num">2</span> == <span class="num">0</span>) {
+        answer = (<span class="kw">char</span>*)<span class="fn">malloc</span>(<span class="num">5</span>);  <span class="cm">// "Even" + '\0'</span>
+        <span class="fn">strcpy</span>(answer, <span class="str">"Even"</span>);
+    } <span class="kw">else</span> {
+        answer = (<span class="kw">char</span>*)<span class="fn">malloc</span>(<span class="num">4</span>);  <span class="cm">// "Odd" + '\0'</span>
+        <span class="fn">strcpy</span>(answer, <span class="str">"Odd"</span>);
+    }
+    <span class="kw">return</span> answer;
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ Q5 ══ -->
+      <div class="quiz-item" id="q5">
+        <button class="quiz-toggle" onclick="toggle('q5')">
+          <span class="toggle-left">
+            <span class="q-num">Q5.</span>
+            <span class="q-title">별 찍기 — 직사각형</span>
+            <span class="q-badge badge-c">C / 표준입출력</span>
+          </span>
+          <span class="toggle-arrow">▼</span>
+        </button>
+        <div class="quiz-body">
+          <div class="section-label">문제 설명</div>
+          <div class="text-block">
+            표준 입력으로 두 정수 <code>n</code>과 <code>m</code>이 주어집니다.
+            가로 <b>n</b>, 세로 <b>m</b>인 직사각형 모양의 별(<code>*</code>)을
+            출력하세요.
+          </div>
+
+          <div class="section-label">제한 사항</div>
+          <ul class="limit-list">
+            <li>n과 m은 각각 1000 이하인 자연수</li>
+          </ul>
+
+          <div class="section-label">입출력 예</div>
+          <table>
+            <thead>
+              <tr>
+                <th>입력</th>
+                <th>출력</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>5 3</code></td>
+                <td>
+                  <code>*****<br />*****<br />*****</code>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="section-label">풀이 코드 (C)</div>
+
+          <div class="code-block">
+            <span class="lang-tag">C</span>
+            <pre><span class="cm">#include &lt;stdio.h&gt;</span>
+
+<span class="kw">int</span> <span class="fn">main</span>() {
+    <span class="kw">int</span> n, m;
+    <span class="fn">scanf</span>(<span class="str">"%d %d"</span>, &amp;n, &amp;m);
+
+    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; m; i++) {
+        <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j &lt; n; j++)
+            <span class="fn">printf</span>(<span class="str">"*"</span>);
+        <span class="fn">printf</span>(<span class="str">"\n"</span>);
+    }
+    <span class="kw">return</span> <span class="num">0</span>;
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <a href="https://khy0819.github.io/Goormexp/" class="back-link"
+        >🏠 과제 목록으로 돌아가기</a
+      >
+    </div>
+    <script>
+      function toggle(id) {
+        document.getElementById(id).classList.toggle("open");
+      }
+    </script>
+  </body>
+</html>

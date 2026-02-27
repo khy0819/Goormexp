@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>(260204) React 퀴즈</title>
+    <title>(260224) React & Algorithm Quiz</title>
     <style>
       :root {
         --vs-bg: #1e1e1e;
@@ -59,7 +59,7 @@
         padding: 20px;
         margin-bottom: 40px;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         gap: 12px;
         text-align: left;
       }
@@ -76,7 +76,7 @@
       .ans-item {
         font-size: 0.85rem;
         border-bottom: 1px solid #3d3d3d;
-        padding: 6px 0;
+        padding: 8px 0;
         display: flex;
         align-items: flex-start;
       }
@@ -84,8 +84,17 @@
       .ans-item b {
         color: var(--accent);
         margin-right: 8px;
-        min-width: 30px;
+        min-width: 35px;
         flex-shrink: 0;
+      }
+
+      .section-title {
+        color: var(--primary);
+        font-size: 1.4rem;
+        margin: 40px 0 20px 0;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #333;
+        text-align: left;
       }
 
       .quiz-item {
@@ -104,7 +113,6 @@
         color: #aaa;
         display: flex;
         justify-content: space-between;
-        text-align: left;
       }
 
       .quiz-body {
@@ -145,7 +153,7 @@
       .back-link {
         display: block;
         text-align: center;
-        margin-top: 60px;
+        margin: 60px auto;
         color: var(--vs-text);
         text-decoration: none;
         font-weight: bold;
@@ -153,7 +161,6 @@
         background: #333;
         border-radius: 50px;
         width: 250px;
-        margin: 60px auto;
         transition: 0.3s;
         border: 1px solid #444;
       }
@@ -166,32 +173,32 @@
   <body>
     <div class="container">
       <header>
-        <h1>(260204) React 기초 퀴즈 아카이브</h1>
-        <p>// Vite, JSX, Components, Props 핵심 원리 정리</p>
+        <h1>(260224) React + 알고리즘 퀴즈</h1>
+        <p>// Persistence, Lazy Initializer, Complexity, Problem Solving</p>
       </header>
 
       <section class="answer-sheet">
         <h2>정답</h2>
-        <div class="ans-item"><b>Q1.</b> index.html</div>
-        <div class="ans-item"><b>Q2.</b> UI 렌더링 위치</div>
-        <div class="ans-item"><b>Q3.</b> DOM 요소 관리 지정</div>
-        <div class="ans-item"><b>Q4.</b> StrictMode 검증</div>
-        <div class="ans-item"><b>Q5.</b> 여러 요소 반환 불가</div>
-        <div class="ans-item"><b>Q6.</b> &lt;Fragment&gt; 또는 &lt;&gt;</div>
-        <div class="ans-item"><b>Q7.</b> class 예약어 문제</div>
-        <div class="ans-item"><b>Q8.</b> 중괄호 { }</div>
-        <div class="ans-item"><b>Q9.</b> if문</div>
-        <div class="ans-item"><b>Q10.</b> HTML 태그 구분</div>
-        <div class="ans-item"><b>Q11.</b> 변경 부분만 업데이트</div>
-        <div class="ans-item"><b>Q12.</b> 터미널 → 콘솔 → 수정</div>
-        <div class="ans-item"><b>Q13.</b> JSX 반환 함수</div>
-        <div class="ans-item"><b>Q14.</b> 부모에서 자식으로 전달</div>
-        <div class="ans-item"><b>Q15.</b> 구조 분해 권장 패턴</div>
-        <div class="ans-item"><b>Q16.</b> "클릭하세요"</div>
-        <div class="ans-item"><b>Q17.</b> () => onDelete(id)</div>
-        <div class="ans-item"><b>Q18.</b> 렌더링 시 즉시 실행</div>
-        <div class="ans-item"><b>Q19.</b> props가 과다할 때</div>
-        <div class="ans-item"><b>Q20.</b> 부모→자식(데이터) 흐름</div>
+        <div class="ans-item"><b>Q1.</b> state는 메모리(RAM)에 존재</div>
+        <div class="ans-item"><b>Q2.</b> 초기 렌더 시 1회만 권장</div>
+        <div class="ans-item"><b>Q3.</b> useState(() => localStorage...)</div>
+        <div class="ans-item"><b>Q4.</b> useEffect deps 활용 저장</div>
+        <div class="ans-item"><b>Q5.</b> 매 렌더마다 getItem 실행됨</div>
+        <div class="ans-item"><b>Q6.</b> deps가 비어있어 업데이트 안됨</div>
+        <div class="ans-item"><b>Q7.</b> 스토리지 변경은 리렌더링 미발생</div>
+        <div class="ans-item"><b>Q8.</b> JSON.stringify 문자열 변환</div>
+        <div class="ans-item"><b>Q9.</b> 초기값 계산 비용 최적화</div>
+        <div class="ans-item"><b>Q10.</b> state 변경 → 화면 → 스토리지</div>
+        <div class="ans-item"><b>Q11.</b> 방식(자료구조) vs 절차(알고리즘)</div>
+        <div class="ans-item"><b>Q12.</b> 알고리즘 효율성 개선</div>
+        <div class="ans-item"><b>Q13.</b> 불필요 공백/개행 제거</div>
+        <div class="ans-item"><b>Q14.</b> for문 하나로 배열 순회</div>
+        <div class="ans-item"><b>Q15.</b> 100억 (10^5 * 10^5)</div>
+        <div class="ans-item"><b>Q16.</b> O(log n)</div>
+        <div class="ans-item"><b>Q17.</b> O(n log n) (1억 연산 미만)</div>
+        <div class="ans-item"><b>Q18.</b> [1, 2, 3, 4, 5] (Number 변환)</div>
+        <div class="ans-item"><b>Q19.</b> 코드를 길게 만들기 위해 (X)</div>
+        <div class="ans-item"><b>Q20.</b> 배열 크기가 1억 개 이상일 때</div>
       </section>
 
       <a href="https://khy0819.github.io/Goormexp/" class="back-link"
