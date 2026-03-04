@@ -3,5 +3,14 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "./", // ← 이것만 쓰면 된다
+  base: "./",
+  server: {
+    port: 3002,
+    proxy: {
+      "/api": {
+        target: "http://54.180.25.65:3002",
+        changeOrigin: true,
+      },
+    },
+  },
 });
