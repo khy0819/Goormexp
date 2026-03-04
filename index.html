@@ -9,7 +9,6 @@
       content="구름 KDT 과정의 여정을 기록하는 웹 아카이브입니다."
     />
     <style>
-      /* --- (보내주신 기존 CSS 스타일 100% 유지) --- */
       @font-face {
         font-family: "11StreetGothic";
         src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-KorLight.woff2")
@@ -384,7 +383,6 @@
     </div>
 
     <script>
-      // ── (보내주신 로직 그대로 유지) ──
       const themeBtn = document.getElementById("theme-btn");
       const savedTheme = localStorage.getItem("theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
@@ -435,7 +433,6 @@
       updateDDay();
       updateTodaySchedule();
 
-      // ── (수정된 핵심 데이터 로드 로직) ──
       async function fetchWeeklyData() {
         const owner = "khy0819";
         const repo = "Goormexp";
@@ -445,7 +442,6 @@
           const res = await fetch(apiUrl);
           const data = await res.json();
 
-          // 1. assignments 폴더 내 모든 HTML 수집 (node_modules 제외)
           const htmlFiles = data.tree.filter(
             (f) =>
               f.path.includes("assignments/") &&
@@ -473,7 +469,6 @@
               distIdx >= 0 ? parts[distIdx - 1] : parts[parts.length - 2];
             const fileName = parts[parts.length - 1];
 
-            // 4. [수정 사항 반영] React 앱(dist) 처리 및 원본 index.html 숨기기
             let finalPath = f.path;
             let displayName = fileName;
 
@@ -511,7 +506,6 @@
         container.style.display = "block";
         container.innerHTML = "";
 
-        // ⚠️ [수정 사항 반영] 모든 주차(1~8)를 숫자 순서대로 정렬
         const sortedWeekKeys = Object.keys(weeks).sort((a, b) => {
           return a.localeCompare(b, undefined, {
             numeric: true,
