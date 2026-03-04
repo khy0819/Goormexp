@@ -1,0 +1,134 @@
+.container { animation: fadeIn 0.25s ease; }
+
+.status {
+  text-align: center;
+  padding: 64px;
+  color: var(--color-text-secondary);
+}
+
+.errorBox {
+  text-align: center;
+  padding: 64px 20px;
+  color: var(--color-danger);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 20px;
+  transition: color var(--transition);
+}
+.backLink:hover { color: var(--color-accent); }
+
+.card {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  box-shadow: var(--shadow-sm);
+}
+
+.cardHeader { margin-bottom: 20px; }
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+
+.date {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  line-height: 1.35;
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: 20px 0;
+}
+
+.content {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--color-text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-height: 80px;
+}
+
+.timestamps {
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.editBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background var(--transition), transform var(--transition);
+}
+.editBtn:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+
+.deleteBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-danger);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+.deleteBtn:hover:not(:disabled) {
+  background: var(--color-danger-light);
+  border-color: var(--color-danger);
+}
+.deleteBtn:disabled { opacity: 0.5; cursor: default; }
