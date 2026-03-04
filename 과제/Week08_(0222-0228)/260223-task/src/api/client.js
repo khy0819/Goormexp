@@ -1,8 +1,9 @@
-import axios from 'axios'
+import axios from "axios";
 
-// ✅ baseURL: Vite proxy를 통해 /api → http://54.180.25.65:3002/api 로 전달
 const client = axios.create({
-  baseURL: '/api',
-})
+  baseURL: import.meta.env.DEV
+    ? "/api" // 개발 환경: Vite proxy 사용
+    : "http://54.180.25.65:3002/api", // 프로덕션: 직접 서버로
+});
 
-export default client
+export default client;
