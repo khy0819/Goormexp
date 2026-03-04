@@ -533,7 +533,7 @@
                   task.files
                     .sort((a, b) => a.displayName.localeCompare(b.displayName))
                     .forEach((file) => {
-                      html += `<a href="/Goormexp/${encodeURI(file.path)}" class="file-link"><span class="file-icon">📄</span><span class="file-name">${file.displayName}</span><span class="file-arrow">→</span></a>`;
+                      html += `<a href="/${encodeURI(file.path)}" class="file-link"><span class="file-icon">📄</span><span class="file-name">${file.displayName}</span><span class="file-arrow">→</span></a>`;
                     });
                   html += `</div></div>`;
                 }
