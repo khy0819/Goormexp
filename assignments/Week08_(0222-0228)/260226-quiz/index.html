@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260226) 백준 알고리즘 통합 아카이브</title>
+    <style>
+      :root {
+        --vs-bg: #1e1e1e;
+        --vs-card: #252526;
+        --vs-header: #333333;
+        --vs-text: #d4d4d4;
+        --vs-keyword: #569cd6;
+        --vs-class: #4ec9b0;
+        --vs-str: #ce9178;
+        --vs-num: #b5cea8;
+        --vs-comment: #6a9955;
+        --primary: #61dafb;
+        --accent: #dcdcaa;
+      }
+      body {
+        font-family: "Consolas", "Monaco", "Pretendard", monospace;
+        background-color: var(--vs-bg);
+        color: var(--vs-text);
+        margin: 0;
+        padding: 40px 20px;
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 950px;
+        margin: 0 auto;
+      }
+      header {
+        margin-bottom: 30px;
+        border-left: 4px solid var(--primary);
+        padding-left: 20px;
+      }
+      header h1 {
+        color: #9cdcfe;
+        font-size: 1.8rem;
+        margin: 0;
+      }
+      header p {
+        color: var(--vs-comment);
+        margin-top: 5px;
+      }
+      details {
+        background-color: var(--vs-card);
+        border: 1px solid #454545;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      }
+      summary {
+        padding: 18px 25px;
+        cursor: pointer;
+        font-weight: bold;
+        color: var(--accent);
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--vs-header);
+      }
+      summary:hover {
+        background-color: #3d3d3d;
+      }
+      summary::after {
+        content: "▼";
+        font-size: 0.8rem;
+        color: var(--vs-comment);
+      }
+      details[open] summary::after {
+        content: "▲";
+      }
+      .content {
+        padding: 25px;
+        border-top: 1px solid #454545;
+      }
+      .desc-box {
+        background: #2d2d2d;
+        padding: 20px;
+        border-radius: 6px;
+        border-left: 4px solid var(--vs-comment);
+        margin-bottom: 20px;
+        color: #ddd;
+        font-size: 0.95rem;
+      }
+      .desc-box h4 {
+        color: var(--primary);
+        margin-top: 0;
+        margin-bottom: 12px;
+        border-bottom: 1px solid #444;
+        padding-bottom: 5px;
+      }
+      .desc-box p {
+        margin: 8px 0;
+      }
+      .rule-list {
+        margin: 15px 0;
+        padding-left: 20px;
+      }
+      .rule-list li {
+        margin-bottom: 8px;
+        list-style-type: disc;
+      }
+      .code-container {
+        background: #000;
+        border-radius: 6px;
+        padding: 20px;
+        border: 1px solid #333;
+        overflow-x: auto;
+      }
+      pre {
+        margin: 0;
+        font-size: 0.9rem;
+        tab-size: 4;
+      }
+      .kwd {
+        color: var(--vs-keyword);
+      }
+      .cls {
+        color: var(--vs-class);
+      }
+      .str {
+        color: var(--vs-str);
+      }
+      .num {
+        color: var(--vs-num);
+      }
+      .cmt {
+        color: var(--vs-comment);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+        font-size: 0.85rem;
+      }
+      th,
+      td {
+        border: 1px solid #444;
+        padding: 10px;
+        text-align: left;
+      }
+      th {
+        background: #333;
+        color: var(--accent);
+      }
+      .back-link {
+        display: block;
+        text-align: center;
+        margin: 60px auto;
+        color: var(--vs-text);
+        text-decoration: none;
+        font-weight: bold;
+        padding: 15px;
+        background: #333;
+        border-radius: 50px;
+        width: 280px;
+        transition: 0.3s;
+        border: 1px solid #444;
+      }
+      .back-link:hover {
+        background: var(--primary);
+        color: #1e1e1e;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>(260226) 백준 알고리즘</h1>
+        <p>
+          // 단어 뒤집기, 팰린드롬, 알파벳 개수, Run-Length Encoding 풀이
+          (JavaScript)
+        </p>
+      </header>
+
+      <details>
+        <summary>1. 문자열 뒤집기 — 백준 9093 단어 뒤집기 .js</summary>
+        <div class="content">
+          <div class="desc-box">
+            <h4>[문제 설명]</h4>
+            <p>
+              문장이 주어졌을 때, 각 단어를 뒤집어 출력하는 프로그램을
+              작성하시오.
+            </p>
+            <h4>[입력]</h4>
+            <p>
+              첫째 줄에 테스트 케이스의 수 T가 주어진다. 각 테스트 케이스는 한
+              줄로 이루어져 있으며, 영어 단어들이 공백으로 구분되어 주어진다.
+            </p>
+            <h4>[출력]</h4>
+            <p>각 테스트 케이스에 대해 단어를 뒤집어서 출력한다.</p>
+          </div>
+          <div class="code-container">
+            <pre>
+<span class="kwd">const</span> readline = require(<span class="str">'readline'</span>);
+<span class="kwd">const</span> rl = readline.createInterface({ input: process.stdin });
+<span class="kwd">const</span> lines = [];
+
+rl.on(<span class="str">'line'</span>, line =&gt; lines.push(line.trim()));
+rl.on(<span class="str">'close'</span>, () =&gt; {
+  <span class="kwd">const</span> T = <span class="cls">parseInt</span>(lines[<span class="num">0</span>]);
+  <span class="kwd">for</span> (<span class="kwd">let</span> i = <span class="num">1</span>; i &lt;= T; i++) {
+    <span class="cmt">// 각 단어를 split('')로 배열화 후 reverse().join('')으로 뒤집기</span>
+    <span class="cls">console</span>.log(
+      lines[i].split(<span class="str">' '</span>).map(w =&gt; w.split(<span class="str">''</span>).reverse().join(<span class="str">''</span>)).join(<span class="str">' '</span>)
+    );
+  }
+});</pre>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          2. 팰린드롬 판별 — 백준 10988 팰린드롬인지 확인하기 .js
+        </summary>
+        <div class="content">
+          <div class="desc-box">
+            <h4>[문제 설명]</h4>
+            <p>
+              알파벳 소문자로만 이루어진 단어가 주어진다. 이때, 이 단어가
+              팰린드롬인지 아닌지 확인하는 프로그램을 작성하시오.
+            </p>
+            <h4>[입력]</h4>
+            <p>
+              첫째 줄에 단어가 주어진다. 단어의 길이는 1보다 크거나 같고,
+              100보다 작거나 같다.
+            </p>
+            <h4>[출력]</h4>
+            <p>팰린드롬이면 1, 아니면 0을 출력한다.</p>
+          </div>
+          <div class="code-container">
+            <pre>
+<span class="kwd">const</span> readline = require(<span class="str">'readline'</span>);
+<span class="kwd">const</span> rl = readline.createInterface({ input: process.stdin });
+
+rl.on(<span class="str">'line'</span>, line =&gt; {
+  <span class="kwd">const</span> s = line.trim();
+  <span class="cmt">// 뒤집은 문자열과 원본이 같으면 팰린드롬</span>
+  <span class="kwd">const</span> reversed = s.split(<span class="str">''</span>).reverse().join(<span class="str">''</span>);
+  <span class="cls">console</span>.log(s === reversed ? <span class="num">1</span> : <span class="num">0</span>);
+  rl.close();
+});</pre>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>3. 특정 문자 개수 세기 — 백준 10808 알파벳 개수 .js</summary>
+        <div class="content">
+          <div class="desc-box">
+            <h4>[문제 설명]</h4>
+            <p>
+              알파벳 소문자로만 이루어진 단어 S가 주어진다. 각 알파벳이 단어에
+              몇 개가 포함되어 있는지 구하는 프로그램을 작성하시오.
+            </p>
+            <h4>[입력]</h4>
+            <p>
+              첫째 줄에 단어 S가 주어진다. 단어의 길이는 100을 넘지 않으며,
+              알파벳 소문자로만 이루어져 있다.
+            </p>
+            <h4>[출력]</h4>
+            <p>
+              단어에 포함되어 있는 a의 개수, b의 개수, ..., z의 개수를 공백으로
+              구분해서 출력한다.
+            </p>
+          </div>
+          <div class="code-container">
+            <pre>
+<span class="kwd">const</span> readline = require(<span class="str">'readline'</span>);
+<span class="kwd">const</span> rl = readline.createInterface({ input: process.stdin });
+
+rl.on(<span class="str">'line'</span>, line =&gt; {
+  <span class="kwd">const</span> s = line.trim();
+  <span class="cmt">// a~z 26개 알파벳 카운트 배열</span>
+  <span class="kwd">const</span> count = <span class="kwd">new</span> <span class="cls">Array</span>(<span class="num">26</span>).fill(<span class="num">0</span>);
+  <span class="kwd">for</span> (<span class="kwd">const</span> ch <span class="kwd">of</span> s) {
+    count[ch.charCodeAt(<span class="num">0</span>) - <span class="num">97</span>]++;
+  }
+  <span class="cls">console</span>.log(count.join(<span class="str">' '</span>));
+  rl.close();
+});</pre>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          4. 문자열 압축 (RLE) — 백준 16634 Run-Length Encoding, Run! .js
+        </summary>
+        <div class="content">
+          <div class="desc-box">
+            <h4>[문제 설명]</h4>
+            <p>
+              Run-Length Encoding(RLE) 인코딩/디코딩 프로그램을 작성하시오. 첫
+              글자가 E이면 인코딩, D이면 디코딩한다.
+            </p>
+            <h4>[입력]</h4>
+            <p>첫째 줄에 E 또는 D로 시작하고, 공백 후 메시지가 주어진다.</p>
+            <h4>[출력]</h4>
+            <p>
+              E이면 인코딩 결과, D이면 디코딩 결과를 출력한다. 인코딩 시 모든
+              문자에 반복 횟수를 붙인다.
+            </p>
+            <h4>[예시]</h4>
+            <table>
+              <tr>
+                <th>입력</th>
+                <th>출력</th>
+              </tr>
+              <tr>
+                <td>E HHHeellloWooorrrrlld!!</td>
+                <td>H3e2l3o1W1o3r4l2d1!2</td>
+              </tr>
+              <tr>
+                <td>D H3e2l3o1W1o3r4l2d1!2</td>
+                <td>HHHeellloWooorrrrlld!!</td>
+              </tr>
+            </table>
+          </div>
+          <div class="code-container">
+            <pre>
+<span class="kwd">const</span> readline = require(<span class="str">'readline'</span>);
+<span class="kwd">const</span> rl = readline.createInterface({ input: process.stdin });
+
+rl.on(<span class="str">'line'</span>, line =&gt; {
+  <span class="kwd">const</span> mode = line[<span class="num">0</span>];
+  <span class="kwd">const</span> msg = line.slice(<span class="num">2</span>);
+
+  <span class="kwd">if</span> (mode === <span class="str">'E'</span>) {
+    <span class="kwd">let</span> result = <span class="str">''</span>;
+    <span class="kwd">let</span> i = <span class="num">0</span>;
+    <span class="kwd">while</span> (i &lt; msg.length) {
+      <span class="kwd">const</span> ch = msg[i];
+      <span class="kwd">let</span> count = <span class="num">0</span>;
+      <span class="cmt">// 연속된 같은 문자 카운트</span>
+      <span class="kwd">while</span> (i &lt; msg.length &amp;&amp; msg[i] === ch) { count++; i++; }
+      <span class="cmt">// 1번 등장해도 숫자 붙임</span>
+      result += ch + count;
+    }
+    <span class="cls">console</span>.log(result);
+  } <span class="kwd">else</span> {
+    <span class="kwd">let</span> result = <span class="str">''</span>;
+    <span class="cmt">// 문자, 숫자 쌍으로 반복 복원</span>
+    <span class="kwd">for</span> (<span class="kwd">let</span> i = <span class="num">0</span>; i &lt; msg.length; i += <span class="num">2</span>) {
+      result += msg[i].repeat(<span class="cls">Number</span>(msg[i + <span class="num">1</span>]));
+    }
+    <span class="cls">console</span>.log(result);
+  }
+
+  rl.close();
+});</pre>
+          </div>
+        </div>
+      </details>
+
+      <a href="https://khy0819.github.io/Goormexp/" class="back-link"
+        >🏠 과제 목록으로 돌아가기</a
+      >
+    </div>
+  </body>
+</html>
