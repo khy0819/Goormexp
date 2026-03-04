@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/Goormexp/%EA%B3%BC%EC%A0%9C/Week08_(0222-0228)/260223-task/",
+  base: "/Goormexp/%EA%B3%BC%EC%A0%9C/Week08_(0222-0228)/260223-task/dist/",
   server: {
     port: 3002,
     proxy: {
