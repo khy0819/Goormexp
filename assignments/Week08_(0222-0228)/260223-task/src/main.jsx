@@ -7,7 +7,8 @@ import "./App.css";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     {/* basename은 vite.config.js의 base와 일치시켜야 합니다 */}
-    <BrowserRouter basename="/Goormexp/assignments/Week08_(0222-0228)/260223-task/dist">
+    <BrowserRouter>
+      {" "}
       <App />
     </BrowserRouter>
   </StrictMode>,
