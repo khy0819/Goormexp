@@ -5,6 +5,7 @@ export async function getMemos({ search = "", category = "" } = {}) {
   if (search) params.q = search;
   if (category) params.category = category;
 
+  // client.js에서 baseURL을 설정했으므로 "/memos"만 써도 됩니다.
   const res = await client.get("/memos", { params });
   const items = res.data.items ?? [];
   return items.map((m) => ({ ...m, pinned: m.isPinned }));
