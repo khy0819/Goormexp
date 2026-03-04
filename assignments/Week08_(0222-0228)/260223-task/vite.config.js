@@ -1,15 +1,15 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
+  base: "/Goormexp/assignments/Week08_(0222-0228)/260223-task/",
   plugins: [react()],
   server: {
     proxy: {
-      '/api': {
-        target: 'http://54.180.25.65:3002',
+      "/api": {
+        target: "http://54.180.25.65:3002",
         changeOrigin: true,
-        // /api/memos → http://54.180.25.65:3002/api/memos 로 그대로 전달
       },
     },
   },
-})
+});
