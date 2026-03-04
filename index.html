@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Goorm 과제 저장소 | 타임라인</title>
     <style>
-      /* --- 디자인 스타일 (기존과 동일) --- */
+      /* --- 디자인 스타일 --- */
       @font-face {
         font-family: "11StreetGothic";
         src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-Kor.woff2")
@@ -119,7 +119,6 @@
     </div>
 
     <script>
-      // ── GitHub API로 파일 목록 가져오기 ──
       async function fetchWeeklyData() {
         const owner = "khy0819";
         const repo = "Goormexp";
@@ -129,7 +128,6 @@
           const res = await fetch(apiUrl);
           const data = await res.json();
 
-          // 1. 과제 폴더 내 HTML 파일만 필터링 (불필요한 파일 제외)
           const htmlFiles = data.tree.filter(
             (f) =>
               f.path.includes("assignments/") &&
@@ -149,7 +147,6 @@
               : "기타 분류";
 
             const distIdx = parts.indexOf("dist");
-            // dist가 있으면 그 부모 폴더명을 과제 이름으로 사용
             const taskFolderName =
               distIdx >= 0 ? parts[distIdx - 1] : parts[parts.length - 2];
             const rawFileName = parts[parts.length - 1];
@@ -157,11 +154,15 @@
             let finalPath = f.path;
             let displayName = rawFileName;
 
-            // ✨ [핵심 수정] React 앱(dist)인 경우 폴더 경로로 접속 유도
+            // ✨ [핵심 수정]
+            // 1. dist 안에 있는 index.html만 실행 버튼으로 표시
             if (distIdx >= 0 && rawFileName === "index.html") {
               displayName = "🚀 메인 앱 실행 (React)";
-              // "dist/index.html" 대신 "dist/" 로 연결해서 경로 꼬임 방지
               finalPath = f.path.replace("index.html", "");
+            }
+            // 2. dist 밖에 있는(원본 소스) index.html은 목록에서 제외함 (흰 화면 방지)
+            else if (distIdx === -1 && rawFileName === "index.html") {
+              return;
             }
 
             if (!taskMap.has(taskFolderName)) {
@@ -169,13 +170,15 @@
             }
 
             const entry = taskMap.get(taskFolderName);
-            // dist에 있는 파일을 우선순위로 등록 (중복 제거)
+
+            // 중복 체크 및 등록
             const alreadyIdx = entry.files.findIndex(
               (x) => x.displayName === displayName,
             );
             if (alreadyIdx === -1) {
               entry.files.push({ path: finalPath, displayName });
             } else if (distIdx >= 0) {
+              // dist 버전이 나중에 발견되더라도 덮어쓰기
               entry.files[alreadyIdx] = { path: finalPath, displayName };
             }
           });
@@ -204,6 +207,9 @@
             const details = document.createElement("details");
             let html = `<summary>📂 ${week}</summary><div class="task-list">`;
 
+            // 주차별 정렬 및 렌더링
+            const sortedTasks = weeks[week];
+
             taskMap.forEach((task, name) => {
               if (task.weekLabel !== week) return;
               const fileCount = task.files.length;
@@ -229,10 +235,12 @@
                   </button>
                   <div class="file-list" id="files-${rowId}">
                     ${task.files
+                      .sort((a, b) =>
+                        a.displayName.localeCompare(b.displayName),
+                      )
                       .map(
-                        (file) => `
-                      <a href="${encodeURI(file.path)}" class="file-link">📄 ${file.displayName}</a>
-                    `,
+                        (file) =>
+                          `<a href="${encodeURI(file.path)}" class="file-link">📄 ${file.displayName}</a>`,
                       )
                       .join("")}
                   </div>
