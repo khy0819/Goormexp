@@ -1,23 +1,23 @@
-import { Routes, Route, useLocation } from "react-router-dom";
-import Layout from "./pages/Layout.jsx";
-import MemoListPage from "./pages/MemoListPage.jsx";
-import MemoDetailPage from "./pages/MemoDetailPage.jsx";
-import MemoFormPage from "./pages/MemoFormPage.jsx";
-import NotFoundPage from "./pages/NotFoundPage.jsx";
+import { Routes, Route } from 'react-router-dom'
+import Layout from './pages/Layout.jsx'
+import MemoListPage from './pages/MemoListPage.jsx'
+import MemoDetailPage from './pages/MemoDetailPage.jsx'
+import MemoFormPage from './pages/MemoFormPage.jsx'
+import NotFoundPage from './pages/NotFoundPage.jsx'
 
+// ✅ 3단계: Routes / Route로 URL-컴포넌트 매핑 테이블 작성
 export default function App() {
-  const location = useLocation();
-
   return (
     <Routes>
+      {/* ✅ 8단계: Layout을 부모 Route로 — Outlet으로 자식 렌더링 */}
       <Route path="/" element={<Layout />}>
-        {/* location.key를 key로 주면 경로 이동마다 MemoListPage 강제 리마운트 */}
-        <Route index element={<MemoListPage key={location.key} />} />
+        <Route index element={<MemoListPage />} />
         <Route path="memos/new" element={<MemoFormPage />} />
         <Route path="memos/:id" element={<MemoDetailPage />} />
         <Route path="memos/:id/edit" element={<MemoFormPage />} />
+        {/* ✅ 3단계: 존재하지 않는 경로 → 404 처리 */}
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
-  );
+  )
 }

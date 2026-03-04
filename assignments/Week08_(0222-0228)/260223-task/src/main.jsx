@@ -1,13 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-import "./index.css";
-import { HashRouter } from "react-router-dom"; // 👉 브라우저라우터 대신 해시라우터 불러오기
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import App from './App.jsx'
+import './App.css'
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <HashRouter>
+// ✅ 1단계: BrowserRouter로 전체 앱을 감싸서 라우팅 활성화
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <BrowserRouter>
       <App />
-    </HashRouter>
-  </React.StrictMode>,
-);
+    </BrowserRouter>
+  </StrictMode>,
+)
