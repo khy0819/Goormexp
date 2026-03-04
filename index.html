@@ -157,15 +157,23 @@
             let finalPath = f.path;
             let displayName = rawFileName;
 
-            // ✨ [핵심 수정] React 앱(dist)인 경우 폴더 경로로 접속 유도
+            // ── 수정할 부분 ──
             if (distIdx >= 0 && rawFileName === "index.html") {
               displayName = "🚀 메인 앱 실행 (React)";
-              // "dist/index.html" 대신 "dist/" 로 연결해서 경로 꼬임 방지
               finalPath = f.path.replace("index.html", "");
-            }
 
-            if (!taskMap.has(taskFolderName)) {
-              taskMap.set(taskFolderName, { weekLabel, files: [] });
+              // dist 폴더 안에 있는 것만 목록에 넣기 위해 push 실행
+              if (!taskMap.has(taskFolderName)) {
+                taskMap.set(taskFolderName, { weekLabel, files: [] });
+              }
+              taskMap
+                .get(taskFolderName)
+                .files.push({ path: finalPath, displayName });
+            } else if (rawFileName === "index.html") {
+              // ⚠️ dist 밖에 있는 원본 index.html은 아무것도 하지 않음 (목록에서 제외)
+              return;
+            } else {
+              // 그 외 일반 과제 파일들 처리
             }
 
             const entry = taskMap.get(taskFolderName);
