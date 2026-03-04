@@ -4,7 +4,6 @@ package-lock.json
 yarn.lock
 
 # 빌드 결과물
-dist/
 build/
 out/
 *.bundle.js
