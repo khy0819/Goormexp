@@ -9,6 +9,7 @@
       content="구름 KDT 과정의 여정을 기록하는 웹 아카이브입니다."
     />
     <style>
+      /* --- (기존 CSS 스타일은 동일하므로 생략하지만 실제 파일에는 그대로 두세요) --- */
       @font-face {
         font-family: "11StreetGothic";
         src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-KorLight.woff2")
@@ -30,7 +31,6 @@
         font-weight: 700;
         font-display: swap;
       }
-
       :root {
         --primary: #006241;
         --secondary: #e8f5e9;
@@ -57,7 +57,6 @@
         --arrow-default: #444444;
         --holiday-text: #ff8a80;
       }
-
       body {
         font-family: "11StreetGothic", "Pretendard", sans-serif;
         background: var(--bg);
@@ -72,7 +71,6 @@
         max-width: 750px;
         margin: 0 auto;
       }
-
       .theme-toggle {
         position: fixed;
         top: 20px;
@@ -86,7 +84,6 @@
         z-index: 1000;
         font-size: 1.2rem;
       }
-
       .header-controls {
         display: flex;
         align-items: center;
@@ -113,7 +110,6 @@
         transform: scale(1.1);
         background: var(--secondary);
       }
-
       .d-day-badge {
         background: var(--secondary);
         color: var(--primary);
@@ -124,7 +120,6 @@
         border: 1px solid var(--primary);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
       }
-
       header {
         text-align: center;
         margin-bottom: 50px;
@@ -143,8 +138,6 @@
         color: var(--holiday-text);
         font-weight: 700;
       }
-
-      /* 로더 */
       .loader-wrapper {
         display: flex;
         flex-direction: column;
@@ -221,8 +214,6 @@
         color: var(--primary);
         font-weight: 700;
       }
-
-      /* 주차 카드 */
       details {
         background: var(--card-bg);
         margin-bottom: 20px;
@@ -251,16 +242,12 @@
       .task-list {
         padding: 5px 15px 20px;
       }
-
-      /* 과제 행 */
       .task-row {
         margin-bottom: 10px;
         border-radius: 15px;
         overflow: hidden;
         border: 1px solid var(--border);
       }
-
-      /* 과제 헤더 (파일 1개면 바로 링크, 여러 개면 토글) */
       .task-header {
         display: flex;
         align-items: center;
@@ -278,11 +265,6 @@
         background: var(--bg);
         color: var(--primary);
       }
-      .task-header.single:hover .arrow {
-        color: var(--primary);
-        transform: translateX(5px);
-      }
-
       .tag {
         width: 60px;
         text-align: center;
@@ -329,8 +311,6 @@
         margin-right: 10px;
         white-space: nowrap;
       }
-
-      /* 하위 파일 목록 */
       .file-list {
         display: none;
         border-top: 1px solid var(--border);
@@ -350,9 +330,6 @@
         transition: all 0.2s;
         gap: 10px;
       }
-      .file-link:last-child {
-        border-bottom: none;
-      }
       .file-link:hover {
         background: var(--secondary);
         color: var(--primary);
@@ -370,12 +347,6 @@
         color: var(--arrow-default);
         transition: all 0.2s;
       }
-      .file-link:hover .file-arrow {
-        color: var(--primary);
-        transform: translateX(4px);
-      }
-
-      /* 토글 화살표 회전 */
       .task-row.expanded .arrow {
         transform: rotate(90deg);
         color: var(--primary);
@@ -411,7 +382,7 @@
     </div>
 
     <script>
-      // ── 테마 ──
+      // ── 테마 & D-Day ── (기존 로직 동일)
       const themeBtn = document.getElementById("theme-btn");
       const savedTheme = localStorage.getItem("theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
@@ -422,7 +393,6 @@
         localStorage.setItem("theme", next);
       });
 
-      // ── D-Day ──
       function updateDDay() {
         const targetDate = new Date("2026-07-16T00:00:00");
         const diff = targetDate - new Date();
@@ -435,7 +405,6 @@
         else badge.innerHTML = `✨ <strong>수료 완료!</strong>`;
       }
 
-      // ── 오늘 일정 ──
       function updateTodaySchedule() {
         const holidays = [
           "2026-02-16",
@@ -464,7 +433,7 @@
       updateDDay();
       updateTodaySchedule();
 
-      // ── GitHub API로 파일 목록 가져오기 ──
+      // ── GitHub API ──
       async function fetchWeeklyData() {
         const owner = "khy0819";
         const repo = "Goormexp";
@@ -474,21 +443,21 @@
           const res = await fetch(apiUrl);
           const data = await res.json();
 
-          // 과제/ 하위의 모든 .html 파일 수집
+          // ⚠️ 수정 포인트: 더 깔끔한 필터링 및 경로 처리
           const htmlFiles = data.tree.filter(
             (f) =>
               f.path.includes("assignments/") &&
               f.path.endsWith(".html") &&
-              f.path !== "index.html",
+              f.path !== "index.html" &&
+              !f.path.includes("node_modules"),
           );
 
-          // taskFolderName → { weekLabel, files: [{path, fileName}] } 로 그룹화
-          const taskMap = new Map(); // key: taskFolderName
+          const taskMap = new Map();
 
           htmlFiles.forEach((f) => {
             const parts = f.path.split("/");
 
-            // 주차 폴더 찾기
+            // 1. 주차 찾기 (week가 포함된 폴더)
             const weekFolder = parts.find((p) =>
               p.toLowerCase().includes("week"),
             );
@@ -496,16 +465,15 @@
               ? weekFolder.toUpperCase().replace(/_/g, " ")
               : "기타 분류";
 
-            // dist 폴더 여부
+            // 2. 과제명 폴더 찾기 (dist 바로 앞 혹은 마지막에서 두번째)
             const distIdx = parts.indexOf("dist");
             const taskFolderName =
               distIdx >= 0 ? parts[distIdx - 1] : parts[parts.length - 2];
 
-            // 파일명 (경로의 마지막 세그먼트)
+            // 3. 표시 이름 결정
             const rawFileName = parts[parts.length - 1];
-            // index.html 은 "메인" 으로 표시
             const displayName =
-              rawFileName === "index.html" ? "메인 (index.html)" : rawFileName;
+              rawFileName === "index.html" ? "메인 앱 실행" : rawFileName;
 
             if (!taskMap.has(taskFolderName)) {
               taskMap.set(taskFolderName, { weekLabel, files: [] });
@@ -513,19 +481,17 @@
 
             const entry = taskMap.get(taskFolderName);
 
-            // dist/index.html 우선 → 같은 displayName 중복 방지
+            // 4. dist/index.html 중복 방지 (dist에 있는 파일을 우선시)
             const alreadyIdx = entry.files.findIndex(
               (x) => x.displayName === displayName,
             );
             if (alreadyIdx === -1) {
               entry.files.push({ path: f.path, displayName });
             } else if (distIdx >= 0) {
-              // dist 버전으로 교체
               entry.files[alreadyIdx] = { path: f.path, displayName };
             }
           });
 
-          // 주차별로 재그룹
           const weeks = {};
           taskMap.forEach((val, taskFolderName) => {
             const { weekLabel, files } = val;
@@ -533,7 +499,6 @@
             weeks[weekLabel].push({ name: taskFolderName, files });
           });
 
-          // 렌더링
           const container = document.getElementById("task-container");
           document.getElementById("loader").style.display = "none";
           container.style.display = "block";
@@ -546,12 +511,7 @@
                 a.name.localeCompare(b.name),
               );
 
-              let html = `
-                <summary>
-                  <span>📂 ${week}</span>
-                  <span style="font-size:0.8rem;opacity:0.4;">${tasks.length} Tasks</span>
-                </summary>
-                <div class="task-list">`;
+              let html = `<summary><span>📂 ${week}</span><span style="font-size:0.8rem;opacity:0.4;">${tasks.length} Tasks</span></summary><div class="task-list">`;
 
               tasks.forEach((task) => {
                 const parts = task.name.split("-");
@@ -566,45 +526,18 @@
                 const fileCount = task.files.length;
 
                 if (fileCount === 1) {
-                  // 파일 1개 → 바로 링크
-                  html += `
-                    <div class="task-row">
-                      <a href="${encodeURI(task.files[0].path)}" class="task-header single">
-                        <span class="tag ${isQuiz ? "quiz" : "task"}">${isQuiz ? "QUIZ" : "TASK"}</span>
-                        <span class="task-date">${dateStr}</span>
-                        <span class="task-title">${titleStr}</span>
-                        <span class="arrow">→</span>
-                      </a>
-                    </div>`;
+                  html += `<div class="task-row"><a href="${encodeURI(task.files[0].path)}" class="task-header single"><span class="tag ${isQuiz ? "quiz" : "task"}">${isQuiz ? "QUIZ" : "TASK"}</span><span class="task-date">${dateStr}</span><span class="task-title">${titleStr}</span><span class="arrow">→</span></a></div>`;
                 } else {
-                  // 파일 여러 개 → 토글
                   const rowId = `row-${task.name.replace(/\s/g, "-")}`;
-                  html += `
-                    <div class="task-row" id="${rowId}">
-                      <button class="task-header" onclick="toggleFiles('${rowId}')">
-                        <span class="tag ${isQuiz ? "quiz" : "task"}">${isQuiz ? "QUIZ" : "TASK"}</span>
-                        <span class="task-date">${dateStr}</span>
-                        <span class="task-title">${titleStr}</span>
-                        <span class="file-count">${fileCount}개 파일</span>
-                        <span class="arrow">›</span>
-                      </button>
-                      <div class="file-list" id="files-${rowId}">`;
-
+                  html += `<div class="task-row" id="${rowId}"><button class="task-header" onclick="toggleFiles('${rowId}')"><span class="tag ${isQuiz ? "quiz" : "task"}">${isQuiz ? "QUIZ" : "TASK"}</span><span class="task-date">${dateStr}</span><span class="task-title">${titleStr}</span><span class="file-count">${fileCount}개 파일</span><span class="arrow">›</span></button><div class="file-list" id="files-${rowId}">`;
                   task.files
                     .sort((a, b) => a.displayName.localeCompare(b.displayName))
                     .forEach((file) => {
-                      html += `
-                        <a href="${encodeURI(file.path)}" class="file-link">
-                          <span class="file-icon">📄</span>
-                          <span class="file-name">${file.displayName}</span>
-                          <span class="file-arrow">→</span>
-                        </a>`;
+                      html += `<a href="${encodeURI(file.path)}" class="file-link"><span class="file-icon">📄</span><span class="file-name">${file.displayName}</span><span class="file-arrow">→</span></a>`;
                     });
-
                   html += `</div></div>`;
                 }
               });
-
               html += `</div>`;
               details.innerHTML = html;
               container.appendChild(details);
@@ -615,7 +548,6 @@
         }
       }
 
-      // 파일 목록 토글
       function toggleFiles(rowId) {
         const row = document.getElementById(rowId);
         const list = document.getElementById(`files-${rowId}`);
