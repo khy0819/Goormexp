@@ -9,7 +9,7 @@
       content="구름 KDT 과정의 여정을 기록하는 웹 아카이브입니다."
     />
     <style>
-      /* ===== CSS 전체 동일 (생략 없이 유지) ===== */
+      /* --- (보내주신 기존 CSS 스타일 100% 유지) --- */
       @font-face {
         font-family: "11StreetGothic";
         src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-KorLight.woff2")
@@ -31,6 +31,7 @@
         font-weight: 700;
         font-display: swap;
       }
+
       :root {
         --primary: #006241;
         --secondary: #e8f5e9;
@@ -57,6 +58,7 @@
         --arrow-default: #444444;
         --holiday-text: #ff8a80;
       }
+
       body {
         font-family: "11StreetGothic", "Pretendard", sans-serif;
         background: var(--bg);
@@ -354,14 +356,16 @@
     </style>
   </head>
   <body>
-    <button class="theme-toggle" id="theme-btn">🌓</button>
+    <button class="theme-toggle" id="theme-btn" title="테마 변경">🌓</button>
 
     <div class="container">
       <header>
         <h1>WEB ARCHIVE</h1>
         <p id="today-schedule">오늘도 코딩 중!</p>
         <div class="header-controls">
-          <a href="curriculum.html" class="calendar-btn">📅</a>
+          <a href="curriculum.html" class="calendar-btn" title="전체 일정 보기"
+            >📅</a
+          >
           <div id="d-day-badge" class="d-day-badge">D-Day 계산 중...</div>
         </div>
       </header>
@@ -380,6 +384,7 @@
     </div>
 
     <script>
+      // ── (보내주신 로직 그대로 유지) ──
       const themeBtn = document.getElementById("theme-btn");
       const savedTheme = localStorage.getItem("theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
@@ -430,113 +435,151 @@
       updateDDay();
       updateTodaySchedule();
 
+      // ── (수정된 핵심 데이터 로드 로직) ──
       async function fetchWeeklyData() {
         const owner = "khy0819";
         const repo = "Goormexp";
-        const githubBase = `https://${owner}.github.io/${repo}/`;
         const apiUrl = `https://api.github.com/repos/${owner}/${repo}/git/trees/main?recursive=1`;
 
         try {
           const res = await fetch(apiUrl);
           const data = await res.json();
 
+          // 1. assignments 폴더 내 모든 HTML 수집 (node_modules 제외)
           const htmlFiles = data.tree.filter(
             (f) =>
               f.path.includes("assignments/") &&
               f.path.endsWith(".html") &&
-              f.path !== "index.html" &&
               !f.path.includes("node_modules"),
           );
 
-          const taskMap = new Map();
+          // 주차별(WEEK01~08)로 과제를 담을 객체
+          const weeks = {};
 
           htmlFiles.forEach((f) => {
             const parts = f.path.split("/");
+
+            // 2. 주차 라벨 추출 (WEEK01~08)
             const weekFolder = parts.find((p) =>
               p.toLowerCase().includes("week"),
             );
             const weekLabel = weekFolder
               ? weekFolder.toUpperCase().replace(/_/g, " ")
               : "기타 분류";
-            const distIdx = parts.indexOf("dist");
-            const taskFolderName =
-              distIdx >= 0 ? parts[distIdx - 1] : parts[parts.length - 2];
-            const rawFileName = parts[parts.length - 1];
-            const displayName =
-              rawFileName === "index.html" ? "메인 앱 실행" : rawFileName;
 
-            if (!taskMap.has(taskFolderName)) {
-              taskMap.set(taskFolderName, { weekLabel, files: [] });
+            // 3. 과제 폴더명 및 파일명 추출
+            const distIdx = parts.indexOf("dist");
+            const taskName =
+              distIdx >= 0 ? parts[distIdx - 1] : parts[parts.length - 2];
+            const fileName = parts[parts.length - 1];
+
+            // 4. [수정 사항 반영] React 앱(dist) 처리 및 원본 index.html 숨기기
+            let finalPath = f.path;
+            let displayName = fileName;
+
+            if (distIdx >= 0 && fileName === "index.html") {
+              displayName = "🚀 메인 앱 실행 (React)";
+              finalPath = f.path.replace("index.html", ""); // 폴더 경로로 접속
+            } else if (distIdx === -1 && fileName === "index.html") {
+              // ⚠️ dist 밖의 원본 index.html은 리스트에서 완전 제외 (흰 화면 방지)
+              return;
             }
 
-            const entry = taskMap.get(taskFolderName);
-            const alreadyIdx = entry.files.findIndex(
+            // 객체 구조에 데이터 추가
+            if (!weeks[weekLabel]) weeks[weekLabel] = {};
+            if (!weeks[weekLabel][taskName]) weeks[weekLabel][taskName] = [];
+
+            // 중복 방지 체크 후 추가
+            const alreadyExists = weeks[weekLabel][taskName].find(
               (x) => x.displayName === displayName,
             );
-
-            if (alreadyIdx === -1) {
-              entry.files.push({ path: f.path, displayName });
-            } else if (distIdx >= 0) {
-              entry.files[alreadyIdx] = { path: f.path, displayName };
+            if (!alreadyExists) {
+              weeks[weekLabel][taskName].push({ path: finalPath, displayName });
             }
           });
 
-          const weeks = {};
-          taskMap.forEach((val, taskFolderName) => {
-            const { weekLabel, files } = val;
-            if (!weeks[weekLabel]) weeks[weekLabel] = [];
-            weeks[weekLabel].push({ name: taskFolderName, files });
-          });
-
-          const container = document.getElementById("task-container");
-          document.getElementById("loader").style.display = "none";
-          container.style.display = "block";
-
-          Object.keys(weeks)
-            .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
-            .forEach((week) => {
-              const details = document.createElement("details");
-              const tasks = weeks[week].sort((a, b) =>
-                a.name.localeCompare(b.name),
-              );
-              let html = `<summary><span>📂 ${week}</span><span style="font-size:0.8rem;opacity:0.4;">${tasks.length} Tasks</span></summary><div class="task-list">`;
-
-              tasks.forEach((task) => {
-                const parts = task.name.split("-");
-                const isQuiz = task.name.toUpperCase().includes("QUIZ");
-                const dateStr = parts[0] || "";
-                const titleStr =
-                  parts
-                    .slice(1)
-                    .join("-")
-                    .replace(/^(QUIZ|TASK)[-_]?/i, "")
-                    .trim() || "과제물";
-                const fileCount = task.files.length;
-
-                if (fileCount === 1) {
-                  html += `<div class="task-row"><a href="${githubBase}${encodeURI(task.files[0].path)}" class="task-header single" target="_blank"><span class="tag ${isQuiz ? "quiz" : "task"}">${isQuiz ? "QUIZ" : "TASK"}</span><span class="task-date">${dateStr}</span><span class="task-title">${titleStr}</span><span class="arrow">→</span></a></div>`;
-                } else {
-                  const rowId = `row-${task.name.replace(/\s/g, "-")}`;
-                  html += `<div class="task-row" id="${rowId}"><button class="task-header" onclick="toggleFiles('${rowId}')"><span class="tag ${isQuiz ? "quiz" : "task"}">${isQuiz ? "QUIZ" : "TASK"}</span><span class="task-date">${dateStr}</span><span class="task-title">${titleStr}</span><span class="file-count">${fileCount}개 파일</span><span class="arrow">›</span></button><div class="file-list" id="files-${rowId}">`;
-
-                  task.files
-                    .sort((a, b) => a.displayName.localeCompare(b.displayName))
-                    .forEach((file) => {
-                      html += `<a href="${githubBase}${encodeURI(file.path)}" class="file-link" target="_blank"><span class="file-icon">📄</span><span class="file-name">${file.displayName}</span><span class="file-arrow">→</span></a>`;
-                    });
-
-                  html += `</div></div>`;
-                }
-              });
-
-              html += `</div>`;
-              details.innerHTML = html;
-              container.appendChild(details);
-            });
+          renderAllWeeks(weeks);
         } catch (e) {
           document.getElementById("loader").innerHTML =
-            "☁️ 데이터 로드에 실패했습니다.";
+            "☁️ 데이터를 가져오지 못했습니다.";
         }
+      }
+
+      function renderAllWeeks(weeks) {
+        const container = document.getElementById("task-container");
+        document.getElementById("loader").style.display = "none";
+        container.style.display = "block";
+        container.innerHTML = "";
+
+        // ⚠️ [수정 사항 반영] 모든 주차(1~8)를 숫자 순서대로 정렬
+        const sortedWeekKeys = Object.keys(weeks).sort((a, b) => {
+          return a.localeCompare(b, undefined, {
+            numeric: true,
+            sensitivity: "base",
+          });
+        });
+
+        sortedWeekKeys.forEach((week) => {
+          const details = document.createElement("details");
+          // 최근 주차(WEEK08)는 자동으로 펼쳐두기
+          if (week.includes("08")) details.open = true;
+
+          let html = `<summary><span>📂 ${week}</span><span style="font-size:0.8rem;opacity:0.4;">Tasks: ${Object.keys(weeks[week]).length}</span></summary><div class="task-list">`;
+
+          const taskNames = Object.keys(weeks[week]).sort();
+          taskNames.forEach((name) => {
+            const files = weeks[week][name];
+            const isQuiz = name.toUpperCase().includes("QUIZ");
+            const parts = name.split("-");
+            const dateStr = parts[0] || "";
+            const titleStr =
+              parts
+                .slice(1)
+                .join("-")
+                .replace(/^(QUIZ|TASK)[-_]?/i, "")
+                .trim() || "과제물";
+
+            if (files.length === 1) {
+              html += `
+                <div class="task-row">
+                  <a href="${encodeURI(files[0].path)}" class="task-header">
+                    <span class="tag ${isQuiz ? "quiz" : "task"}">${isQuiz ? "QUIZ" : "TASK"}</span>
+                    <span class="task-date">${dateStr}</span>
+                    <span class="task-title">${titleStr}</span>
+                    <span class="arrow">→</span>
+                  </a>
+                </div>`;
+            } else {
+              const rowId = `row-${week}-${name}`.replace(/\s/g, "-");
+              html += `
+                <div class="task-row" id="${rowId}">
+                  <button class="task-header" onclick="toggleFiles('${rowId}')">
+                    <span class="tag ${isQuiz ? "quiz" : "task"}">${isQuiz ? "QUIZ" : "TASK"}</span>
+                    <span class="task-date">${dateStr}</span>
+                    <span class="task-title">${titleStr}</span>
+                    <span class="file-count">${files.length}개 파일</span>
+                    <span class="arrow">›</span>
+                  </button>
+                  <div class="file-list" id="files-${rowId}">
+                    ${files
+                      .sort((a, b) =>
+                        a.displayName.localeCompare(b.displayName),
+                      )
+                      .map(
+                        (f) => `
+                      <a href="${encodeURI(f.path)}" class="file-link">📄 ${f.displayName}</a>
+                    `,
+                      )
+                      .join("")}
+                  </div>
+                </div>`;
+            }
+          });
+
+          html += `</div>`;
+          details.innerHTML = html;
+          container.appendChild(details);
+        });
       }
 
       function toggleFiles(rowId) {
