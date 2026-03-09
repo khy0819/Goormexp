@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260309) 알고리즘</title>
+    <style>
+      :root {
+        --vs-bg: #1e1e1e;
+        --vs-card: #252526;
+        --vs-header: #333333;
+        --vs-text: #d4d4d4;
+        --vs-keyword: #569cd6;
+        --vs-class: #4ec9b0;
+        --vs-str: #ce9178;
+        --vs-num: #b5cea8;
+        --vs-comment: #6a9955;
+        --primary: #61dafb;
+        --accent: #dcdcaa;
+      }
+      body {
+        font-family: "Consolas", "Monaco", "Pretendard", monospace;
+        background-color: var(--vs-bg);
+        color: var(--vs-text);
+        margin: 0;
+        padding: 40px 20px;
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 950px;
+        margin: 0 auto;
+      }
+      header {
+        margin-bottom: 30px;
+        border-left: 4px solid var(--primary);
+        padding-left: 20px;
+      }
+      header h1 {
+        color: #9cdcfe;
+        font-size: 1.8rem;
+        margin: 0;
+      }
+      header p {
+        color: var(--vs-comment);
+        margin-top: 5px;
+      }
+      details {
+        background-color: var(--vs-card);
+        border: 1px solid #454545;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      }
+      summary {
+        padding: 18px 25px;
+        cursor: pointer;
+        font-weight: bold;
+        color: var(--accent);
+        background-color: var(--vs-header);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      summary:hover {
+        background-color: #3d3d3d;
+      }
+      .content {
+        padding: 25px;
+        border-top: 1px solid #454545;
+      }
+      .desc-box {
+        background: #2d2d2d;
+        padding: 20px;
+        border-radius: 6px;
+        border-left: 4px solid var(--vs-comment);
+        margin-bottom: 20px;
+        color: #ddd;
+        font-size: 0.95rem;
+      }
+      .desc-box h4 {
+        color: var(--primary);
+        margin-top: 15px;
+        margin-bottom: 8px;
+        border-bottom: 1px solid #444;
+        padding-bottom: 5px;
+      }
+      .desc-box h4:first-child {
+        margin-top: 0;
+      }
+      .url-text {
+        color: var(--vs-str);
+        font-size: 0.85rem;
+        word-break: break-all;
+        margin-bottom: 15px;
+        display: block;
+      }
+      .code-container {
+        background: #000;
+        border-radius: 6px;
+        padding: 20px;
+        border: 1px solid #333;
+        overflow-x: auto;
+      }
+      pre {
+        margin: 0;
+        font-size: 0.9rem;
+        tab-size: 4;
+      }
+      .kwd {
+        color: var(--vs-keyword);
+      }
+      .cls {
+        color: var(--vs-class);
+      }
+      .num {
+        color: var(--vs-num);
+      }
+      .cmt {
+        color: var(--vs-comment);
+      }
+      .str {
+        color: var(--vs-str);
+      }
+      .lang-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        padding: 2px 8px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+      .lang-js {
+        background: #f7df1e;
+        color: #1e1e1e;
+      }
+      .back-link {
+        display: block;
+        text-align: center;
+        margin: 60px auto;
+        color: var(--vs-text);
+        text-decoration: none;
+        font-weight: bold;
+        padding: 15px;
+        background: #333;
+        border-radius: 50px;
+        width: 280px;
+        transition: 0.3s;
+        border: 1px solid #444;
+      }
+      .back-link:hover {
+        background: var(--primary);
+        color: #1e1e1e;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>(260309) 알고리즘</h1>
+      </header>
+
+      <details>
+        <summary>5. 숨바꼭질 — 백준 1697 .js</summary>
+        <div class="content">
+          <div class="desc-box">
+            <h4>[문제 주소]</h4>
+            <span class="url-text">https://www.acmicpc.net/problem/1697</span>
+
+            <h4>[풀이 과정]</h4>
+            <p>
+              1. <b>왜 BFS인가?</b>: 수빈이가 이동하는 모든 경우의 수는 가중치가
+              1초로 동일하다. 따라서 '가장 먼저 동생의 위치에 도달하는 경로'가
+              곧 최단 시간이 되므로 BFS가 적합하다.
+            </p>
+            <p>
+              2. <b>상태 정의</b>: 현재 위치를 노드로, (X-1, X+1, 2*X)를
+              간선으로 생각한다.
+            </p>
+            <p>
+              3. <b>중복 방지</b>: 한 번 방문한 위치를 다시 방문하는 것은 이미
+              최단 거리가 아니므로 `visited` 배열을 사용하여 이미 확인한 좌표는
+              큐에 넣지 않는다.
+            </p>
+            <p>
+              4. <b>최적화</b>: 동생의 위치가 수빈이보다 뒤에 있다면 오직
+              걷기(-1)로만 갈 수 있다는 예외를 고려하여 범위를 0~100,000으로
+              제한한다.
+            </p>
+          </div>
+
+          <div class="lang-badge lang-js">Node.js</div>
+          <div class="code-container">
+            <pre>
+<span class="kwd">const</span> fs = require(<span class="str">'fs'</span>);
+<span class="kwd">const</span> [N, K] = fs.readFileSync(<span class="str">'/dev/stdin'</span>).toString().split(<span class="str">' '</span>).map(<span class="cls">Number</span>);
+
+<span class="kwd">const</span> visited = <span class="kwd">new</span> <span class="cls">Array</span>(<span class="num">100001</span>).fill(<span class="num">0</span>);
+<span class="kwd">const</span> queue = [[N, <span class="num">0</span>]];
+visited[N] = <span class="num">1</span>;
+
+<span class="kwd">let</span> head = <span class="num">0</span>;
+<span class="kwd">while</span> (queue.length > head) {
+    <span class="kwd">const</span> [cur, time] = queue[head++];
+    <span class="kwd">if</span> (cur === K) {
+        <span class="cls">console</span>.log(time);
+        <span class="kwd">break</span>;
+    }
+    <span class="kwd">for</span> (<span class="kwd">let</span> next <span class="kwd">of</span> [cur - <span class="num">1</span>, cur + <span class="num">1</span>, cur * <span class="num">2</span>]) {
+        <span class="kwd">if</span> (next >= <span class="num">0</span> && next <= <span class="num">100000</span> && !visited[next]) {
+            visited[next] = <span class="num">1</span>;
+            queue.push([next, time + <span class="num">1</span>]);
+        }
+    }
+}</pre>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>6. 미로 탐색 — 백준 2178 .js</summary>
+        <div class="content">
+          <div class="desc-box">
+            <h4>[문제 주소]</h4>
+            <span class="url-text">https://www.acmicpc.net/problem/2178</span>
+
+            <h4>[풀이 과정]</h4>
+            <p>
+              1. <b>최단 경로 탐색</b>: 격자판 미로에서 이동 횟수를 구하는
+              전형적인 최단 거리 문제. 한 칸씩 사방으로 뻗어나가는 BFS를
+              사용하여 처음 (N, M)에 도달하는 값을 찾는다.
+            </p>
+            <p>
+              2. <b>좌표 이동</b>: 상, 하, 좌, 우 4방향을 나타내는 `dx`, `dy`
+              배열을 사용하여 반복문으로 다음 좌표를 계산한다.
+            </p>
+            <p>
+              3. <b>메모리 관리</b>: 별도의 방문 배열을 만들 수도 있지만, 원본
+              미로 배열(`map`)에서 방문한 칸을 0(벽)으로 바꾸거나 거리를 누적
+              기록하면 메모리를 절약할 수 있다.
+            </p>
+          </div>
+
+          <div class="lang-badge lang-js">Node.js</div>
+          <div class="code-container">
+            <pre>
+<span class="kwd">const</span> fs = require(<span class="str">'fs'</span>);
+<span class="kwd">const</span> input = fs.readFileSync(<span class="str">'/dev/stdin'</span>).toString().trim().split(<span class="str">'\n'</span>);
+<span class="kwd">const</span> [N, M] = input[<span class="num">0</span>].split(<span class="str">' '</span>).map(<span class="cls">Number</span>);
+<span class="kwd">const</span> map = input.slice(<span class="num">1</span>).map(line => line.split(<span class="str">''</span>).map(<span class="cls">Number</span>));
+
+<span class="kwd">const</span> dx = [-<span class="num">1</span>, <span class="num">1</span>, <span class="num">0</span>, <span class="num">0</span>], dy = [<span class="num">0</span>, <span class="num">0</span>, -<span class="num">1</span>, <span class="num">1</span>];
+<span class="kwd">const</span> queue = [[<span class="num">0</span>, <span class="num">0</span>, <span class="num">1</span>]];
+map[<span class="num">0</span>][<span class="num">0</span>] = <span class="num">0</span>;
+
+<span class="kwd">let</span> head = <span class="num">0</span>;
+<span class="kwd">while</span> (queue.length > head) {
+    <span class="kwd">const</span> [x, y, dist] = queue[head++];
+    <span class="kwd">if</span> (x === N - <span class="num">1</span> && y === M - <span class="num">1</span>) {
+        <span class="cls">console</span>.log(dist);
+        <span class="kwd">break</span>;
+    }
+    <span class="kwd">for</span> (<span class="kwd">let</span> i = <span class="num">0</span>; i < <span class="num">4</span>; i++) {
+        <span class="kwd">const</span> nx = x + dx[i], ny = y + dy[i];
+        <span class="kwd">if</span> (nx >= <span class="num">0</span> && nx < N && ny >= <span class="num">0</span> && ny < M && map[nx][ny] === <span class="num">1</span>) {
+            map[nx][ny] = <span class="num">0</span>;
+            queue.push([nx, ny, dist + <span class="num">1</span>]);
+        }
+    }
+}</pre>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>7. 토마토 — 백준 7576 .js</summary>
+        <div class="content">
+          <div class="desc-box">
+            <h4>[문제 주소]</h4>
+            <span class="url-text">https://www.acmicpc.net/problem/7576</span>
+
+            <h4>[사고방식 및 풀이 과정]</h4>
+            <p>
+              1. <b>다중 시작점(Multi-source)</b>:'익은 토마토'가 여러 개일 수
+              있고, 이들이 동시에 주변으로 퍼져나간다는 점이다. 따라서 BFS 시작
+              전, 모든 익은 토마토의 위치를 먼저 큐에 삽입해야 한다.
+            </p>
+            <p>
+              2. <b>종료 조건 체크</b>: 모든 토마토가 익었는지 확인하기 위해
+              BFS가 끝난 뒤 전체 판을 다시 검사하는 대신, 초기에 '안 익은
+              토마토'의 총 개수를 세어두고, 토마토가 익을 때마다 개수를
+              줄여나가는 방식이 효율적이다.
+            </p>
+            <p>
+              3. <b>날짜 계산</b>: 큐에 `[x, y, date]` 형태로 날짜 정보를 함께
+              저장하여, 마지막 토마토가 익었을 때의 `date` 값이 곧 최소 날짜가
+              된다.
+            </p>
+          </div>
+
+          <div class="lang-badge lang-js">Node.js</div>
+          <div class="code-container">
+            <pre>
+<span class="kwd">const</span> fs = require(<span class="str">'fs'</span>);
+<span class="kwd">const</span> input = fs.readFileSync(<span class="str">'/dev/stdin'</span>).toString().trim().split(<span class="str">'\n'</span>);
+<span class="kwd">const</span> [M, N] = input[<span class="num">0</span>].split(<span class="str">' '</span>).map(<span class="cls">Number</span>);
+<span class="kwd">const</span> box = input.slice(<span class="num">1</span>).map(line => line.split(<span class="str">' '</span>).map(<span class="cls">Number</span>));
+
+<span class="kwd">const</span> queue = [];
+<span class="kwd">let</span> unripe = <span class="num">0</span>;
+<span class="kwd">for</span> (<span class="kwd">let</span> i = <span class="num">0</span>; i < N; i++) {
+    <span class="kwd">for</span> (<span class="kwd">let</span> j = <span class="num">0</span>; j < M; j++) {
+        <span class="kwd">if</span> (box[i][j] === <span class="num">1</span>) queue.push([i, j, <span class="num">0</span>]);
+        <span class="kwd">else if</span> (box[i][j] === <span class="num">0</span>) unripe++;
+    }
+}
+
+<span class="kwd">const</span> dx = [-<span class="num">1</span>, <span class="num">1</span>, <span class="num">0</span>, <span class="num">0</span>], dy = [<span class="num">0</span>, <span class="num">0</span>, -<span class="num">1</span>, <span class="num">1</span>];
+<span class="kwd">let</span> head = <span class="num">0</span>, days = <span class="num">0</span>;
+
+<span class="kwd">while</span> (queue.length > head) {
+    <span class="kwd">const</span> [x, y, d] = queue[head++];
+    days = d;
+    <span class="kwd">for</span> (<span class="kwd">let</span> i = <span class="num">0</span>; i < <span class="num">4</span>; i++) {
+        <span class="kwd">const</span> nx = x + dx[i], ny = y + dy[i];
+        <span class="kwd">if</span> (nx >= <span class="num">0</span> && nx < N && ny >= <span class="num">0</span> && ny < M && box[nx][ny] === <span class="num">0</span>) {
+            box[nx][ny] = <span class="num">1</span>;
+            unripe--;
+            queue.push([nx, ny, d + <span class="num">1</span>]);
+        }
+    }
+}
+<span class="cls">console</span>.log(unripe === <span class="num">0</span> ? days : -<span class="num">1</span>);</pre>
+          </div>
+        </div>
+      </details>
+
+      <a href="https://khy0819.github.io/Goormexp/" class="back-link"
+        >🏠 과제 목록으로 돌아가기</a
+      >
+    </div>
+  </body>
+</html>
