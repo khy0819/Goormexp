@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260310) DFS & BFS</title>
+    <style>
+      :root {
+        --vs-bg: #1e1e1e;
+        --vs-card: #252526;
+        --vs-header: #333333;
+        --vs-text: #d4d4d4;
+        --vs-keyword: #569cd6;
+        --vs-class: #4ec9b0;
+        --vs-str: #ce9178;
+        --vs-num: #b5cea8;
+        --vs-comment: #6a9955;
+        --primary: #61dafb;
+        --accent: #dcdcaa;
+      }
+      body {
+        font-family: "Consolas", "Monaco", "Pretendard", monospace;
+        background-color: var(--vs-bg);
+        color: var(--vs-text);
+        margin: 0;
+        padding: 40px 20px;
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 950px;
+        margin: 0 auto;
+      }
+      header {
+        margin-bottom: 30px;
+        border-left: 4px solid var(--primary);
+        padding-left: 20px;
+      }
+      header h1 {
+        color: #9cdcfe;
+        font-size: 1.8rem;
+        margin: 0;
+      }
+      details {
+        background-color: var(--vs-card);
+        border: 1px solid #454545;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      }
+      summary {
+        padding: 18px 25px;
+        cursor: pointer;
+        font-weight: bold;
+        color: var(--accent);
+        background-color: var(--vs-header);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      summary:hover {
+        background-color: #3d3d3d;
+      }
+      .content {
+        padding: 25px;
+        border-top: 1px solid #454545;
+      }
+      .desc-box {
+        background: #2d2d2d;
+        padding: 20px;
+        border-radius: 6px;
+        border-left: 4px solid var(--vs-comment);
+        margin-bottom: 20px;
+        color: #ddd;
+        font-size: 0.95rem;
+      }
+      .desc-box h4 {
+        color: var(--primary);
+        margin-top: 15px;
+        margin-bottom: 8px;
+        border-bottom: 1px solid #444;
+        padding-bottom: 5px;
+      }
+      .desc-box h4:first-child {
+        margin-top: 0;
+      }
+      .url-text {
+        color: var(--vs-str);
+        font-size: 0.85rem;
+        word-break: break-all;
+        margin-bottom: 15px;
+        display: block;
+      }
+      .code-container {
+        background: #000;
+        border-radius: 6px;
+        padding: 20px;
+        border: 1px solid #333;
+        overflow-x: auto;
+      }
+      pre {
+        margin: 0;
+        font-size: 0.9rem;
+        tab-size: 4;
+      }
+      .kwd {
+        color: var(--vs-keyword);
+      }
+      .cls {
+        color: var(--vs-class);
+      }
+      .num {
+        color: var(--vs-num);
+      }
+      .cmt {
+        color: var(--vs-comment);
+      }
+      .str {
+        color: var(--vs-str);
+      }
+      .lang-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        padding: 2px 8px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        background: #f7df1e;
+        color: #1e1e1e;
+      }
+      .back-link {
+        display: block;
+        text-align: center;
+        margin: 60px auto;
+        color: var(--vs-text);
+        text-decoration: none;
+        font-weight: bold;
+        padding: 15px;
+        background: #333;
+        border-radius: 50px;
+        width: 280px;
+        transition: 0.3s;
+        border: 1px solid #444;
+      }
+      .back-link:hover {
+        background: var(--primary);
+        color: #1e1e1e;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>(260310) DFS & BFS</h1>
+      </header>
+
+      <details>
+        <summary>1. DFS와 BFS — 백준 1260 .js</summary>
+        <div class="content">
+          <div class="desc-box">
+            <h4>[문제 주소]</h4>
+            <span class="url-text">https://www.acmicpc.net/problem/1260</span>
+
+            <h4>[사고방식 및 풀이 과정]</h4>
+            <p>
+              1. <b>정렬이 핵심</b>: 동일한 거리에 노드가 여러 개일 때 작은
+              번호를 먼저 가야 하므로 <b>오름차순 정렬</b>이 필수다.
+            </p>
+            <p>2. <b>DFS</b>: 한 놈만 끝까지 패는 전략 (재귀 호출 활용).</p>
+            <p>3. <b>BFS</b>: 주변부터 넓게 훑는 전략 (Queue 자료구조 활용).</p>
+          </div>
+
+          <div class="lang-badge">Node.js</div>
+          <div class="code-container">
+            <pre>
+<span class="kwd">const</span> fs = require(<span class="str">'fs'</span>);
+<span class="kwd">const</span> input = fs.readFileSync(<span class="str">'/dev/stdin'</span>).toString().trim().split(<span class="str">'\n'</span>);
+
+<span class="cmt">// N: 정점 개수, M: 간선 개수, V: 시작 정점</span>
+<span class="kwd">const</span> [N, M, V] = input[<span class="num">0</span>].split(<span class="str">' '</span>).map(<span class="cls">Number</span>);
+<span class="kwd">const</span> graph = <span class="cls">Array</span>.from({ length: N + <span class="num">1</span> }, () => []);
+
+<span class="cmt">// 인접 리스트 빌드 (양방향 연결)</span>
+<span class="kwd">for</span> (<span class="kwd">let</span> i = <span class="num">1</span>; i <= M; i++) {
+    <span class="kwd">const</span> [u, v] = input[i].split(<span class="str">' '</span>).map(<span class="cls">Number</span>);
+    graph[u].push(v);
+    graph[v].push(u);
+}
+
+<span class="cmt">// 번호가 작은 노드부터 방문하기 위해 오름차순 정렬</span>
+graph.forEach(arr => arr.sort((a, b) => a - b));
+
+<span class="cmt">// --- DFS 구현 (재귀) ---</span>
+<span class="kwd">const</span> dfsResult = [];
+<span class="kwd">const</span> visitedD = <span class="kwd">new</span> <span class="cls">Array</span>(N + <span class="num">1</span>).fill(<span class="kwd">false</span>);
+
+<span class="kwd">function</span> <span class="cls">dfs</span>(v) {
+    visitedD[v] = <span class="kwd">true</span>; <span class="cmt">// 방문 도장 쾅!</span>
+    dfsResult.push(v);
+    <span class="kwd">for</span> (<span class="kwd">const</span> next <span class="kwd">of</span> graph[v]) {
+        <span class="kwd">if</span> (!visitedD[next]) <span class="cls">dfs</span>(next); <span class="cmt">// 미방문 노드로 깊게 파고들기</span>
+    }
+}
+
+<span class="cmt">// --- BFS 구현 (Queue) ---</span>
+<span class="kwd">const</span> bfsResult = [];
+<span class="kwd">const</span> visitedB = <span class="kwd">new</span> <span class="cls">Array</span>(N + <span class="num">1</span>).fill(<span class="kwd">false</span>);
+
+<span class="kwd">function</span> <span class="cls">bfs</span>(start) {
+    <span class="kwd">const</span> q = [start];
+    visitedB[start] = <span class="kwd">true</span>;
+    <span class="kwd">while</span> (q.length) {
+        <span class="kwd">const</span> v = q.shift(); <span class="cmt">// 큐 앞에서 노드 꺼내기</span>
+        bfsResult.push(v);
+        <span class="kwd">for</span> (<span class="kwd">const</span> next <span class="kwd">of</span> graph[v]) {
+            <span class="kwd">if</span> (!visitedB[next]) {
+                visitedB[next] = <span class="kwd">true</span>;
+                q.push(next); <span class="cmt">// 주변 노드 큐에 예약하기</span>
+            }
+        }
+    }
+}
+
+<span class="cls">dfs</span>(V); <span class="cls">bfs</span>(V);
+<span class="cls">console</span>.log(dfsResult.join(<span class="str">' '</span>));
+<span class="cls">console</span>.log(bfsResult.join(<span class="str">' '</span>));</pre>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>2. 단지번호붙이기 — 백준 2667 .js</summary>
+        <div class="content">
+          <div class="desc-box">
+            <h4>[문제 주소]</h4>
+            <span class="url-text">https://www.acmicpc.net/problem/2667</span>
+
+            <h4>[사고방식 및 풀이 과정]</h4>
+            <p>
+              1. <b>전수 조사</b>: 지도의 모든 칸을 뒤지다가 1(집)을 만나면 그
+              단지를 박살(?)낸다.
+            </p>
+            <p>
+              2. <b>Flood Fill</b>: 1인 곳을 방문하면 다시는 못 오게 0으로
+              지워버린다.
+            </p>
+          </div>
+
+          <div class="lang-badge">Node.js</div>
+          <div class="code-container">
+            <pre>
+<span class="kwd">const</span> fs = require(<span class="str">'fs'</span>);
+<span class="kwd">const</span> input = fs.readFileSync(<span class="str">'/dev/stdin'</span>).toString().trim().split(<span class="str">'\n'</span>);
+<span class="kwd">const</span> N = <span class="cls">Number</span>(input[<span class="num">0</span>]);
+<span class="cmt">// 문자열로 들어오는 지도를 2차원 숫자 배열로 변환</span>
+<span class="kwd">const</span> map = input.slice(<span class="num">1</span>).map(l => l.split(<span class="str">''</span>).map(<span class="cls">Number</span>));
+
+<span class="cmt">// 상하좌우 이동을 위한 방향 벡터</span>
+<span class="kwd">const</span> dr = [-<span class="num">1</span>, <span class="num">1</span>, <span class="num">0</span>, <span class="num">0</span>], dc = [<span class="num">0</span>, <span class="num">0</span>, -<span class="num">1</span>, <span class="num">1</span>];
+<span class="kwd">const</span> complexes = [];
+
+<span class="kwd">function</span> <span class="cls">dfs</span>(r, c) {
+    map[r][c] = <span class="num">0</span>; <span class="cmt">// 방문한 집은 0으로 만들어 중복 카운트 방지</span>
+    <span class="kwd">let</span> count = <span class="num">1</span>;
+    <span class="kwd">for</span> (<span class="kwd">let</span> i = <span class="num">0</span>; i < <span class="num">4</span>; i++) {
+        <span class="kwd">const</span> nr = r + dr[i], nc = c + dc[i];
+        <span class="cmt">// 지도 범위 내에 있고 아직 방문하지 않은 집(1)인 경우</span>
+        <span class="kwd">if</span> (nr >= <span class="num">0</span> && nr < N && nc >= <span class="num">0</span> && nc < N && map[nr][nc] === <span class="num">1</span>) {
+            count += <span class="cls">dfs</span>(nr, nc);
+        }
+    }
+    <span class="kwd">return</span> count;
+}
+
+<span class="cmt">// 지도를 순회하며 단지 찾기</span>
+<span class="kwd">for</span> (<span class="kwd">let</span> i = <span class="num">0</span>; i < N; i++) {
+    <span class="kwd">for</span> (<span class="kwd">let</span> j = <span class="num">0</span>; j < N; j++) {
+        <span class="kwd">if</span> (map[i][j] === <span class="num">1</span>) {
+            complexes.push(<span class="cls">dfs</span>(i, j)); <span class="cmt">// 새 단지 발견! 크기 측정 시작</span>
+        }
+    }
+}
+
+<span class="cmt">// 오름차순 정렬 후 출력 규격에 맞춰 출력</span>
+complexes.sort((a, b) => a - b);
+<span class="cls">console</span>.log(complexes.length + <span class="str">'\n'</span> + complexes.join(<span class="str">'\n'</span>));</pre>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>3. 유기농 배추 — 백준 1012 .js</summary>
+        <div class="content">
+          <div class="desc-box">
+            <h4>[문제 주소]</h4>
+            <span class="url-text">https://www.acmicpc.net/problem/1012</span>
+
+            <h4>[사고방식 및 풀이 과정]</h4>
+            <p>
+              1. <b>연결 요소 개수</b>: 배추들이 모여있는 덩어리가 몇 개인지를
+              찾는 문제다.
+            </p>
+            <p>
+              2. <b>다중 테스트 케이스</b>: T만큼 반복문을 돌리며 매번 새로운
+              필드를 생성해야 함에 주의한다.
+            </p>
+          </div>
+
+          <div class="lang-badge">Node.js</div>
+          <div class="code-container">
+            <pre>
+<span class="kwd">const</span> fs = require(<span class="str">'fs'</span>);
+<span class="kwd">const</span> input = fs.readFileSync(<span class="str">'/dev/stdin'</span>).toString().trim().split(<span class="str">'\n'</span>);
+<span class="kwd">let</span> line = <span class="num">0</span>;
+<span class="kwd">const</span> T = <span class="cls">Number</span>(input[line++]); <span class="cmt">// 테스트 케이스 개수</span>
+
+<span class="kwd">while</span> (line < input.length) {
+    <span class="cmt">// M: 가로, N: 세로, K: 배추 개수</span>
+    <span class="kwd">const</span> [M, N, K] = input[line++].split(<span class="str">' '</span>).map(<span class="cls">Number</span>);
+    <span class="kwd">const</span> field = <span class="cls">Array</span>.from({ length: N }, () => <span class="cls">Array</span>(M).fill(<span class="num">0</span>));
+
+    <span class="cmt">// 배추 심기 (좌표 Y, X 주의)</span>
+    <span class="kwd">for</span> (<span class="kwd">let</span> i = <span class="num">0</span>; i < K; i++) {
+        <span class="kwd">const</span> [x, y] = input[line++].split(<span class="str">' '</span>).map(<span class="cls">Number</span>);
+        field[y][x] = <span class="num">1</span>;
+    }
+
+    <span class="kwd">let</span> worms = <span class="num">0</span>;
+    <span class="cmt">// 전체 밭을 돌며 지렁이가 필요한 배추 덩어리 탐색</span>
+    <span class="kwd">for</span> (<span class="kwd">let</span> i = <span class="num">0</span>; i < N; i++) {
+        <span class="kwd">for</span> (<span class="kwd">let</span> j = <span class="num">0</span>; j < M; j++) {
+            <span class="kwd">if</span> (field[i][j] === <span class="num">1</span>) {
+                worms++; <span class="cmt">// 지렁이 1마리 추가</span>
+                <span class="cls">bfs</span>(i, j, field, N, M); <span class="cmt">// 연결된 모든 배추 방문 완료 처리</span>
+            }
+        }
+    }
+    <span class="cls">console</span>.log(worms);
+}
+
+<span class="kwd">function</span> <span class="cls">bfs</span>(r, c, field, N, M) {
+    <span class="kwd">const</span> q = [[r, c]];
+    field[r][c] = <span class="num">0</span>; <span class="cmt">// 방문 처리</span>
+    <span class="kwd">const</span> dr = [-<span class="num">1</span>, <span class="num">1</span>, <span class="num">0</span>, <span class="num">0</span>], dc = [<span class="num">0</span>, <span class="num">0</span>, -<span class="num">1</span>, <span class="num">1</span>];
+    <span class="kwd">while</span> (q.length) {
+        <span class="kwd">const</span> [currR, currC] = q.shift();
+        <span class="kwd">for</span> (<span class="kwd">let</span> i = <span class="num">0</span>; i < <span class="num">4</span>; i++) {
+            <span class="kwd">const</span> nr = currR + dr[i], nc = currC + dc[i];
+            <span class="kwd">if</span> (nr >= <span class="num">0</span> && nr < N && nc >= <span class="num">0</span> && nc < M && field[nr][nc] === <span class="num">1</span>) {
+                field[nr][nc] = <span class="num">0</span>;
+                q.push([nr, nc]);
+            }
+        }
+    }
+}</pre>
+          </div>
+        </div>
+      </details>
+
+      <a href="https://khy0819.github.io/Goormexp/" class="back-link"
+        >🏠 과제 목록으로 돌아가기</a
+      >
+    </div>
+  </body>
+</html>
