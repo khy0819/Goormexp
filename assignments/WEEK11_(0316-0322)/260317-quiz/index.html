@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260317) React Query Full Archive</title>
+    <style>
+      :root {
+        --vs-bg: #1e1e1e;
+        --vs-card: #252526;
+        --vs-header: #333333;
+        --vs-text: #d4d4d4;
+        --vs-keyword: #569cd6;
+        --vs-class: #4ec9b0;
+        --vs-str: #ce9178;
+        --vs-num: #b5cea8;
+        --vs-comment: #6a9955;
+        --primary: #61dafb;
+        --accent: #dcdcaa;
+      }
+      body {
+        font-family: "Consolas", "Monaco", "Pretendard", monospace;
+        background-color: var(--vs-bg);
+        color: var(--vs-text);
+        margin: 0;
+        padding: 40px 20px;
+        line-height: 1.6;
+        text-align: justify;
+        word-break: break-all;
+      }
+      .container {
+        max-width: 950px;
+        margin: 0 auto;
+      }
+      header {
+        margin-bottom: 30px;
+        border-left: 4px solid var(--primary);
+        padding-left: 20px;
+        text-align: left;
+      }
+      header h1 {
+        color: #9cdcfe;
+        font-size: 1.8rem;
+        margin: 0;
+      }
+      header p {
+        color: var(--vs-comment);
+        margin-top: 5px;
+      }
+      .answer-sheet {
+        background: #2d2d2d;
+        border: 1px solid var(--primary);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 40px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 12px;
+      }
+      .answer-sheet h2 {
+        grid-column: 1 / -1;
+        color: var(--primary);
+        font-size: 1.1rem;
+        margin: 0 0 15px 0;
+        border-bottom: 1px solid #444;
+        padding-bottom: 10px;
+      }
+      .ans-item {
+        font-size: 0.85rem;
+        border-bottom: 1px solid #3d3d3d;
+        padding: 8px 0;
+        display: flex;
+        align-items: flex-start;
+      }
+      .ans-item b {
+        color: var(--accent);
+        margin-right: 8px;
+        min-width: 35px;
+        flex-shrink: 0;
+      }
+      .section-title {
+        color: var(--primary);
+        font-size: 1.4rem;
+        margin: 40px 0 20px 0;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #333;
+        text-align: left;
+      }
+      .quiz-item {
+        background-color: var(--vs-card);
+        border: 1px solid #454545;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      .quiz-header {
+        background-color: var(--vs-header);
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        color: #aaa;
+        display: flex;
+        justify-content: space-between;
+      }
+      .quiz-body {
+        padding: 25px;
+      }
+      .quiz-body h3 {
+        font-size: 1.05rem;
+        margin-top: 0;
+        color: var(--accent);
+        margin-bottom: 15px;
+        text-align: left;
+      }
+      .ans-box {
+        background: #2d2d2d;
+        padding: 12px 15px;
+        border-radius: 6px;
+        margin: 10px 0 20px 0;
+        border-left: 4px solid var(--primary);
+      }
+      .ans-label {
+        color: var(--primary);
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+        font-size: 0.9rem;
+      }
+      .explanation {
+        font-size: 0.85rem;
+        color: #cccccc;
+        margin: 0;
+      }
+      .back-link {
+        display: block;
+        text-align: center;
+        margin: 60px auto;
+        color: var(--vs-text);
+        text-decoration: none;
+        font-weight: bold;
+        padding: 15px;
+        background: #333;
+        border-radius: 50px;
+        width: 250px;
+        transition: 0.3s;
+        border: 1px solid #444;
+      }
+      .back-link:hover {
+        background: var(--primary);
+        color: #1e1e1e;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>(260317) React Query 1-20 Full Archive</h1>
+        <p>// Server State Management Complete Guide</p>
+      </header>
+
+      <section class="answer-sheet">
+        <h2>정답 요약 (1~20)</h2>
+        <div class="ans-item"><b>Q1.</b> 서버 상태 관리</div>
+        <div class="ans-item"><b>Q2.</b> queryKey & queryFn</div>
+        <div class="ans-item"><b>Q3.</b> 캐시 식별 및 자동 리렌더링</div>
+        <div class="ans-item"><b>Q4.</b> staleTime: 신선도 유지 시간</div>
+        <div class="ans-item"><b>Q5.</b> gcTime: 캐시 삭제 대기 시간</div>
+        <div class="ans-item"><b>Q6.</b> isLoading: 첫 로딩</div>
+        <div class="ans-item"><b>Q7.</b> useMutation: 데이터 수정</div>
+        <div class="ans-item"><b>Q8.</b> invalidateQueries</div>
+        <div class="ans-item"><b>Q9.</b> enabled: 조건부 실행</div>
+        <div class="ans-item"><b>Q10.</b> QueryClientProvider</div>
+        <div class="ans-item"><b>Q11.</b> retry: 자동 재시도</div>
+        <div class="ans-item"><b>Q12.</b> select: 데이터 추출/가공</div>
+        <div class="ans-item"><b>Q13.</b> prefetchQuery: 미리 불러오기</div>
+        <div class="ans-item"><b>Q14.</b> setQueryData: 캐시 직접 수정</div>
+        <div class="ans-item"><b>Q15.</b> useInfiniteQuery: 무한 스크롤</div>
+        <div class="ans-item"><b>Q16.</b> placeholderData: 가짜 데이터</div>
+        <div class="ans-item"><b>Q17.</b> refetchOnWindowFocus</div>
+        <div class="ans-item"><b>Q18.</b> queryKey 배열 구조</div>
+        <div class="ans-item"><b>Q19.</b> error 부수효과: isError</div>
+        <div class="ans-item"><b>Q20.</b> 선언적 데이터 페칭</div>
+      </section>
+
+      <h2 class="section-title">Topic: Query & Cache (Q1 - Q10)</h2>
+      <div class="quiz-item">
+        <div class="quiz-body">
+          <h3>Q1. React Query의 본질적인 역할은?</h3>
+          <div class="ans-box">
+            <span class="ans-label">정답: 서버 상태(Server State)의 관리</span>
+            <p class="explanation">
+              서버 데이터를 페칭하고 캐싱하며, 업데이트하는 로직을 표준화한다.
+            </p>
+          </div>
+
+          <h3>Q2. useQuery의 필수 옵션 두 가지는?</h3>
+          <div class="ans-box">
+            <span class="ans-label">정답: queryKey, queryFn</span>
+            <p class="explanation">
+              데이터를 식별할 키와 데이터를 가져올 비동기 함수가 반드시
+              필요하다.
+            </p>
+          </div>
+
+          <h3>Q3. Query Key를 배열로 관리하는 주된 이유는?</h3>
+          <div class="ans-box">
+            <span class="ans-label">정답: 계층적 캐시 식별과 의존성 관리</span>
+            <p class="explanation">
+              배열 내부 값이 변하면 쿼리가 자동으로 다시 호출되게 만든다.
+            </p>
+          </div>
+
+          <h3>Q4. staleTime이 0일 때의 동작 방식은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: 데이터를 즉시 '상한 것'으로 간주하여 매번 다시
+              요청한다</span
+            >
+            <p class="explanation">
+              기본값이 0이므로, 별도 설정이 없으면 항상 백그라운드에서 신선도를
+              체크한다.
+            </p>
+          </div>
+
+          <h3>Q5. gcTime(구 cacheTime)은 언제 시작되는가?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: 해당 데이터를 사용하는 컴포넌트가 언마운트된 시점부터</span
+            >
+            <p class="explanation">
+              사용되지 않는 데이터를 메모리에서 언제 지울지 결정하는 타이머가
+              작동한다.
+            </p>
+          </div>
+
+          <h3>Q6. isLoading과 isFetching의 차이는?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: 초기 로딩(데이터 없음) vs 전체 페칭 상태</span
+            >
+            <p class="explanation">
+              isLoading은 캐시가 아예 없을 때만 true, isFetching은 백그라운드
+              갱신 시에도 true가 된다.
+            </p>
+          </div>
+
+          <h3>Q7. useMutation을 사용하는 주된 상황은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: 서버 데이터를 변경(CUD)하는 요청을 보낼 때</span
+            >
+            <p class="explanation">
+              POST, PUT, DELETE 요청처럼 서버 상태를 변형하는 액션을 처리한다.
+            </p>
+          </div>
+
+          <h3>Q8. Mutation 성공 후 데이터를 최신화하는 표준 기법은?</h3>
+          <div class="ans-box">
+            <span class="ans-label">정답: invalidateQueries 호출</span>
+            <p class="explanation">
+              관련된 키의 캐시를 무효화하여 컴포넌트가 최신 데이터를 다시
+              불러오게 한다.
+            </p>
+          </div>
+
+          <h3>Q9. enabled 옵션의 유용한 활용 사례는?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: 검색어가 비어있을 때 API 호출을 막는 경우</span
+            >
+            <p class="explanation">
+              의존성 변수가 준비되지 않았을 때 쿼리가 실행되지 않도록
+              지연시킨다.
+            </p>
+          </div>
+
+          <h3>
+            Q10. React Query를 앱 전체에서 쓰기 위해 감싸야 하는 컴포넌트는?
+          </h3>
+          <div class="ans-box">
+            <span class="ans-label">정답: QueryClientProvider</span>
+            <p class="explanation">
+              Context API를 기반으로 모든 하위 컴포넌트에 캐시 클라이언트를
+              전달한다.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Topic: Advanced & UX (Q11 - Q20)</h2>
+      <div class="quiz-item">
+        <div class="quiz-body">
+          <h3>Q11. API 에러 시 재시도 횟수를 조정하는 옵션은?</h3>
+          <div class="ans-box">
+            <span class="ans-label">정답: retry</span>
+            <p class="explanation">
+              기본값은 3회이며, 특정 에러 코드에 따라 재시도 여부를 결정할 수도
+              있다.
+            </p>
+          </div>
+
+          <h3>
+            Q12. 서버 응답 데이터에서 특정 필드만 골라내고 싶을 때 쓰는 옵션은?
+          </h3>
+          <div class="ans-box">
+            <span class="ans-label">정답: select</span>
+            <p class="explanation">
+              컴포넌트 내부에 복잡한 변형 로직을 두지 않고, 캐시 데이터에서
+              원하는 형태만 추출해 준다.
+            </p>
+          </div>
+
+          <h3>
+            Q13. 사용자가 다음 페이지로 가기 전에 데이터를 미리 준비하는 기법은?
+          </h3>
+          <div class="ans-box">
+            <span class="ans-label">정답: prefetchQuery</span>
+            <p class="explanation">
+              마우스를 버튼에 올리는 등 특정 행동 시 미리 호출하여 체감 로딩을
+              0으로 만든다.
+            </p>
+          </div>
+
+          <h3>Q14. mutation 없이 캐시 데이터를 수동으로 수정하고 싶다면?</h3>
+          <div class="ans-box">
+            <span class="ans-label">정답: setQueryData</span>
+            <p class="explanation">
+              서버 요청 없이 로컬 캐시를 강제로 업데이트할 때 유용하다.
+            </p>
+          </div>
+
+          <h3>Q15. getNextPageParam 옵션을 사용하는 쿼리 훅은?</h3>
+          <div class="ans-box">
+            <span class="ans-label">정답: useInfiniteQuery</span>
+            <p class="explanation">
+              페이지네이션이나 무한 스크롤 구현 시 다음 페이지 번호를 계산하기
+              위해 쓴다.
+            </p>
+          </div>
+
+          <h3>
+            Q16. 데이터가 아직 로딩 중일 때 보여줄 가짜 데이터를 설정하려면?
+          </h3>
+          <div class="ans-box">
+            <span class="ans-label">정답: placeholderData</span>
+            <p class="explanation">
+              초기 렌더링 시 레이아웃 깨짐을 방지하기 위해 정적인 기초 데이터를
+              제공한다.
+            </p>
+          </div>
+
+          <h3>
+            Q17. 브라우저 탭을 이동했다가 돌아왔을 때 자동 갱신되는 원인은?
+          </h3>
+          <div class="ans-box">
+            <span class="ans-label">정답: refetchOnWindowFocus 설정 때문</span>
+            <p class="explanation">
+              최신 데이터를 보장하기 위한 기본 정책이며, 비활성화할 수도 있다.
+            </p>
+          </div>
+
+          <h3>Q18. Query Key 설계 시 주의해야 할 점은?</h3>
+          <div class="ans-box">
+            <span class="ans-label"
+              >정답: 유일성을 보장하고 의존성 변수를 빠짐없이 포함해야
+              한다</span
+            >
+            <p class="explanation">
+              의존성 배열을 빠뜨리면 값이 변해도 데이터가 새로고침되지 않는다.
+            </p>
+          </div>
+
+          <h3>
+            Q19. 에러 발생 시 UI에 에러 메시지를 보여주려면 어떤 값을 체크하나?
+          </h3>
+          <div class="ans-box">
+            <span class="ans-label">정답: isError 상태와 error 객체</span>
+            <p class="explanation">
+              isError가 true일 때 에러 경계나 알림 메시지를 렌더링한다.
+            </p>
+          </div>
+
+          <h3>Q20. React Query가 지향하는 프로그래밍 스타일은?</h3>
+          <div class="ans-box">
+            <span class="ans-label">정답: 선언적(Declarative) 데이터 페칭</span>
+            <p class="explanation">
+              데이터를 '어떻게' 가져오는지 일일이 지시하지 않고, 상태를
+              '정의'하는 방식이다.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <a href="https://khy0819.github.io/Goormexp/" class="back-link"
+        >🏠 과제 목록으로 돌아가기</a
+      >
+    </div>
+  </body>
+</html>
