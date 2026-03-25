@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(260319) React 퀴즈</title>
+    <style>
+      :root {
+        --vs-bg: #1e1e1e;
+        --vs-card: #252526;
+        --vs-header: #333333;
+        --vs-text: #d4d4d4;
+        --vs-keyword: #569cd6;
+        --vs-class: #4ec9b0;
+        --vs-str: #ce9178;
+        --vs-num: #b5cea8;
+        --vs-comment: #6a9955;
+        --primary: #61dafb;
+        --accent: #dcdcaa;
+      }
+      body {
+        font-family: "Consolas", "Monaco", "Pretendard", monospace;
+        background-color: var(--vs-bg);
+        color: var(--vs-text);
+        margin: 0;
+        padding: 40px 20px;
+        line-height: 1.6;
+        text-align: justify;
+        word-break: break-all;
+      }
+      .container {
+        max-width: 950px;
+        margin: 0 auto;
+      }
+      header {
+        margin-bottom: 30px;
+        border-left: 4px solid var(--primary);
+        padding-left: 20px;
+        text-align: left;
+      }
+      header h1 {
+        color: #9cdcfe;
+        font-size: 1.8rem;
+        margin: 0;
+      }
+      header p {
+        color: var(--vs-comment);
+        margin-top: 5px;
+      }
+      .answer-sheet {
+        background: #2d2d2d;
+        border: 1px solid var(--primary);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 40px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 12px;
+      }
+      .answer-sheet h2 {
+        grid-column: 1 / -1;
+        color: var(--primary);
+        font-size: 1.1rem;
+        margin: 0 0 15px 0;
+        border-bottom: 1px solid #444;
+        padding-bottom: 10px;
+      }
+      .ans-item {
+        font-size: 0.85rem;
+        border-bottom: 1px solid #3d3d3d;
+        padding: 8px 0;
+        display: flex;
+        align-items: flex-start;
+      }
+      .ans-item b {
+        color: var(--accent);
+        margin-right: 8px;
+        min-width: 35px;
+        flex-shrink: 0;
+      }
+      .section-title {
+        color: var(--primary);
+        font-size: 1.4rem;
+        margin: 40px 0 20px 0;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #333;
+        text-align: left;
+      }
+      .quiz-item {
+        background-color: var(--vs-card);
+        border: 1px solid #454545;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      .quiz-body {
+        padding: 25px;
+      }
+      .quiz-body h3 {
+        font-size: 1.05rem;
+        margin-top: 0;
+        color: var(--accent);
+        margin-bottom: 15px;
+        text-align: left;
+      }
+      .ans-box {
+        background: #2d2d2d;
+        padding: 12px 15px;
+        border-radius: 6px;
+        margin: 10px 0 20px 0;
+        border-left: 4px solid var(--primary);
+      }
+      .ans-label {
+        color: var(--primary);
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+        font-size: 0.9rem;
+      }
+      .explanation {
+        font-size: 0.85rem;
+        color: #cccccc;
+        margin: 0;
+      }
+      .back-link {
+        display: block;
+        text-align: center;
+        margin: 60px auto;
+        color: var(--vs-text);
+        text-decoration: none;
+        font-weight: bold;
+        padding: 15px;
+        background: #333;
+        border-radius: 50px;
+        width: 250px;
+        transition: 0.3s;
+        border: 1px solid #444;
+      }
+      .back-link:hover {
+        background: var(--primary);
+        color: #1e1e1e;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>(260319) React 퀴즈</h1>
+        <p>// Authentication, Authorization, JWT, Web Security 정리</p>
+      </header>
+
+      <section class="answer-sheet">
+        <h2>정답 (1~15)</h2>
+        <div class="ans-item"><b>Q1.</b> Stateless (무상태성)</div>
+        <div class="ans-item"><b>Q2.</b> 인증 (Authentication)</div>
+        <div class="ans-item"><b>Q3.</b> 인가 (Authorization)</div>
+        <div class="ans-item"><b>Q4.</b> JWT (JSON Web Token)</div>
+        <div class="ans-item"><b>Q5.</b> Header, Payload, Signature</div>
+        <div class="ans-item"><b>Q6.</b> LocalStorage (XSS에 취약)</div>
+        <div class="ans-item"><b>Q7.</b> HttpOnly Cookie</div>
+        <div class="ans-item"><b>Q8.</b> XSS (Cross-Site Scripting)</div>
+        <div class="ans-item"><b>Q9.</b> CSRF (Cross-Site Request Forgery)</div>
+        <div class="ans-item"><b>Q10.</b> Access Token (짧은 수명)</div>
+        <div class="ans-item"><b>Q11.</b> Refresh Token (재발급용)</div>
+        <div class="ans-item"><b>Q12.</b> Authorization: Bearer {token}</div>
+        <div class="ans-item"><b>Q13.</b> Axios Interceptor</div>
+        <div class="ans-item"><b>Q14.</b> OAuth 2.0</div>
+        <div class="ans-item"><b>Q15.</b> 클라이언트 측 검증 (UX용)</div>
+      </section>
+
+      <a href="https://khy0819.github.io/Goormexp/" class="back-link"
+        >🏠 과제 목록으로 돌아가기</a
+      >
+    </div>
+  </body>
+</html>
