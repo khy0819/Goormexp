@@ -9,7 +9,6 @@
       content="구름 KDT 과정의 여정을 기록하는 웹 아카이브입니다."
     />
     <style>
-      /* --- (기존 CSS 스타일은 동일하므로 생략하지만 실제 파일에는 그대로 두세요) --- */
       @font-face {
         font-family: "11StreetGothic";
         src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/11StreetGothic-KorLight.woff2")
@@ -382,7 +381,7 @@
     </div>
 
     <script>
-      // ── 테마 & D-Day ── (기존 로직 동일)
+      // ── 테마 & D-Day ── //
       const themeBtn = document.getElementById("theme-btn");
       const savedTheme = localStorage.getItem("theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
@@ -457,7 +456,6 @@
           htmlFiles.forEach((f) => {
             const parts = f.path.split("/");
 
-            // 1. 주차 찾기 (week가 포함된 폴더)
             const weekFolder = parts.find((p) =>
               p.toLowerCase().includes("week"),
             );
@@ -465,12 +463,10 @@
               ? weekFolder.toUpperCase().replace(/_/g, " ")
               : "기타 분류";
 
-            // 2. 과제명 폴더 찾기 (dist 바로 앞 혹은 마지막에서 두번째)
             const distIdx = parts.indexOf("dist");
             const taskFolderName =
               distIdx >= 0 ? parts[distIdx - 1] : parts[parts.length - 2];
 
-            // 3. 표시 이름 결정
             const rawFileName = parts[parts.length - 1];
             const displayName =
               rawFileName === "index.html" ? "메인 앱 실행" : rawFileName;
@@ -481,7 +477,6 @@
 
             const entry = taskMap.get(taskFolderName);
 
-            // 4. dist/index.html 중복 방지 (dist에 있는 파일을 우선시)
             const alreadyIdx = entry.files.findIndex(
               (x) => x.displayName === displayName,
             );
